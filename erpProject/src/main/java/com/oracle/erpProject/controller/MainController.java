@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class MainController {
-
+// 수정 테스트 새잎 
 	@GetMapping("/")
 	public String indexPage() {
 		System.out.println("MainController Start...");
