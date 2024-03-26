@@ -14,7 +14,7 @@
 	<main class="main-content position-relative border-radius-lg ">
  	<!-- Header -->
  	<%@ include file="./header.jsp"%> 
-    <div class="comm-body container-fluid py-4">
+    <div class="comm-body container-fluid py-4"> <!-- 메인 바디 -->
      <!-- ***************************************************************** -->
 	 <!-- 공통 : 테이블 시작 -->
 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->

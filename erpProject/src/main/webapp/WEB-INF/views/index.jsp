@@ -14,7 +14,7 @@
 	<main class="main-content position-relative border-radius-lg ">
  	<!-- Header -->
  	<%@ include file="./header.jsp"%> 
-    <div class="comm-body container-fluid py-4">
+    <div class="comm-body container-fluid py-4"> <!-- 메인 바디 -->
      <!-- ***************************************************************** -->
 	 <!-- 공통 : 테이블 시작  -->
      <div class="row">
@@ -217,7 +217,12 @@
    	
    	<!-- Footer -->
    	<%@ include file="./footer.jsp"%> 
-   	
   </main>
+  <!--   Back to Top   -->
+  <div class="fixed-plugin">
+    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+      <i class="ni ni-bold-up"></i>
+    </a>
+  </div>
 </body>
 </html>
