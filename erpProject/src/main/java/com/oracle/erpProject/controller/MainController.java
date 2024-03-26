@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 public class MainController {
 // 수정 테스트 새잎 
 	@GetMapping("/")
-	public String indexPage() {
+	public String indexPage() {///skdfjsdkjf
 		System.out.println("MainController Start...");
 		return "index";
 	}
