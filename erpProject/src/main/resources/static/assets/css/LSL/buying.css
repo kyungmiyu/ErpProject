@@ -2,7 +2,42 @@
 
 
 .buyingList {
-	width: 500px;
-	height: 500px;
+	position:relative;
+	padding-top:130px;
+	padding-bottom:100px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top:10px;
+	margin-bottom:50px;
+	width: 100%;
+	height: 100%;
 	background: white;
+	border-radius: 10px;
+	border: 1px solid #e9ecef;
+
 }
+
+#table  tr{
+	margin-left: 10px;
+	margin-right: 10px;
+  
+}
+
+.pagination {
+    display: flex;
+    border-radius: 0px !important;
+    margin-top:40px;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+
+#buyProBtn {
+	position:absolute;
+	font-size: 0.8rem;
+	width: 100px;
+	right: 40px;
+	
+}
+
+
+
