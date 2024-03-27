@@ -19,9 +19,10 @@
 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
      ddddddddd
     <!-- ****** 공통 : 테이블 끝 ****** -->
-   	</div>
+
    	<!-- Footer 푸터 -->
    	<%@ include file="../footer.jsp"%> 
+   </div>
   </main>
 </body>
 </html>
