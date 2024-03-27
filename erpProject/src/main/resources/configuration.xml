@@ -5,22 +5,22 @@
   
 <configuration>
 	<typeAliases>
-		<typeAlias alias="Board"   	type="com.oracle.erpProject.model.Board"/> 
-		<typeAlias alias="Buying_detail"   	type="com.oracle.erpProject.model.Buying_detail"/> 
-		<typeAlias alias="Buying"   	type="com.oracle.erpProject.model.Buying"/> 
-		<typeAlias alias="Comm"   	type="com.oracle.erpProject.model.Comm"/> 
-		<typeAlias alias="Customer"   	type="com.oracle.erpProject.model.Customer"/> 
-		<typeAlias alias="Deadline"   	type="com.oracle.erpProject.model.Deadline"/> 
-		<typeAlias alias="Department"   	type="com.oracle.erpProject.model.Department"/> 
-		<typeAlias alias="Emp"   	type="com.oracle.erpProject.model.Emp"/> 
-		<typeAlias alias="Factory"   	type="com.oracle.erpProject.model.Factory"/> 
-		<typeAlias alias="Product"   	type="com.oracle.erpProject.model.Product"/> 
-		<typeAlias alias="Sale_detail"   	type="com.oracle.erpProject.model.Sale_detail"/> 
-		<typeAlias alias="Sale"   	type="com.oracle.erpProject.model.Sale"/> 
-		<typeAlias alias="Stock_survey"   	type="com.oracle.erpProject.model.Stock_survey"/> 
-		<typeAlias alias="Stock"   	type="com.oracle.erpProject.model.Stock"/> 
+		<typeAlias alias="Board"   				type="com.oracle.erpProject.model.Board"/> 
+		<typeAlias alias="Buying_detail"   		type="com.oracle.erpProject.model.Buying_detail"/> 
+		<typeAlias alias="Buying"   			type="com.oracle.erpProject.model.Buying"/> 
+		<typeAlias alias="Comm"   				type="com.oracle.erpProject.model.Comm"/> 
+		<typeAlias alias="Customer"   			type="com.oracle.erpProject.model.Customer"/> 
+		<typeAlias alias="Deadline"   			type="com.oracle.erpProject.model.Deadline"/> 
+		<typeAlias alias="Department"   		type="com.oracle.erpProject.model.Department"/> 
+		<typeAlias alias="Emp"   				type="com.oracle.erpProject.model.Emp"/> 
+		<typeAlias alias="Factory"   			type="com.oracle.erpProject.model.Factory"/> 
+		<typeAlias alias="Product"   			type="com.oracle.erpProject.model.Product"/> 
+		<typeAlias alias="Sale_detail"   		type="com.oracle.erpProject.model.Sale_detail"/> 
+		<typeAlias alias="Sale"   				type="com.oracle.erpProject.model.Sale"/> 
+		<typeAlias alias="Stock_survey"   		type="com.oracle.erpProject.model.Stock_survey"/> 
+		<typeAlias alias="Stock"   				type="com.oracle.erpProject.model.Stock"/> 
 		<typeAlias alias="Work_order_detail"   	type="com.oracle.erpProject.model.Work_order_detail"/> 
-		<typeAlias alias="Work_order"   	type="com.oracle.erpProject.model.Work_order"/> 
+		<typeAlias alias="Work_order"   		type="com.oracle.erpProject.model.Work_order"/> 
 
 	</typeAliases>
 	
