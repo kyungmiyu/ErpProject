@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-
-public class jjcontroller {
+public class SLController {
 
 }

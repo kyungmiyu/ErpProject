@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class mkcontroller {
+public class MkController {
 
 	private MK_Service_interface mk_Service_interface;
 	

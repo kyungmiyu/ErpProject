@@ -6,6 +6,6 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class kmcontroller {
+public class YHSController {
 
 }
