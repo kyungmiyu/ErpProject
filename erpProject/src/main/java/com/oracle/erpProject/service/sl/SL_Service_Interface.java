@@ -1,5 +1,5 @@
 package com.oracle.erpProject.service.sl;
 
-public interface slinterface {
+public interface SL_Service_Interface {
 
 }
