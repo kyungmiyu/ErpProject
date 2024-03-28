@@ -21,5 +21,13 @@ public class SLController {
 		return "sl/buying";
 	}
 	
+	// 구매 등록 페이지
+	
+	
+	// 구매 상세 페이지
+	@GetMapping(value = "buyDetail")
+	public String buyDetail() {
+		return "sl/buyDetail";
+	}
 	
 }

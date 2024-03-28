@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class SL_ServiceImpl implements SL_Service_Interface {
-
+	
 	private final SL_Dao_Interface slDao;
+	
 }

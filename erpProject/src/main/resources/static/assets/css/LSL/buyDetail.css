@@ -1,0 +1,30 @@
+.buyDetail {
+	position:relative;
+	padding-top:130px;
+	padding-bottom:100px;
+	padding-left: 20px;
+	padding-right: 70px;
+	margin-top: 30px;
+	margin-bottom:80px;
+	width: 100%;
+	height: 100%;
+	background: white;
+	border-radius: 10px;
+	border: 1px solid #e9ecef;
+
+}
+
+.detailBox {
+	width: 100%;
+	border: 1px solid black;
+	
+}
+
+
+.container {
+	width: 100%;
+}
+.container .col{
+	text-align: center;
+	border: 1px solid black;
+}
