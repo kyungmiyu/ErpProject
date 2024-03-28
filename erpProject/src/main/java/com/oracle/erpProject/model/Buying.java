@@ -1,6 +1,7 @@
 package com.oracle.erpProject.model;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class Buying {
 	private String buy_manager;			// 구매 담당자
 	private String buy_note;				// 비고
 	private Date buy_wdate;				//구매입력날짜
-	
+														// 데이트는 sql. date 아니고, utill.date 로 입력 
 	
 
 	// 조회용 수불 마감
