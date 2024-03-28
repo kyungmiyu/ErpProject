@@ -144,7 +144,7 @@
 					
 													<div class="d-flex flex-column justify-content-center">
 														<!--상품이름을 클릭하면 해당 상세페이지가 옆에 뜨도록 함 -->
-														<a href="detailEmp?empno=${emp.empno}">
+														<a href="detailProduct?p_itemcode=${pr.p_itemcode}">
 														<h6 class="mb-0 text-sm">${pr.p_name}</h6>
 														</a>
 													</div>
