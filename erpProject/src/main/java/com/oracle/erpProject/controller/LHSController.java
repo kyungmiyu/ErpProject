@@ -36,7 +36,7 @@ public class LHSController {
 		model.addAttribute("empData", empData);
 
 		return "lhs/index";
-	}
+	} 
 	
 
 	
