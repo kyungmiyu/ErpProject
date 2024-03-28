@@ -1,8 +1,12 @@
 package com.oracle.erpProject.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.oracle.erpProject.model.Product;
 import com.oracle.erpProject.service.mk.MK_Service_interface;
 
 import lombok.RequiredArgsConstructor;
@@ -11,18 +15,25 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MkController {
 
-	private MK_Service_interface mk_Service_interface;
+	private final MK_Service_interface mk_Service_interface;
 	//제품 조회, 수정
 	@GetMapping("/productR")
-	public String productR() {
+	public String productR(Product product,Model model) {
 		System.out.println("MK Controller productR Start...");
+		  List<Product> listProduct = mk_Service_interface.listProduct(product);
+		  System.out.println("MKController listProduct.size->"+listProduct.size());
+		  
+		  model.addAttribute("listProduct",listProduct); 
+		  return "mk/productRu";
+		  } 
+	
+	// 제품등록
+		  
+		  @GetMapping("/productC") 
+		  public String productC() {
+		  System.out.println("MK Controller productC start");
+		 
 		return "mk/productRu";
-	}
-	// 제품 등록
-	@GetMapping("/productC")
-	public String productC() {
-		System.out.println("MK Controller productC start");
-		return "mk/productC";
 	}
 	// 공장 조회
 	@GetMapping("/factoryR")

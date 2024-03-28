@@ -4,7 +4,29 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
+<!--jquery -->
+<script type="text/javascript" src="js/jquery.js"></script>
+<!-- js -->
+<script type="text/javascript">
+<%-- function getDeptName(pDeptno) {
+	console.log(pDeptno);	
+	// alert("pDeptno->"+pDeptno); 
+	// 행동강령 :  Ajax로 부서번호 보내고 부서명 받음
+ 	 $.ajax(
+    		 {
+   				url:"<%=request.getContextPath()%>/getDeptName",  
+   				data:{deptno : pDeptno},
+   				dataType:'text',
+   				success:function(deptName){
+   					// alert("success ajax Data->"+deptName); 
+   					$('#deptName').val(deptName);     /*  input Tag */
+   					$('#msg').html(deptName);         /* span  id Tag */
+   				}
+   			}
+ 	 );		
+} --%>
 
+</script>
 <head>
 <%@ include file="../configHead.jsp"%>
 <link rel="stylesheet"
@@ -72,24 +94,27 @@
 										<div class="form-floating">
 											<select class="form-select" id="filter1"
 												aria-label="Filter 1">
-												<option selected>Filter 1</option>
-												<option value="1">Option 1</option>
-												<option value="2">Option 2</option>
-												<option value="3">Option 3</option>
+												<option selected>카테고리</option>
+												<option value="101">간편식</option>
+												<option value="102">냉동식품</option>
+												<option value="103">커피 및 차</option>
+												<option value="104">탄산음료</option>
+												<option value="105">주스</option>
+												<option value="106">우유 및 유제품</option>
 											</select>
-											<!-- <label for="filter1">필터 1</label> -->
+									
 										</div>
 									</div>
 									<div class="col">
 										<div class="form-floating">
 											<select class="form-select" id="filter2"
 												aria-label="Filter 2">
-												<option selected>Filter 2</option>
-												<option value="1">Option 1</option>
-												<option value="2">Option 2</option>
-												<option value="3">Option 3</option>
+												<option selected>판매여부</option>
+												<option value="0">취급중</option>
+												<option value="1">취급안함</option>
+											
 											</select>
-											<!-- <label for="filter2">필터 2</label> -->
+									
 										</div>
 									</div>
 								</div>
@@ -117,6 +142,7 @@
 
 							<!--table-->
 							<div class="table-responsive p-2">
+							
 								<table class="table align-items-center mb-0">
 									<thead>
 										<tr>
@@ -132,311 +158,80 @@
 										</tr>
 									</thead>
 									<tbody>
+									<!-- jsp 데이터 리스터 반복문으로 출력  -->
+									<c:forEach var="pr" items="${listProduct}">
 										<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
 					
 													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">John Michael</h6>
-
+														<!--상품이름을 클릭하면 해당 상세페이지가 옆에 뜨도록 함 -->
+														<a href="#" onclick="ProductDetail('${pr.p_itemcode}')">
+														<h6 class="mb-0 text-sm">${pr.p_name}</h6>
+														</a>
 													</div>
 												</div>
 											</td>
 											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
+												<p class="text-xs font-weight-bold mb-0">${pr.p_itemcode}</p>
 
 											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-success">Online</span></td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">23/04/18</span>
+											<td class="align-middle text-center text-sm">
+							
+											<span class="badge badge-sm bg-gradient-success">
+											<c:if test = "${pr.pro_midcategory == 101}">
+											간편식
+											</c:if>
+											<c:if test = "${pr.pro_midcategory == 102}">
+											냉동식품
+											</c:if>
+											<c:if test = "${pr.pro_midcategory == 103}">
+											커피 및 차
+											</c:if>
+											<c:if test = "${pr.pro_midcategory == 104}">
+											탄산음료
+											</c:if>
+											<c:if test = "${pr.pro_midcategory == 105}">
+											주스
+											</c:if>
+											<c:if test = "${pr.pro_midcategory == 106}">
+											우유 및 유제품
+											</c:if>
+											
+											</span>
+											
 											</td>
+											
+								<%-- 				<c:if test ="${pr.p_itemcode ==0}">
+												<p class="text-xs font-weight-bold mb-0">취급중</p>
+											</c:if>
+											<c:if test ="${pr.p_itemcode ==1}">
+												<p class="text-xs font-weight-bold mb-0">취급안함</p>
+											</c:if> --%>
+											
+											
+											<td class="align-middle text-center">
+											
+											<span
+												class="text-secondary text-xs font-weight-bold">
+												<c:if test ="${pr.p_isdeleted==0}">
+												취급중
+												</c:if>
+												<c:if test ="${pr.p_isdeleted==1}">
+												취급안함
+												</c:if>
+												</span>
+											
+											
+											
+											
+											</td>
+											
+											
 
 										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-					
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Alexa Liras</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Programator</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">11/01/19</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
 						
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Laurent Perrier</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Executive</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-success">Online</span></td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">19/09/17</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<!-- <div>
-                            <img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3" alt="user4">
-                          </div> -->
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Michael Levi</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Programator</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-success">Online</span></td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">24/12/08</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<!-- <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<!-- <div>
-                            <img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3" alt="user6">
-                          </div> -->
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Miriam Eric</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Programtor</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">14/09/20</span>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<!-- <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<!-- <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-											
-											
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<!-- <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<!-- <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
-										
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<!-- <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<!-- <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<!-- <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -512,69 +307,69 @@
 								</form> -->
 								
 								<form>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="exampleFormControlInput1">제품코드</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput2">제품 대분류</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput3">제품공장</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
-            </div>
-              <div class="form-group">
-                <label for="exampleFormControlInput3">매출 가격</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
-            </div>
-              <div class="form-group">
-                <label for="exampleFormControlInput3">판매상태</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
-            </div>
-             <div class="form-group">
-                <label for="exampleFormControlInput3">등록날짜</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
-            </div>
-            
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="exampleFormControlInput4">제품명</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput4" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput5">제품 중분류</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput5" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput6">공장구분</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput6" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput7">매입가격</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput7" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput7">판매 담당자</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput7" placeholder="name@example.com">
-            </div>
-         
-        </div>
-        
-    </div>
-    
-    <!-- 버튼 -->
-    <div class="text-right">
-    <button class="btn btn-primary" type="button">저장</button>
- </div>
-
-    
-    
-</form>
-								
+					    <div class="row">
+					        <div class="col-md-6">
+					            <div class="form-group">
+					                <label for="exampleFormControlInput1">제품코드</label> 
+					                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+					            </div>
+					            <div class="form-group">
+					                <label for="exampleFormControlInput2">제품 대분류</label> 
+					                <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="name@example.com">
+					            </div>
+					            <div class="form-group">
+					                <label for="exampleFormControlInput3">제품공장</label> 
+					                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
+					            </div>
+					              <div class="form-group">
+					                <label for="exampleFormControlInput3">매출 가격</label> 
+					                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
+					            </div>
+					              <div class="form-group">
+					                <label for="exampleFormControlInput3">판매상태</label> 
+					                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
+					            </div>
+					             <div class="form-group">
+					                <label for="exampleFormControlInput3">등록날짜</label> 
+					                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
+					            </div>
+					            
+					        </div>
+					        <div class="col-md-6">
+					            <div class="form-group">
+					                <label for="exampleFormControlInput4">제품명</label> 
+					                <input type="email" class="form-control" id="exampleFormControlInput4" placeholder="name@example.com">
+					            </div>
+					            <div class="form-group">
+					                <label for="exampleFormControlInput5">제품 중분류</label> 
+					                <input type="email" class="form-control" id="exampleFormControlInput5" placeholder="name@example.com">
+					            </div>
+					            <div class="form-group">
+					                <label for="exampleFormControlInput6">공장구분</label> 
+					                <input type="email" class="form-control" id="exampleFormControlInput6" placeholder="name@example.com">
+					            </div>
+					            <div class="form-group">
+					                <label for="exampleFormControlInput7">매입가격</label> 
+					                <input type="email" class="form-control" id="exampleFormControlInput7" placeholder="name@example.com">
+					            </div>
+					            <div class="form-group">
+					                <label for="exampleFormControlInput7">판매 담당자</label> 
+					                <input type="email" class="form-control" id="exampleFormControlInput7" placeholder="name@example.com">
+					            </div>
+					         
+					        </div>
+					        
+					    </div>
+					    
+					    <!-- 버튼 -->
+					    <div class="text-right">
+					    <button class="btn btn-primary" type="button">저장</button>
+					 </div>
+					
+					    
+					    
+					</form>
+													
 
 
 							</div>
@@ -594,4 +389,5 @@
 		<%@ include file="../footer.jsp"%>
 	</main>
 </body>
+
 </html>
