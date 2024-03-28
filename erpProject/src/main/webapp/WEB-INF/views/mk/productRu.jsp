@@ -60,7 +60,7 @@
 						<div class="card-header pb-0">
 
 							<!--content name  -->
-							<h6>제품 조회</h6>
+							<h6 class="mb-4">제품 조회</h6>
 
 
 							<!--검색 및 필터  -->
@@ -116,7 +116,7 @@
 						<div class="card-body px-0 pt-0 pb-2">
 
 							<!--table-->
-							<div class="table-responsive p-0">
+							<div class="table-responsive p-2">
 								<table class="table align-items-center mb-0">
 									<thead>
 										<tr>
@@ -312,6 +312,81 @@
 											<td class="align-middle text-center"><span
 												class="text-secondary text-xs font-weight-bold">04/10/21</span>
 											</td>
+											
+											
+
+										</tr>
+										<tr>
+											<td>
+												<div class="d-flex px-2 py-1">
+													<!-- <div>
+                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
+                          </div> -->
+													<div class="d-flex flex-column justify-content-center">
+														<h6 class="mb-0 text-sm">Richard Gran</h6>
+
+													</div>
+												</div>
+											</td>
+											<td>
+												<p class="text-xs font-weight-bold mb-0">Manager</p>
+
+											</td>
+											<td class="align-middle text-center text-sm"><span
+												class="badge badge-sm bg-gradient-secondary">Offline</span>
+											</td>
+											<td class="align-middle text-center"><span
+												class="text-secondary text-xs font-weight-bold">04/10/21</span>
+											</td>
+
+										</tr>
+										<tr>
+											<td>
+												<div class="d-flex px-2 py-1">
+													<!-- <div>
+                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
+                          </div> -->
+													<div class="d-flex flex-column justify-content-center">
+														<h6 class="mb-0 text-sm">Richard Gran</h6>
+
+													</div>
+												</div>
+											</td>
+											<td>
+												<p class="text-xs font-weight-bold mb-0">Manager</p>
+
+											</td>
+											<td class="align-middle text-center text-sm"><span
+												class="badge badge-sm bg-gradient-secondary">Offline</span>
+											</td>
+											<td class="align-middle text-center"><span
+												class="text-secondary text-xs font-weight-bold">04/10/21</span>
+											</td>
+
+										</tr>
+										
+										<tr>
+											<td>
+												<div class="d-flex px-2 py-1">
+													<!-- <div>
+                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
+                          </div> -->
+													<div class="d-flex flex-column justify-content-center">
+														<h6 class="mb-0 text-sm">Richard Gran</h6>
+
+													</div>
+												</div>
+											</td>
+											<td>
+												<p class="text-xs font-weight-bold mb-0">Manager</p>
+
+											</td>
+											<td class="align-middle text-center text-sm"><span
+												class="badge badge-sm bg-gradient-secondary">Offline</span>
+											</td>
+											<td class="align-middle text-center"><span
+												class="text-secondary text-xs font-weight-bold">04/10/21</span>
+											</td>
 
 										</tr>
 										<tr>
@@ -401,41 +476,106 @@
 						<img src="../upload/jinnoodle.jpg" class="img-thumbnail" style="width: 200px; height: 200px;" alt="...">
 
 						<!-- img end -->
-							<!-- 	<form>
+								<!-- <form>
 									<div class="form-group">
 										<label for="exampleFormControlInput1">Email address</label> <input
 											type="email" class="form-control"
 											id="exampleFormControlInput1" placeholder="name@example.com">
 									</div>
-									<div class="form-group">
-										<label for="exampleFormControlSelect1">Example select</label>
-										<select class="form-control" id="exampleFormControlSelect1">
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
-										</select>
+									
+										<div class="form-group">
+										<label for="exampleFormControlInput1">Email address</label> <input
+											type="email" class="form-control"
+											id="exampleFormControlInput1" placeholder="name@example.com">
 									</div>
-									<div class="form-group">
-										<label for="exampleFormControlSelect2">Example
-											multiple select</label> <select multiple class="form-control"
-											id="exampleFormControlSelect2">
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
-										</select>
+									
+										<div class="form-group">
+										<label for="exampleFormControlInput1">Email address</label> <input
+											type="email" class="form-control"
+											id="exampleFormControlInput1" placeholder="name@example.com">
 									</div>
-									<div class="form-group">
-										<label for="exampleFormControlTextarea1">Example
-											textarea</label>
-										<textarea class="form-control"
-											id="exampleFormControlTextarea1" rows="3"></textarea>
+									
+										<div class="form-group">
+										<label for="exampleFormControlInput1">Email address</label> <input
+											type="email" class="form-control"
+											id="exampleFormControlInput1" placeholder="name@example.com">
 									</div>
-								</form>
- -->
+									
+									<div class="form-group">
+										<label for="exampleFormControlInput1">Email address</label> <input
+											type="email" class="form-control"
+											id="exampleFormControlInput1" placeholder="name@example.com">
+									</div>
+									
+								
+									
+								</form> -->
+								
+								<form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="exampleFormControlInput1">제품코드</label> 
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput2">제품 대분류</label> 
+                <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput3">제품공장</label> 
+                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
+            </div>
+              <div class="form-group">
+                <label for="exampleFormControlInput3">매출 가격</label> 
+                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
+            </div>
+              <div class="form-group">
+                <label for="exampleFormControlInput3">판매상태</label> 
+                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
+            </div>
+             <div class="form-group">
+                <label for="exampleFormControlInput3">등록날짜</label> 
+                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
+            </div>
+            
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="exampleFormControlInput4">제품명</label> 
+                <input type="email" class="form-control" id="exampleFormControlInput4" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput5">제품 중분류</label> 
+                <input type="email" class="form-control" id="exampleFormControlInput5" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput6">공장구분</label> 
+                <input type="email" class="form-control" id="exampleFormControlInput6" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput7">매입가격</label> 
+                <input type="email" class="form-control" id="exampleFormControlInput7" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput7">판매 담당자</label> 
+                <input type="email" class="form-control" id="exampleFormControlInput7" placeholder="name@example.com">
+            </div>
+         
+        </div>
+        
+    </div>
+    
+    <!-- 버튼 -->
+    <div class="text-right">
+    <button class="btn btn-primary" type="button">저장</button>
+ </div>
+
+    
+    
+</form>
+								
+
 
 							</div>
 
