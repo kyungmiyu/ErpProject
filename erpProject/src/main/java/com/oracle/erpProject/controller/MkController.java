@@ -20,8 +20,6 @@ public class MkController {
 	@GetMapping("/productR")
 	public String productR(Product product,Model model) {
 		System.out.println("MK Controller productR Start...");
-		
-		
 		  List<Product> listProduct = mk_Service_interface.listProduct(product);
 		  System.out.println("MKController listProduct.size->"+listProduct.size());
 		  

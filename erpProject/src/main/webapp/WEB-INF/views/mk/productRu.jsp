@@ -73,11 +73,14 @@
 											<select class="form-select" id="filter1"
 												aria-label="Filter 1">
 												<option selected>카테고리</option>
-												<option value="1">Option 1</option>
-												<option value="2">Option 2</option>
-												<option value="3">Option 3</option>
+												<option value="101">간편식</option>
+												<option value="102">냉동식품</option>
+												<option value="103">커피 및 차</option>
+												<option value="104">탄산음료</option>
+												<option value="105">주스</option>
+												<option value="106">우유 및 유제품</option>
 											</select>
-											<!-- <label for="filter1">필터 1</label> -->
+									
 										</div>
 									</div>
 									<div class="col">
@@ -85,11 +88,11 @@
 											<select class="form-select" id="filter2"
 												aria-label="Filter 2">
 												<option selected>판매여부</option>
-												<option value="1">Option 1</option>
-												<option value="2">Option 2</option>
-												<option value="3">Option 3</option>
+												<option value="0">취급중</option>
+												<option value="1">취급안함</option>
+											
 											</select>
-											<!-- <label for="filter2">필터 2</label> -->
+									
 										</div>
 									</div>
 								</div>
@@ -140,8 +143,10 @@
 												<div class="d-flex px-2 py-1">
 					
 													<div class="d-flex flex-column justify-content-center">
+														<!--상품이름을 클릭하면 해당 상세페이지가 옆에 뜨도록 함 -->
+														<a href="detailEmp?empno=${emp.empno}">
 														<h6 class="mb-0 text-sm">${pr.p_name}</h6>
-
+														</a>
 													</div>
 												</div>
 											</td>
@@ -149,297 +154,61 @@
 												<p class="text-xs font-weight-bold mb-0">${pr.p_itemcode}</p>
 
 											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-success">${pr.pro_category}</span></td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">${pr.p_isdeleted}</span>
+											<td class="align-middle text-center text-sm">
+							
+											<span class="badge badge-sm bg-gradient-success">
+											<c:if test = "${pr.pro_midcategory == 101}">
+											간편식
+											</c:if>
+											<c:if test = "${pr.pro_midcategory == 102}">
+											냉동식품
+											</c:if>
+											<c:if test = "${pr.pro_midcategory == 103}">
+											커피 및 차
+											</c:if>
+											<c:if test = "${pr.pro_midcategory == 104}">
+											탄산음료
+											</c:if>
+											<c:if test = "${pr.pro_midcategory == 105}">
+											주스
+											</c:if>
+											<c:if test = "${pr.pro_midcategory == 106}">
+											우유 및 유제품
+											</c:if>
+											
+											</span>
+											
 											</td>
+											
+								<%-- 				<c:if test ="${pr.p_itemcode ==0}">
+												<p class="text-xs font-weight-bold mb-0">취급중</p>
+											</c:if>
+											<c:if test ="${pr.p_itemcode ==1}">
+												<p class="text-xs font-weight-bold mb-0">취급안함</p>
+											</c:if> --%>
+											
+											
+											<td class="align-middle text-center">
+											
+											<span
+												class="text-secondary text-xs font-weight-bold">
+												<c:if test ="${pr.p_isdeleted==0}">
+												취급중
+												</c:if>
+												<c:if test ="${pr.p_isdeleted==1}">
+												취급안함
+												</c:if>
+												</span>
+											
+											
+											
+											
+											</td>
+											
+											
 
 										</tr>
-									<!-- 	<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-					
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Alexa Liras</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Programator</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">11/01/19</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
 						
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Laurent Perrier</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Executive</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-success">Online</span></td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">19/09/17</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<div>
-                            <img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3" alt="user4">
-                          </div>
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Michael Levi</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Programator</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-success">Online</span></td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">24/12/08</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div>
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<div>
-                            <img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3" alt="user6">
-                          </div>
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Miriam Eric</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Programtor</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">14/09/20</span>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div>
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div>
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-											
-											
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div>
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div>
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
-										
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div>
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div>
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr>
-										<tr>
-											<td>
-												<div class="d-flex px-2 py-1">
-													<div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div>
-													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">Richard Gran</h6>
-
-													</div>
-												</div>
-											</td>
-											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
-
-											</td>
-											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-secondary">Offline</span>
-											</td>
-											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">04/10/21</span>
-											</td>
-
-										</tr> -->
 										</c:forEach>
 									</tbody>
 								</table>
