@@ -53,10 +53,10 @@ public class JJController {
 		if(session.getAttribute("emp_no")!=null) { // 로그인 된 상태
 			System.out.println("JJController's makeFormRequest Go!");
 			
-			List<Work_order_detail> makeList = js.makeList();
-			System.out.println("JJController's makeFormRequest makeList.size ->" + makeList.size());
-			System.out.println("JJController's makeFormRequest makeList ->" + makeList);
-			model.addAttribute("makeList", makeList);
+//			List<Work_order_detail> makeList = js.makeList();
+//			System.out.println("JJController's makeFormRequest makeList.size ->" + makeList.size());
+//			System.out.println("JJController's makeFormRequest makeList ->" + makeList);
+//			model.addAttribute("makeList", makeList);
 			
 			return "jj/makeFormRequest";
 		} else { // 로그인이 안된 상태
