@@ -68,7 +68,7 @@
                 <div class="row px-xl-5 px-sm-4 px-3">
                   <p class="text-sm mt-3 mb-0 ml-0 col">Don't you remember id? <span class="text-dark font-weight-bolder">find id</span></p>
                   <div class="col-3 ms-auto px-1">
-                    <a class="btn btn-outline-light w-100" href="/findId">
+                    <a class="btn btn-outline-light w-100" href="/findAccountForm">
                       <svg width="26px" height="32px" viewBox="0 0 64 64" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                           <g transform="translate(3.000000, 3.000000)" fill-rule="nonzero">

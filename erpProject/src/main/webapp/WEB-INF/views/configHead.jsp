@@ -28,7 +28,8 @@
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 <script defer src="assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 
-
+<!-- Google Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!--
 =========================================================
 * Argon Dashboard 2 - v2.0.4
