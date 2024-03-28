@@ -72,7 +72,7 @@
 										<div class="form-floating">
 											<select class="form-select" id="filter1"
 												aria-label="Filter 1">
-												<option selected>Filter 1</option>
+												<option selected>카테고리</option>
 												<option value="1">Option 1</option>
 												<option value="2">Option 2</option>
 												<option value="3">Option 3</option>
@@ -84,7 +84,7 @@
 										<div class="form-floating">
 											<select class="form-select" id="filter2"
 												aria-label="Filter 2">
-												<option selected>Filter 2</option>
+												<option selected>판매여부</option>
 												<option value="1">Option 1</option>
 												<option value="2">Option 2</option>
 												<option value="3">Option 3</option>
@@ -117,6 +117,7 @@
 
 							<!--table-->
 							<div class="table-responsive p-2">
+							
 								<table class="table align-items-center mb-0">
 									<thead>
 										<tr>
@@ -132,28 +133,30 @@
 										</tr>
 									</thead>
 									<tbody>
+									<!-- jsp 데이터 리스터 반복문으로 출력  -->
+									<c:forEach var="pr" items="${listProduct}">
 										<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
 					
 													<div class="d-flex flex-column justify-content-center">
-														<h6 class="mb-0 text-sm">John Michael</h6>
+														<h6 class="mb-0 text-sm">${pr.p_name}</h6>
 
 													</div>
 												</div>
 											</td>
 											<td>
-												<p class="text-xs font-weight-bold mb-0">Manager</p>
+												<p class="text-xs font-weight-bold mb-0">${pr.p_itemcode}</p>
 
 											</td>
 											<td class="align-middle text-center text-sm"><span
-												class="badge badge-sm bg-gradient-success">Online</span></td>
+												class="badge badge-sm bg-gradient-success">${pr.pro_category}</span></td>
 											<td class="align-middle text-center"><span
-												class="text-secondary text-xs font-weight-bold">23/04/18</span>
+												class="text-secondary text-xs font-weight-bold">${pr.p_isdeleted}</span>
 											</td>
 
 										</tr>
-										<tr>
+									<!-- 	<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
 					
@@ -199,9 +202,9 @@
 										<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
-													<!-- <div>
+													<div>
                             <img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3" alt="user4">
-                          </div> -->
+                          </div>
 													<div class="d-flex flex-column justify-content-center">
 														<h6 class="mb-0 text-sm">Michael Levi</h6>
 
@@ -222,9 +225,9 @@
 										<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
-													<!-- <div>
+													<div>
                             <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
+                          </div>
 													<div class="d-flex flex-column justify-content-center">
 														<h6 class="mb-0 text-sm">Richard Gran</h6>
 
@@ -246,9 +249,9 @@
 										<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
-													<!-- <div>
+													<div>
                             <img src="../assets/img/team-4.jpg" class="avatar avatar-sm me-3" alt="user6">
-                          </div> -->
+                          </div>
 													<div class="d-flex flex-column justify-content-center">
 														<h6 class="mb-0 text-sm">Miriam Eric</h6>
 
@@ -269,9 +272,9 @@
 										<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
-													<!-- <div>
+													<div>
                             <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
+                          </div>
 													<div class="d-flex flex-column justify-content-center">
 														<h6 class="mb-0 text-sm">Richard Gran</h6>
 
@@ -293,9 +296,9 @@
 										<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
-													<!-- <div>
+													<div>
                             <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
+                          </div>
 													<div class="d-flex flex-column justify-content-center">
 														<h6 class="mb-0 text-sm">Richard Gran</h6>
 
@@ -319,9 +322,9 @@
 										<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
-													<!-- <div>
+													<div>
                             <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
+                          </div>
 													<div class="d-flex flex-column justify-content-center">
 														<h6 class="mb-0 text-sm">Richard Gran</h6>
 
@@ -343,9 +346,9 @@
 										<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
-													<!-- <div>
+													<div>
                             <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
+                          </div>
 													<div class="d-flex flex-column justify-content-center">
 														<h6 class="mb-0 text-sm">Richard Gran</h6>
 
@@ -368,9 +371,9 @@
 										<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
-													<!-- <div>
+													<div>
                             <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
+                          </div>
 													<div class="d-flex flex-column justify-content-center">
 														<h6 class="mb-0 text-sm">Richard Gran</h6>
 
@@ -392,9 +395,9 @@
 										<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
-													<!-- <div>
+													<div>
                             <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
+                          </div>
 													<div class="d-flex flex-column justify-content-center">
 														<h6 class="mb-0 text-sm">Richard Gran</h6>
 
@@ -416,9 +419,9 @@
 										<tr>
 											<td>
 												<div class="d-flex px-2 py-1">
-													<!-- <div>
+													<div>
                             <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user5">
-                          </div> -->
+                          </div>
 													<div class="d-flex flex-column justify-content-center">
 														<h6 class="mb-0 text-sm">Richard Gran</h6>
 
@@ -436,7 +439,8 @@
 												class="text-secondary text-xs font-weight-bold">04/10/21</span>
 											</td>
 
-										</tr>
+										</tr> -->
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
