@@ -27,31 +27,40 @@
 	
 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 	 <div class="buyDetail">
-
-		<div class="detailBox">
-			<div class="container">
-			  <div class="row row-cols-4">
-			    <div class="col">제목</div>
-			    <div class="col"></div>
-			    <div class="col">거래처 담당자</div>
-			    <div class="col"></div>
-			  </div>
-			</div>
-			<div class="container">
-			  <div class="row row-cols-4">
-			    <div class="col">구매 담당자</div>
-			    <div class="col"></div>
-			    <div class="col">거래처</div>
-			    <div class="col"></div>
-			  </div>
-			</div>
-
-		<form>
-		  <div class="form-group">
-		    <label for="exampleFormControlInput1">Email address</label>
-		    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+	 <label class="buyDetailLabel">구매 상세</label>
+	 
+	 <div class="titleBox">
+	 
+	 	<div class="form-group" id="titleBox1">
+		    <label for="detailTitle" id="detailTitleLabel">제목</label>
+		    <input type="text" class="form-control" id="detailTitle" placeholder="">
+		  	<label for="detailManager" id="detailManagerLabel">거래처담당자</label>
+		    <input type="text" class="form-control" id="detailManager" placeholder="">
 		  </div>
-		  <div class="form-group">
+		  <div class="form-group" id="titleBox1">
+		    <label for="detailTitle" id="detailTitleLabel">구매담당자</label>
+		    <input type="text" class="form-control" id="detailTitle" placeholder="">
+		  	<label for="detailManager" id="detailManagerLabel">거래처</label>
+		    <input type="text" class="form-control" id="detailManager" placeholder="">
+		  </div>
+	 
+		   
+		</div>
+			  
+
+			  <div class="colNote">비고</div>
+			  <input type="text"  class="colNoteBox" placeholder="구매 특이사항을 적어주세요">
+
+		  
+		 <div class="buyList">
+		    <ul class="buyListTitle">
+		        <li>제품명</li>
+		        <li>제품 가격</li>
+		        <li>제품 수량</li>
+		        <li>총 금액</li>
+		    </ul>
+		</div>
+		<!--   <div class="form-group">
 		    <label for="exampleFormControlSelect1">Example select</label>
 		    <select class="form-control" id="exampleFormControlSelect1">
 		      <option>1</option>
@@ -60,9 +69,9 @@
 		      <option>4</option>
 		      <option>5</option>
 		    </select>
-		  </div>
+		  </div> -->
+		  
 		  <div class="form-group">
-		    <label for="exampleFormControlSelect2">Example multiple select</label>
 		    <select multiple class="form-control" id="exampleFormControlSelect2">
 		      <option>1</option>
 		      <option>2</option>
@@ -71,12 +80,10 @@
 		      <option>5</option>
 		    </select>
 		  </div>
-		  <div class="form-group">
-		    <label for="exampleFormControlTextarea1">Example textarea</label>
-		    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-		  </div>
-		</form>
-	</div>
+
+	
+   	<button type="button" class="btn btn-primary" id="buyModify">수정</button>
+    <button type="button" class="btn btn-primary" id="buyComple">완료</button>
     </div> 
    
     <!-- ****** 공통 : 테이블 끝 ****** -->
