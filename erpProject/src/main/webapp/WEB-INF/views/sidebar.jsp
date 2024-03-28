@@ -11,7 +11,7 @@
       </a>
     </div>
     <hr class="horizontal dark mt-0 mb-1">
-    <div class="collapse navbar-collapse w-auto " id="sidenav-collapse-main" style="height: 790px;">
+    <div class="collapse navbar-collapse w-auto " id="sidenav-collapse-main" style="height: 890px;">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active" href="/home">
@@ -22,71 +22,79 @@
           </a>
         </li>
         <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">매입&매출 관리</h6>
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">입고</h6>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="./pages/tables.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-collection text-success text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">매입</span>
+            <span class="nav-link-text ms-1">구매</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="./pages/billing.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-collection text-success text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">매출</span>
-          </a>
-        </li>
-        <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">거래처 관리</h6>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="./pages/tables.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">거래처 조회</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="./pages/billing.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">월별실적조회</span>
-          </a>
-        </li>
-        <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">생산 계획</h6>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="./pages/tables.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-app text-info text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">생산</span>
           </a>
         </li>
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">관리</h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="./pages/tables.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">제품</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="./pages/billing.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">거래처</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="./pages/billing.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">공장</span>
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">재고</h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="./pages/tables.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-app text-info text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">수불 처리</span>
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link " href="./pages/billing.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-app text-info text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">매출</span>
+            <span class="nav-link-text ms-1">수불 조회</span>
           </a>
         </li>
         <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">재고 관리</h6>
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">출고</h6>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="./pages/profile">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">창고</span>
+            <span class="nav-link-text ms-1">판매리스트</span>
           </a>
         </li>
         <li class="nav-item mt-3">
@@ -109,7 +117,7 @@
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-secondary text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">계정</span>
+            <span class="nav-link-text ms-1">프로필</span>
           </a>
         </li>
       </ul>

@@ -10,9 +10,9 @@ import lombok.RequiredArgsConstructor;
 public class MainController {
 
 	@GetMapping("/")
-	public String indexPage() {
+	public String mainPage() {
 		System.out.println("MainController Start...");
-		return "index";
+		return "main";
 	}
 	
 }
