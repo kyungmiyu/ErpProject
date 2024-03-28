@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class MkController {
 
 	private MK_Service_interface mk_Service_interface;
-	//제품 조회, 수정
+	//제품 조회, 수정ss
 	@GetMapping("/productR")
 	public String productR() {
 		System.out.println("MK Controller productR Start...");
