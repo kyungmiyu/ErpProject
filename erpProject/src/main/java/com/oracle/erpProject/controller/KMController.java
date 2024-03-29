@@ -10,17 +10,17 @@ import lombok.RequiredArgsConstructor;
 public class KMController {
 
 	// 로그인
-	@GetMapping(value="login")
+	@GetMapping(value="loginForm")
 	public String loginPage() {
 		System.out.println("KMController loginPage start...*");
-		return "km/login";
+		return "km/loginForm";
 	}
 	
 	// 아이디 찾기
-	@GetMapping(value="/findId")
-	public String findId() {
+	@GetMapping(value="/findAccountForm")
+	public String findInfo() {
 		System.out.println("KMController findId start...*");
-		return "km/findId";
+		return "km/findAccountForm";
 	}
 	
 	// 마이페이지
@@ -31,7 +31,12 @@ public class KMController {
 	
 	
 	// 관리자페이지 화면
-	// 사이드바, 사원 등록, 담당자 권한
+	@GetMapping(value="adminMain")
+	public String adminPage() {
+		return "km/adminMain";
+	}
+	
+	// 사원 등록, 사원 리스트 조회
 	
 	
  	// 메인 페이지

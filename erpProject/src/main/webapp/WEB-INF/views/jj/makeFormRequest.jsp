@@ -37,73 +37,63 @@ td:hover {
 		<!-- ****** 공통 : 테이블 시작 ****** -->
 	 	<!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 
-		<!-- 생산 요청 게시판 -->
+		<!-- 생산 요청 게시판123 -->
 		<div>
 			<h1>생산 요청 게시판</h1>
 		</div>
-		
-		<form>
-		    <div class="form-group">
-		        <label for="example-text-input" class="form-control-label">Text</label>
-		        <input class="form-control" type="text" value="John Snow" id="example-text-input">
-		    </div>
-		    <div class="form-group">
-		        <label for="example-search-input" class="form-control-label">Search</label>
-		        <input class="form-control" type="search" value="Tell me your secret ..." id="example-search-input">
-		    </div>
-		    <div class="form-group">
-		        <label for="example-email-input" class="form-control-label">Email</label>
-		        <input class="form-control" type="email" value="@example.com" id="example-email-input">
-		    </div>
-		    <div class="form-group">
-		        <label for="example-url-input" class="form-control-label">URL</label>
-		        <input class="form-control" type="url" value="" id="example-url-input">
-		    </div>
-		    <div class="form-group">
-		        <label for="example-tel-input" class="form-control-label">Phone</label>
-		        <input class="form-control" type="tel" value="40-(770)-888-444" id="example-tel-input">
-		    </div>
-		    <div class="form-group">
-		        <label for="example-password-input" class="form-control-label">Password</label>
-		        <input class="form-control" type="password" value="password" id="example-password-input">
-		    </div>
-		    <div class="form-group">
-		        <label for="example-number-input" class="form-control-label">Number</label>
-		        <input class="form-control" type="number" value="23" id="example-number-input">
-		    </div>
-		    <div class="form-group">
-		        <label for="example-datetime-local-input" class="form-control-label">Datetime</label>
-		        <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00" id="example-datetime-local-input">
-		    </div>
-		    <div class="form-group">
-		        <label for="example-date-input" class="form-control-label">Date</label>
-		        <input class="form-control" type="date" value="2018-11-23" id="example-date-input">
-		    </div>
-		    <div class="form-group">
-		        <label for="example-month-input" class="form-control-label">Month</label>
-		        <input class="form-control" type="month" value="2018-11" id="example-month-input">
-		    </div>
-		    <div class="form-group">
-		        <label for="example-week-input" class="form-control-label">Week</label>
-		        <input class="form-control" type="week" value="2018-W23" id="example-week-input">
-		    </div>
-		    <div class="form-group">
-		        <label for="example-time-input" class="form-control-label">Time</label>
-		        <input class="form-control" type="time" value="10:30:00" id="example-time-input">
-		    </div>
-		    <div class="form-group">
-		        <label for="example-color-input" class="form-control-label">Color</label>
-		        <input class="form-control" type="color" value="#5e72e4" id="example-color-input">
-		    </div>
-		</form>
-		
-		
-		<!-- 생산 요청 게시판 - 저장, 삭제, 목록 버튼 -->
-		<div class="d-flex justify-content-end">
-			<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeSave'">저장</button>
-			<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeDelelte'">삭제</button>
-			<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeMain'">목록</button>
+		<div class="card">
+			<div class="table-responsive">
+				<form>
+				    <div class="form-group">
+				        <label for="example-text-input" class="form-control-label">작업지시번호</label>
+				        <input class="form-control" type="number" value="작업지시번호" id="example-text-input">
+				    </div>
+				    <div class="form-group">
+				        <label for="example-search-input" class="form-control-label">작업순번</label>
+				        <input class="form-control" type="number" value="작업순번" id="example-search-input">
+				    </div>
+				    <div class="form-group">
+				        <label for="example-email-input" class="form-control-label">제품코드</label>
+				        <input class="form-control" type="number" value="@example.com" id="example-email-input">
+				    </div>
+				    <div class="form-group">
+				        <label for="example-url-input" class="form-control-label">품명</label>
+				        <input class="form-control" type="text" value="" id="example-url-input">
+				    </div>
+				    <div class="form-group">
+				        <label for="example-tel-input" class="form-control-label">작업지시일자</label>
+				        <input class="form-control" type="date" value="40-(770)-888-444" id="example-tel-input">
+				    </div>
+				    <div class="form-group">
+				        <label for="example-password-input" class="form-control-label">지시수량</label>
+				        <input class="form-control" type="password" value="password" id="example-password-input">
+				    </div>
+				    <div class="form-group">
+				        <label for="example-number-input" class="form-control-label">작업자</label>
+				        <input class="form-control" type="number" value="23" id="example-number-input">
+				    </div>
+				    <div class="form-group">
+				        <label for="example-datetime-local-input" class="form-control-label">작업인원</label>
+				        <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00" id="example-datetime-local-input">
+				    </div>
+				    <div class="form-group">
+				        <label for="example-date-input" class="form-control-label">작업완료일자</label>
+				        <input class="form-control" type="date" value="2018-11-23" id="example-date-input">
+				    </div>
+				    <div class="form-group">
+				        <label for="example-month-input" class="form-control-label">생산수량</label>
+				        <input class="form-control" type="month" value="2018-11" id="example-month-input">
+				    </div>
+				</form>
+			</div>
 		</div>
+				
+				<!-- 생산 요청 게시판 - 저장, 삭제, 목록 버튼 -->
+				<div class="d-flex justify-content-end">
+					<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeSave'">저장</button>
+					<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeDelelte'">삭제</button>
+					<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeMain'">목록</button>
+				</div>
     
 
    
