@@ -1,4 +1,4 @@
-package com.oracle.erpProject.model.mkmodel;
+package com.oracle.erpProject.model;
 
 import java.util.Date;
 

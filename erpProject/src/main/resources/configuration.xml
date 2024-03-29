@@ -29,7 +29,7 @@
 		<!-- 재준 끝-->
 		
 		<!-- mk -->
-		<typeAlias alias="MK_Product"   			type="com.oracle.erpProject.model.mkmodel.MK_Product"/>
+		<typeAlias alias="Product"   			type="com.oracle.erpProject.model.mkmodel.Product"/>
 		<!-- mk 끝 -->
 	</typeAliases>
 	
