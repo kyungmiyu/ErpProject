@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.dao.jjdao.JJ_Dao_Interface;
-import com.oracle.erpProject.model.Work_order_detail;
+import com.oracle.erpProject.model.Make_detail;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,8 +24,8 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 	}
 
 	@Override
-	public List<Work_order_detail> makeList(Work_order_detail wod) {
-		List<Work_order_detail> makeList = null;
+	public List<Make_detail> makeList(Make_detail wod) {
+		List<Make_detail> makeList = null;
 		System.out.println("JJ_ServiceImpl's makeList Go!");
 		makeList = jjDao.makeList(wod);
 		System.out.println("JJ_ServiceImpl's makeList -> " + makeList);

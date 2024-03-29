@@ -5,7 +5,7 @@
   
 <configuration>
 	<typeAliases>
-		<typeAlias alias="Board"   						type="com.oracle.erpProject.model.Board"/> 
+		<typeAlias alias="Board"   						type="com.oracle.erpProject.model.Board"/>
 		<typeAlias alias="Buying_detail"   			type="com.oracle.erpProject.model.Buying_detail"/> 
 		<typeAlias alias="Buying"   						type="com.oracle.erpProject.model.Buying"/> 
 		<typeAlias alias="Comm"   						type="com.oracle.erpProject.model.Comm"/> 
@@ -19,8 +19,13 @@
 		<typeAlias alias="Sale"   							type="com.oracle.erpProject.model.Sale"/> 
 		<typeAlias alias="Stock_survey"   			type="com.oracle.erpProject.model.Stock_survey"/> 
 		<typeAlias alias="Stock"   						type="com.oracle.erpProject.model.Stock"/> 
-		<typeAlias alias="Work_order_detail"   	type="com.oracle.erpProject.model.Work_order_detail"/> 
-		<typeAlias alias="Work_order"   				type="com.oracle.erpProject.model.Work_order"/> 
+		<typeAlias alias="Make_detail"   	type="com.oracle.erpProject.model.Make_detail"/> 
+		<typeAlias alias="Make"   				type="com.oracle.erpProject.model.Make"/> 
+		
+		<!-- 재준 시작-->
+		<typeAlias alias="JJ_Make_detail"   	type="com.oracle.erpProject.model.JJ_Make_detail"/> 
+		<typeAlias alias="JJ_Make"   				type="com.oracle.erpProject.model.JJ_Make"/>
+		<!-- 재준 끝-->
 	</typeAliases>
 	
 	

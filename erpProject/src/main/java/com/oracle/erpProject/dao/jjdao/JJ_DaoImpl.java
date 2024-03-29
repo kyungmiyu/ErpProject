@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.oracle.erpProject.model.Work_order_detail;
+import com.oracle.erpProject.model.Make_detail;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,8 +33,8 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 
 	// 생산게시판 List페이지 - 게시물 list
 	@Override
-	public List<Work_order_detail> makeList(Work_order_detail wod) {
-		List<Work_order_detail> makeList = null;
+	public List<Make_detail> makeList(Make_detail wod) {
+		List<Make_detail> makeList = null;
 		System.out.println( "JJ_DaoImpl's makeList Go!");
 		try {
 			makeList = session.selectList("jjMakeList", wod);
