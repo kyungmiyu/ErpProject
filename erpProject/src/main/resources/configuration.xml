@@ -27,6 +27,10 @@
 		<typeAlias alias="JJ_Make_detail"   	type="com.oracle.erpProject.model.jjmodel.JJ_Make_detail"/> 
 		<typeAlias alias="JJ_Make"   			type="com.oracle.erpProject.model.jjmodel.JJ_Make"/>
 		<!-- 재준 끝-->
+		
+		<!-- mk -->
+		<typeAlias alias="MK_Product"   			type="com.oracle.erpProject.model.mkmodel.MK_Product"/>
+		<!-- mk 끝 -->
 	</typeAliases>
 	
 	

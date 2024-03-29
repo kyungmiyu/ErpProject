@@ -2,12 +2,12 @@ package com.oracle.erpProject.service.mkservice;
 
 import java.util.List;
 
-import com.oracle.erpProject.model.mkmodel.Product;
+import com.oracle.erpProject.model.mkmodel.MK_Product;
 
 public interface MK_Service_interface {
 
-	List<Product> listProduct(Product product);
+	List<MK_Product> listProduct(MK_Product product);
 
-	Product getProductDetail(Product product);
+	MK_Product getProductDetail(MK_Product product);
 
 }
