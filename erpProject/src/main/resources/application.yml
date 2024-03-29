@@ -47,7 +47,14 @@ spring:
 #MyBatis
 mybatis:
   config-location: classpath:configuration.xml
-  mapper-locations: classpath:mappers/*.xml
+  mapper-locations: 
+    - classpath:mappers/jh/*.xml
+    - classpath:mappers/jj/*.xml
+    - classpath:mappers/km/*.xml
+    - classpath:mappers/lhs/*.xml
+    - classpath:mappers/mk/*.xml
+    - classpath:mappers/sl/*.xml
+    - classpath:mappers/yhs/*.xml
 
 
 logging.level:

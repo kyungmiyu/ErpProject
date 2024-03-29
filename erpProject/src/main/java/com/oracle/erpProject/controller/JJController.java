@@ -53,7 +53,7 @@ public class JJController {
 		if(session.getAttribute("emp_no")!=null) { // 로그인 된 상태
 			System.out.println("JJController's makeFormRequest Go!");
 			
-//			List<Make_detail> makeList = js.makeList();
+//			List<JJ_Make_detail> makeList = js.makeList();
 //			System.out.println("JJController's makeFormRequest makeList.size ->" + makeList.size());
 //			System.out.println("JJController's makeFormRequest makeList ->" + makeList);
 //			model.addAttribute("makeList", makeList);
