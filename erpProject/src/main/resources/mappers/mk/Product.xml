@@ -16,4 +16,11 @@
 		where p_itemcode=${p_itemcode}
 		]]>
 	</select>
+	
+	<select id="totProduct" resultType="int">
+	<![CDATA[
+		select Count(*) from product;
+		]]>
+	</select>
+
 </mapper>

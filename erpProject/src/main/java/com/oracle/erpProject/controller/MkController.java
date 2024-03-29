@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 import com.oracle.erpProject.service.mkservice.MK_Service_interface;
+import com.oracle.erpProject.service.mkservice.Paging;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,10 +23,21 @@ public class MkController {
 	@GetMapping("/productR")
 	public String productR(mkProduct product,Model model) {
 		System.out.println("MK Controller productR Start...");
+		//product count 
+		int totalProduct = mk_Service_interface.totalProduct();
+		System.out.println("MK_Controller Start totalProduct->"+totalProduct);
+		
+		//paging 작업 
+		Paging page = new Paging(totalProduct, product.getCurrentPage());
+		product.setStart(page.getStart()); //시작시 1 
+		product.setEnd(page.getEnd()); // 시작시 10 
+		
 		  List<mkProduct> listProduct = mk_Service_interface.listProduct(product);
 		  System.out.println("MKController listProduct.size->"+listProduct.size());
 		  
 		  model.addAttribute("listProduct",listProduct); 
+		  model.addAttribute("page", page);
+		  model.addAttribute("totalProduct",totalProduct);
 		  return "mk/productRu";
 		  } 
 	
@@ -35,11 +47,14 @@ public class MkController {
 	@GetMapping("productDetail")
 	public mkProduct productDetail(@RequestParam("p_itemcode") int itemCode ,mkProduct product, Model model ) {
 		System.out.println("MK Controller productDetail Start");
+	
 		mkProduct ProductDetail =null;
 		product.setP_itemcode(itemCode);
+		
 		System.out.println("MK Controller productDetail->"+product);
 		ProductDetail = mk_Service_interface.getProductDetail(product);
 		model.addAttribute("product",ProductDetail);
+	
 		return ProductDetail;
 	}
 

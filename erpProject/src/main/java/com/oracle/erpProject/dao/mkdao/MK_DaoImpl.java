@@ -43,11 +43,25 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 		System.out.println("MK_DAO_IMPL productDetail->"+ product);
 		try { 
 			productDetail = session.selectOne("productDetail",product);
-			System.out.println("MKDaoImpl productDetail ProductDetail.size->"+productDetail);
+			System.out.println("MKDaoImpl productDetail ProductDetail->"+productDetail);
 		}catch (Exception e) {
 			System.out.println("MKDaoImpl productDetail e.getMessage()->"+e.getMessage());
 		}
 		return productDetail;
+	}
+
+	@Override
+	public int totalProduct() {
+		int totProductCount=0;
+		System.out.println("MK_DaoImpl Start totalProductCount");
+		
+		try { 
+			totProductCount=session.selectOne("totProduct");
+			System.out.println("MK_DaoImpl total Product Count->"+totProductCount);
+		} catch (Exception e) {
+			System.out.println("MK_DaoImpl total Product Exception->"+e.getMessage());
+		}
+		return totProductCount;
 	}
 
 }
