@@ -8,10 +8,10 @@
 </head>
 <body>
 	<h1>현승 Index </h1>
-	<a href="lhsListEmp">사원 리스트</a>
-	<a href="lhsListStock?emp_no=${empData.emp_no}">기초기말 재고 조회</a>
-	<a href="lhsManageRegistStock?emp_no=${empData.emp_no}">기초재고등록+실사재고조사 등록</a>
-	<a href="lhsListRnPCondBuy?emp_no=${empData.emp_no}">수불내역 조회(폼4개)</a>
+	<a href="lhs">사원 리스트</a><p>
+	<a href="lhsListStock?emp_no=${empData.emp_no}">기초기말 재고 조회</a><p>
+	<a href="lhsManageRegistStock?emp_no=${empData.emp_no}">재고관리</a><p>
+	<a href="lhsListRnPCondBuy?emp_no=${empData.emp_no}">수불내역 조회(폼4개)</a><p>
 
 </body>
 </html>
