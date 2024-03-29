@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.oracle.erpProject.model.Product;
+import com.oracle.erpProject.model.mkmodel.Product;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +31,23 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 			System.out.println("MKDaoImpl productList e.getMessage()->"+e.getMessage());
 		}
 		return productList;
+	}
+
+	// 제품 상세 
+	@Override
+	public Product productDetail(Product product) {
+		
+		Product productDetail = null;
+	
+		System.out.println("MK_DAO_IMPL productDetail Start  ");
+		System.out.println("MK_DAO_IMPL productDetail->"+ product);
+		try { 
+			productDetail = session.selectOne("productDetail",product);
+			System.out.println("MKDaoImpl productDetail ProductDetail.size->"+productDetail);
+		}catch (Exception e) {
+			System.out.println("MKDaoImpl productDetail e.getMessage()->"+e.getMessage());
+		}
+		return productDetail;
 	}
 
 }

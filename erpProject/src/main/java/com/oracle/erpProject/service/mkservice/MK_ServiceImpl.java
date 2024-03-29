@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.oracle.erpProject.dao.mkdao.MK_Dao_Interface;
-import com.oracle.erpProject.model.Product;
+import com.oracle.erpProject.model.mkmodel.Product;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,5 +24,18 @@ public class MK_ServiceImpl implements MK_Service_interface {
 		System.out.println("product->"+productList);
 		return productList;
 	}
+
+	@Override
+	public Product getProductDetail(Product product) {
+		System.out.println("MKServiceImpl getProductDetail Start"); 
+		System.out.println("MKServiceImpl getProductDetail->"+product);
+		Product productDetail = null;
+		productDetail=mk_Dao_Interface.productDetail(product);
+		return productDetail;
+	}
+
+	
+
+	 
 
 }
