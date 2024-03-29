@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.oracle.erpProject.model.Product;
+import com.oracle.erpProject.model.mkmodel.Product;
 import com.oracle.erpProject.service.mkservice.MK_Service_interface;
 
 import lombok.RequiredArgsConstructor;

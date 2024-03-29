@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.oracle.erpProject.dao.mkdao.MK_Dao_Interface;
-import com.oracle.erpProject.model.Product;
+import com.oracle.erpProject.model.mkmodel.Product;
 
 import lombok.RequiredArgsConstructor;
 

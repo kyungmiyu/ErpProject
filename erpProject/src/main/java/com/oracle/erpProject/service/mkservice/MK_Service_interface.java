@@ -2,7 +2,7 @@ package com.oracle.erpProject.service.mkservice;
 
 import java.util.List;
 
-import com.oracle.erpProject.model.Product;
+import com.oracle.erpProject.model.mkmodel.Product;
 
 public interface MK_Service_interface {
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.oracle.erpProject.model.Product;
+import com.oracle.erpProject.model.mkmodel.Product;
 
 import lombok.RequiredArgsConstructor;
 
