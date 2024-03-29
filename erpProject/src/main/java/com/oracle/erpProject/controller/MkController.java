@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracle.erpProject.model.Product;
 import com.oracle.erpProject.service.mkservice.MK_Service_interface;
@@ -26,6 +28,22 @@ public class MkController {
 		  model.addAttribute("listProduct",listProduct); 
 		  return "mk/productRu";
 		  } 
+	
+	
+	//제품 상세 ajax 
+	@ResponseBody
+	@GetMapping("productDetail")
+	public Product productDetail(@RequestParam("p_itemcode") int itemCode ,Product product, Model model ) {
+		System.out.println("MK Controller productDetail Start");
+		Product ProductDetail =null;
+		product.setP_itemcode(itemCode);
+		System.out.println("MK Controller productDetail->"+product);
+		ProductDetail = mk_Service_interface.getProductDetail(product);
+		model.addAttribute("product",ProductDetail);
+		return ProductDetail;
+	}
+
+	
 	
 	// 제품등록
 		  

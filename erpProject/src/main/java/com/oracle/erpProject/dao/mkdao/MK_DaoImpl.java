@@ -33,4 +33,21 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 		return productList;
 	}
 
+	// 제품 상세 
+	@Override
+	public Product productDetail(Product product) {
+		
+		Product productDetail = null;
+	
+		System.out.println("MK_DAO_IMPL productDetail Start  ");
+		System.out.println("MK_DAO_IMPL productDetail->"+ product);
+		try { 
+			productDetail = session.selectOne("productDetail",product);
+			System.out.println("MKDaoImpl productDetail ProductDetail.size->"+productDetail);
+		}catch (Exception e) {
+			System.out.println("MKDaoImpl productDetail e.getMessage()->"+e.getMessage());
+		}
+		return productDetail;
+	}
+
 }

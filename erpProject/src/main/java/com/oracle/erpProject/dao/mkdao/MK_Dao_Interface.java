@@ -8,4 +8,6 @@ public interface MK_Dao_Interface {
 
 	List<Product> productList(Product product);
 
+	Product productDetail(Product product);
+
 }

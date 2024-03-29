@@ -12,8 +12,8 @@ spring:
 
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    #url: jdbc:oracle:thin:@172.30.1.7:1521/xe
-    url: jdbc:oracle:thin:@localhost:1521/xe
+    url: jdbc:oracle:thin:@172.30.1.7:1521/xe
+    #url: jdbc:oracle:thin:@localhost:1521/xe
     username: SMInventory
     password: tiger
 
@@ -47,7 +47,14 @@ spring:
 #MyBatis
 mybatis:
   config-location: classpath:configuration.xml
-  mapper-locations: classpath:mappers/*.xml
+  mapper-locations: 
+    - classpath:mappers/jh/*.xml
+    - classpath:mappers/jj/*.xml
+    - classpath:mappers/km/*.xml
+    - classpath:mappers/lhs/*.xml
+    - classpath:mappers/mk/*.xml
+    - classpath:mappers/sl/*.xml
+    - classpath:mappers/yhs/*.xml
 
 
 logging.level:
