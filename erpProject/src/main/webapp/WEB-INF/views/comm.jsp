@@ -218,5 +218,6 @@
    	<!-- Footer 푸터 -->
    	<%@ include file="../footer.jsp"%> 
   </main>
+
 </body>
 </html>

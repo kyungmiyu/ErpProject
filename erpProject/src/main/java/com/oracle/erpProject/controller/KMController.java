@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class KMController {
 
+	/* 공통 화면 */
 	// 로그인
 	@GetMapping(value="loginForm")
 	public String loginPage() {
@@ -29,16 +30,27 @@ public class KMController {
 		return "km/myPage";
 	}
 	
-	
+	/* 관리자 페이지 */
 	// 관리자페이지 화면
 	@GetMapping(value="adminMain")
 	public String adminPage() {
 		return "km/adminMain";
 	}
 	
-	// 사원 등록, 사원 리스트 조회
+	// 사원 등록
+	@GetMapping(value="/adminRegisterForm")
+	public String adminRegisteForm() {
+		return "km/adminRegisterForm";
+	}
 	
+	// 사원 리스트 조회
+	// 검색탭, select box 추가, 페이징
+	@GetMapping(value="/adminList")
+	public String adminList() {
+		return "km/adminList";
+	}
 	
  	// 메인 페이지
+	// 구성
 	
 }
