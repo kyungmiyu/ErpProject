@@ -16,4 +16,15 @@
 		where p_itemcode=${p_itemcode}
 		]]>
 	</select>
+	
+	<select id="totProduct" resultType="int">
+	<![CDATA[
+		select Count(*) from product;
+		]]>
+	</select>
+	
+	<select id="insertProduct" parameterType="mkProduct">
+		insert into product values( #{p_itemcode} , #{f_id},#{pro_category},#{pro_midcategory} , #{p_name},#{p_content},#{p_buyprice},#{p_saleprice},#{p_image},#{p_enddate},#{p_update},#{p_regdate},#{p_fac_gubun},#{p_isdeleted})
+	</select>
+
 </mapper>

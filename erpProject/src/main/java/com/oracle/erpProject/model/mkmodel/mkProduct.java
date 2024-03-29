@@ -22,5 +22,11 @@ public class mkProduct {
 		private String p_fac_gubun;		//공장구분
 		private int p_isdeleted;				//취급여부 
 
+		// 조회용
+		private String search;   	   private String keyword;
+		private String pageNum;  
+		private int start; 		 	   private int end;
+		// Page 정보
+		private String currentPage;
 	
 }

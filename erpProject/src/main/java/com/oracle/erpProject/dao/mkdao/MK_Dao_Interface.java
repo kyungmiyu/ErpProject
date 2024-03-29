@@ -10,4 +10,8 @@ public interface MK_Dao_Interface {
 
 	mkProduct productDetail(mkProduct product);
 
+	int totalProduct(mkProduct product);
+
+	int insertProduct(mkProduct product);
+
 }

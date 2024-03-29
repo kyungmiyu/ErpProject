@@ -39,6 +39,36 @@ $(document).ready(function() {
         });    
     });
 });
+
+
+/* 검색 필터 */
+/*  $('#button-addon2').click(function() {
+        // 각 필터 및 검색 필드의 값을 가져옴
+        var midCategory = $(this).data('midcategory');
+        var isDeleted = $(this).data('isdeleted');
+        var searchValue = $('input[aria-label="Search"]').val();
+
+        // AJAX 요청
+        $.ajax({
+            url: '여기에_서버_URL_입력', // 서버의 URL 입력
+            method: 'POST', // 또는 GET, 서버에 따라 다름
+            data: {
+                filter1: filter1Value,
+                filter2: filter2Value,
+                search: searchValue
+            },
+            success: function(response) {
+                // 서버로부터 응답을 성공적으로 받았을 때 실행
+                // 예: 검색 결과를 페이지에 표시
+                console.log(response); // 또는 검색 결과를 처리하는 로직 구현
+            },
+            error: function(xhr, status, error) {
+                // 오류 발생 시 실행
+                console.error("Error: " + error);
+            }
+        });
+    });
+}); */
 </script>
 
 <%@ include file="../configHead.jsp"%>
@@ -101,13 +131,12 @@ $(document).ready(function() {
 
 							<!--검색 및 필터  -->
 
-							<div class="container">
+							<form action="search1">
 								<!-- 필터 행 -->
 								<div class="row">
 									<div class="col">
 										<div class="form-floating">
-											<select class="form-select" id="filter1"
-												aria-label="Filter 1">
+											<select name="searchMidcategory" data-midcategory="${pr.pro_midcategory}">
 												<option selected>카테고리</option>
 												<option value="101">간편식</option>
 												<option value="102">냉동식품</option>
@@ -121,8 +150,7 @@ $(document).ready(function() {
 									</div>
 									<div class="col">
 										<div class="form-floating">
-											<select class="form-select" id="filter2"
-												aria-label="Filter 2">
+											<select name="searchIsdeleted" id="filter2" data-isdeleted="${pr.p_isdeleted}">
 												<option selected>판매여부</option>
 												<option value="0">취급중</option>
 												<option value="1">취급안함</option>
@@ -137,16 +165,16 @@ $(document).ready(function() {
 									<div class="col">
 										<div class="input-group">
 											<input type="text" class="form-control" placeholder="입력..."
-												aria-label="Search" aria-describedby="button-addon2">
-											<button class="btn btn-outline-secondary" type="button"
-												id="button-addon2">
+												aria-label="Search" aria-describedby="button-addon2" data-itemcode="${pr.p_name}">
+											<button class="btn btn-outline-secondary"  type="button"
+												id="button-addon2 " >
 												<i class="fas fa-search"></i>
 												<!-- FontAwesome 돋보기 아이콘 -->
 											</button>
 										</div>
 									</div>
 								</div>
-							</div>
+							</form>
 
 
 
@@ -154,9 +182,11 @@ $(document).ready(function() {
 						</div>
 						<div class="card-body px-0 pt-0 pb-2">
 
+
+							
 							<!--table-->
 							<div class="table-responsive p-2">
-							
+							<c:set var="num" value="${page.total-page.start+1 }"></c:set>
 								<table class="table align-items-center mb-0">
 									<thead>
 										<tr>
@@ -172,6 +202,7 @@ $(document).ready(function() {
 										</tr>
 									</thead>
 									<tbody>
+									
 									<!-- jsp 데이터 리스터 반복문으로 출력  -->
 									<c:forEach var="pr" items="${listProduct}">
 										<tr>
@@ -236,7 +267,7 @@ $(document).ready(function() {
 												</span>
 											</td>
 										</tr>
-						
+									<c:set var="num" value="${num - 1 }"></c:set>
 										</c:forEach>
 									</tbody>
 								</table>
@@ -244,7 +275,7 @@ $(document).ready(function() {
 						</div>
 
 						<!-- 페이징 -->
-						<nav aria-label="Page navigation example">
+					<!-- 	<nav aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
 								<li class="page-item"><a class="page-link" href="#">Pre</a></li>
 								<li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -252,7 +283,32 @@ $(document).ready(function() {
 								<li class="page-item"><a class="page-link" href="#">3</a></li>
 								<li class="page-item"><a class="page-link" href="#">Next</a></li>
 							</ul>
-						</nav>
+						</nav> -->
+						<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <c:if test="${page.startPage > page.pageBlock}">
+            <!-- "이전" 페이지 링크 -->
+            <li class="page-item">
+                <a class="page-link" href="productR?currentPage=${page.startPage - page.pageBlock}">이전</a>
+            </li>
+        </c:if>
+        
+        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+            <!-- 페이지 번호 링크 -->
+            <li class="page-item ${param.currentPage == i ? 'active' : ''}">
+                <a class="page-link" href="productR?currentPage=${i}">${i}</a>
+            </li>
+        </c:forEach>
+        
+        <c:if test="${page.endPage < page.totalPage}">
+            <!-- "다음" 페이지 링크 -->
+            <li class="page-item">
+                <a class="page-link" href="productR?currentPage=${page.startPage + page.pageBlock}">다음</a>
+            </li>
+        </c:if>
+    </ul>
+</nav>
+						
 						<!-- 페이징 끝 -->
 					</div>
 				</div>
@@ -270,9 +326,10 @@ $(document).ready(function() {
 							<h6>제품 상세</h6>
 						</div>
 						<div class="card-body px-0 pt-0 pb-2">
-
+  	
 							<!--table-->
 							<div class="table-responsive p-4">
+			
 						<!-- img-->
 						<img src="../upload/jinnoodle.jpg" class="img-thumbnail" style="width: 200px; height: 200px;" alt="...">
 
@@ -282,50 +339,50 @@ $(document).ready(function() {
 					        <div class="col-md-6">
 					            <div class="form-group">
 					                <label for="p_itemcode">제품코드</label> 
-					                <input type="email" class="form-control" id="p_itemcode" >
+					                <input type="email" class="form-control" id="p_itemcode"  readonly >
 					            </div>
 					            <div class="form-group">
 					                <label for="pro_category">제품 대분류</label> 
-					                <input type="email" class="form-control" id="pro_category" >
+					                <input type="email" class="form-control" id="pro_category"  readonly>
 					            </div>
 					            <div class="form-group">
 					                <label for="f_id">제품공장</label> 
-					                <input type="email" class="form-control" id="f_id" >
+					                <input type="email" class="form-control" id="f_id"  readonly>
 					            </div>
 					              <div class="form-group">
 					                <label for="p_buyprice">매출 가격</label> 
-					                <input type="email" class="form-control" id="p_buyprice" >
+					                <input type="email" class="form-control" id="p_buyprice"  readonly>
 					            </div>
 					              <div class="form-group">
 					                <label for="p_isdeleted">판매상태</label> 
-					                <input type="email" class="form-control" id="p_isdeleted" >
+					                <input type="email" class="form-control" id="p_isdeleted"  readonly>
 					            </div>
 					             <div class="form-group">
 					                <label for="p_regdate">등록날짜</label> 
-					                <input type="email" class="form-control" id="p_regdate" >
+					                <input type="email" class="form-control" id="p_regdate"  readonly>
 					            </div>
 					        
 					        </div>
 					        <div class="col-md-6">
 					            <div class="form-group">
 					                <label for="p_name">제품명</label> 
-					                <input type="email" class="form-control" id="p_name" >
+					                <input type="email" class="form-control" id="p_name"  readonly>
 					            </div>
 					            <div class="form-group">
 					                <label for="exampleFormControlInput5">제품 중분류</label> 
-					                <input type="email" class="form-control" id="exampleFormControlInput5" >
+					                <input type="email" class="form-control" id="exampleFormControlInput5"  readonly>
 					            </div>
 					            <div class="form-group">
 					                <label for="p_fac_gubun">공장구분</label> 
-					                <input type="email" class="form-control" id="p_fac_gubun" >
+					                <input type="email" class="form-control" id="p_fac_gubun"  readonly>
 					            </div>
 					            <div class="form-group">
 					                <label for="p_buyprice">매입가격</label> 
-					                <input type="email" class="form-control" id="p_buyprice" >
+					                <input type="email" class="form-control" id="p_buyprice"  readonly>
 					            </div>
 					            <div class="form-group">
 					                <label for="exampleFormControlInput7">판매 담당자</label> 
-					                <input type="email" class="form-control" id="exampleFormControlInput7" >
+					                <input type="email" class="form-control" id="exampleFormControlInput7" readonly >
 					            </div>
 					         
 					        </div>

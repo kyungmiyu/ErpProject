@@ -34,6 +34,25 @@ public class MK_ServiceImpl implements MK_Service_interface {
 		return productDetail;
 	}
 
+	//페이징을 위한 product count
+	
+	@Override
+	public int totalProduct(mkProduct product) {
+		System.out.println("MKServiceImpl start totalProduct");
+		int totProductCnt=mk_Dao_Interface.totalProduct(product);
+		System.out.println("MK_servieImpl totalProductCnt->"+totProductCnt);
+		return totProductCnt;
+	}
+
+	// 제품 등록 
+	@Override
+	public int insertProduct(mkProduct product) {
+		int result=0;
+		System.out.println("MKServiceImpl insertProduct Start");
+		result = mk_Dao_Interface.insertProduct(product);
+		return result;
+	}
+
 	
 
 	 
