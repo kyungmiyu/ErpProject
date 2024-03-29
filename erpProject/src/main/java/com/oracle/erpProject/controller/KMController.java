@@ -36,7 +36,7 @@ public class KMController {
 		return "km/adminMain";
 	}
 	
-	// 사이드바, 사원 등록, 담당자 권한
+	// 사원 등록, 사원 리스트 조회
 	
 	
  	// 메인 페이지
