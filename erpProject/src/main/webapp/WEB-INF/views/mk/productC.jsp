@@ -54,9 +54,9 @@
 			<!-- ****** 공통 : 테이블 시작 ****** -->
 			<!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 			<div class="row">
-			
 
-				<!--===========제품상세 ===============-->
+
+				<!--===========제품 등록 ===============-->
 				<div class="col-10">
 					<div class="card mb-4">
 						<div class="card-header pb-0">
@@ -67,109 +67,117 @@
 
 							<!--table-->
 							<div class="table-responsive p-4">
-						<!-- img-->
-						<img src="../upload/jinnoodle.jpg" class="img-thumbnail" style="width: 200px; height: 200px;" alt="...">
+								<!-- img-->
+								<img src="../upload/jinnoodle.jpg" class="img-thumbnail"
+									style="width: 200px; height: 200px;" alt="...">
 
-						<!-- img end -->
-								<!-- <form>
-									<div class="form-group">
-										<label for="exampleFormControlInput1">Email address</label> <input
-											type="email" class="form-control"
-											id="exampleFormControlInput1" placeholder="name@example.com">
-									</div>
-									
-										<div class="form-group">
-										<label for="exampleFormControlInput1">Email address</label> <input
-											type="email" class="form-control"
-											id="exampleFormControlInput1" placeholder="name@example.com">
-									</div>
-									
-										<div class="form-group">
-										<label for="exampleFormControlInput1">Email address</label> <input
-											type="email" class="form-control"
-											id="exampleFormControlInput1" placeholder="name@example.com">
-									</div>
-									
-										<div class="form-group">
-										<label for="exampleFormControlInput1">Email address</label> <input
-											type="email" class="form-control"
-											id="exampleFormControlInput1" placeholder="name@example.com">
-									</div>
-									
-									<div class="form-group">
-										<label for="exampleFormControlInput1">Email address</label> <input
-											type="email" class="form-control"
-											id="exampleFormControlInput1" placeholder="name@example.com">
-									</div>
-									
-								
-									
-								</form> -->
-								
-								<form>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="exampleFormControlInput1">제품코드</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput2">제품 대분류</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput3">제품공장</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
-            </div>
-              <div class="form-group">
-                <label for="exampleFormControlInput3">매출 가격</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
-            </div>
-              <div class="form-group">
-                <label for="exampleFormControlInput3">판매상태</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
-            </div>
-             <div class="form-group">
-                <label for="exampleFormControlInput3">등록날짜</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
-            </div>
-            
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="exampleFormControlInput4">제품명</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput4" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput5">제품 중분류</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput5" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput6">공장구분</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput6" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput7">매입가격</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput7" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput7">판매 담당자</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput7" placeholder="name@example.com">
-            </div>
-         
-        </div>
-        
-    </div>
-    
-    <!-- 버튼 -->
-    <div class="text-right">
-    <button class="btn btn-primary" type="button">저장</button>
- </div>
 
-    
-    
-</form>
-								
+
+								<form action="writeProduct" method="post" name="productW">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="exampleFormControlInput1">제품코드</label> 
+												<input
+													type="text" class="form-control"
+													name ="p_itemcode"
+													placeholder="name@example.com">
+											</div>
+											<div class="form-group">
+												<label for="exampleFormControlInput2">제품 대분류</label> 
+												<input
+													type="text" class="form-control"
+													name="pro_category"
+													id="exampleFormControlInput2"
+													placeholder="name@example.com">
+											</div>
+											<div class="form-group">
+												<label for="exampleFormControlInput3">제품공장</label>
+												 <input
+													type="text" class="form-control"
+													name="f_id"
+													id="exampleFormControlInput3"
+													placeholder="name@example.com">
+											</div>
+											<div class="form-group">
+												<label for="exampleFormControlInput3">매출 가격</label> 
+												<input
+													type="text" class="form-control"
+													id="exampleFormControlInput3"
+													name="p_buyprice"
+													placeholder="name@example.com">
+											</div>
+											<div class="form-group">
+												<label for="exampleFormControlInput3">판매상태</label>
+												 <input
+													type="text" class="form-control"
+													id="exampleFormControlInput3"
+													name="p_saleprice"
+													placeholder="name@example.com">
+											</div>
+											<div class="form-group">
+												<label for="exampleFormControlInput3">등록날짜</label> 
+												<input
+													type="text" class="form-control"
+													id="exampleFormControlInput3"
+													name="p_gegdate"
+													placeholder="name@example.com">
+											</div>
+
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="exampleFormControlInput4">제품명</label>
+												 <input
+													type="text" class="form-control"
+													id="exampleFormControlInput4"
+													name="p_name"
+													placeholder="name@example.com">
+											</div>
+											<div class="form-group">
+												<label for="exampleFormControlInput5">제품 중분류</label>
+												 <input
+													type="text" class="form-control"
+													id="exampleFormControlInput5"
+													name="pro_midcategory"
+													placeholder="name@example.com">
+											</div>
+											<div class="form-group">
+												<label for="exampleFormControlInput6">공장구분</label> 
+												<input
+													type="text" class="form-control"
+													id="exampleFormControlInput6"
+													name="p_fac_gubun"
+													placeholder="name@example.com">
+											</div>
+										<!-- 	<div class="form-group">
+												<label for="exampleFormControlInput7">매입가격</label> 
+												<input
+													type="text" class="form-control"
+													id="exampleFormControlInput7"
+													placeholder="name@example.com">
+											</div> -->
+											<div class="form-group">
+												<label for="exampleFormControlInput7">판매 담당자</label> 
+												<input
+													type="text" class="form-control"
+													id="exampleFormControlInput7"
+													placeholder="name@example.com">
+											</div>
+
+										</div>
+
+									</div>
+
+									<!-- 버튼 -->
+									<div class="text-right">
+										<button class="btn btn-primary" type="button">저장</button>
+									</div>
+
+
+
+								</form>
+
 
 
 							</div>

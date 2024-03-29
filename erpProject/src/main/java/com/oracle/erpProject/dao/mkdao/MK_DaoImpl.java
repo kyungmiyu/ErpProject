@@ -51,7 +51,7 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 	}
 
 	@Override
-	public int totalProduct() {
+	public int totalProduct(mkProduct product) {
 		int totProductCount=0;
 		System.out.println("MK_DaoImpl Start totalProductCount");
 		
@@ -62,6 +62,18 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 			System.out.println("MK_DaoImpl total Product Exception->"+e.getMessage());
 		}
 		return totProductCount;
+	}
+
+	@Override
+	public int insertProduct(mkProduct product) {
+		int insertResult=0;
+		System.out.println("MkDaoImpl insert Produt Start");
+		try {
+			insertResult = session.insert("insertProduct",product);
+		}catch (Exception e) {
+			System.out.println("MkDaoImpl insertProduct Exception->"+e.getMessage());
+		}
+		return insertResult;
 	}
 
 }

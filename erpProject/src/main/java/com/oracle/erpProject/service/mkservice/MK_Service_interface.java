@@ -10,6 +10,8 @@ public interface MK_Service_interface {
 
 	mkProduct getProductDetail(mkProduct product);
 
-	int totalProduct();
+	int totalProduct(mkProduct product);
+
+	int insertProduct(mkProduct product);
 
 }
