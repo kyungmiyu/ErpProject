@@ -183,10 +183,10 @@ $(document).ready(function() {
 						<div class="card-body px-0 pt-0 pb-2">
 
 
-							<c:set var="num" value="${page.total-page.start+1 }"></c:set>
+							
 							<!--table-->
 							<div class="table-responsive p-2">
-							
+							<c:set var="num" value="${page.total-page.start+1 }"></c:set>
 								<table class="table align-items-center mb-0">
 									<thead>
 										<tr>
