@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.oracle.erpProject.model.Board;
-import com.oracle.erpProject.service.Yhs.Yhs_ServiceImpl;
+import com.oracle.erpProject.service.Yhsservice.Yhs_ServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

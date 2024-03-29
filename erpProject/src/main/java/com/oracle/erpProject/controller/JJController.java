@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.oracle.erpProject.model.Work_order_detail;
-import com.oracle.erpProject.service.jj.JJ_Paging;
-import com.oracle.erpProject.service.jj.JJ_Service_Interface;
+import com.oracle.erpProject.service.jjservice.JJ_Paging;
+import com.oracle.erpProject.service.jjservice.JJ_Service_Interface;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

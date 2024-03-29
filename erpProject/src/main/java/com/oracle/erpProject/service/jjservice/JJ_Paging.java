@@ -1,4 +1,4 @@
-package com.oracle.erpProject.service.jj;
+package com.oracle.erpProject.service.jjservice;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.oracle.erpProject.model.Employee;
-import com.oracle.erpProject.service.lhs.LHS_Serivce_Interface;
+import com.oracle.erpProject.service.lhsservice.LHS_Serivce_Interface;
 
 import lombok.RequiredArgsConstructor;
 

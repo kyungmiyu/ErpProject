@@ -3,7 +3,8 @@ package com.oracle.erpProject.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.oracle.erpProject.service.sl.SL_Service_Interface;
+import com.oracle.erpProject.service.slservice.SL_Service_Interface;
+
 import lombok.RequiredArgsConstructor;
 
 @Controller

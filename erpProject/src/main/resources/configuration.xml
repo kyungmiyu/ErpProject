@@ -12,7 +12,7 @@
 		<typeAlias alias="Customer"   					type="com.oracle.erpProject.model.Customer"/> 
 		<typeAlias alias="Deadline"   					type="com.oracle.erpProject.model.Deadline"/> 
 		<typeAlias alias="Department"   				type="com.oracle.erpProject.model.Department"/> 
-		<typeAlias alias="Emp"   							type="com.oracle.erpProject.model.Employee"/> 
+		<typeAlias alias="Employee"   							type="com.oracle.erpProject.model.Employee"/> 
 		<typeAlias alias="Factory"   					type="com.oracle.erpProject.model.Factory"/> 
 		<typeAlias alias="Product"   					type="com.oracle.erpProject.model.Product"/> 
 		<typeAlias alias="Sale_detail"   				type="com.oracle.erpProject.model.Sale_detail"/> 

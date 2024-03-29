@@ -1,4 +1,4 @@
-package com.oracle.erpProject.service.sl;
+package com.oracle.erpProject.service.slservice;
 
 import org.springframework.stereotype.Service;
 

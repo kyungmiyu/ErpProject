@@ -1,4 +1,4 @@
-package com.oracle.erpProject.service.mk;
+package com.oracle.erpProject.service.mkservice;
 
 import java.util.List;
 

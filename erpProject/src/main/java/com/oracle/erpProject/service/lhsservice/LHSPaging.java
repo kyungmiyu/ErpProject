@@ -1,4 +1,4 @@
-package com.oracle.erpProject.service.lhs;
+package com.oracle.erpProject.service.lhsservice;
 
 import lombok.Getter;
 import lombok.Setter;

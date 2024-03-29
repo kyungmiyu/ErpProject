@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.oracle.erpProject.model.Product;
-import com.oracle.erpProject.service.mk.MK_Service_interface;
+import com.oracle.erpProject.service.mkservice.MK_Service_interface;
 
 import lombok.RequiredArgsConstructor;
 
