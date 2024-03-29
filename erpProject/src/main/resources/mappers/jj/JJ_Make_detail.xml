@@ -26,6 +26,10 @@
 		]]>
 	</select>
 	
+	<select id="jjRequestMakeList" resultType="JJ_Make_detail">
+		SELECT	*
+		FROM	Make_detail
+	</select>
 
 
 <!-- ============================ JJ's mappers 끝 ============================ -->

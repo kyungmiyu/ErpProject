@@ -23,8 +23,9 @@
 		<typeAlias alias="Make"   				type="com.oracle.erpProject.model.Make"/> 
 		
 		<!-- 재준 시작-->
-		<typeAlias alias="JJ_Make_detail"   	type="com.oracle.erpProject.model.JJ_Make_detail"/> 
-		<typeAlias alias="JJ_Make"   				type="com.oracle.erpProject.model.JJ_Make"/>
+		<typeAlias alias="JJ_Comm"			   	type="com.oracle.erpProject.model.jjmodel.JJ_Comm"/>
+		<typeAlias alias="JJ_Make_detail"   	type="com.oracle.erpProject.model.jjmodel.JJ_Make_detail"/> 
+		<typeAlias alias="JJ_Make"   			type="com.oracle.erpProject.model.jjmodel.JJ_Make"/>
 		<!-- 재준 끝-->
 	</typeAliases>
 	

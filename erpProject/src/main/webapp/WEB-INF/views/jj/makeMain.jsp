@@ -109,7 +109,7 @@ td:hover {
 		
 		<!-- 생산 등록 버튼 -->
 		<div class="d-flex justify-content-end">
-			<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeRequest'">생산 요청</button>
+			<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeFormRequest'">생산 요청</button>
 		</div>
     
 
