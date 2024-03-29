@@ -19,8 +19,8 @@
 		<typeAlias alias="Sale"   							type="com.oracle.erpProject.model.Sale"/> 
 		<typeAlias alias="Stock_survey"   			type="com.oracle.erpProject.model.Stock_survey"/> 
 		<typeAlias alias="Stock"   						type="com.oracle.erpProject.model.Stock"/> 
-		<typeAlias alias="Work_order_detail"   	type="com.oracle.erpProject.model.Work_order_detail"/> 
-		<typeAlias alias="Work_order"   				type="com.oracle.erpProject.model.Work_order"/> 
+		<typeAlias alias="Work_order_detail"   	type="com.oracle.erpProject.model.Make_detail"/> 
+		<typeAlias alias="Work_order"   				type="com.oracle.erpProject.model.Make"/> 
 	</typeAliases>
 	
 	

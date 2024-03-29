@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.oracle.erpProject.model.Work_order_detail;
+import com.oracle.erpProject.model.Make_detail;
 import com.oracle.erpProject.service.jjservice.JJ_Paging;
 import com.oracle.erpProject.service.jjservice.JJ_Service_Interface;
 
@@ -23,7 +23,7 @@ public class JJController {
 	
 	// 생산 - 메인 리스트 페이지
 	@RequestMapping(value = "makeMain")
-	public String jjmakeMain(Work_order_detail wod, Model model) {
+	public String jjmakeMain(Make_detail wod, Model model) {
 		System.out.println("JJController's makeMain Go!");
 		
 		// 게시글 전체 개수 조회
@@ -37,7 +37,7 @@ public class JJController {
 		System.out.println("JJController's page ->" + page);
 		
 		// 게시글들을의 리스트 불러오기
-		List<Work_order_detail> makeList = js.makeList(wod);
+		List<Make_detail> makeList = js.makeList(wod);
 		System.out.println("JJController's makeList ->" + makeList);
 		
 		model.addAttribute("cntMake", cntMake);
@@ -53,7 +53,7 @@ public class JJController {
 		if(session.getAttribute("emp_no")!=null) { // 로그인 된 상태
 			System.out.println("JJController's makeFormRequest Go!");
 			
-//			List<Work_order_detail> makeList = js.makeList();
+//			List<Make_detail> makeList = js.makeList();
 //			System.out.println("JJController's makeFormRequest makeList.size ->" + makeList.size());
 //			System.out.println("JJController's makeFormRequest makeList ->" + makeList);
 //			model.addAttribute("makeList", makeList);
