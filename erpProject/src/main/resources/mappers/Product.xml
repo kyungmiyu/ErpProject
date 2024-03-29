@@ -11,4 +11,11 @@
 		where p_itemcode=${p_itemcode}
 		]]>
 	</select>
+		<!-- 제품 상세 조회  -->
+	<select id="productDetail" parameterType="Product" resultType="Product">
+	<![CDATA[
+		select * from product 
+		where p_itemcode=${p_itemcode}
+		]]>
+	</select>
 </mapper>

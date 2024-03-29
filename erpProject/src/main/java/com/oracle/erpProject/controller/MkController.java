@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.oracle.erpProject.model.mkmodel.Product;
+import com.oracle.erpProject.model.mkmodel.mkProduct;
 import com.oracle.erpProject.service.mkservice.MK_Service_interface;
 
 import lombok.RequiredArgsConstructor;
@@ -20,9 +20,9 @@ public class MkController {
 	private final MK_Service_interface mk_Service_interface;
 	//제품 조회, 수정
 	@GetMapping("/productR")
-	public String productR(Product product,Model model) {
+	public String productR(mkProduct product,Model model) {
 		System.out.println("MK Controller productR Start...");
-		  List<Product> listProduct = mk_Service_interface.listProduct(product);
+		  List<mkProduct> listProduct = mk_Service_interface.listProduct(product);
 		  System.out.println("MKController listProduct.size->"+listProduct.size());
 		  
 		  model.addAttribute("listProduct",listProduct); 
@@ -33,9 +33,9 @@ public class MkController {
 	//제품 상세 ajax 
 	@ResponseBody
 	@GetMapping("productDetail")
-	public Product productDetail(@RequestParam("p_itemcode") int itemCode ,Product product, Model model ) {
+	public mkProduct productDetail(@RequestParam("p_itemcode") int itemCode ,mkProduct product, Model model ) {
 		System.out.println("MK Controller productDetail Start");
-		Product ProductDetail =null;
+		mkProduct ProductDetail =null;
 		product.setP_itemcode(itemCode);
 		System.out.println("MK Controller productDetail->"+product);
 		ProductDetail = mk_Service_interface.getProductDetail(product);

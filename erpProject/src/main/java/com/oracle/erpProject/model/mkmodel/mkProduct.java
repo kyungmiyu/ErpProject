@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Product {
+public class mkProduct {
 	
 		private int p_itemcode;				//제품 코드
 		private int f_id;							// 공장 코드

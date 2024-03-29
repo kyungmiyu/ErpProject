@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.oracle.erpProject.model.mkmodel.Product;
+import com.oracle.erpProject.model.mkmodel.mkProduct;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,9 +19,9 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 	// 제품 리스트 
 	
 	@Override
-	public List<Product> productList(Product product) {
+	public List<mkProduct> productList(mkProduct product) {
 	
-		List<Product> productList = null;
+		List<mkProduct> productList = null;
 		System.out.println("MK_Dao_Impl productList start...");
 		
 		try {
@@ -35,9 +35,9 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 
 	// 제품 상세 
 	@Override
-	public Product productDetail(Product product) {
+	public mkProduct productDetail(mkProduct product) {
 		
-		Product productDetail = null;
+		mkProduct productDetail = null;
 	
 		System.out.println("MK_DAO_IMPL productDetail Start  ");
 		System.out.println("MK_DAO_IMPL productDetail->"+ product);
