@@ -5,12 +5,12 @@
 
 
 	<!-- 제품 리스트 조회  -->
-	<select id="productList" resultType="Product">
+	<select id="productList" resultType="mkProduct">
 		select * from product
 	</select>
 	
 	<!-- 제품 상세 조회  -->
-	<select id="productDetail" parameterType="Product" resultType="Product">
+	<select id="productDetail" parameterType="mkProduct" resultType="mkProduct">
 	<![CDATA[
 		select * from product 
 		where p_itemcode=${p_itemcode}
