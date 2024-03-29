@@ -3,6 +3,6 @@ package com.oracle.erpProject.model.jjmodel;
 import lombok.Data;
 
 @Data
-public class Comm {
+public class JJ_Comm {
 
 }

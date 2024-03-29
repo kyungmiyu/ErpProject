@@ -3,6 +3,6 @@ package com.oracle.erpProject.model.slmodel;
 import lombok.Data;
 
 @Data
-public class Comm {
+public class SL_Comm {
 
 }
