@@ -23,7 +23,11 @@ public class SLController {
 	}
 	
 	// 구매 등록 페이지
-	
+	@GetMapping(value = "buyingApply")
+	public String buyingApply() {
+		
+		return "sl/buyingApply";
+	}
 	
 	// 구매 상세 페이지
 	@GetMapping(value = "buyDetail")

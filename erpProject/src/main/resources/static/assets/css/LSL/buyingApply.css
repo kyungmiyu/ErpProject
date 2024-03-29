@@ -1,0 +1,334 @@
+/* 구매 상세 뒤 박스 */
+
+.buyingApply {
+	position: relative;
+	padding-top: 130px;
+	padding-bottom: 100px;
+	margin-top: 30px;
+	margin-bottom: 80px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	height: 100%;
+	background: white;
+	border-radius: 10px;
+	min-width: 700px;
+}
+
+
+/* Title */
+.buyingApplyLabel {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	font-size: 2rem;
+}
+
+
+
+/* 상세 내역 박스 */
+.detailBox {
+	position: relative;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+
+
+
+/* 내용 박스 */
+
+.titleBox {
+	height: 130px;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+#titleBox1 {
+	margin-top: 10px;
+	display: flex;
+}
+
+
+
+
+#detailTitleLabel {
+	font-size: 0.8rem;
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-right: 10px;
+	height: 20px;
+	width: 110px;
+
+}
+
+#detailTitle1 {
+	position: absolute;
+	left: 90px;
+	width: 430px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#detailTitle2 {
+	position: absolute;
+	left: 90px;
+	width: 430px;
+	margin-left: 10px;
+	margin-right: 30px;
+}
+
+#detailManagerLabel {
+	position: absolute;
+	height: 20px;
+	width: 125px;
+	right: 450px;
+	font-size: 0.8rem;
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+
+
+}
+
+#detailManager1 {
+	position: absolute;
+	right: 10px;
+	width: 370px;
+	margin-left: 40px;
+	margin-right: 110px;
+}
+
+#detailManager2 {
+	position: absolute;
+	right: 30px;
+	width: 430px;
+	margin-left: 10px;
+	margin-right: 30px;
+}
+
+
+
+
+
+
+/* 비고 */
+
+.colNote {
+	width: 100%;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	color: black;
+	text-align: center;
+	font-weight: bold;
+}
+
+.colNoteBox {
+	width: 95%;
+	height: 250px;
+	margin-bottom: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 10px;
+	border: 1px solid #d2d6da;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+/* 구매 아이템 select Box */
+
+.buyItemSelectBox {
+	display: flex;
+	width: 95%;
+	height: 100px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 10px;
+	border: 1px solid #d2d6da;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#buyingItemSelect {
+	width: 350px;
+	height: 40px;
+	margin-right: 80px;
+}
+
+.buyItemCnt {
+	width: 350px;
+	height: 40px;
+	border-radius: 10px;
+	border: 1px solid #d2d6da;
+}
+
+.buyItemSelectBox p {
+	margin-top: 10px;
+	margin-right: 25px;
+	font-weight: bold;
+	color: black;
+}
+
+
+
+
+/* 구매 리스트  */
+
+.buyList {
+	width: 95%;
+	height: 35px;
+	line-height: 35px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 10px;
+	border: 1px solid #d2d6da;
+
+}
+
+
+/*구매 리스트 Title*/
+
+.buyListTitle {
+	display: flex;
+	list-style: none;
+	color: black;
+	font-weight: bold;
+	padding: 0;
+
+
+}
+
+.buyListTitle li {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+
+/*구매 리스트 Box */
+
+#buyListItemsContainer {
+	width: 95%;
+	margin-bottom: 50px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.custom-select {
+	position: relative;
+	display: flex;
+	width: 100%;
+	height: 180px;
+	overflow-y: auto;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.custom-option {
+	width: 200px;
+	margin-top: 10px;
+	margin-right: 20px;
+	margin-left: 40px;
+	height: 40px;
+	border: 1px solid #d2d6da;
+	border-radius: 10px;
+	background-color: #e8e9ea63;
+
+}
+
+
+
+/* 버튼 */
+#customerSearchBtn {
+	position: absolute;
+	right: 40px;
+
+}
+
+#buyItemDeleteBtn {
+	position: absolute;
+	margin-top: 10px;
+	right: 30px;
+
+}
+
+#buyApply {
+	position: absolute;
+	font-size: 0.9rem;
+	width: 100px;
+	top: 55px;
+	right: 35px;
+}
+
+#addBtn {
+	height: 40px;
+	margin-top: 15px;
+	margin-left: 20px;
+
+}
+
+/* 거래처 검색 팝업창 */
+
+.customerSearchPopup {
+	display: none;
+	position: fixed;
+	top: 30%;
+	left: 40%;
+	background-color: #ffffff;
+	width: 500px;
+	height: 200px;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	z-index: 9999; /* 다른 요소 위에 표시 */
+}
+.customerSearchPopup p {
+	color: black;
+}
+
+.cusSearchBox {
+	position: absolute;
+	width: 370px;
+	height: 40px;
+	margin-top: -5px;
+	border-radius: 5px;
+	border: 1px solid #d2d6da;
+
+}
+.cusSearchName {
+	position: absolute;
+	top: 50px;
+	width: 300px;
+	height: 110px;
+	border-bottom: 1px solid #d2d6da;
+}
+
+#cusSearchXBtn {
+	position: absolute;
+	font-weight: bold;
+	color: black;
+	font-size: 1rem;
+	top: 5px;
+	right: 10px;	
+	cursor: pointer;
+}
+#cusSearchBtn {
+	position: absolute;
+	margin-top: -5px;
+	right: 20px;
+}
+#cusChioceBtn {
+	position: absolute;
+	top: 120px;
+	right: 80px;
+}

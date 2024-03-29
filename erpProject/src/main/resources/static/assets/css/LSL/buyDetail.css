@@ -1,3 +1,5 @@
+/* 구매 상세 뒤 박스 */
+
 .buyDetail {
 	position:relative;
 	padding-top:130px;
@@ -13,6 +15,7 @@
 
 }
 
+
 /* Title */
 .buyDetailLabel {
 	position:absolute;
@@ -22,6 +25,7 @@
 }
 
 
+
 /* 상세 내역 박스 */
 .detailBox {
 	position:relative;
@@ -29,13 +33,13 @@
 	margin-left: auto; 
     margin-right: auto; 
 	
-	
 }
 
 
 
 
 /* 내용 박스 */
+
 .titleBox {
     height: 130px;
     margin-left: auto;
@@ -47,13 +51,15 @@
 	margin-top: 10px;
 	display: flex;
 }
+
+
 #detailTitleLabel {
 	font-size: 0.8rem;
 	margin-top: 10px;
-	margin-left: 10px;
-	margin-right: 10px;
+	margin-left: 20px;
+	margin-right: -10px;
 	height: 20px;
-	width: 60px;
+	width: 110px;
 
 }
 #detailTitle {
@@ -63,16 +69,16 @@
 }
 
 
-
 #detailManagerLabel {
 	font-size: 0.8rem;
-	margin-top: 2px;
-	margin-left: 10px;
-	margin-right: 10px;
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
 	height: 20px;
-	width: 60px;
+	width: 110px;
 
 }
+
 #detailManager {
 	width: 600px;
 	margin-left: 10px;
@@ -83,22 +89,28 @@
 
 
 /* 비고 */
+
 .colNote {
 	width: 100%;
+	margin-top: 10px;
 	margin-left: auto; 
-    margin-right: auto; 
+    margin-right: auto;
+    color: black; 
     text-align: center;
-    border: 1px solid black;
-
+  	font-weight: bold;
 }
 
 .colNoteBox {
-	width: 100%;
-	height:200px;
-	margin-left: auto; 
-    margin-right: auto; 
-    border: 1px solid black;
-	
+    width: 95%;
+    height: 250px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    border: 1px solid #d2d6da;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
 }
 
 
@@ -106,19 +118,29 @@
 /* 구매 리스트  */
 
 .buyList {
-	width: 100%;
+	width: 95%;
 	height: 35px;
 	line-height: 35px;
+	margin-top: 40px;
+	margin-bottom: 10px;
 	margin-left: auto; 
     margin-right: auto; 
-	border: 1px solid black;
+    border-radius: 10px;
+	border: 1px solid #d2d6da;
 
 }
+
+
+/*구매 리스트 Title*/
 
 .buyListTitle {
 	display:flex;
     list-style: none; 
+    color: black;
+    font-weight: bold;
     padding: 0;
+    
+    
 }
 
 .buyListTitle li  {
@@ -128,23 +150,75 @@
 
 
 
-.form-group {
-	width: 100%;
-	justify-content: center;
-	
+/*구매 리스트 Box */
+
+#buyListItemsContainer {
+    width: 95%;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.custom-select {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 180px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.custom-option {
+    width: 200px;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-left: 40px;
+    height: 40px;
+	border: 1px solid #d2d6da;
+	border-radius: 10px;
+    background-color: #e8e9ea63;
+    
+}
+
 
 
 /* 버튼 */
 
 #buyModify {
 	position: absolute;
-	margin-left: 700px;
-	
+	margin-top: -10px;
+	right: 110px;
 }
 
 
 #buyComple{
+	position: absolute;
+	margin-top: -10px;
+	right: 40px;
 	
-	margin-left: 780px;
+}
+
+#buyCancle {
+	position: absolute;
+	font-size: 0.9rem;
+	width: 100px;
+	top: 55px;
+	right: 35px;
+}
+
+/* 구매 상태 Box */
+.buyStatusBox {
+	position: absolute;
+	top: 75px;
+	left: 23px;
+	width: 100px;
+	height: 40px;
+	text-align: center;
+	font-weight: bold;
+	line-height:40px;
+	border: 1px solid #d2d6da;
+	border-radius: 10px;
+	color: white;
+	background-color: #5e72e4d9;
 }

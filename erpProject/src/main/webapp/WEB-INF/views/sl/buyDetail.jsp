@@ -30,17 +30,20 @@
 	 <label class="buyDetailLabel">구매 상세</label>
 	 
 	 <div class="titleBox">
+
+		<button type="button" class="btn btn-primary" id="buyCancle">구매 취소</button>
+		<div class="buyStatusBox">구매 진행중</div>
 	 
 	 	<div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">제목</label>
 		    <input type="text" class="form-control" id="detailTitle" placeholder="">
-		  	<label for="detailManager" id="detailManagerLabel">거래처담당자</label>
+		  	<label for="detailManager" id="detailManagerLabel">거래처</label>
 		    <input type="text" class="form-control" id="detailManager" placeholder="">
 		  </div>
 		  <div class="form-group" id="titleBox1">
-		    <label for="detailTitle" id="detailTitleLabel">구매담당자</label>
+		    <label for="detailTitle" id="detailTitleLabel">구매 담당자</label>
 		    <input type="text" class="form-control" id="detailTitle" placeholder="">
-		  	<label for="detailManager" id="detailManagerLabel">거래처</label>
+		  	<label for="detailManager" id="detailManagerLabel">거래처 담당자</label>
 		    <input type="text" class="form-control" id="detailManager" placeholder="">
 		  </div>
 	 
@@ -49,7 +52,7 @@
 			  
 
 			  <div class="colNote">비고</div>
-			  <input type="text"  class="colNoteBox" placeholder="구매 특이사항을 적어주세요">
+			  <textarea type="text"  class="colNoteBox" placeholder="구매 특이사항을 적어주세요"></textarea>
 
 		  
 		 <div class="buyList">
@@ -60,26 +63,15 @@
 		        <li>총 금액</li>
 		    </ul>
 		</div>
-		<!--   <div class="form-group">
-		    <label for="exampleFormControlSelect1">Example select</label>
-		    <select class="form-control" id="exampleFormControlSelect1">
-		      <option>1</option>
-		      <option>2</option>
-		      <option>3</option>
-		      <option>4</option>
-		      <option>5</option>
-		    </select>
-		  </div> -->
 		  
-		  <div class="form-group">
-		    <select multiple class="form-control" id="exampleFormControlSelect2">
-		      <option>1</option>
-		      <option>2</option>
-		      <option>3</option>
-		      <option>4</option>
-		      <option>5</option>
-		    </select>
-		  </div>
+		<div class="form-group" id="buyListItemsContainer">
+			<div class="custom-select" id="buyListItems">
+				<div class="custom-option"></div>
+				<div class="custom-option"></div>
+				<div class="custom-option"></div>
+				<div class="custom-option"></div>
+			</div>
+		</div>
 
 	
    	<button type="button" class="btn btn-primary" id="buyModify">수정</button>
