@@ -16,11 +16,21 @@ public class Buying {
 	private String buy_manager;			// 구매 담당자
 	private String buy_note;				// 비고
 	private Date buy_wdate;				//구매입력날짜
-														// 데이트는 sql. date 아니고, utill.date 로 입력 
+									// 데이트는 sql. date 아니고, utill.date 로 입력 
 	
 
 	// 조회용 수불 마감
 	private String d_year_month;	// 년월일
 	private int d_cubun;					// 수불마감구분
+	
+	// 조회용
+	private String buy_status_detatil; //  구매 상태 이름 
+	private int productcnt; // 총 구매한 제품의 타입 수 
+	private String emp_name; // 거래처 담당자 이름
+	private String cust_name; // 거래처 
+	private int p_itemcode;		// 제품코드
+	private int bd_cnt;			// 구매수량
+	private int bd_price;		// 구매가격
+	private int totalMoney;
 	
 }

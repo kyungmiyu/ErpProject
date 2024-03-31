@@ -52,7 +52,7 @@
 			  
 
 			  <div class="colNote">비고</div>
-			  <textarea type="text"  class="colNoteBox" placeholder="구매 특이사항을 적어주세요"></textarea>
+			  <textarea type="text"  class="colNoteBox"></textarea>
 
 		  
 		 <div class="buyList">
