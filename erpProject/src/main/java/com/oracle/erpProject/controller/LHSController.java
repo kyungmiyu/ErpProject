@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class LHSController { // 
+public class LHSController {
 	
 	private final LHS_Serivce_Interface lhs;
 	 
