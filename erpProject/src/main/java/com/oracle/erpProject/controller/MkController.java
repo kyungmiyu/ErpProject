@@ -47,7 +47,7 @@ public class MkController {
 		  model.addAttribute("listProduct",listProduct); 
 		  model.addAttribute("page", page);
 		  model.addAttribute("totalProduct",totalProduct);
-		  return "mk/productRu";
+		  return "mk/productR";
 		  } 
 	
 	
@@ -87,7 +87,7 @@ public class MkController {
 		 model.addAttribute("listProduct",listSearchProduct);
 		 model.addAttribute("page",page);
 		 
-		 return "mk/productRu";
+		 return "mk/productR";
 	 }
 
 	
@@ -140,6 +140,11 @@ public class MkController {
 			}
 		}
 		
+		//제품 수정
+		@GetMapping("productU")
+		public String productU() {
+			return "mk/productU";
+		}
 	//제품 등록 ->이미지 등록 
 		
 	/*
