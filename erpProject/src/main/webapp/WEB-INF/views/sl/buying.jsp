@@ -84,18 +84,6 @@
 		      <td>@mdo</td>
 		      <td>@mdo</td>
 		    </tr>
-		    <tr>
-		      <th scope="row">2</th>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		    </tr>
-		    <tr>
 		  </tbody>
 		</table>
 		<nav aria-label="Page navigation example">

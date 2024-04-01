@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracle.erpProject.BuyingMapper">
 	
-	<select id="LsltotalbuyingCnt" returnType="int">
+	<select id="LsltotalbuyingCnt" resultType="int">
 		select count(*)
 		from buying
 	</select>
 	
-	<select id="buyAlllist" parameterType ="Buying" returnType="Buying">
+	<select id="buyAlllist" parameterType ="Buying" resultType="Buying">
    SELECT 
     b.*, 
     e.EMP_NAME, 
@@ -26,7 +26,8 @@
     (
     	SELECT SUM(bd. bd_price * bd.bd_cnt) 
         FROM BUYING_DETAIL bd 
-        WHERE bd.buy_date = b.buy_date    
+        WHERE bd.buy_date = b.buy_date   
+        AND bd.cust_no = bd.cust_no 
     ) AS  totalMoney
 	FROM 
     BUYING b
