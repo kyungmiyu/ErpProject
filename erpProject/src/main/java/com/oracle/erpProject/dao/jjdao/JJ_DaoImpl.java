@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-
-import com.oracle.erpProject.model.Make_detail;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
 
 import lombok.RequiredArgsConstructor;
@@ -22,12 +20,11 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 	public int cntMake() {
 		int cntMake = 0;
 		System.out.println("JJ_DaoImpl's cntMake Go!");
-		
 		try {
 			cntMake = session.selectOne("jjcntMake");
 			System.out.println("JJ_DaoImpl's cntMake -> " + cntMake);
 		} catch (Exception e) {
-			System.out.println("JJ_DaoImpl's cntMake Exception -> " + e.getMessage());
+			e.printStackTrace();
 		}
 		return cntMake;
 	}
@@ -55,8 +52,21 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 			requestMakeList = session.selectList("jjRequestMakeList");
 			System.out.println("JJ_DaoImpl's requestMakeList.size() -> " + requestMakeList.size());
 		} catch (Exception e) {
-			System.out.println("JJ_DaoImpl's requestMakeList Exception -> " + e.getMessage());
+			e.printStackTrace();
 		}
 		return requestMakeList;
+	}
+
+	@Override
+	public int makeRequest(JJ_Make_detail md) {
+		int makeRequest = 0;
+		System.out.println("JJ_DaoImpl's makeRequest Go!");
+		try {
+			makeRequest = session.insert("jjMakeRequestInsert", md);
+			System.out.println("JJ_DaoImpl's makeRequest -> " + makeRequest);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return makeRequest;
 	}
 }

@@ -19,15 +19,20 @@
 		<typeAlias alias="Sale"   							type="com.oracle.erpProject.model.Sale"/> 
 		<typeAlias alias="Stock_survey"   			type="com.oracle.erpProject.model.Stock_survey"/> 
 		<typeAlias alias="Stock"   						type="com.oracle.erpProject.model.Stock"/> 
-		<typeAlias alias="Make_detail"   	type="com.oracle.erpProject.model.Make_detail"/> 
-		<typeAlias alias="Make"   				type="com.oracle.erpProject.model.Make"/> 
-		
+				
 		<!-- 재준 시작-->
 		<typeAlias alias="JJ_Comm"			   	type="com.oracle.erpProject.model.jjmodel.JJ_Comm"/>
 		<typeAlias alias="JJ_Make_detail"   	type="com.oracle.erpProject.model.jjmodel.JJ_Make_detail"/> 
 		<typeAlias alias="JJ_Make"   			type="com.oracle.erpProject.model.jjmodel.JJ_Make"/>
 		<!-- 재준 끝-->
 		<typeAlias alias="mkProduct"   			type="com.oracle.erpProject.model.mkmodel.mkProduct"/>
+		
+		<!-- 현승 시작 -->
+		<typeAlias alias="LHS_Comm"			   	type="com.oracle.erpProject.model.lhsmodel.Comm"/>
+		<typeAlias alias="LHS_Employee"			   	type="com.oracle.erpProject.model.lhsmodel.Employee"/>
+		<typeAlias alias="LHS_Stock"			   	type="com.oracle.erpProject.model.lhsmodel.Stock"/>
+		<typeAlias alias="LHS_Stock_survey"			   	type="com.oracle.erpProject.model.lhsmodel.Stock_survey"/>
+		<!-- 현승 끝 -->
 	</typeAliases>
 	
 	

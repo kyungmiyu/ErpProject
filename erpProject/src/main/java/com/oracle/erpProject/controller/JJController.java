@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.oracle.erpProject.model.Make_detail;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
 import com.oracle.erpProject.service.jjservice.JJ_Paging;
 import com.oracle.erpProject.service.jjservice.JJ_Service_Interface;
@@ -54,16 +54,28 @@ public class JJController {
 //		if(session.getAttribute("emp_no")!=null) { // 로그인 된 상태
 			System.out.println("JJController's makeFormRequest Go!");
 			
-			List<JJ_Make_detail> makeList = js.requestMakeList();
-			System.out.println("JJController's makeFormRequest makeList.size ->" + makeList.size());
-			System.out.println("JJController's makeFormRequest makeList ->" + makeList);
-			model.addAttribute("makeList", makeList);
+			List<JJ_Make_detail> requestMakeList = js.requestMakeList();
+			System.out.println("JJController's makeFormRequest makeList.size ->" + requestMakeList.size());
+			System.out.println("JJController's makeFormRequest makeList ->" + requestMakeList);
+			model.addAttribute("requestMakeList", requestMakeList);
 			
 			return "jj/makeFormRequest";
 //		} else { // 로그인이 안된 상태
 //			return "/";
 //		}
 	}
+	
+	// 생산 - 생산요청 페이지 - 입력 적용
+	@PostMapping(value = "makeRequest")
+	public String makeRequest(JJ_Make_detail md, Model model) {
+		System.out.println("JJController's makeRequest Go!");
+		int makeRequest = js.makeRequest(md);
+		System.out.println("JJController's makeRequest -> " + makeRequest);
+		
+		return "foward:makeMain";
+	}
+	
+	
 	
 	
 	// 생산 - 메인 리스트 페이지 - 카테고리+검색어로 게시글을 조회

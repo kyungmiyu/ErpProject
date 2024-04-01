@@ -19,29 +19,29 @@ public class Yhs_DaoImpl implements Yhs_Dao_Interface {
 	@Override
 	public int totalBoard(Board board) {
 		int totBoardCount = 0;
-		System.out.println("AskDaoImpl Start total..." );
+		System.out.println("BoardDaoImpl Start total..." );
 
 		try {
-			totBoardCount = session.selectOne("askTotal",board);
-			System.out.println("AskDaoImpl totalAsk totAskCount->" +totBoardCount);
+			totBoardCount = session.selectOne("boardTotal",board);
+			System.out.println("Yhs_DaoImpl totalBoard totBoardCount->" +totBoardCount);
 		} catch (Exception e) {
-			System.out.println("AskDaoImpl totalAsk Exception->"+e.getMessage());
+			System.out.println("Yhs_DaoImpl totalBoard Exception->"+e.getMessage());
 		}
 		return totBoardCount;	
 	}
 	
 	@Override
 	public List<Board> listBoard(Board board) {
-		List<Board> askList = null;
-		System.out.println("AskDaoImpl listAsk Start ..." );
+		List<Board> boardList = null;
+		System.out.println("Yhs_DaoImpl listBoard Start ..." );
 		try {
 			//                             Map ID        parameter
-			askList = session.selectList("yhsAskListAll", board);
-			System.out.println("AskDaoImpl listAsk askList.size()->"+askList.size());
+			boardList = session.selectList("yhsBoardListAll", board);
+			System.out.println("Yhs_DaoImpl listBoard boardList.size()->"+boardList.size());
 		} catch (Exception e) {
-			System.out.println("AskDaoImpl listAsk e.getMessage()->"+e.getMessage());
+			System.out.println("Yhs_DaoImpl listBoard e.getMessage()->"+e.getMessage());
 		}
-		return askList;
+		return boardList;
 	}
 
 }

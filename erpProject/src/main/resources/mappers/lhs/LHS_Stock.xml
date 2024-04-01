@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.erpProject.LHS_StockMapper">
+
+	<select id="lhsGetTotalStock" parameterType="LHS_Stock" resultType="int">
+		SELECT count(*) FROM stock WHERE st_year_month = #{st_year_month}
+			<choose>
+				<when test="gubun == 'all'">
+				</when>
+				<when test="gubun == 'begin'">
+					AND st_begin_end = 0
+				</when>
+				<when test="gubun == 'end'">
+					AND st_begin_end = 1
+				</when>
+			</choose>
+	</select>
+	
+	<!-- 순번pg 구분s 제품코드s 제품명p 수량s 등록날짜s -> product, stock 조인 -->
+	<select id="lhsGetListStock" parameterType="LHS_Stock" resultType="LHS_Stock">
+		SELECT b.*,
+		    CASE WHEN st_begin_end = 0 THEN '기초'
+		        WHEN st_begin_end = 1 THEN '기말'
+		    END AS st_begin_end_gubun
+		FROM
+		    (SELECT rownum rn, a.*
+		    FROM
+		        (SELECT p.p_name, s.*,
+		        	CASE WHEN s.st_begin_end = 0 THEN '기초'
+				        WHEN s.st_begin_end = 1 THEN '기말'
+				    END AS 구분
+		        FROM product p, stock s
+		        WHERE p.p_itemcode = s.p_itemcode
+		            AND s.st_year_month = #{st_year_month}
+		            <choose>
+						<when test="gubun == 'all'">
+						</when>
+						<when test="gubun == 'begin'">
+							AND st_begin_end = 0
+						</when>
+						<when test="gubun == 'end'">
+							AND st_begin_end = 1
+						</when>
+					</choose>
+		        ORDER BY s.st_regdate DESC, s.p_itemcode) a
+			) b
+		WHERE rn BETWEEN #{start} and #{end}
+
+<!-- 		SELECT *
+		FROM
+		    (SELECT rownum rn, a.*
+		    FROM
+		        (SELECT p.p_name, s.*
+		        FROM product p, stock s
+		        WHERE p.p_itemcode = s.p_itemcode
+		            AND s.st_year_month = 202404
+		        ORDER BY s.st_regdate DESC, s.p_itemcode) a -->
+	</select>
+
+</mapper>
