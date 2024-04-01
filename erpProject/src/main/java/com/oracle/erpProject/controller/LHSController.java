@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class LHSController { // 0401 - 1102 test 120b1e까지 
+public class LHSController {
 	
 	private final LHS_Serivce_Interface lhs;
 	 
