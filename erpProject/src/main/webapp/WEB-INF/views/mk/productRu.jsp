@@ -129,9 +129,11 @@ $(document).ready(function() {
 							<h6 class="mb-4">제품 조회</h6>
 
 
-							<!--검색 및 필터  -->
+							
 
-							<form action="search1">
+				<!--검색 및 필터  -->
+
+				<%-- 			<form action="search1">
 								<!-- 필터 행 -->
 								<div class="row">
 									<div class="col">
@@ -174,10 +176,7 @@ $(document).ready(function() {
 										</div>
 									</div>
 								</div>
-							</form>
-
-
-
+							</form> --%>
 
 						</div>
 						<div class="card-body px-0 pt-0 pb-2">
@@ -275,39 +274,31 @@ $(document).ready(function() {
 						</div>
 
 						<!-- 페이징 -->
-					<!-- 	<nav aria-label="Page navigation example">
-							<ul class="pagination justify-content-center">
-								<li class="page-item"><a class="page-link" href="#">Pre</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a></li>
-							</ul>
-						</nav> -->
+	
 						<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        <c:if test="${page.startPage > page.pageBlock}">
-            <!-- "이전" 페이지 링크 -->
-            <li class="page-item">
-                <a class="page-link" href="productR?currentPage=${page.startPage - page.pageBlock}">이전</a>
-            </li>
-        </c:if>
-        
-        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-            <!-- 페이지 번호 링크 -->
-            <li class="page-item ${param.currentPage == i ? 'active' : ''}">
-                <a class="page-link" href="productR?currentPage=${i}">${i}</a>
-            </li>
-        </c:forEach>
-        
-        <c:if test="${page.endPage < page.totalPage}">
-            <!-- "다음" 페이지 링크 -->
-            <li class="page-item">
-                <a class="page-link" href="productR?currentPage=${page.startPage + page.pageBlock}">다음</a>
-            </li>
-        </c:if>
-    </ul>
-</nav>
+					    <ul class="pagination justify-content-center">
+					        <c:if test="${page.startPage > page.pageBlock}">
+					            <!-- "이전" 페이지 링크 -->
+					            <li class="page-item">
+					                <a class="page-link" href="productR?currentPage=${page.startPage - page.pageBlock}">이전</a>
+					            </li>
+					        </c:if>
+					        
+					        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+					            <!-- 페이지 번호 링크 -->
+					            <li class="page-item ${param.currentPage == i ? 'active' : ''}">
+					                <a class="page-link" href="productR?currentPage=${i}">${i}</a>
+					            </li>
+					        </c:forEach>
+					        
+					        <c:if test="${page.endPage < page.totalPage}">
+					            <!-- "다음" 페이지 링크 -->
+					            <li class="page-item">
+					                <a class="page-link" href="productR?currentPage=${page.startPage + page.pageBlock}">다음</a>
+					            </li>
+					        </c:if>
+					    </ul>
+					</nav>
 						
 						<!-- 페이징 끝 -->
 					</div>

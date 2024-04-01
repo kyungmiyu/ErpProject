@@ -70,41 +70,7 @@
 						<!-- img-->
 						<img src="../upload/jinnoodle.jpg" class="img-thumbnail" style="width: 200px; height: 200px;" alt="...">
 
-						<!-- img end -->
-								<!-- <form>
-									<div class="form-group">
-										<label for="exampleFormControlInput1">Email address</label> <input
-											type="email" class="form-control"
-											id="exampleFormControlInput1" placeholder="name@example.com">
-									</div>
-									
-										<div class="form-group">
-										<label for="exampleFormControlInput1">Email address</label> <input
-											type="email" class="form-control"
-											id="exampleFormControlInput1" placeholder="name@example.com">
-									</div>
-									
-										<div class="form-group">
-										<label for="exampleFormControlInput1">Email address</label> <input
-											type="email" class="form-control"
-											id="exampleFormControlInput1" placeholder="name@example.com">
-									</div>
-									
-										<div class="form-group">
-										<label for="exampleFormControlInput1">Email address</label> <input
-											type="email" class="form-control"
-											id="exampleFormControlInput1" placeholder="name@example.com">
-									</div>
-									
-									<div class="form-group">
-										<label for="exampleFormControlInput1">Email address</label> <input
-											type="email" class="form-control"
-											id="exampleFormControlInput1" placeholder="name@example.com">
-									</div>
-									
-								
-									
-								</form> -->
+					
 								
 								<form>
     <div class="row">
@@ -163,7 +129,7 @@
     
     <!-- 버튼 -->
     <div class="text-right">
-    <button class="btn btn-primary" type="button">저장</button>
+    <button class="btn btn-primary" type="submit">저장</button>
  </div>
 
     

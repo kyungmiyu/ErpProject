@@ -49,6 +49,7 @@ public class MK_ServiceImpl implements MK_Service_interface {
 	public int insertProduct(mkProduct product) {
 		int result=0;
 		System.out.println("MKServiceImpl insertProduct Start");
+		System.out.println("MKServiceImpl product->"+product);
 		result = mk_Dao_Interface.insertProduct(product);
 		return result;
 	}

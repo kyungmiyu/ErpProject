@@ -72,17 +72,18 @@ public class MkController {
 	}
 		  
 	// 제품 등록 
-		  
+		
 		@PostMapping(value="writeProduct")
 		public String writeProduct(mkProduct product, Model model) {
 			System.out.println("MK_Controller WriteProduct start...");
 			
+			System.out.println("product data->"+product);
 			int insertResult = mk_Service_interface.insertProduct(product);
 			if(insertResult>0)
-				return"redirect:mk/productRu";
+				return"redirect:productR";
 			else {
 				model.addAttribute("msg","입력 실패 확인해 보세요");
-				return "forward:mk/productC";
+				return "forward:productC";
 			}
 		}
 		  

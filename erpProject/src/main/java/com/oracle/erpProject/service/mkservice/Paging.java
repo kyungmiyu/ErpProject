@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Paging {
-	private int currentPage = 1;	private int rowPage   = 10;
+	private int currentPage = 1;	private int rowPage   = 11;
 	private int pageBlock = 10;		
 	private int start;				private int end;
 	private int startPage;			private int endPage;
