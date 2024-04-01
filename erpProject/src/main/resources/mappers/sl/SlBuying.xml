@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.erpProject.BuyingMapper">
+
+	
+	<select id="LsltotalbuyingCnt" resultType="int">
+		select count(*)
+		from buying B,customer c
+        WHERE b.cust_no = c.cust_no
+        and c.cust_type = 1
+
+	</select>
+	
+	<select id="LslbuyAlllist"  resultType="Buying">
+	
+	SELECT 
+            b.*, 
+            e.EMP_NAME, 
+            c.CUST_NAME,
+            CASE 
+                WHEN b.buy_status = 0 THEN '구매 진행중'
+                WHEN b.buy_status = 1 THEN '구매 취소'
+                WHEN b.buy_status = 2 THEN '구매 완료'
+            END AS buy_status_detail,
+            (
+                SELECT COUNT(DISTINCT bd.P_ITEMCODE) 
+                FROM buying_detail bd 
+                 WHERE B.CUST_NO =  bd.cust_no
+            ) AS productCnt,
+            (
+                SELECT SUM(bd.bd_price * bd.bd_cnt) 
+                FROM buying_detail bd
+                 WHERE B.CUST_NO =  bd.cust_no
+            ) AS totalMoney,
+            (
+                SELECT SUM(bd.bd_cnt)
+                FROM buying_detail bd
+                WHERE B.CUST_NO =  bd.cust_no
+            ) AS totalCnt
+        FROM 
+            BUYING b
+            JOIN EMPLOYEE e ON b.EMP_NO = e.EMP_NO
+            JOIN CUSTOMER c ON b.CUST_NO = c.CUST_NO
+            WHERE c.cust_type = 1
+            
+	</select>
+	
+	
+	<select id="LsldateSearchtotCnt" resultType="int" parameterType="Buying">
+	SELECT count(*)
+	from buying B,customer c
+    WHERE b.cust_no = c.cust_no
+	AND b.buy_date = #{buy_date}
+	AND c.cust_type = 1
+	</select>
+	
+	<select	id="LsldateSearchAllList"  resultType="List" parameterType="Buying">
+	SELECT 
+            b.*, 
+            e.EMP_NAME, 
+            c.CUST_NAME,
+            CASE 
+                WHEN buy_status = 0 THEN '구매 진행중'
+                WHEN buy_status = 1 THEN '구매 취소'
+                WHEN buy_status = 2 THEN '구매 완료'
+            END AS buy_status_detail,
+            (
+                SELECT COUNT(DISTINCT bd.P_ITEMCODE) 
+                FROM buying_detail bd 
+                 WHERE B.CUST_NO =  bd.cust_no
+            ) AS productCnt,
+            (
+                SELECT SUM(bd.bd_price * bd.bd_cnt) 
+                FROM buying_detail bd
+                 WHERE B.CUST_NO =  bd.cust_no
+            ) AS totalMoney,
+            (
+                SELECT SUM(bd.bd_cnt)
+                FROM buying_detail bd
+                WHERE B.CUST_NO =  bd.cust_no
+            ) AS totalCnt
+        FROM 
+            BUYING b
+            JOIN EMPLOYEE e ON b.EMP_NO = e.EMP_NO
+            JOIN CUSTOMER c ON b.CUST_NO = c.CUST_NO
+	</select>
+	
+	
+
+</mapper>

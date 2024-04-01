@@ -23,8 +23,30 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 
 	@Override
 	public List<Buying> buyAlllist(Buying buying) {
+		System.out.println("SL_ServiceImpl buyAlllist Start ->>>>>>");
 		List<Buying> buyAlllist = slDao.buyAlllist(buying);
+		System.out.println("SL_ServiceImpl buyAlllist buyAlllist ->>>>>>" + buyAlllist);
 		return buyAlllist;
+	}
+
+	// 날짜 검색
+	@Override
+	public int dateSearchtotCnt(Buying buying) {
+		System.out.println("SL_ServiceImpl dateSearchtotCnt Start ->>>>>>");
+		
+		int dateSearchtotCnt = slDao.dateSearchtotCnt(buying);
+		return dateSearchtotCnt;
+	}
+	
+
+	@Override
+	public List<Buying> dateSearchAllList(Buying buying) {
+		System.out.println("SL_ServiceImpl dateSearchAllList Start ->>>>>>");
+		List<Buying> dateSearchAllList = slDao.dateSearchAllList(buying);
+		
+		System.out.println("SL_ServiceImpl dateSearchAllList  ->>>>>>" + dateSearchAllList);
+		
+		return dateSearchAllList;
 	}
 	
 }

@@ -170,13 +170,14 @@
 }
 
 .custom-option {
-    width: 200px;
+ 	width: 20%;
     margin-top: 10px;
-    margin-right: 20px;
-    margin-left: 40px;
+    margin-left: auto;
+    margin-right: auto;
     height: 40px;
-	border: 1px solid #d2d6da;
-	border-radius: 10px;
+    display: inline-block;
+    border: 1px solid #d2d6da;
+    border-radius: 10px;
     background-color: #e8e9ea63;
     
 }

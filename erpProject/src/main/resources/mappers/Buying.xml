@@ -1,38 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracle.erpProject.BuyingMapper">
-	
-	<select id="LsltotalbuyingCnt" resultType="int">
-		select count(*)
-		from buying
-	</select>
-	
-	<select id="buyAlllist" parameterType ="Buying" resultType="Buying">
-   SELECT 
-    b.*, 
-    e.EMP_NAME, 
-    c.CUST_NAME,
-    CASE 
-        WHEN b.buy_status = 0 THEN '구매 진행중'
-        WHEN b.buy_status = 1 THEN '구매 취소'
-        WHEN b.buy_status = 2 THEN '구매 완료'
-    END AS buy_status_detail,
-    (
-        SELECT COUNT(DISTINCT bd.P_ITEMCODE) 
-        FROM BUYING_DETAIL bd 
-        WHERE bd.buy_date = b.buy_date
-       	AND bd.cust_no = b.CUST_NO
-    ) AS productcnt,
-    (
-    	SELECT SUM(bd. bd_price * bd.bd_cnt) 
-        FROM BUYING_DETAIL bd 
-        WHERE bd.buy_date = b.buy_date   
-        AND bd.cust_no = bd.cust_no 
-    ) AS  totalMoney
-	FROM 
-    BUYING b
-    JOIN EMPLOYEE e ON b.EMP_NO = e.EMP_NO
-    JOIN CUSTOMER c ON b.CUST_NO = c.CUST_NO
-	</select>
+
 
 </mapper>
