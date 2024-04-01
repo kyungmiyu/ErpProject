@@ -6,15 +6,17 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.oracle.erpProject.model.lhsmodel.Employee;
+import com.oracle.erpProject.model.lhsmodel.Stock;
 
 import lombok.RequiredArgsConstructor;
-
+ 
 @Repository
 @RequiredArgsConstructor
 public class LHS_DaoImpl implements LHS_Dao {
 	
 	private final SqlSession session;
  
+	// 테스트용 사원리스트 조회
 	@Override
 	public List<Employee> getListEmp() {
 		List<Employee> listEmp = null;
@@ -30,6 +32,7 @@ public class LHS_DaoImpl implements LHS_Dao {
 		return listEmp;
 	}
 
+	// 사원정보 조회
 	@Override
 	public Employee getDataEmp(int emp_no) {
 		Employee empData = null;
@@ -42,6 +45,36 @@ public class LHS_DaoImpl implements LHS_Dao {
 			e.printStackTrace();
 		}
 		return empData; 
+	}
+	
+	// 월 재고 total수 조회
+	@Override
+	public int getTotalStock(Stock stock) {
+		int totalStock = 0;
+		System.out.println("lhsDaoImpl getTotalStock start...");
+		
+		try {
+			totalStock = session.selectOne("lhsGetTotalStock", stock);
+			System.out.println("lhsDaoImpl getTotalStock totalStock-> " + totalStock);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return totalStock;
+	}
+
+	// 월 재고리스트 조회
+	@Override
+	public List<Stock> getListStock(Stock stock) {
+		List<Stock> listStock = null;
+		System.out.println("lhsDaoImpl getListStock start...");
+		
+		try {
+			listStock = session.selectList("lhsGetListStock", stock);
+			System.out.println("lhsDaoImpl getListStock listStock.size()-> " + listStock.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listStock;
 	}
 	
 	

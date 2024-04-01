@@ -1,12 +1,20 @@
 package com.oracle.erpProject.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracle.erpProject.model.lhsmodel.Employee;
+import com.oracle.erpProject.model.lhsmodel.Stock;
+import com.oracle.erpProject.service.lhsservice.LHSPaging;
 import com.oracle.erpProject.service.lhsservice.LHS_Serivce;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +25,7 @@ public class LHSController {
 	
 	private final LHS_Serivce lhs;
 	
-	// 테스트용 사원리스트
+	// 테스트용 사원리스트 조회
 	@RequestMapping(value="lhs")
 	public String lhsListEmp(Model model) {
 		
@@ -48,23 +56,43 @@ public class LHSController {
 	/*  월 재고조회 */
 	
 	// 월 재고조회 (기초기말)
-		@RequestMapping(value="lhsListStock")
-	public String lhsListStock () {
+	@RequestMapping(value="lhsListStock")
+	public String lhsListStock (Stock stock, Employee emp, Model model) {
+		
+		System.out.println("lhsController lhsListStock start...");
+		
+		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		
+		// sysdate 년월만 string으로 변환
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMM");
+		String formattedDate = dateFormat.format(new Date());
+		
 		//  if 날짜 = null -> set sysdate, else -> set data
-			
-		/*	
-		if 구분 = null or 전체 getListStock // 조건: 날짜
-        else if 구분 = 기초 -> getListStockBegin // 조건: 날짜, 구분=0(기초)
-        else if 구분 = 기말 -> getListStockEnd // 조건: 날짜, 구분=1(기말)
-        */
-			
+		if (stock.getSt_year_month() == null) {
+			stock.setSt_year_month(formattedDate);
+		}
+		
+		System.out.println("check: " + stock.getSt_year_month());
+		System.out.println("check: " + stock.getSt_begin_end());
+		// 월 재고 total수 조회
+		int totalStock = lhs.getTotalStock(stock);
+		
+		// pagingg
+		LHSPaging page = new LHSPaging(totalStock, stock.getCurrentPage());
+		stock.setStart(page.getStart());
+		stock.setEnd(page.getEnd());
+		
+		// 재고 리스트 가져오기
+		List<Stock> listStock = lhs.getListStock(stock);
+		
+		model.addAttribute("empData", empData);
+		model.addAttribute("stock", stock);
+		model.addAttribute("totalStock", totalStock);
+		model.addAttribute("listStock", listStock);
+		model.addAttribute("page", page);
+		
 		return "lhs/listStock";
 		
-/*
-listStock ㅡ 날짜선택 -> #selectMonth by ajax1 (lhsListStock)
-       		구분선택 -> #selectGubun by sub ajax of ajax1 (lhsListStock)
-       		관리버튼 클릭 -> href: lhsManageFormRegistStock		 
-*/
 	}
 
 		
@@ -74,19 +102,35 @@ listStock ㅡ 날짜선택 -> #selectMonth by ajax1 (lhsListStock)
 		
 	// 재고등록 관리 ((폼 따로 x -> 폼 이동만 관리)
 	@RequestMapping(value="lhsManageFormRegistStock")
-	public String lhsManageFormRegistStock() {
+	public String lhsManageFormRegistStock(Employee emp, Model model) {
 		
-		// if sysdate < 25일 -> return: lhsFormRegistStockBegin
-        // 		else -> return: lhsFormRegistStockSurvey
+		System.out.println("lhsController lhsManageFormRegistStock start...");
 		
-		return "lhs/lhsFormRegistStockBegin";
+		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		
+		LocalDate currentDate = LocalDate.now();
+
+	    // 현재 날짜가 25일보다 작은지 확인
+	    if (currentDate.getDayOfMonth() < 25) {
+	        // 25일 미만인 경우
+	        return "redirect:lhsFormRegistStockBegin?emp_no=" + emp.getEmp_no();
+	    } else {
+	        // 25일 이상인 경우
+	        return "redirect:lhsFormRegistStockSurvey?emp_no=" + emp.getEmp_no();
+	    }
+		
 	}
 	
 	// 기초재고 등록 폼
 	@RequestMapping(value="lhsFormRegistStockBegin")
-	public String lhsResgistStockBegin() {
+	public String lhsResgistStockBegin(Employee emp, Model model) {
 		
+		System.out.println("lhsController lhsFormRegistStockBegin start...");
+		
+		Employee empData = lhs.getDataEmp(emp.getEmp_no());
 		//  if 날짜 = null -> set sysdate, else -> set data
+		
+		model.addAttribute("empData", empData);
 		
 		return "lhs/formRegistStockBegin";
 		
@@ -101,7 +145,7 @@ formRegistStockBegin ㅡ 기초재고 등록버튼 클릭 -> href: lhsFormRegist
 	
 	// 기초재고 등록
 	@RequestMapping(value="lhsRegistStockBegin")
-	public String lhsRegistStockBegin() {
+	public String lhsRegistStockBegin(Employee emp, Model model) {
 		
 		// 민경님 신제품 데이터 받아서 사용
 		
@@ -114,8 +158,14 @@ formRegistStockBegin ㅡ 기초재고 등록버튼 클릭 -> href: lhsFormRegist
 	
 	// 실사재고조사 등록 폼
 	@RequestMapping(value="lhsFormRegistStockSurvey")
-	public String lhsFormRegistStockSurvey() {
+	public String lhsFormRegistStockSurvey(Employee emp, Model model) {
 		
+		System.out.println("lhsController lhsFormRegistStockBegin start...");
+		
+		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		//  if 날짜 = null -> set sysdate, else -> set data
+		
+		model.addAttribute("empData", empData);
 		// if 날짜 = null -> set sysdate, else -> set data
 		
 		/*
@@ -137,7 +187,7 @@ formRegistStockSurvey ㅡ // RnP_closing status=1 체크 -> alert로 경고
 	
 	// 실사재고조사 등록
 	@RequestMapping(value="lhsRegistStockSurvey")
-	public String lhsRegistStockSurvey() {
+	public String lhsRegistStockSurvey(Employee emp, Model model) {
 		
 		// RnP_closing status=1 체크
 		

@@ -35,73 +35,24 @@
 		
 </style>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // 페이지 로딩이 완료되면 실행될 함수
-
-    // 서버에서 받은 날짜 값 (예: "2023-12")
-    var stockYearMonth = "${stock.st_year_month}";
-
-    // 날짜 값을 입력란에 넣어주기
-    if (stockYearMonth) {
-    	var year = stockYearMonth.substring(0, 4); // 연도 추출
-        var month = stockYearMonth.substring(4, 6); // 월 추출
-        var formattedDate = year + "-" + month; // "yyyy-MM" 형식으로 변환
-        
-        // 날짜 값이 존재할 때만 처리
-        var datePicker = document.getElementById("datePicker");
-        datePicker.value = formattedDate; // 입력란에 날짜 값 넣기
-    }
-});
-
 $(document).ready(function () {
     	
- 	$("#datePicker").change(function () {
+	$("#datePicker, #filterOptions").change(function () {
         var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
         var selectedOption = $("#filterOptions").val(); // 변경된 구분 가져오기
         var year = selectedDate.substring(0, 4); // 연도 추출
         var month = selectedDate.substring(5, 7); // 월 추출
         var formattedDate = year + month; // 형식 변환
-        
-        $.ajax({
-            url: "lhsListStock", // 컨트롤러 URL 설정
-            type: "GET", // GET 또는 POST
-            data: { 
-            	st_year_month: formattedDate // 선택된 날짜 값 전달
-            },
-            success: function (data) {
-            	window.location.href = "lhsListStock?st_year_month=" + formattedDate;
-            	
-            },
-            error: function (xhr, status, error) {
-                // 오류 발생 시 처리할 코드 작성
-                console.error("Error occurred:", error);
-            }
-        });
-        
-    }); 
+
+        // 날짜만 선택된 경우에는 구분 선택 여부에 상관 없이 새 URL로 이동
+        if (selectedDate && !selectedOption) {
+            window.location.href = "lhsListStock?st_year_month=" + formattedDate;
+        } else if (selectedDate && selectedOption) { // 날짜와 구분이 모두 선택된 경우에만 새 URL로 이동
+            window.location.href = "lhsListStock?st_year_month=" + formattedDate + "&gubun=" + selectedOption;
+        }
+
+    });
     
- 	 $("#filterOptions").change(function () {
-         // 선택된 날짜와 구분 값 가져오기
-         var selectedDate = ${stock.st_year_month}; // 변경된 날짜 가져오기
-         var selectedOption = $("#filterOptions").val(); // 변경된 구분 가져오기
-         
-         // AJAX를 통해 서버로 데이터 전송
-         $.ajax({
-             url: "lhsListStock", // 컨트롤러 URL 설정
-             type: "GET", // GET 또는 POST
-             data: { 
-                 st_year_month: selectedDate, // 선택된 날짜 값 전달
-                 gubun: selectedOption // 선택된 구분 값 전달
-             },
-             success: function (data) {
-            	 window.location.href = "lhsListStock?st_year_month=" + selectedDate + "&gubun="+selectedOption;
-             },
-             error: function (xhr, status, error) {
-                 // 오류 발생 시 처리할 코드 작성
-                 console.error("Error occurred:", error);
-             }
-         });
-     });
 
 });
 
@@ -127,7 +78,8 @@ $(document).ready(function () {
 			<div class="container-fluid">
 			     <!-- datePicker -->
 			     	<input type="hidden" id="selectedMonth" name="selectedMonth" value="${stock.st_year_month}">    
-					<input type="month" id="datePicker" class="form-control" value="${stock.st_year_month}">
+					<input type="month" id="datePicker" class="form-control" >
+				<form action="lhsListStock" id="formCateSearch2" method="get">
 			   		<select class="form-select mr-2" name="gubun" id="filterOptions">
 						<option value="all" 
 							<c:if test ="${param.gubun == 'all'}">
@@ -139,6 +91,7 @@ $(document).ready(function () {
 							<c:if test ="${param.gubun == 'end'}">
 								selected</c:if>>기말</option>
 					</select>
+				</form>
 	
 			  </div>
 		</div>
@@ -197,10 +150,8 @@ $(document).ready(function () {
 				</c:if>	
 			</ul>
 		</nav>
-		<c:if test="${empData.emp_role == 'role_admin'}">
-				<button type="button" class="btn btn-primary" id="buyProBtn"
-					onclick="location.href='lhsManageFormRegistStock?emp_no=${empData.emp_no}'">관리</button>
-		</c:if>
+		
+		<button type="button" class="btn btn-primary" id="buyProBtn">관리</button>
     </div> 
    
     <!-- ****** 공통 : 테이블 끝 ****** -->

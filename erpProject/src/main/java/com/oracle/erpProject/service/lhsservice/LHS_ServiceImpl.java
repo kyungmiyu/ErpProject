@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.dao.lhsdao.LHS_Dao;
 import com.oracle.erpProject.model.lhsmodel.Employee;
+import com.oracle.erpProject.model.lhsmodel.Stock;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,22 +16,45 @@ public class LHS_ServiceImpl implements LHS_Serivce {
 	 
 	private final LHS_Dao lhs;
  
-	// 테스트용 인덱스
+	// 테스트용 사원리스트 조회
 	@Override
 	public List<Employee> getListEmp() {
 		List<Employee> listEmp = null;
 		System.out.println("lhsServiceImpl getListEmp start...");
+		
 		listEmp = lhs.getListEmp();
 		return listEmp;
 	}
 
+	// 사원정보 조회
 	@Override
 	public Employee getDataEmp(int emp_no) {
 		Employee empData = null;
 		System.out.println("lhsServiceImpl getDataEmp start...");
-		empData = lhs.getDataEmp(emp_no);
 		
+		empData = lhs.getDataEmp(emp_no);
 		return empData;
 	}
+
+	// 월 재고 total수 조회
+	@Override
+	public int getTotalStock(Stock stock) {
+		int totalStock = 0;
+		System.out.println("lhsServiceImpl getTotalStock start...");
+		
+		totalStock = lhs.getTotalStock(stock);
+		return totalStock;
+	}
+	
+	// 월 재고리스트 조회
+	@Override
+	public List<Stock> getListStock(Stock stock) {
+		List<Stock> listStock = null;
+		System.out.println("lhsServiceImpl getListStock start...");
+		
+		listStock = lhs.getListStock(stock);
+		return listStock;
+	}
+
 
 }
