@@ -19,9 +19,7 @@
 		<typeAlias alias="Sale"   							type="com.oracle.erpProject.model.Sale"/> 
 		<typeAlias alias="Stock_survey"   			type="com.oracle.erpProject.model.Stock_survey"/> 
 		<typeAlias alias="Stock"   						type="com.oracle.erpProject.model.Stock"/> 
-		<typeAlias alias="Make_detail"   	type="com.oracle.erpProject.model.Make_detail"/> 
-		<typeAlias alias="Make"   				type="com.oracle.erpProject.model.Make"/> 
-		
+				
 		<!-- 재준 시작-->
 		<typeAlias alias="JJ_Comm"			   	type="com.oracle.erpProject.model.jjmodel.JJ_Comm"/>
 		<typeAlias alias="JJ_Make_detail"   	type="com.oracle.erpProject.model.jjmodel.JJ_Make_detail"/> 

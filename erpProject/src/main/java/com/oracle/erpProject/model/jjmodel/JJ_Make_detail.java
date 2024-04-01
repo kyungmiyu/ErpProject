@@ -19,7 +19,7 @@ public class JJ_Make_detail {
 	private int d_gubun;			// 수불마감구분
 	private int md_worker_num;		// 작업인원
 	private String md_note;		// 비고
-	private Date s_date;			// 매출일자
+	private String s_date;			// 매출일자
 	private int cus_no;				// 거래처 코드
 
 	// 조회용
