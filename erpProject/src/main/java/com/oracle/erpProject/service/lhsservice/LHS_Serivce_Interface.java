@@ -2,7 +2,8 @@ package com.oracle.erpProject.service.lhsservice;
 
 import java.util.List;
 
-import com.oracle.erpProject.model.Employee;
+import com.oracle.erpProject.model.lhsmodel.Employee;
+
 
 public interface LHS_Serivce_Interface {
 	
