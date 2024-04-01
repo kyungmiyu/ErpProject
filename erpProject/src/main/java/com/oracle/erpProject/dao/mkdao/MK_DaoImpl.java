@@ -107,6 +107,19 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 		return productSearchList;
 	}
 
+	@Override
+	public int UpdataProduct(mkProduct product) {
+		int UpdateResult=0;
+		System.out.println("MkDaoImpl UpdateResult Produt Start");
+		System.out.println("MK_DaoImpl UpdateResult ->" +product);
+		try {
+			UpdateResult = session.update("mkupdateProduct",product);
+		}catch (Exception e) {
+			System.out.println("MkDaoImpl mkupdateProduct Exception->"+e.getMessage());
+		}
+		return UpdateResult;
+	}
+
 	/*
 	 * @Override public void saveProductImagePath(mkProduct product) {
 	 * 

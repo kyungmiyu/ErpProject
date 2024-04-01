@@ -71,6 +71,15 @@ public class MK_ServiceImpl implements MK_Service_interface {
 		return productSearchList;
 	}
 
+	@Override
+	public int UpdataProduct(mkProduct product) {
+		int result=0;
+		System.out.println("MKServiceImpl UpdataProduct Start");
+		System.out.println("MKServiceImpl UpdataProduct product->"+product);
+		result = mk_Dao_Interface.UpdataProduct(product);
+		return result;
+	}
+
 //	@Override
 //	public void saveProductImagePath(mkProduct product) {
 //		System.out.println("MKService saveProductImagePath");

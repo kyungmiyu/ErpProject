@@ -99,14 +99,18 @@ function previewImage(input) {
 						<!-- 이미지 업로드 필드 -->
 						<form action="writeProduct" method="post" name="product" enctype="multipart/form-data">
 							<div class="form-group">
-							    <label for="uploadFile">이미지 업로드</label>
-							    <input type="file" class="form-control" name="uploadFile" id="uploadFile" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="previewImage(this);">
-							</div>
 							
 							<!-- 이미지 미리보기를 위한 컨테이너 -->
 							<div id="imagePreviewContainer" style="display:none;">
 							    <img id="imagePreview" style="width: 200px; height: 200px;" alt="Image Preview"/>
 							</div>
+							
+							<!-- 이미지 업로드 -->
+							    <label for="uploadFile">이미지 업로드</label>
+							    <input type="file" class="form-control" name="uploadFile" id="uploadFile" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="previewImage(this);">
+							</div>
+							
+							
 
 							
 							

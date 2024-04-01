@@ -32,7 +32,8 @@
 	</select>
 	
 <insert id="mkinsertProduct" parameterType="mkProduct">
-    INSERT INTO product (p_itemcode, f_id, pro_category, pro_midcategory, p_name, p_content, p_buyprice, p_saleprice, p_regdate, p_fac_gubun,p_image)
+    INSERT INTO product 
+    (p_itemcode, f_id, pro_category, pro_midcategory, p_name, p_content, p_buyprice, p_saleprice, p_regdate, p_fac_gubun,p_image)
     VALUES (product_code_seq.nextval, #{f_id}, #{pro_category}, #{pro_midcategory}, #{p_name}, #{p_content}, #{p_buyprice}, #{p_saleprice}, SYSDATE, #{p_fac_gubun},#{p_image})
 </insert>
 
@@ -79,12 +80,30 @@
         </choose>
 		
 	</select>  
-	
 	<!-- 제품 등록 : 이미지 등록  -->
-	<insert id="saveProductImagePath" parameterType="mkProduct">
+<!-- 	<insert id="saveProductImagePath" parameterType="mkProduct">
     INSERT INTO product (p_itemcode, f_id, pro_category, pro_midcategory, p_name, p_content, p_buyprice, p_saleprice, p_regdate, p_fac_gubun)
     VALUES (product_code_seq.nextval, #{f_id}, #{pro_category}, #{pro_midcategory}, #{p_name}, #{p_content}, #{p_buyprice}, #{p_saleprice}, SYSDATE, #{p_fac_gubun})
-</insert>
+</insert> --> 
 	
+	<!--  -->
+		<update id="mkupdateProduct" parameterType="mkProduct">
+			    UPDATE product 
+			    SET 
+			    <if test="p_image != null">
+			    p_image=#{p_image},
+			    </if>
+			    f_id = #{f_id}, 
+			    pro_category = #{pro_category}, 
+			    pro_midcategory = #{pro_midcategory}, 
+			    p_name = #{p_name}, 
+			    p_buyprice = #{p_buyprice}, 
+			    p_saleprice = #{p_saleprice}, <!-- 여기에 컴마 추가 -->
+			    p_fac_gubun = #{p_fac_gubun},
+			    p_isdeleted = #{p_isdeleted}
+			    WHERE p_itemcode = #{p_itemcode}
+			</update>
+
+
 
 </mapper>

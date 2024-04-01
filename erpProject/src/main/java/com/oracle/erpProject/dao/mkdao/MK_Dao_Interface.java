@@ -18,6 +18,8 @@ public interface MK_Dao_Interface {
 
 	List<mkProduct> productSearchList(mkProduct product);
 
+	int UpdataProduct(mkProduct product);
+
 //	void saveProductImagePath(mkProduct product);
 
 }

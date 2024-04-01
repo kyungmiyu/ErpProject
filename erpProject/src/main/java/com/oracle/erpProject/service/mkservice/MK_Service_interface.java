@@ -18,6 +18,8 @@ public interface MK_Service_interface {
 
 	List<mkProduct> listSearchProduct(mkProduct product);
 
+	int UpdataProduct(mkProduct product);
+
 //	void saveProductImagePath(mkProduct product);
 
 
