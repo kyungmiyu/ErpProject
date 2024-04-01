@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.dao.lhsdao.LHS_Dao;
 import com.oracle.erpProject.model.lhsmodel.Employee;
+import com.oracle.erpProject.model.lhsmodel.Product;
 import com.oracle.erpProject.model.lhsmodel.Stock;
 
 import lombok.RequiredArgsConstructor;
@@ -54,6 +55,26 @@ public class LHS_ServiceImpl implements LHS_Serivce {
 		
 		listStock = lhs.getListStock(stock);
 		return listStock;
+	}
+
+	// 신제품 구매테이블 조회
+	@Override
+	public Product checkProductBuy(Product product) {
+		Product checkProduct = null;
+		System.out.println("lhsServiceImpl checkProductBuy start...");
+		
+		checkProduct = lhs.checkProductBuy(product);
+		return checkProduct;
+	}
+
+	// 신제품 생산테이블 조회
+	@Override
+	public Product checkProductMake(Product product) {
+		Product checkProduct = null;
+		System.out.println("lhsServiceImpl checkProductMake start...");
+		
+		checkProduct = lhs.checkProductMake(product);
+		return checkProduct;
 	}
 
 

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.oracle.erpProject.model.lhsmodel.Employee;
+import com.oracle.erpProject.model.lhsmodel.Product;
 import com.oracle.erpProject.model.lhsmodel.Stock;
 
 import lombok.RequiredArgsConstructor;
@@ -75,6 +76,38 @@ public class LHS_DaoImpl implements LHS_Dao {
 			e.printStackTrace();
 		}
 		return listStock;
+	}
+
+	// 신제품 구매테이블 조회
+	@Override
+	public Product checkProductBuy(Product product) {
+		Product checkProduct = null;
+		System.out.println("lhsDaoImpl checkProductBuy start...");
+		
+		try {
+			checkProduct = session.selectOne("lhsCheckProductBuy", product);
+			System.out.println("lhsDaoImpl checkProductBuy checkProduct-> "+ checkProduct);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return checkProduct;
+	}
+
+	// 신제품 생산테이블 조회
+	@Override
+	public Product checkProductMake(Product product) {
+		Product checkProduct = null;
+		System.out.println("lhsDaoImpl checkProductMake start...");
+		
+		try {
+			checkProduct = session.selectOne("lhsCheckProductMake", product);
+			System.out.println("lhsDaoImpl checkProductMake checkProduct-> "+ checkProduct);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return checkProduct;
 	}
 	
 	

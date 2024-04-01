@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oracle.erpProject.model.lhsmodel.Employee;
+import com.oracle.erpProject.model.lhsmodel.Product;
 import com.oracle.erpProject.model.lhsmodel.Stock;
 import com.oracle.erpProject.service.lhsservice.LHSPaging;
 import com.oracle.erpProject.service.lhsservice.LHS_Serivce;
@@ -123,13 +125,22 @@ public class LHSController {
 	
 	// 기초재고 등록 폼
 	@RequestMapping(value="lhsFormRegistStockBegin")
-	public String lhsResgistStockBegin(Employee emp, Model model) {
+	public String lhsResgistStockBegin(Stock stock, Employee emp, Model model) {
 		
 		System.out.println("lhsController lhsFormRegistStockBegin start...");
 		
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
-		//  if 날짜 = null -> set sysdate, else -> set data
 		
+		// sysdate 년월만 string으로 변환
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+		String formattedDate = dateFormat.format(new Date());
+		
+		//  if 날짜 = null -> set sysdate, else -> set data
+		if (stock.getSt_year_month_day() == null) {
+			stock.setSt_year_month_day(formattedDate);
+		}
+		
+		model.addAttribute("stock", stock);
 		model.addAttribute("empData", empData);
 		
 		return "lhs/formRegistStockBegin";
@@ -141,6 +152,37 @@ formRegistStockBegin ㅡ 기초재고 등록버튼 클릭 -> href: lhsFormRegist
                         등록버튼 클릭 -> #registTemporary by ajax
                         저장버튼 클릭 -> #registReal by ajax (lhsRegistStockBegin)
 */
+	}
+	
+	// 제품등록 확인
+	@ResponseBody
+	@RequestMapping(value="lhsCheckNewItem")
+	public String lhsCheckNewItem(Product product, Employee emp, Model model) {
+		
+		System.out.println("lhsController lhsCheckNewItem start...");
+		
+		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		
+		// 신제품이 구매로 들어온건지 생산으로 들어온건지 체크
+		// 구매 table에 있는지 먼저 체크 -> null이면 생산table과 조인한 데이터 받기
+		// 								not null이면 구매table과 조인한 데이터 받기
+		
+		System.out.println("check itemcode: " + product.getP_itemcode());
+		Product checkProduct = lhs.checkProductBuy(product);
+		if (checkProduct == null) {
+			checkProduct = lhs.checkProductMake(product);
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+	    String jsonData = "";
+	    try {
+	        // product 객체를 JSON 문자열로 변환
+	        jsonData = mapper.writeValueAsString(checkProduct);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return jsonData;
 	}
 	
 	// 기초재고 등록

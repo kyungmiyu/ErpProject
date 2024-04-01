@@ -22,7 +22,10 @@ public class Stock {
   	private int 	prevPage;		  	private int 	nextPage;
 	private String gubun;
 	
-  	// 0401
+  	// 0401 월 재고조회 파라미터 (lhsListStock)
   	private String p_name;
   	private String st_begin_end_gubun;
+  	
+  	// 0402 기초재고등록 폼 파라미터 (lhsFormRegistStockBegin)
+  	private String st_year_month_day;
 }

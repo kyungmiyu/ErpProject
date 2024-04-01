@@ -38,7 +38,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     // 페이지 로딩이 완료되면 실행될 함수
 
-    // 서버에서 받은 날짜 값 (예: "2023-12")
     var stockYearMonth = "${stock.st_year_month}";
 
     // 날짜 값을 입력란에 넣어주기
@@ -57,7 +56,6 @@ $(document).ready(function () {
     	
  	$("#datePicker").change(function () {
         var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
-        var selectedOption = $("#filterOptions").val(); // 변경된 구분 가져오기
         var year = selectedDate.substring(0, 4); // 연도 추출
         var month = selectedDate.substring(5, 7); // 월 추출
         var formattedDate = year + month; // 형식 변환
