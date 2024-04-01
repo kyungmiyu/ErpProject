@@ -9,6 +9,29 @@
 <html>
 
 <head>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+function previewImage(input) {
+    // 파일이 선택되었는지 확인
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+            // 읽기 성공 시 이미지 미리보기 업데이트
+            $('#imagePreview').attr('src', e.target.result);
+            $('#imagePreviewContainer').show();
+        }
+        
+        // 선택된 파일 읽기
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+
+
+
+
+      
 <%@ include file="../configHead.jsp"%>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
@@ -56,10 +79,12 @@
 			<!-- 메인 바디 -->
 			<!-- ****** 공통 : 테이블 시작 ****** -->
 			<!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
+			
 			<div class="row">
 
 
 				<!--===========제품 등록 ===============-->
+			
 				<div class="col-10">
 					<div class="card mb-4">
 						<div class="card-header pb-0">
@@ -71,12 +96,25 @@
 							<!--table-->
 							<div class="table-responsive p-4">
 								<!-- img-->
-								<img src="../upload/jinnoodle.jpg" class="img-thumbnail"
-									style="width: 200px; height: 200px;" alt="...">
+						<!-- 이미지 업로드 필드 -->
+						<form action="writeProduct" method="post" name="product" enctype="multipart/form-data">
+							<div class="form-group">
+							    <label for="uploadFile">이미지 업로드</label>
+							    <input type="file" class="form-control" name="uploadFile" id="uploadFile" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="previewImage(this);">
+							</div>
+							
+							<!-- 이미지 미리보기를 위한 컨테이너 -->
+							<div id="imagePreviewContainer" style="display:none;">
+							    <img id="imagePreview" style="width: 200px; height: 200px;" alt="Image Preview"/>
+							</div>
 
+							
+							
 
+							<!-- 이미지등록 끝 -->
+								
 
-								<form action="writeProduct" method="post" name="product">
+								
 							
 								
 									<div class="row">
@@ -172,14 +210,7 @@
 
 
 								</form>
-
-
-
 							</div>
-
-
-
-
 						</div>
 					</div>
 				</div>

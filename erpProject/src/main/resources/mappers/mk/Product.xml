@@ -32,9 +32,59 @@
 	</select>
 	
 <insert id="mkinsertProduct" parameterType="mkProduct">
+    INSERT INTO product (p_itemcode, f_id, pro_category, pro_midcategory, p_name, p_content, p_buyprice, p_saleprice, p_regdate, p_fac_gubun,p_image)
+    VALUES (product_code_seq.nextval, #{f_id}, #{pro_category}, #{pro_midcategory}, #{p_name}, #{p_content}, #{p_buyprice}, #{p_saleprice}, SYSDATE, #{p_fac_gubun},#{p_image})
+</insert>
+
+<select id="productSearchList" parameterType="mkProduct" resultType="mkProduct">
+   
+    SELECT *
+    FROM
+    (
+            SELECT rownum rn, a.*
+            FROM
+                (SELECT * FROM product
+                <choose>
+                    <when test="search == 'p_itemcode'">
+                        WHERE p_itemcode LIKE '%' || #{keyword} || '%'    
+                    </when>
+                    <when test="search == 'p_name'">
+                        WHERE p_name LIKE '%' || #{keyword} || '%'    
+                    </when>
+                    <otherwise>
+                        WHERE p_itemcode LIKE '%'   
+                    </otherwise>
+                </choose>
+                ORDER BY p_itemcode
+                ) a
+    )
+    WHERE rn BETWEEN #{start} and #{end}
+ 
+</select>
+
+   
+ 	<select id="searchedProductTotal"  parameterType="mkProduct"  resultType="int">
+		
+		SELECT Count(*) FROM product
+ 		<choose>
+ 			<when test="search == 'p_itemcode'">
+                 WHERE p_itemcode  like '%' || #{keyword} || '%'    
+  			</when>
+  			<when test="search == 'p_name'">
+                 WHERE p_name like '%' || #{keyword} || '%'    
+  			</when>
+            <otherwise>
+                  WHERE p_itemcode   like '%'   
+            </otherwise>
+        </choose>
+		
+	</select>  
+	
+	<!-- 제품 등록 : 이미지 등록  -->
+	<insert id="saveProductImagePath" parameterType="mkProduct">
     INSERT INTO product (p_itemcode, f_id, pro_category, pro_midcategory, p_name, p_content, p_buyprice, p_saleprice, p_regdate, p_fac_gubun)
     VALUES (product_code_seq.nextval, #{f_id}, #{pro_category}, #{pro_midcategory}, #{p_name}, #{p_content}, #{p_buyprice}, #{p_saleprice}, SYSDATE, #{p_fac_gubun})
 </insert>
-
+	
 
 </mapper>

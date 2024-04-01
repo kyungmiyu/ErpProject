@@ -14,4 +14,14 @@ public interface MK_Service_interface {
 
 	int insertProduct(mkProduct product);
 
+	int searchedProductTotal(mkProduct product);
+
+	List<mkProduct> listSearchProduct(mkProduct product);
+
+//	void saveProductImagePath(mkProduct product);
+
+
+
+
+
 }

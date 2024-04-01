@@ -78,4 +78,47 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 		return insertResult;
 	}
 
-}
+	@Override
+	public int searchedProductTotal(mkProduct product) {
+		int totProductCount=0;
+		System.out.println("MKDaoImpl start searchedProductTotal Start");
+		System.out.println("MK DaoImpl Start mkProduct->"+product);
+		
+		try {
+			totProductCount = session.selectOne("searchedProductTotal",product);
+			System.out.println("MKServiceImpl totalsearchedProduct -> " + totProductCount);
+		} catch (Exception e) {
+			System.out.println("MKServiceImpl totProductCount Exception->"+e.getMessage());
+		}
+		return totProductCount;
+	}
+
+	@Override
+	public List<mkProduct> productSearchList(mkProduct product) {
+		List<mkProduct> productSearchList = null;
+		System.out.println("MKDaoImpl start productSearchList start");
+		System.out.println("MKDaoImpl Start product->"+product);
+		try { 
+			productSearchList= session.selectList("productSearchList",product);
+			
+		}catch (Exception e) {
+			System.out.println("MKDaoImpl productSearchList exception->"+ e.getMessage());
+		}
+		return productSearchList;
+	}
+
+	/*
+	 * @Override public void saveProductImagePath(mkProduct product) {
+	 * 
+	 * System.out.println("MkDaoImpl saveProductImagePath Start");
+	 * System.out.println("MK_DaoImpl saveProductImagePath ->" +product); try {
+	 * session.insert("saveProductImagePath",product); }catch (Exception e) {
+	 * System.out.println("MkDaoImpl saveProductImagePath Exception->"+e.getMessage(
+	 * )); }
+	 * 
+	 * }
+	 */
+		
+	}
+
+
