@@ -22,6 +22,13 @@ public class Board {
 	private int B_REPLY_NO;
 	private int B_INDENT;
 	
+	//조회용
+	private String search;
+	private String keyword;
+	private String pageNum;
+	private int start;
+	private int end;
+	
 	//Page 정보
 	private String currentPage;
 	

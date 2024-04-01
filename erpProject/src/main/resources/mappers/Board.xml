@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracle.erpProject.BoardMapper">
 
+   <select id="boardTotal" parameterType="Board"  resultType="board">
+		SELECT count(*) FROM BOARD b where b.emp_no=#{emp_no}
+   </select>
+
+   <select id="yhsBoardListAll" parameterType="Board" resultType="board">
+    <![CDATA[
+		SELECT *
+		FROM (SELECT rownum rn, b.*, e.emp_name  
+		FROM BOARD b
+		INNER JOIN employee e ON b.emp_no = e.emp_no
+		WHERE b.emp_no = ${emp_no} 
+		ORDER BY b.b_regdate DESC); 
+		WHERE  rn  >= #{start} 
+ 		and    rn  <= #{end}    		
+]]>
+   </select>
+
 </mapper>

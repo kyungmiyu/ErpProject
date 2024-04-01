@@ -1,14 +1,11 @@
-package com.oracle.erpProject.service.mkservice;
+package com.oracle.erpProject.service.Yhsservice;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class Paging {
-	private int currentPage = 1;	private int rowPage   = 11;
+	
+	private int currentPage = 1;	private int rowPage   = 10;
 	private int pageBlock = 10;		
 	private int start;				private int end;
 	private int startPage;			private int endPage;
@@ -33,6 +30,5 @@ public class Paging {
 			endPage = totalPage;
 		}
 	}
-
 
 }

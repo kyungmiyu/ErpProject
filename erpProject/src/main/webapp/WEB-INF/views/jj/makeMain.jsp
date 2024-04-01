@@ -24,7 +24,9 @@ td {
 td:hover {
   background-color: rgba(0, 0, 0, 0.075);
 }
+
 </style>
+
 </head>
 
 <body>
@@ -56,30 +58,31 @@ td:hover {
 		        </tr>
 		      </thead>
 		      <tbody>
-		        <tr>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">1</h6>
-		          </td>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">100001</h6>
-		          </td>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">완료</h6>
-		          </td>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">새우깡</h6>
-		          </td>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">오뚜기</h6>
-		          </td>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">2024-03-26</h6>
-		          </td>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">2024-03-26</h6>
-		          </td>
-		        </tr>
-	
+			      <c:forEach var="jj_Make_detail" items="${makeList}">
+			        <tr>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_num}</h6> <!-- 작업순번 -->
+			          </td>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_num}</h6> <!-- 작업지시번호 -->
+			          </td>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_status}</h6> <!-- 작업상태 -->
+			          </td>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.p_name}</h6> <!-- 제품명 -->
+			          </td>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_worker}</h6> <!-- 작업자 -->
+			          </td>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs"><fmt:formatDate value="${jj_Make_detail.md_date}" pattern="yyyy-MM-dd"/></h6> <!-- 작업지시일자 -->
+			          </td>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs"><fmt:formatDate value="${jj_Make_detail.md_work_date}" pattern="yyyy-MM-dd"/></h6> <!-- 작업완료일자 -->
+			          </td>
+			        </tr>
+				  </c:forEach>
 		      </tbody>
 		    </table>
 		  </div>
@@ -111,7 +114,6 @@ td:hover {
 		<div class="d-flex justify-content-end">
 			<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeFormRequest'">생산 요청</button>
 		</div>
-    
 
    
     <!-- ****** 공통 : 테이블 끝 ****** -->

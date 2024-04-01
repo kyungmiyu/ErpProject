@@ -22,6 +22,7 @@ $(document).ready(function() {
             data: {p_itemcode: itemCode},
             success: function(product) {
             	  // AJAX 호출 성공 시, 서버로부터 받은 product 객체의 데이터를 입력 필드에 설정
+            	var imagePath ='../upload/' +product.p_image;
                 $('#p_itemcode').val(product.p_itemcode); // 제품코드
                 $('#pro_category').val(product.pro_category); //제품대분류
                 $('#f_id').val(product.f_id); // 제품공장
@@ -31,7 +32,8 @@ $(document).ready(function() {
                 $('#p_regdate').val(product.p_regdate); // 등록날자
                 $('#p_name').val(product.p_name); // 제품코드
                 $('#p_fac_gubun').val(product.p_fac_gubun); // 제품명
-               
+                // 이미지 경로 업데이트
+                $('#productImage').attr('src',imagePath);
             },
             error: function(xhr, status, error) {
                 console.error("서버 오류: " + error);
@@ -129,56 +131,43 @@ $(document).ready(function() {
 							<h6 class="mb-4">제품 조회</h6>
 
 
-							<!--검색 및 필터  -->
+							
 
-							<form action="search1">
+				<!--검색 및 필터  -->
+			<form action="listSearch">
+							<div class="container">
 								<!-- 필터 행 -->
 								<div class="row">
-									<div class="col">
+									<div class="col-4">
 										<div class="form-floating">
-											<select name="searchMidcategory" data-midcategory="${pr.pro_midcategory}">
-												<option selected>카테고리</option>
-												<option value="101">간편식</option>
-												<option value="102">냉동식품</option>
-												<option value="103">커피 및 차</option>
-												<option value="104">탄산음료</option>
-												<option value="105">주스</option>
-												<option value="106">우유 및 유제품</option>
+											<select name="search" class="form-select" id="filter1" aria-label="Filter 1">
+												<option value="p_itemcode">코드번호</option>
+												<option value="p_name">이름</option>
 											</select>
-									
 										</div>
 									</div>
-									<div class="col">
-										<div class="form-floating">
-											<select name="searchIsdeleted" id="filter2" data-isdeleted="${pr.p_isdeleted}">
-												<option selected>판매여부</option>
-												<option value="0">취급중</option>
-												<option value="1">취급안함</option>
-											
-											</select>
 									
-										</div>
-									</div>
-								</div>
-								<!-- 검색 행 -->
-								<div class="row mt-2">
+									<!--검색 -->
+									<div class="col-8">
+										<div class="form-floating">
+												<div class="row">
 									<div class="col">
 										<div class="input-group">
-											<input type="text" class="form-control" placeholder="입력..."
-												aria-label="Search" aria-describedby="button-addon2" data-itemcode="${pr.p_name}">
-											<button class="btn btn-outline-secondary"  type="button"
-												id="button-addon2 " >
+											<input type="text" name="keyword" class="form-control" placeholder="입력..."
+												aria-label="Search" aria-describedby="button-addon2">
+											<button class="btn btn-outline-secondary" type="submit"
+												id="button-addon2">
 												<i class="fas fa-search"></i>
 												<!-- FontAwesome 돋보기 아이콘 -->
 											</button>
 										</div>
 									</div>
 								</div>
-							</form>
-
-
-
-
+							</div>
+							</div>
+							</div>	
+							</div>
+						</form>
 						</div>
 						<div class="card-body px-0 pt-0 pb-2">
 
@@ -275,39 +264,31 @@ $(document).ready(function() {
 						</div>
 
 						<!-- 페이징 -->
-					<!-- 	<nav aria-label="Page navigation example">
-							<ul class="pagination justify-content-center">
-								<li class="page-item"><a class="page-link" href="#">Pre</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a></li>
-							</ul>
-						</nav> -->
+	
 						<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        <c:if test="${page.startPage > page.pageBlock}">
-            <!-- "이전" 페이지 링크 -->
-            <li class="page-item">
-                <a class="page-link" href="productR?currentPage=${page.startPage - page.pageBlock}">이전</a>
-            </li>
-        </c:if>
-        
-        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-            <!-- 페이지 번호 링크 -->
-            <li class="page-item ${param.currentPage == i ? 'active' : ''}">
-                <a class="page-link" href="productR?currentPage=${i}">${i}</a>
-            </li>
-        </c:forEach>
-        
-        <c:if test="${page.endPage < page.totalPage}">
-            <!-- "다음" 페이지 링크 -->
-            <li class="page-item">
-                <a class="page-link" href="productR?currentPage=${page.startPage + page.pageBlock}">다음</a>
-            </li>
-        </c:if>
-    </ul>
-</nav>
+					    <ul class="pagination justify-content-center">
+					        <c:if test="${page.startPage > page.pageBlock}">
+					            <!-- "이전" 페이지 링크 -->
+					            <li class="page-item">
+					                <a class="page-link" href="productR?currentPage=${page.startPage - page.pageBlock}">이전</a>
+					            </li>
+					        </c:if>
+					        
+					        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+					            <!-- 페이지 번호 링크 -->
+					            <li class="page-item ${param.currentPage == i ? 'active' : ''}">
+					                <a class="page-link" href="productR?currentPage=${i}">${i}</a>
+					            </li>
+					        </c:forEach>
+					        
+					        <c:if test="${page.endPage < page.totalPage}">
+					            <!-- "다음" 페이지 링크 -->
+					            <li class="page-item">
+					                <a class="page-link" href="productR?currentPage=${page.startPage + page.pageBlock}">다음</a>
+					            </li>
+					        </c:if>
+					    </ul>
+					</nav>
 						
 						<!-- 페이징 끝 -->
 					</div>
@@ -331,7 +312,7 @@ $(document).ready(function() {
 							<div class="table-responsive p-4">
 			
 						<!-- img-->
-						<img src="../upload/jinnoodle.jpg" class="img-thumbnail" style="width: 200px; height: 200px;" alt="...">
+						<img id="productImage" src="../upload/jinnoodle.jpg" class="img-thumbnail" style="width: 200px; height: 200px;" >
 
 								
 								<form>

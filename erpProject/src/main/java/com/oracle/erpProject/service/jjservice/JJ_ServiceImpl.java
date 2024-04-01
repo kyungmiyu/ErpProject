@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.dao.jjdao.JJ_Dao_Interface;
-import com.oracle.erpProject.model.Make_detail;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
 
 import lombok.RequiredArgsConstructor;
@@ -40,5 +39,14 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 		requestMakeList = jjDao.requestMakeList();
 		System.out.println("JJ_ServiceImpl's requestMakeList.size() ->" + requestMakeList.size());
 		return requestMakeList;
+	}
+
+	@Override
+	public int makeRequest(JJ_Make_detail md) {
+		int makeRequest = 0;
+		System.out.println("JJ_ServiceImpl's makeRequest Go!");
+		makeRequest = jjDao.makeRequest(md);
+		System.out.println("JJ_ServiceImpl's makeRequest -> " + makeRequest);
+		return makeRequest;
 	}
 }

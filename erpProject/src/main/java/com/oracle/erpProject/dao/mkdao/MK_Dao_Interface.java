@@ -14,4 +14,10 @@ public interface MK_Dao_Interface {
 
 	int insertProduct(mkProduct product);
 
+	int searchedProductTotal(mkProduct product);
+
+	List<mkProduct> productSearchList(mkProduct product);
+
+//	void saveProductImagePath(mkProduct product);
+
 }
