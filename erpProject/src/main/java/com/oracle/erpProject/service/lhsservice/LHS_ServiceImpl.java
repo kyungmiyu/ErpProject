@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.oracle.erpProject.dao.lhsdao.LHS_Dao_Interface;
+import com.oracle.erpProject.dao.lhsdao.LHS_Dao;
 import com.oracle.erpProject.model.lhsmodel.Employee;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class LHS_ServiceImpl implements LHS_Serivce_Interface {
+public class LHS_ServiceImpl implements LHS_Serivce {
 	 
-	private final LHS_Dao_Interface lhs;
+	private final LHS_Dao lhs;
  
 	// 테스트용 인덱스
 	@Override

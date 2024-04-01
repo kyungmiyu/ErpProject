@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class LHS_DaoImpl implements LHS_Dao_Interface {
+public class LHS_DaoImpl implements LHS_Dao {
 	
 	private final SqlSession session;
  

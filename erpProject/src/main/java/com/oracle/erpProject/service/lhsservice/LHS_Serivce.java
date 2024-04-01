@@ -5,7 +5,7 @@ import java.util.List;
 import com.oracle.erpProject.model.lhsmodel.Employee;
 
 
-public interface LHS_Serivce_Interface {
+public interface LHS_Serivce {
 	
 	// 테스트용 인덱스
 	List<Employee> getListEmp();

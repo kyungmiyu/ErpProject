@@ -6,7 +6,7 @@ import com.oracle.erpProject.model.lhsmodel.Employee;
 
 
 
-public interface LHS_Dao_Interface {
+public interface LHS_Dao {
 
 	List<Employee> getListEmp();
 
