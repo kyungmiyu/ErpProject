@@ -21,7 +21,7 @@ import com.oracle.erpProject.service.lhsservice.LHS_Serivce;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@Controller 
 @RequiredArgsConstructor
 public class LHSController {
 	
