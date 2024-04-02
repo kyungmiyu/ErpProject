@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oracle.erpProject.model.Product;
+import com.oracle.erpProject.model.mkmodel.mkCustomer;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 import com.oracle.erpProject.service.mkservice.MK_Service_interface;
@@ -91,6 +92,29 @@ public class MkController {
 		 model.addAttribute("page",page);
 		 
 		 return "mk/productR";
+	 }
+	 
+	 //수정페이지 조회 결과 
+	 @GetMapping("updateFormlistSearch")
+	 public String updateproductlistSearch(mkProduct product, Model model) {
+		 //total 
+		 int totProduct = mk_Service_interface.searchedProductTotal(product);
+		 System.out.println("MK_Controller listSearch totProduct->"+ totProduct);
+		 
+		 //paging 작업 
+		 Paging page = new Paging(totProduct, product.getCurrentPage());
+		 product.setStart(page.getStart());
+		 product.setEnd(page.getEnd());
+		 
+		 List<mkProduct> listSearchProduct = mk_Service_interface.listSearchProduct(product);
+		 System.out.println("MK_Controller listSearch listSearchProduct list size->"+ listSearchProduct.size());
+		 
+		 model.addAttribute("totalProduct",totProduct);
+		 model.addAttribute("listProduct",listSearchProduct);
+		 model.addAttribute("page",page);
+		 
+		 return "mk/productU";
+		
 	 }
 
 	
@@ -222,12 +246,30 @@ public class MkController {
 				  List<mkFactory> listFactory = mk_Service_interface.listFactory(factory);
 				  System.out.println("MKController listFactory.size->"+listFactory.size());
 				  
-				  model.addAttribute("listProduct",listFactory); 
+				  model.addAttribute("listFactory",listFactory); 
 				  model.addAttribute("page", page);
-				  model.addAttribute("totalProduct",totalFactory);
+				  model.addAttribute("totalFactory",totalFactory);
 			
 				  return "mk/factoryR";
 	}
+	
+	
+	//공장 상세 ajax 
+	@ResponseBody
+	@GetMapping("factoryDetail")
+	public mkFactory factoryDetail(@RequestParam("f_id") int fId ,mkFactory factory, Model model ) {
+		System.out.println("MK Controller factoryDetail Start");
+	
+		mkFactory factoryDetail =null;
+		factory.setF_id(fId);
+		
+		System.out.println("MK Controller  factoryDetail->"+factory);
+		factoryDetail = mk_Service_interface.factoryDetail(factory);
+		model.addAttribute("factory",factoryDetail);
+	
+		return factoryDetail;
+	}
+
 	
 	// 공장 등록
 	@GetMapping("/factoryC")
@@ -235,21 +277,131 @@ public class MkController {
 		System.out.println("MK Controller factoryC start");
 		return "mk/factoryC";
 	}
-
+	
+	// 공장 등록 로직 
+	@PostMapping("/writeFactory")
+	public String writeFactory(@ModelAttribute mkFactory factory,  HttpServletRequest request,  RedirectAttributes redirectAttributes) {
+		
+		System.out.println("MK_Controller writeFactory start...");
+		System.out.println("factory data->"+factory);
+		
+		
+		
+		//제품 정보 저장 로직 구현 
+		int insertResult = mk_Service_interface.insertFactory(factory);
+		if(insertResult>0)
+			return"redirect:factoryR";
+		else {
+		
+			return "forward:factoryC";
+		}
+	}
+	
+	// 공장 검색
+	 @GetMapping("factorySearch")
+	 public String factorySearch(mkFactory factory, Model model) {
+		 //total 
+		 int totFactory = mk_Service_interface.searchedFactoryTotal(factory);
+		 System.out.println("MK_Controller factorySearch totFactory->"+ totFactory);
+		 
+		 //paging 작업 
+		 Paging page = new Paging(totFactory, factory.getCurrentPage());
+		 factory.setStart(page.getStart());
+		 factory.setEnd(page.getEnd());
+		 
+		 List<mkFactory> listSearchFactory = mk_Service_interface.listSearchFactory(factory);
+		 System.out.println("MK_Controller listSearch listSearchFactory list size->"+ listSearchFactory.size());
+		 
+		 model.addAttribute("totalFactory",totFactory);
+		 model.addAttribute("listFactory",listSearchFactory);
+		 model.addAttribute("page",page);
+		 
+		 return "mk/factoryU";
+	 }
+	
 	
 	// 공장 수정
 	@GetMapping("/factoryU")
-	public String factoryU() {
+	public String factoryU(mkFactory factory,Model model) {
 		System.out.println("MK Controller factoryU start");
+		System.out.println("MK Controller factoryR start");
+		//product count 
+				int totalFactory = mk_Service_interface.totalFactory(factory);
+				System.out.println("MK_Controller Start totalFactory->"+totalFactory);
+				
+				//paging 작업 
+				Paging page = new Paging(totalFactory, factory.getCurrentPage());
+				factory.setStart(page.getStart()); //시작시 1 
+				factory.setEnd(page.getEnd()); // 시작시 10 
+				
+				  List<mkFactory> listFactory = mk_Service_interface.listFactory(factory);
+				  System.out.println("MKController listFactory.size->"+listFactory.size());
+				  
+				  model.addAttribute("listFactory",listFactory); 
+				  model.addAttribute("page", page);
+				  model.addAttribute("totalFactory",totalFactory);
+		
 		return "mk/factoryU";
 	}
 	
+	//공장 수정 로직 
+	@PostMapping("updateFactory")
+	public String updateFactory(@ModelAttribute mkFactory factory,  HttpServletRequest request,  RedirectAttributes redirectAttributes) {
+
+			System.out.println("MK_Controller updateFactory start...");
+			System.out.println("factory Update data->"+factory);
+			
+			
+			//제품 정보 저장 로직 구현 
+			int updateResult = mk_Service_interface.UpdateFactory(factory);
+			if(updateResult>0)
+				return"redirect:factoryU";
+			else {
+			
+				return "forward:factoryU";
+			}
+		}
+	
 	// 거래처 조회
 	@GetMapping("/customerR")
-	public String custromerR() {
+	public String custromerR(mkCustomer customer,Model model) {
 		System.out.println("MK Controller customerR start");
+		//product count 
+		int totalCustomer = mk_Service_interface.totalCustomer(customer);
+		System.out.println("MK_Controller Start totalProduct->"+totalCustomer);
+	
+		
+		//paging 작업 
+		Paging page = new Paging(totalCustomer, customer.getCurrentPage());
+		customer.setStart(page.getStart()); //시작시 1 
+		customer.setEnd(page.getEnd()); // 시작시 10 
+		
+		  List<mkCustomer> listCustomer = mk_Service_interface.listCustomer(customer);
+		  System.out.println("MKController listProduct.size->"+listCustomer.size());
+		  
+		  model.addAttribute("listCustomer",listCustomer); 
+		  model.addAttribute("page", page);
+		  model.addAttribute("totalCustomer",totalCustomer);
 		return "mk/customerR";
 	}
+	
+	//거래처 상세 ajax 
+	@ResponseBody
+	@GetMapping("custDetail")
+	public mkCustomer custDetail(@RequestParam("cust_no") int custNo ,mkCustomer customer, Model model ) {
+		System.out.println("MK Controller customerDetail Start");
+	
+		mkCustomer customerDetail =null;
+		customer.setCust_no(custNo);
+		
+		System.out.println("MK Controller customerDetail->"+customer);
+		customerDetail = mk_Service_interface.getCustomerDetail(customer);
+		System.out.println("customerDetail->"+customerDetail);
+		model.addAttribute("customer", customerDetail);
+	
+		return customerDetail;
+	}
+
 	
 	// 거래처 등록
 	@GetMapping("/customerC")
@@ -257,6 +409,8 @@ public class MkController {
 		System.out.println("MK Controller customerC start");
 		return "mk/customerC";
 	}
+	
+	/* /custDetail */
 	
 	// 거래처 수정
 	@GetMapping("/customerU")

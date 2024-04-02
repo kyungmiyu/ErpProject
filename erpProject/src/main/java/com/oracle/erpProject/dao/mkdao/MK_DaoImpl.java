@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.oracle.erpProject.model.mkmodel.mkCustomer;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 
@@ -154,6 +155,114 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 			System.out.println("MKDaoImpl foctoryList e.getMessage()->"+e.getMessage());
 		}
 		return foctoryList;
+	}
+
+	@Override
+	public mkFactory factoryDetail(mkFactory factory) {
+		mkFactory factoryDetail = null;
+		System.out.println("MKDaoImpl factoryDetail start");
+		
+		try {
+			factoryDetail = session.selectOne("mkFactoryDetail", factory);
+			System.out.println("MKDaoImpl factoryDetail ->"+ factoryDetail);
+		} catch (Exception e) {
+			System.out.println("MK Dao Impl factoryDetail exception->"+e.getMessage());
+		}
+		return factoryDetail;
+	}
+
+	@Override
+	public int insertFactory(mkFactory factory) {
+		int insertResult=0;
+		System.out.println("MkDaoImpl insertFactory Start");
+		System.out.println("MK_DaoImpl mkinsertProduct ->" +factory);
+		try {
+			insertResult = session.insert("mkinsertFactory",factory);
+		}catch (Exception e) {
+			System.out.println("MkDaoImpl insertFactory Exception->"+e.getMessage());
+		}
+		return insertResult;
+	}
+
+	@Override
+	public int searchedFactoryTotal(mkFactory factory) {
+		int searchFactoryResult=0;
+		System.out.println("MKDaoImpl searchedFactoryTotal Start");
+		System.out.println("MKDaoImpl ->"+factory);
+		try {
+			searchFactoryResult=session.selectOne("mksearchFactoryCnt");
+			}catch (Exception e) {
+				System.out.println("searchedFactoryTotal Exception ->"+ e.getMessage());
+			}
+		return searchFactoryResult;
+	}
+
+	@Override
+	public List<mkFactory> listSearchFactory(mkFactory factory) {
+		List<mkFactory> searcedFactory = null;
+		System.out.println("MKDaoImpl listSearchFactory start");
+		System.out.println("MKDaoImpl->"+factory);
+		try {
+			searcedFactory = session.selectList("mksearchFactoryList",factory);
+			
+		}catch (Exception e) {
+			System.out.println("listSearchFactory exception->"+e.getMessage());
+		}
+		return searcedFactory;
+	}
+
+	@Override
+	public int updateFactory(mkFactory factory) {
+		int updateFactory =0;
+		System.out.println("MKDaoImpl updateFactory Start");
+		System.out.println("MKDaoImpl"+factory);
+		try {
+			updateFactory = session.update("mkupdateFactory", factory);
+		}catch (Exception e) {
+			System.out.println("MKDaoImpl updateFactory Exception ->" + e.getMessage());
+		}
+		return updateFactory;
+	}
+
+	@Override
+	public int totalCustomer(mkCustomer customer) {
+		int totalCustomer = 0;
+		System.out.println("MKDaoImpl totalCustomer Start");
+		System.out.println("MKDaoImpl totalCustomer->"+ customer);
+		try {
+			totalCustomer = session.selectOne("totalCustomer");
+			
+		}catch (Exception e) {
+			System.out.println("MKDaoImpl totalCustomer Exception->" + e.getMessage());
+		}
+		return totalCustomer;
+	}
+
+	@Override
+	public List<mkCustomer> listCustomer(mkCustomer customer) {
+		List<mkCustomer> listCustomer = null;
+		System.out.println("MKDaoImpl listCustomer Start");
+		System.out.println("MKDaoImpl listCustomer->" +customer);
+		try {
+			listCustomer = session.selectList("mklistCustomer", customer);
+		}catch (Exception e) {
+			System.out.println("MKDaoImpl listCustomer Exception->"+ e.getMessage());
+		}
+		
+		return listCustomer;
+	}
+
+	@Override
+	public mkCustomer getCustomerDetail(mkCustomer customer) {
+		System.out.println("MK Dao Impl getCustomerDetail Start");
+		mkCustomer getCustomerDetail = null;
+		try {
+			getCustomerDetail=session.selectOne("mkgetCustomerDetail", customer);
+			
+		} catch (Exception e) {
+			System.out.println("MK_DaoImol getCustomerDetail Exception->"+ e.getMessage());
+		}
+		return getCustomerDetail;
 	}
 
 

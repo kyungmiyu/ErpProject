@@ -29,6 +29,7 @@
 		<!--민경  -->
 		<typeAlias alias="mkProduct"   			type="com.oracle.erpProject.model.mkmodel.mkProduct"/>
 		<typeAlias alias="mkFactory"   			type="com.oracle.erpProject.model.mkmodel.mkFactory"/>
+		<typeAlias alias="mkCustomer"   			type="com.oracle.erpProject.model.mkmodel.mkCustomer"/>
 		<!--민경 끝  -->
 	</typeAliases>
 	
