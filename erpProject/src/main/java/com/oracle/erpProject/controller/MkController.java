@@ -401,6 +401,29 @@ public class MkController {
 	
 		return customerDetail;
 	}
+	
+	@GetMapping("customerSearch")
+	 public String customerSearch(mkCustomer customer, Model model) {
+		System.out.println("MKController customerSearch ->" + customer); 
+		//total 
+		 int totCustomer = mk_Service_interface.searchedCustomerTotal(customer);
+		 
+		 System.out.println("MK_Controller customerSearch totCustomer->"+ totCustomer);
+		 
+		 //paging 작업 
+		 Paging page = new Paging(totCustomer, customer.getCurrentPage());
+		 customer.setStart(page.getStart());
+		 customer.setEnd(page.getEnd());
+		 
+		 List<mkCustomer> listSearchCustomer = mk_Service_interface.listSearchCustomer(customer);
+		 System.out.println("MK_Controller listSearch listSearchCustomer list size->"+ listSearchCustomer.size());
+		 
+		 model.addAttribute("totalCustomer",totCustomer);
+		 model.addAttribute("listCustomer",listSearchCustomer);
+		 model.addAttribute("page",page);
+		 
+		 return "mk/customerR";
+	 }
 
 	
 	// 거래처 등록
@@ -410,12 +433,69 @@ public class MkController {
 		return "mk/customerC";
 	}
 	
-	/* /custDetail */
+
 	
 	// 거래처 수정
 	@GetMapping("/customerU")
-	public String custromerU() {
+	public String custromerU(mkCustomer customer, Model model) {
 		System.out.println("MK Controller custromerU start");
+	
+		//product count 
+		int totalCustomer = mk_Service_interface.totalCustomer(customer);
+		System.out.println("MK_Controller Start totalProduct->"+totalCustomer);
+	
+		
+		//paging 작업 
+		Paging page = new Paging(totalCustomer, customer.getCurrentPage());
+		customer.setStart(page.getStart()); //시작시 1 
+		customer.setEnd(page.getEnd()); // 시작시 10 
+		
+		  List<mkCustomer> listCustomer = mk_Service_interface.listCustomer(customer);
+		  System.out.println("MKController listProduct.size->"+listCustomer.size());
+		  
+		  model.addAttribute("listCustomer",listCustomer); 
+		  model.addAttribute("page", page);
+		  model.addAttribute("totalCustomer",totalCustomer);
 		return "mk/customerU";
 	}
+	
+	// 거래처 업데이트 로직 
+	@PostMapping("/updateCustomer")
+	public String updateCustomer(@ModelAttribute mkCustomer customer,  HttpServletRequest request,  RedirectAttributes redirectAttributes) {
+
+		System.out.println("MK_Controller updateCustomer start...");
+		System.out.println("Customer Update data->"+customer);
+		
+		
+		//제품 정보 저장 로직 구현 
+		int updateResult = mk_Service_interface.UpdateCustomer(customer);
+		if(updateResult>0)
+			return"redirect:customerU";
+		else {
+		
+			return "forward:customerU";
+		}
+	}
+	
+	// 거래처 등록 로직 
+	@PostMapping("/createCustomer")
+	public String writeCustomer(@ModelAttribute mkCustomer customer,  HttpServletRequest request,  RedirectAttributes redirectAttributes) {
+		
+		System.out.println("MK_Controller writeCustomer start...");
+		System.out.println("customer data->"+customer);
+		
+		
+		
+		//제품 정보 저장 로직 구현 
+		int insertResult = mk_Service_interface.insertCustomer(customer);
+		if(insertResult>0)
+			return"redirect:customerR";
+		else {
+		
+			return "forward:customerC";
+		}
+	}
+
+	
+
 }

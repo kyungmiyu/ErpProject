@@ -265,7 +265,60 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 		return getCustomerDetail;
 	}
 
+	@Override
+	public int searchedCustomerTotal(mkCustomer customer) {
+		int totalsearchedCustomerTotal = 0;
+		System.out.println("MKDaoImpl totalsearchedCustomerTota Start");
+		System.out.println("MKDaoImpl totalsearchedCustomerTota->"+ customer);
+		try {
+			totalsearchedCustomerTotal = session.selectOne("mktotalsearchedCustomerTotal");
+			
+		}catch (Exception e) {
+			System.out.println("MKDaoImpl totalsearchedCustomerTota Exception->" + e.getMessage());
+		}
+		return totalsearchedCustomerTotal;
+	}
 
+	@Override
+	public List<mkCustomer> listSearchCustomer(mkCustomer customer) {
+		List<mkCustomer> searcedCustomer = null;
+		System.out.println("MKDaoImpl searcedCustomer  start");
+		System.out.println("MKDaoImpl->"+customer);
+		try {
+			searcedCustomer  = session.selectList("mksearcedCustomer",customer);
+			
+		}catch (Exception e) {
+			System.out.println("searcedCustomer  exception->"+e.getMessage());
+		}
+		return searcedCustomer ;
+	}
+
+	@Override
+	public int UpdateCustomer(mkCustomer customer) {
+		int UpdateCustomer = 0;
+		System.out.println("MKDaoImpl UpdateCustomer Start");
+		System.out.println("MKDaoImpl ->"+customer);
+		try {
+			UpdateCustomer =session.update("UpdateCustomer",customer);
+			
+		}catch (Exception e) {
+			System.out.println("UpdateCustomer Exception->"+e.getMessage());
+		}
+		return UpdateCustomer;
+	}
+
+	@Override
+	public int insertCustomer(mkCustomer customer) {
+		int insertResult=0;
+		System.out.println("MkDaoImpl insertCustomer Start");
+		System.out.println("MK_DaoImpl mkinsertCustomer ->" +customer);
+		try {
+			insertResult = session.insert("mkinsertCustomer",customer);
+		}catch (Exception e) {
+			System.out.println("MkDaoImpl insertCustomer Exception->"+e.getMessage());
+		}
+		return insertResult;
+	}
 		
 	}
 

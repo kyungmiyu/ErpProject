@@ -30,5 +30,70 @@
 		where cust_no=${cust_no}
 		]]>
 	</select>
+	
+	<select id="mktotalsearchedCustomerTotal" resultType="int">
+		SELECT Count(*) FROM customer
+ 		<choose>
+ 			<when test="search == 'cust_no'">
+                 WHERE cust_no  like '%' || #{keyword} || '%'    
+  			</when>
+  			<when test="search == 'cust_name'">
+                 WHERE cust_name like '%' || #{keyword} || '%'    
+  			</when>
+            <otherwise>
+                  WHERE cust_no  like '%'   
+            </otherwise>
+        </choose>
+ </select>
+ 
+ 
+ <select id="mksearcedCustomer" parameterType="mkCustomer" resultType="mkCustomer">
+   
+    SELECT *
+    FROM
+    (
+            SELECT rownum rn, a.*
+            FROM
+                (SELECT * FROM customer
+                <choose>
+                    <when test="search == 'cust_no'">
+                        WHERE cust_no LIKE '%' || #{keyword} || '%'    
+                    </when>
+                    <when test="search == 'cust_name'">
+                        WHERE cust_name LIKE '%' || #{keyword} || '%'    
+                    </when>
+                    <otherwise>
+                        WHERE cust_no LIKE '%'   
+                    </otherwise>
+                </choose>
+                ORDER BY cust_no
+                ) a
+    )
+    WHERE rn BETWEEN #{start} and #{end}
+ 
+</select>
+
+
+	<update id="UpdateCustomer" parameterType="mkCustomer">
+    UPDATE customer
+    SET 
+    cust_bcomm = #{cust_bcomm}, 
+    cust_scomm = #{cust_scomm}, 
+    cust_type = #{cust_type}, 
+    cust_name = #{cust_name}, 
+    cust_boss = #{cust_boss},
+    cust_b_num = #{cust_b_num},
+    cust_tel = #{cust_tel},
+    cust_email = #{cust_email}
+    WHERE cust_no = #{cust_no}
+</update>
+
+
+<insert id="mkinsertCustomer" parameterType="mkCustomer">
+    INSERT INTO customer
+    (cust_no, cust_name, cust_bcomm, cust_scomm, cust_type, cust_boss, cust_b_num, cust_tel, cust_email)
+    VALUES (customer_code_seq.nextval, #{cust_name}, #{cust_bcomm}, #{cust_scomm}, #{cust_type}, #{cust_boss}, #{cust_b_num}, #{cust_tel}, #{cust_email})
+</insert>
+
 
 </mapper>
