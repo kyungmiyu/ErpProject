@@ -169,9 +169,43 @@ public class MK_ServiceImpl implements MK_Service_interface {
 		return getCustomerDetail;
 	}
 
+	@Override
+	public int searchedCustomerTotal(mkCustomer customer) {
+		System.out.println("MK_Service_Impl searchedCustomerTotal Start");
+		int searchedCustomerTotal = 0;
+		searchedCustomerTotal = mk_Dao_Interface.searchedCustomerTotal(customer);
+		return searchedCustomerTotal;
+	}
+
+	@Override
+	public List<mkCustomer> listSearchCustomer(mkCustomer customer) {
+		System.out.println("MK_Service_Impl listSearhceCustomer Start");
+		List<mkCustomer> listSearchCustomer =null;
+		listSearchCustomer = mk_Dao_Interface.listSearchCustomer(customer);
+		return listSearchCustomer;
+	}
+
+	@Override
+	public int UpdateCustomer(mkCustomer customer) {
+		System.out.println("MK_Service_Impl UpdateCustomer Start");
+		int updateResult =0;
+		updateResult =mk_Dao_Interface.UpdateCustomer(customer);
+		return updateResult;
+	}
+
+	@Override
+	public int insertCustomer(mkCustomer customer) {
+		System.out.println("MK_Service Impl CreateCustomer Start");
+		int result=0;
+		System.out.println("MKServiceImpl customer->"+customer);
+		result = mk_Dao_Interface.insertCustomer(customer);
+		return result;
+	}
+	}
+
 
 	
 
 	 
 
-}
+
