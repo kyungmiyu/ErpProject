@@ -25,8 +25,10 @@ $(document).ready(function() {
             	var imagePath ='../upload/' +product.p_image;
                 $('#p_itemcode').val(product.p_itemcode); // 제품코드
                 $('#pro_category').val(product.pro_category); //제품대분류
+                $('#pro_midcategory').val(product.pro_midcategory); //제품대분류
                 $('#f_id').val(product.f_id); // 제품공장
                 /*  */
+                $('#p_saleprice').val(product.p_saleprice); // 매입가격
                  $('#p_buyprice').val(product.p_buyprice); // 매입가격
                 $('#p_isdeleted').val(product.p_isdeleted); // 취급여부
                 $('#p_regdate').val(product.p_regdate); // 등록날자
@@ -42,35 +44,21 @@ $(document).ready(function() {
     });
 });
 
+/* 이미지 미리보기 기능 */
+function previewImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+            // 읽기 성공 시 이미지 미리보기 업데이트
+            $('#productImage').attr('src', e.target.result);
+        }
+        
+        // 선택된 파일 읽기
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
-/* 검색 필터 */
-/*  $('#button-addon2').click(function() {
-        // 각 필터 및 검색 필드의 값을 가져옴
-        var midCategory = $(this).data('midcategory');
-        var isDeleted = $(this).data('isdeleted');
-        var searchValue = $('input[aria-label="Search"]').val();
-
-        // AJAX 요청
-        $.ajax({
-            url: '여기에_서버_URL_입력', // 서버의 URL 입력
-            method: 'POST', // 또는 GET, 서버에 따라 다름
-            data: {
-                filter1: filter1Value,
-                filter2: filter2Value,
-                search: searchValue
-            },
-            success: function(response) {
-                // 서버로부터 응답을 성공적으로 받았을 때 실행
-                // 예: 검색 결과를 페이지에 표시
-                console.log(response); // 또는 검색 결과를 처리하는 로직 구현
-            },
-            error: function(xhr, status, error) {
-                // 오류 발생 시 실행
-                console.error("Error: " + error);
-            }
-        });
-    });
-}); */
 </script>
 
 <%@ include file="../configHead.jsp"%>
@@ -270,21 +258,21 @@ $(document).ready(function() {
 					        <c:if test="${page.startPage > page.pageBlock}">
 					            <!-- "이전" 페이지 링크 -->
 					            <li class="page-item">
-					                <a class="page-link" href="productR?currentPage=${page.startPage - page.pageBlock}">이전</a>
+					                <a class="page-link" href="productU?currentPage=${page.startPage - page.pageBlock}">이전</a>
 					            </li>
 					        </c:if>
 					        
 					        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
 					            <!-- 페이지 번호 링크 -->
 					            <li class="page-item ${param.currentPage == i ? 'active' : ''}">
-					                <a class="page-link" href="productR?currentPage=${i}">${i}</a>
+					                <a class="page-link" href="productU?currentPage=${i}">${i}</a>
 					            </li>
 					        </c:forEach>
 					        
 					        <c:if test="${page.endPage < page.totalPage}">
 					            <!-- "다음" 페이지 링크 -->
 					            <li class="page-item">
-					                <a class="page-link" href="productR?currentPage=${page.startPage + page.pageBlock}">다음</a>
+					                <a class="page-link" href="productU?currentPage=${page.startPage + page.pageBlock}">다음</a>
 					            </li>
 					        </c:if>
 					    </ul>
@@ -312,68 +300,77 @@ $(document).ready(function() {
 							<div class="table-responsive p-4">
 			
 						<!-- img-->
-						<img id="productImage" src="../upload/jinnoodle.jpg" class="img-thumbnail" style="width: 200px; height: 200px;" >
+								<!-- 이미지 업로드 필드 -->
+						<form action="updateProduct" method="post" name="product" enctype="multipart/form-data">
+						  
+							<div class="form-group">
+							   <label for="uploadFile">이미지 업로드</label>
+					        <input type="file" class="form-control" name="uploadFile" id="uploadFile" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="previewImage(this);">
+					        <!-- 이미지 미리보기를 위한 컨테이너와 img 태그 -->
+					        <img id="productImage" src="../upload/jinnoodle.jpg" class="img-thumbnail" style="width: 200px; height: 200px;" >
+					    </div>
+							
 
-								
-								<form>
+							
+							
+
+							<!-- 이미지등록 끝 -->
+						
 					    <div class="row">
 					        <div class="col-md-6">
 					            <div class="form-group">
 					                <label for="p_itemcode">제품코드</label> 
-					                <input type="email" class="form-control" id="p_itemcode"  readonly >
+					                <input type="text" class="form-control" id="p_itemcode"  name="p_itemcode"  readonly  >
 					            </div>
 					            <div class="form-group">
 					                <label for="pro_category">제품 대분류</label> 
-					                <input type="email" class="form-control" id="pro_category"  readonly>
+					                <input type="text" class="form-control" id="pro_category" name="pro_category" required="required"  >
 					            </div>
 					            <div class="form-group">
 					                <label for="f_id">제품공장</label> 
-					                <input type="email" class="form-control" id="f_id"  readonly>
+					                <input type="text" class="form-control" id="f_id" required="required" name="f_id" >
 					            </div>
 					              <div class="form-group">
-					                <label for="p_buyprice">매출 가격</label> 
-					                <input type="email" class="form-control" id="p_buyprice"  readonly>
+					                <label for="p_saleprice">매출 가격</label> 
+					                <input type="text" class="form-control" id="p_saleprice"  name="p_saleprice"  required="required" >
 					            </div>
 					              <div class="form-group">
 					                <label for="p_isdeleted">판매상태</label> 
-					                <input type="email" class="form-control" id="p_isdeleted"  readonly>
+					                <input type="text" class="form-control" id="p_isdeleted" name="p_isdeleted" required="required" >
 					            </div>
-					             <div class="form-group">
-					                <label for="p_regdate">등록날짜</label> 
-					                <input type="email" class="form-control" id="p_regdate"  readonly>
-					            </div>
+					   
 					        
 					        </div>
 					        <div class="col-md-6">
 					            <div class="form-group">
 					                <label for="p_name">제품명</label> 
-					                <input type="email" class="form-control" id="p_name"  readonly>
+					                <input type="text" class="form-control" id="p_name" name="p_name"  required="required"  >
 					            </div>
 					            <div class="form-group">
-					                <label for="exampleFormControlInput5">제품 중분류</label> 
-					                <input type="email" class="form-control" id="exampleFormControlInput5"  readonly>
+					                <label for="pro_midcategory">제품 중분류</label> 
+					                <input type="text" class="form-control" id="pro_midcategory" name="pro_midcategory"  required="required" >
 					            </div>
 					            <div class="form-group">
 					                <label for="p_fac_gubun">공장구분</label> 
-					                <input type="email" class="form-control" id="p_fac_gubun"  readonly>
+					                <input type="text" class="form-control" id="p_fac_gubun"  name="p_fac_gubun" required="required" >
 					            </div>
 					            <div class="form-group">
 					                <label for="p_buyprice">매입가격</label> 
-					                <input type="email" class="form-control" id="p_buyprice"  readonly>
+					                <input type="text" class="form-control" id="p_buyprice"  name ="p_buyprice"  required="required" >
 					            </div>
-					            <div class="form-group">
+					          <!--   <div class="form-group">
 					                <label for="exampleFormControlInput7">판매 담당자</label> 
-					                <input type="email" class="form-control" id="exampleFormControlInput7" readonly >
-					            </div>
+					                <input type="text" class="form-control" id="exampleFormControlInput7"  required="required" >
+					            </div> -->
 					         
 					        </div>
 					        
 					    </div>
 					    
 					    <!-- 버튼 -->
-					 <!--    <div class="text-right">
-					    <button class="btn btn-primary" type="button">저장</button>
-					 </div> -->
+					    <div class="text-right">
+					    <input class="btn btn-primary" type="submit" value="수정"/>
+					 </div>
 					
 					    
 					    

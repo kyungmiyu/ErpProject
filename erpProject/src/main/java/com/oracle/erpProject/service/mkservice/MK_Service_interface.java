@@ -2,6 +2,7 @@ package com.oracle.erpProject.service.mkservice;
 
 import java.util.List;
 
+import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 
 public interface MK_Service_interface {
@@ -17,6 +18,12 @@ public interface MK_Service_interface {
 	int searchedProductTotal(mkProduct product);
 
 	List<mkProduct> listSearchProduct(mkProduct product);
+
+	int UpdataProduct(mkProduct product);
+
+	int totalFactory(mkFactory factory);
+
+	List<mkFactory> listFactory(mkFactory factory);
 
 //	void saveProductImagePath(mkProduct product);
 

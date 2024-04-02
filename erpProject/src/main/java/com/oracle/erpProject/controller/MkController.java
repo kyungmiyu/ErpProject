@@ -9,12 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oracle.erpProject.model.Product;
+import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 import com.oracle.erpProject.service.mkservice.MK_Service_interface;
 import com.oracle.erpProject.service.mkservice.Paging;
@@ -140,45 +143,90 @@ public class MkController {
 			}
 		}
 		
-		//제품 수정
+		//제품 수정 폼 
 		@GetMapping("productU")
-		public String productU() {
+		public String productU(mkProduct product,Model model) {
+			System.out.println("MK Controller productR Start...");
+			System.out.println("MK Controller productR ->"+product);
+			//product count 
+			int totalProduct = mk_Service_interface.totalProduct(product);
+			System.out.println("MK_Controller Start totalProduct->"+totalProduct);
+			
+			//paging 작업 
+			Paging page = new Paging(totalProduct, product.getCurrentPage());
+			product.setStart(page.getStart()); //시작시 1 
+			product.setEnd(page.getEnd()); // 시작시 10 
+			
+			  List<mkProduct> listProduct = mk_Service_interface.listProduct(product);
+			  System.out.println("MKController listProduct.size->"+listProduct.size());
+			  
+			  model.addAttribute("listProduct",listProduct); 
+			  model.addAttribute("page", page);
+			  model.addAttribute("totalProduct",totalProduct);
+			
 			return "mk/productU";
 		}
-	//제품 등록 ->이미지 등록 
+	 
+		// 제품 수정 로직 
 		
-	/*
-	 * @PostMapping(value="uploadAjaxAction") public String
-	 * uploadAjaxPost(@RequestParam("uploadFile") MultipartFile uploadFile,
-	 * HttpServletRequest request) { System.out.println("update ajax post");
-	 * 
-	 * String uploadFolder =
-	 * request.getSession().getServletContext().getRealPath("/upload/");
-	 * 
-	 * System.out.println("---------------------------------");
-	 * System.out.println("Upload File Name: " + uploadFile.getOriginalFilename());
-	 * System.out.println("Upload File Size: " + uploadFile.getSize());
-	 * 
-	 * String uploadFileName = uploadFile.getOriginalFilename();
-	 * 
-	 * // IE에서는 파일 경로가 포함되어 있으므로, 마지막 '\' 이후의 이름만 추출 uploadFileName =
-	 * uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-	 * System.out.println("only file name: " + uploadFileName);
-	 * 
-	 * File saveFile = new File(uploadFolder, uploadFileName);
-	 * 
-	 * try { uploadFile.transferTo(saveFile); // 여기서 데이터베이스에 저장하는 로직을 추가 mkProduct
-	 * product = new mkProduct(); product.setP_image(uploadFolder);
-	 * mk_Service_interface.saveProductImagePath(product); return
-	 * "redirect:/productC"; } catch (Exception e) {
-	 * System.out.println("file exception ->" + e.getMessage()); return
-	 * "redirect:/productC"; } // end catch }
-	 */
+		@PostMapping("updateProduct")
+		public String updateProduct(@ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
+	
+				System.out.println("MK_Controller UpdateProductProduct start...");
+				System.out.println("product Update data->"+product);
+				
+				//파일 저장 경로 설정 
+				String uploadFolder = request.getSession().getServletContext().getRealPath("/upload/");
+				
+				if (!file.isEmpty()) {
+					String originalFilename = file.getOriginalFilename(); // 원본 파일명
+					String extension = originalFilename.substring(originalFilename.lastIndexOf(".")); // 파일 확장자
+					String savedFilename = UUID.randomUUID().toString()+extension;
+					
+					//파일 저장 경로와 파일명을 합쳐 File 객체 생성 
+					File saveFile = new File(uploadFolder,savedFilename);
+					
+					try {
+						file.transferTo(saveFile); // 파일 저장 
+						product.setP_image(savedFilename); 
+					} catch (Exception e) {
+						e.printStackTrace();
+						redirectAttributes.addFlashAttribute("message","파일 업로드 실패");
+						return "redirect:/productC";
+					}
+				}
+				
+				//제품 정보 저장 로직 구현 
+				int updateResult = mk_Service_interface.UpdataProduct(product);
+				if(updateResult>0)
+					return"redirect:productU";
+				else {
+				
+					return "forward:productU";
+				}
+			}
+		
 	// 공장 조회
 	@GetMapping("/factoryR")
-	public String factoryR() {
+	public String factoryR(mkFactory factory,Model model) {
 		System.out.println("MK Controller factoryR start");
-		return "mk/factoryR";
+		//product count 
+				int totalFactory = mk_Service_interface.totalFactory(factory);
+				System.out.println("MK_Controller Start totalFactory->"+totalFactory);
+				
+				//paging 작업 
+				Paging page = new Paging(totalFactory, factory.getCurrentPage());
+				factory.setStart(page.getStart()); //시작시 1 
+				factory.setEnd(page.getEnd()); // 시작시 10 
+				
+				  List<mkFactory> listFactory = mk_Service_interface.listFactory(factory);
+				  System.out.println("MKController listFactory.size->"+listFactory.size());
+				  
+				  model.addAttribute("listProduct",listFactory); 
+				  model.addAttribute("page", page);
+				  model.addAttribute("totalProduct",totalFactory);
+			
+				  return "mk/factoryR";
 	}
 	
 	// 공장 등록

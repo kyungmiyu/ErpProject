@@ -24,13 +24,25 @@ public class Buying {
 	private int d_cubun;					// 수불마감구분
 	
 	// 조회용
-	private String buy_status_detatil; //  구매 상태 이름 
-	private int productcnt; // 총 구매한 제품의 타입 수 
+	private String buy_status_detail; //  구매 상태 이름 
+	private int productCnt; // 총 구매한 제품의 타입 수 
 	private String emp_name; // 거래처 담당자 이름
 	private String cust_name; // 거래처 
 	private int p_itemcode;		// 제품코드
 	private int bd_cnt;			// 구매수량
 	private int bd_price;		// 구매가격
-	private int totalMoney;
+	private int totalMoney; // 총금액
+	private int totalCnt; // 제품 전체 총 수량
+	
+	
+	// 페이징
+	private int start;
+	private int end;
+	private String currentPage;
+	private int pageBlock;
+	private int rowPage;
+	private int startPage;			private int endPage;
+	private int total;				private int totalPage;
+	
 	
 }
