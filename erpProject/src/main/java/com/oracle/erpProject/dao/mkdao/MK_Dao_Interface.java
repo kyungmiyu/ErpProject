@@ -2,6 +2,7 @@ package com.oracle.erpProject.dao.mkdao;
 
 import java.util.List;
 
+import com.oracle.erpProject.model.mkmodel.mkCustomer;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 
@@ -24,6 +25,22 @@ public interface MK_Dao_Interface {
 	int totalFactory(mkFactory factory);
 
 	List<mkFactory> listFactory(mkFactory factory);
+
+	mkFactory factoryDetail(mkFactory factory);
+
+	int insertFactory(mkFactory factory);
+
+	int searchedFactoryTotal(mkFactory factory);
+
+	List<mkFactory> listSearchFactory(mkFactory factory);
+
+	int updateFactory(mkFactory factory);
+
+	int totalCustomer(mkCustomer customer);
+
+	List<mkCustomer> listCustomer(mkCustomer customer);
+
+	mkCustomer getCustomerDetail(mkCustomer customer);
 
 
 

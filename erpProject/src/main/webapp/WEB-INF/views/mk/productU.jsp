@@ -122,7 +122,7 @@ function previewImage(input) {
 							
 
 				<!--검색 및 필터  -->
-			<form action="listSearch">
+			<form action="updateFormlistSearch">
 							<div class="container">
 								<!-- 필터 행 -->
 								<div class="row">
@@ -332,7 +332,7 @@ function previewImage(input) {
 					            </div>
 					              <div class="form-group">
 					                <label for="p_saleprice">매출 가격</label> 
-					                <input type="text" class="form-control" id="p_saleprice"  name="p_saleprice"  required="required" >
+					                <input type="text" class="form-control" id="p_saleprice"  name="p_saleprice"    >
 					            </div>
 					              <div class="form-group">
 					                <label for="p_isdeleted">판매상태</label> 
