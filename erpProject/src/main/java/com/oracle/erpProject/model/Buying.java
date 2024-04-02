@@ -29,10 +29,12 @@ public class Buying {
 	private String emp_name; // 거래처 담당자 이름
 	private String cust_name; // 거래처 
 	private int p_itemcode;		// 제품코드
+	private String p_name;				// 제품 이름 
 	private int bd_cnt;			// 구매수량
 	private int bd_price;		// 구매가격
 	private int totalMoney; // 총금액
 	private int totalCnt; // 제품 전체 총 수량
+	private String managerName; // 구매 담당자
 	
 	
 	// 페이징

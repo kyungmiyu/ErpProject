@@ -33,9 +33,9 @@
 	 
 	 	<div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">제목</label>
-		    <input type="text" class="form-control" id="detailTitle1" placeholder="">
+		    <input type="text" class="form-control" id="detailTitle1" placeholder="구매전표_YYYYMMDD_거래처명">
 		  	<label for="detailManager" id="detailManagerLabel">거래처</label>
-		    <input type="text" class="form-control" id="detailManager1" placeholder="거레처를 검색하세요.">
+		    <input type="text" class="form-control" id="detailManager1" placeholder="거래처를 검색하세요.">
             <button type="button" class="btn btn-primary" id="customerSearchBtn">검색</button>
 		  </div>
 		  <div class="form-group" id="titleBox1">

@@ -141,6 +141,10 @@ $(document).ready(function() {
 							</div>	
 							</div>
 						</form>
+						
+						
+						
+						<!-- 검색끝 -->
 						</div>
 						<div class="card-body px-0 pt-0 pb-2">
 
@@ -342,23 +346,12 @@ $(document).ready(function() {
 					        </div>
 					        
 					    </div>
-					    
-					    <!-- 버튼 -->
-					 <!--    <div class="text-right">
-					    <button class="btn btn-primary" type="button">저장</button>
-					 </div> -->
-					
+					   
 					    
 					    
 					</form>
 													
-
-
 							</div>
-
-
-
-
 						</div>
 					</div>
 				</div>
