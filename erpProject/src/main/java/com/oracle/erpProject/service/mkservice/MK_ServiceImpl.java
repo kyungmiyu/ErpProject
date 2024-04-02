@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.oracle.erpProject.dao.mkdao.MK_Dao_Interface;
+import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 
 import lombok.RequiredArgsConstructor;
@@ -80,12 +81,25 @@ public class MK_ServiceImpl implements MK_Service_interface {
 		return result;
 	}
 
-//	@Override
-//	public void saveProductImagePath(mkProduct product) {
-//		System.out.println("MKService saveProductImagePath");
-//		System.out.println("MKSeviceImpl mkProduct->"+product);
-//		mk_Dao_Interface.saveProductImagePath(product);
-//	}
+	@Override
+	public int totalFactory(mkFactory factory) {
+		System.out.println("MK ServiceImpl totalFactory Start");
+		System.out.println("MK ServiceImpl totalFactory factory->"+factory);
+		int totalFactory = mk_Dao_Interface.totalFactory(factory);
+		System.out.println("MK ServiceImpl totalFactory ->"+totalFactory);
+		
+		return totalFactory;
+	}
+
+	@Override
+	public List<mkFactory> listFactory(mkFactory factory) {
+		System.out.println("MK ServiceImpl listFactory Start");
+		System.out.println("MK Service Impl listFactory factory->"+factory);
+		List<mkFactory> listFactory = null;
+		listFactory=mk_Dao_Interface.listFactory(factory);
+		return listFactory;
+	}
+
 
 	
 

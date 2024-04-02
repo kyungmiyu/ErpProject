@@ -2,6 +2,7 @@ package com.oracle.erpProject.dao.mkdao;
 
 import java.util.List;
 
+import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 
 public interface MK_Dao_Interface {
@@ -20,6 +21,10 @@ public interface MK_Dao_Interface {
 
 	int UpdataProduct(mkProduct product);
 
-//	void saveProductImagePath(mkProduct product);
+	int totalFactory(mkFactory factory);
+
+	List<mkFactory> listFactory(mkFactory factory);
+
+
 
 }

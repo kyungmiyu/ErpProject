@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oracle.erpProject.model.Product;
+import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 import com.oracle.erpProject.service.mkservice.MK_Service_interface;
 import com.oracle.erpProject.service.mkservice.Paging;
@@ -207,9 +208,25 @@ public class MkController {
 		
 	// 공장 조회
 	@GetMapping("/factoryR")
-	public String factoryR() {
+	public String factoryR(mkFactory factory,Model model) {
 		System.out.println("MK Controller factoryR start");
-		return "mk/factoryR";
+		//product count 
+				int totalFactory = mk_Service_interface.totalFactory(factory);
+				System.out.println("MK_Controller Start totalFactory->"+totalFactory);
+				
+				//paging 작업 
+				Paging page = new Paging(totalFactory, factory.getCurrentPage());
+				factory.setStart(page.getStart()); //시작시 1 
+				factory.setEnd(page.getEnd()); // 시작시 10 
+				
+				  List<mkFactory> listFactory = mk_Service_interface.listFactory(factory);
+				  System.out.println("MKController listFactory.size->"+listFactory.size());
+				  
+				  model.addAttribute("listProduct",listFactory); 
+				  model.addAttribute("page", page);
+				  model.addAttribute("totalProduct",totalFactory);
+			
+				  return "mk/factoryR";
 	}
 	
 	// 공장 등록
