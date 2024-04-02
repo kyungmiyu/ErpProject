@@ -10,6 +10,7 @@
 
  
  <link href="assets/js/LSL/buying.js">
+
  
 <head>
 <%@ include file="../configHead.jsp"%>
@@ -36,15 +37,15 @@
 	 
 	 	<div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">제목</label>
-		    <input type="text" class="form-control" id="detailTitle" placeholder="">
+		    <input type="text" class="form-control" id="detailTitle" value="${buyingDetail.buy_title}">
 		  	<label for="detailManager" id="detailManagerLabel">거래처</label>
-		    <input type="text" class="form-control" id="detailManager" placeholder="">
+		    <div  class="form-control" id="detailManager" >${buyingDetail.cust_name}</div>
 		  </div>
 		  <div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">구매 담당자</label>
-		    <input type="text" class="form-control" id="detailTitle" placeholder="">
+		    <div class="form-control" id="detailTitle">${buyingDetail.managerName}</div>
 		  	<label for="detailManager" id="detailManagerLabel">거래처 담당자</label>
-		    <input type="text" class="form-control" id="detailManager" placeholder="">
+		    <div  class="form-control" id="detailManager" >${buyingDetail.emp_name}</div>
 		  </div>
 	 
 		   
@@ -52,27 +53,30 @@
 			  
 
 			  <div class="colNote">비고</div>
-			  <textarea type="text"  class="colNoteBox"></textarea>
+			  <textarea type="text"  class="colNoteBox">${buyingDetail.buy_note}</textarea>
 
 		  
-		 <div class="buyList">
-		    <ul class="buyListTitle">
-		        <li>제품명</li>
-		        <li>제품 가격</li>
-		        <li>제품 수량</li>
-		        <li>총 금액</li>
-		    </ul>
-		</div>
-		  
-		<div class="form-group" id="buyListItemsContainer">
-			<div class="custom-select" id="buyListItems">
-				<div class="custom-option"></div>
-				<div class="custom-option"></div>
-				<div class="custom-option"></div>
-				<div class="custom-option"></div>
-			</div>
-		</div>
-
+			 <div class="form-group" id="buyListItemsContainer">
+		    <div class="custom-select" id="buyListItems">
+		        <ul class="buyList">
+		            <li class="buyListTitle">
+		                <div>제품명</div>
+		                <div>제품 가격</div>
+		                <div>제품 수량</div>
+		                <div>총 금액</div>
+		            </li>
+            <c:forEach var="productDetail" items="${productDetail}">
+                <li class="buyListItem">
+                    <div>${productDetail.p_name}</div>
+                    <div>${productDetail.bd_price}</div>
+                    <div>${productDetail.bd_cnt}</div>
+                    <div>${productDetail.totalMoney}</div>
+                    <button type="button" class="btn btn-primary" id="pDeleteBtn"> 삭제</button>
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
+</div>
 	
    	<button type="button" class="btn btn-primary" id="buyModify">수정</button>
     <button type="button" class="btn btn-primary" id="buyComple">완료</button>

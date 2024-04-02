@@ -39,6 +39,7 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 	}
 	
 
+	// 날짜 검색 리스트
 	@Override
 	public List<Buying> dateSearchAllList(Buying buying) {
 		System.out.println("SL_ServiceImpl dateSearchAllList Start ->>>>>>");
@@ -47,6 +48,26 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		System.out.println("SL_ServiceImpl dateSearchAllList  ->>>>>>" + dateSearchAllList);
 		
 		return dateSearchAllList;
+	}
+
+	// 구매 상세 페이지
+	@Override
+	public Buying buyingDetail(Buying buying) {
+		
+		System.out.println("SL_ServiceImpl buyingDetail Start ->>>>>>");
+		Buying buyingDetail =  slDao.buyingDetail(buying);
+		 
+		 
+		return buyingDetail;
+	}
+
+	// 구매 상세페이지 상품 리스트 
+	@Override
+	public List<Buying> productDetail(Buying buying) {
+		System.out.println("SL_ServiceImpl productDetail Start ->>>>>>");
+		List<Buying> productDetail = slDao.productDetail(buying);
+		
+		return productDetail;
 	}
 	
 }
