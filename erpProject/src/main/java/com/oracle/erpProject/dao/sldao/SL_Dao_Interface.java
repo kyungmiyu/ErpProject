@@ -10,4 +10,9 @@ public interface SL_Dao_Interface {
 
 	List<Buying> buyAlllist(Buying buying);
 
+	// 날짜 검색 
+	int dateSearchtotCnt(Buying buying);
+
+	List<Buying> dateSearchAllList(Buying buying);
+
 }

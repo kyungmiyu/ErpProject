@@ -17,7 +17,7 @@ public class mkProduct {
 		private int p_saleprice;				//매출가격
 		private String p_image;				// 제품사진
 		private Date p_enddate;			//판매종료일
-		private Date p_udtdatd;				//수정날자
+		private Date p_update;				//수정날자
 		private Date p_regdate;				//등록날자
 		private String p_fac_gubun;		//공장구분
 		private int p_isdeleted;				//취급여부 

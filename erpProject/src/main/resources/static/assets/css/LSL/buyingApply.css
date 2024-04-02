@@ -61,51 +61,50 @@
 	margin-left: 20px;
 	margin-right: 10px;
 	height: 20px;
-	width: 110px;
+	width: 100px;
 
 }
 
 #detailTitle1 {
 	position: absolute;
 	left: 90px;
-	width: 430px;
+	width: 38%;
 	margin-left: 10px;
 	margin-right: 10px;
 }
 
 #detailTitle2 {
 	position: absolute;
-	left: 90px;
-	width: 430px;
+	left: 100px;
+	width: 38%;
 	margin-left: 10px;
 	margin-right: 30px;
 }
 
 #detailManagerLabel {
-	position: absolute;
 	height: 20px;
-	width: 125px;
-	right: 450px;
+    width: 100px;
 	font-size: 0.8rem;
-	margin-top: 10px;
-	margin-left: 5px;
-	margin-right: 5px;
-
+    margin-top: 10px;
+    margin-left: 600px;
+    margin-right: 5px;
+   
+   
 
 }
 
 #detailManager1 {
 	position: absolute;
 	right: 10px;
-	width: 370px;
+	width: 30%;
 	margin-left: 40px;
-	margin-right: 110px;
+	margin-right: 175px;
 }
 
 #detailManager2 {
 	position: absolute;
 	right: 30px;
-	width: 430px;
+	width: 38%;
 	margin-left: 10px;
 	margin-right: 30px;
 }
@@ -209,8 +208,9 @@
 }
 
 .buyListTitle li {
-	margin-left: auto;
+	margin-left: 80px;
 	margin-right: auto;
+	
 }
 
 
@@ -235,14 +235,15 @@
 }
 
 .custom-option {
-	width: 200px;
-	margin-top: 10px;
-	margin-right: 20px;
-	margin-left: 40px;
-	height: 40px;
-	border: 1px solid #d2d6da;
-	border-radius: 10px;
-	background-color: #e8e9ea63;
+	width: 20%;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 30px;
+    height: 40px;
+    display: inline-block;
+    border: 1px solid #d2d6da;
+    border-radius: 10px;
+    background-color: #e8e9ea63;
 
 }
 
@@ -251,7 +252,7 @@
 /* 버튼 */
 #customerSearchBtn {
 	position: absolute;
-	right: 40px;
+	right: 60px;
 
 }
 

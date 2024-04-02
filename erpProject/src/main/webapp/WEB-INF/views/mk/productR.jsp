@@ -43,34 +43,7 @@ $(document).ready(function() {
 });
 
 
-/* 검색 필터 */
-/*  $('#button-addon2').click(function() {
-        // 각 필터 및 검색 필드의 값을 가져옴
-        var midCategory = $(this).data('midcategory');
-        var isDeleted = $(this).data('isdeleted');
-        var searchValue = $('input[aria-label="Search"]').val();
 
-        // AJAX 요청
-        $.ajax({
-            url: '여기에_서버_URL_입력', // 서버의 URL 입력
-            method: 'POST', // 또는 GET, 서버에 따라 다름
-            data: {
-                filter1: filter1Value,
-                filter2: filter2Value,
-                search: searchValue
-            },
-            success: function(response) {
-                // 서버로부터 응답을 성공적으로 받았을 때 실행
-                // 예: 검색 결과를 페이지에 표시
-                console.log(response); // 또는 검색 결과를 처리하는 로직 구현
-            },
-            error: function(xhr, status, error) {
-                // 오류 발생 시 실행
-                console.error("Error: " + error);
-            }
-        });
-    });
-}); */
 </script>
 
 <%@ include file="../configHead.jsp"%>
