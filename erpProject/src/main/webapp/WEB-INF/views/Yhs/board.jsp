@@ -38,96 +38,64 @@
                     </tr>
                   </thead>
                   <tbody>
-                  <c:forEach items="${listBoard}" var="BOARD">
-                  <tr>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">${BOARD.b_name}</h6>
-		          </td>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">${BOARD.emp_no}</h6>
-		          </td>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">${BOARD.b_no}</h6>
-		          </td>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">${BOARD.b_regdate}</h6>
-		          </td>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">${BOARD.b_hit}</h6>
-		          </td>
-		          <td class="text-center">
-		          	<h6 class="mb-0 text-xs">${BOARD.b_reply_no}</h6>
-		          </td>
-		        </tr>
+                  <c:forEach items="${listBoard}" var="board">
+	                  <tr>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${board.b_name}</h6>
+			          </td>
+			         <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${board.emp_no}</h6>
+			          </td>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${board.b_no}</h6>
+			          </td>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${board.b_regdate}</h6>
+			          </td>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${board.b_hit}</h6>
+			          </td>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${board.b_reply_no}</h6>
+			          </td> 
+			        </tr>
 		        </c:forEach>
-                  
-<%--                   <c:forEach items="${listBoard }" var="BOARD">
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">John Michael</h6>
-                            <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Manager</p>
-                        <p class="text-xs text-secondary mb-0">Organization</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success">Online</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3" alt="user2">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Alexa Liras</h6>
-                            <p class="text-xs text-secondary mb-0">alexa@creative-tim.com</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">Programator</p>
-                        <p class="text-xs text-secondary mb-0">Developer</p>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">11/01/19</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                    </c:forEach> --%>
                   </tbody>
                 </table>
+                
+                <nav aria-label="Page navigation example">
+					    <ul class="pagination justify-content-center">
+					        <c:if test="${page.startPage > page.pageBlock}">
+					            <!-- "이전" 페이지 링크 -->
+					            <li class="page-item">
+					                <a class="page-link" href="board?currentPage=${page.startPage - page.pageBlock}">이전</a>
+					            </li>
+					        </c:if>
+					        
+					        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+					            <!-- 페이지 번호 링크 -->
+					            <li class="page-item ${param.currentPage == i ? 'active' : ''}">
+					                <a class="page-link" href="board?currentPage=${i}">${i}</a>
+					            </li>
+					        </c:forEach>
+					        
+					        <c:if test="${page.endPage < page.totalPage}">
+					            <!-- "다음" 페이지 링크 -->
+					            <li class="page-item">
+					                <a class="page-link" href="board?currentPage=${page.startPage + page.pageBlock}">다음</a>
+					            </li>
+					        </c:if>
+					    </ul>
+					</nav>
+					
               </div>
             </div>
           </div>
         </div>
       </div>
      
-    </div> 
+    </div>
+
     <!-- ****** 공통 : 테이블 끝 ****** -->
    	
    	<!-- Footer 푸터 -->
