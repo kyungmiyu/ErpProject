@@ -39,13 +39,13 @@
 		
 			<div class="container-fluid">
 			     <!-- datePicker -->	    
-				<input type="date" id="datePicker" class="form-control" >
+				<input type="date" id="datePicker"  value="${buying.buy_date}"     class="form-control" >
 				
 			     <form>
 			      <input class="form-control me-2" id="search" type="search" placeholder="Search" aria-label="Search">
 			     <button class="btn btn-primary" id ="searchBtn"  type="submit">검색</button>
 			  </form>
-			  <select class="form-control" id="optionBox" name="choices-button" id="choices-button" placeholder="Departure">
+			  <select class="form-control" id="optionBox" name="choices-button" id="choices-button">
 				  <option value="Choice 1" selected="">진행 상태</option>
 				  <option value="Choice 2">구매 진행중</option>
 				  <option value="Choice 3">구매 취소</option>
@@ -73,10 +73,10 @@
 		   <c:forEach items="${buyAlllist}" var="buyAlllist" varStatus="loop" >
 		    <tr>
 		      <th scope="row">${loop.index + 1}</th>
-		      <td><a href="buyDetail">${buyAlllist.buy_title}</a></td>
+		      <td><a href="buyDetail?cust_no=${buyAlllist.cust_no}&&buy_date=${buyAlllist.buy_date}">${buyAlllist.buy_title}</a></td>
 		      <td>${buyAlllist.cust_name}</td>
 		      <td>${buyAlllist.buy_date}</td>
-		      <td>${buyAlllist.buy_manager}</td>
+		      <td>${buyAlllist.managerName}</td>
 		      <td>${buyAlllist.productCnt}</td>
 		      <td>${buyAlllist.totalCnt}</td>
 		      <td>${buyAlllist.totalMoney}</td>

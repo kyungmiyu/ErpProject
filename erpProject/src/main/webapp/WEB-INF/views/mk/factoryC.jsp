@@ -69,49 +69,38 @@
 							<div class="table-responsive p-4">
 						
 								
-								<form>
+								<form action ="writeFactory" method="post"  name="factory">
+								
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="exampleFormControlInput1">공장 코드</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                <label for="f_name">공장명</label> 
+                <input type="text" class="form-control" id="f_name"  name="f_name" >
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput2">공장 관리자</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="name@example.com">
+                <label for="f_admin">공장 관리자</label> 
+                <input type="text" class="form-control" id="f_admin" name="f_admin" >
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput3">공장 담당자</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
+                <label for="f_tel">공장 TEL</label> 
+                <input type="text" class="form-control" id="f_tel" name="f_tel" >
             </div>
-              <div class="form-group">
-                <label for="exampleFormControlInput3">공장명</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
-            </div>
-              <div class="form-group">
-                <label for="exampleFormControlInput3">공장 생삼제품코드</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="name@example.com">
-            </div>
+        
+          
           
             
         </div>
         <div class="col-md-6">
+           
             <div class="form-group">
-                <label for="exampleFormControlInput4">공장명</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput4" placeholder="name@example.com">
+                <label for="f_manager">공장담당자</label> 
+                <input type="text" class="form-control" id="f_manager" name="f_manager" >
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput5">공장구분</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput5" placeholder="name@example.com">
+                <label for="f_info">공장 특이사항</label> 
+                <input type="text" class="form-control" id="f_info" name="f_info" >
             </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput6">공장구분</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput6" placeholder="name@example.com">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput7">취급여부</label> 
-                <input type="email" class="form-control" id="exampleFormControlInput7" placeholder="name@example.com">
-            </div>
+        
       
          
         </div>
@@ -120,7 +109,7 @@
     
     <!-- 버튼 -->
     <div class="text-right">
-    <button class="btn btn-primary" type="button">저장</button>
+    <button class="btn btn-primary" type="submit">등록</button>
  </div>
 
     

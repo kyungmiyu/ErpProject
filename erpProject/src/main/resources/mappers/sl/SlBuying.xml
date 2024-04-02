@@ -2,89 +2,139 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracle.erpProject.BuyingMapper">
 
-	
+
 	<select id="LsltotalbuyingCnt" resultType="int">
 		select count(*)
-		from buying B,customer c
-        WHERE b.cust_no = c.cust_no
-        and c.cust_type = 1
+		from
+		buying B,customer c
+		WHERE b.cust_no = c.cust_no
+		and c.cust_type = 1
+	</select>
+
+	<select id="LslbuyAlllist" resultType="Buying">
+		SELECT
+		b.*,
+		e.EMP_NAME,
+		c.CUST_NAME,
+		CASE
+			WHEN b.buy_status = 0 THEN '구매 진행중'
+			WHEN b.buy_status = 1 THEN '구매 취소'
+			WHEN b.buy_status = 2 THEN '구매 완료'
+		END AS buy_status_detail,
+		 (
+			 SELECT emp_name
+		     FROM employee
+		     WHERE emp_no = b.buy_manager
+   		 ) AS managerName,
+		(
+		    SELECT COUNT(DISTINCT bd.P_ITEMCODE)
+		    FROM buying_detail bd
+		    WHERE BD.CUST_NO = B.CUST_NO
+		    AND BD.buy_date = b.buy_date
+		) AS productCnt,
+		(
+			SELECT SUM(bd.bd_price * bd.bd_cnt)
+			FROM buying_detail bd
+			 WHERE BD.CUST_NO = B.CUST_NO
+	    	AND BD.buy_date = b.buy_date
+		) AS totalMoney,
+		(
+			SELECT SUM(bd.bd_cnt)
+			FROM buying_detail bd
+			WHERE BD.CUST_NO = B.CUST_NO
+	    	AND BD.buy_date = b.buy_date
+		) AS totalCnt
+		FROM
+			BUYING b
+			JOIN EMPLOYEE e ON b.EMP_NO = e.EMP_NO
+			JOIN CUSTOMER c ON b.CUST_NO = c.CUST_NO
+		WHERE c.cust_type = 1
 
 	</select>
-	
-	<select id="LslbuyAlllist"  resultType="Buying">
-	
-	SELECT 
-            b.*, 
-            e.EMP_NAME, 
-            c.CUST_NAME,
-            CASE 
-                WHEN b.buy_status = 0 THEN '구매 진행중'
-                WHEN b.buy_status = 1 THEN '구매 취소'
-                WHEN b.buy_status = 2 THEN '구매 완료'
-            END AS buy_status_detail,
-            (
-                SELECT COUNT(DISTINCT bd.P_ITEMCODE) 
-                FROM buying_detail bd 
-                 WHERE B.CUST_NO =  bd.cust_no
-            ) AS productCnt,
-            (
-                SELECT SUM(bd.bd_price * bd.bd_cnt) 
-                FROM buying_detail bd
-                 WHERE B.CUST_NO =  bd.cust_no
-            ) AS totalMoney,
-            (
-                SELECT SUM(bd.bd_cnt)
-                FROM buying_detail bd
-                WHERE B.CUST_NO =  bd.cust_no
-            ) AS totalCnt
-        FROM 
-            BUYING b
-            JOIN EMPLOYEE e ON b.EMP_NO = e.EMP_NO
-            JOIN CUSTOMER c ON b.CUST_NO = c.CUST_NO
-            WHERE c.cust_type = 1
-            
+
+
+	<select id="LsldateSearchtotCnt" resultType="int"
+		parameterType="Buying">
+		SELECT count(*)
+		from buying B,customer c
+		WHERE b.cust_no = c.cust_no
+		AND b.buy_date = #{buy_date}
+		AND c.cust_type = 1
 	</select>
-	
-	
-	<select id="LsldateSearchtotCnt" resultType="int" parameterType="Buying">
-	SELECT count(*)
-	from buying B,customer c
-    WHERE b.cust_no = c.cust_no
-	AND b.buy_date = #{buy_date}
-	AND c.cust_type = 1
+
+	<select id="LsldateSearchAllList" resultType="Buying" parameterType="Buying">
+		SELECT
+			b.*,
+			e.EMP_NAME,
+			c.CUST_NAME,
+			CASE
+				WHEN b.buy_status = 0 THEN '구매 진행중'
+				WHEN b.buy_status = 1 THEN '구매 취소'
+				WHEN b.buy_status = 2 THEN '구매 완료'
+			END AS buy_status_detail,
+			 (
+				 SELECT emp_name
+			     FROM employee
+			     WHERE emp_no = b.buy_manager
+   			 ) AS managerName,
+			(
+			SELECT COUNT(DISTINCT bd.P_ITEMCODE)
+				FROM buying_detail bd
+				WHERE B.CUST_NO = bd.cust_no
+			) AS productCnt,
+			(
+			SELECT SUM(bd.bd_price * bd.bd_cnt)
+				FROM buying_detail bd
+				WHERE B.CUST_NO = bd.cust_no
+			) AS totalMoney,
+			(
+			SELECT SUM(bd.bd_cnt)
+				FROM buying_detail bd
+				WHERE B.CUST_NO = bd.cust_no
+			) AS totalCnt
+		FROM
+			BUYING b
+			JOIN EMPLOYEE e ON b.EMP_NO = e.EMP_NO
+			JOIN CUSTOMER c ON b.CUST_NO = c.CUST_NO
+		WHERE b.buy_date = #{buy_date}	
+		</select>
+
+
+<select id="LslbuyingDetail"  parameterType="Buying" resultType="Buying">     
+   	SELECT 
+	    b.*,
+	    e.emp_name,
+	    c.cust_name,
+    CASE
+        WHEN b.buy_status = 0 THEN '구매 진행중'
+        WHEN b.buy_status = 1 THEN '구매 취소'
+        WHEN b.buy_status = 2 THEN '구매 완료'
+    END AS buy_status_detail,
+    (SELECT emp_name
+	     FROM employee
+	     WHERE emp_no = b.buy_manager
+    ) AS managerName
+    FROM 
+	        buying b
+	    INNER JOIN 
+	        employee e ON b.emp_no = e.emp_no
+	    INNER JOIN 
+	        customer c ON b.cust_no = c.cust_no
+    WHERE 
+        b.cust_no = #{cust_no}
+     AND
+     	b.buy_date = #{buy_date}
+</select>
+<select id="LSlproductDetail" parameterType="Buying" resultType="Buying">
+    SELECT 
+       b.buy_date,b.cust_no, bd.bd_cnt,bd.bd_price, p.p_name, SUM(bd.bd_cnt * bd.bd_price) AS totalMoney
+    FROM buying b, buying_detail bd, product p
+    WHERE  b.buy_date = bd.buy_date
+    AND bd.p_itemcode = p.p_itemcode
+    AND b.cust_no = #{cust_no}
+    AND b.buy_date = #{buy_date}
+    GROUP by  b.buy_date, b.cust_no, bd.bd_cnt, bd.bd_price, p.p_name
 	</select>
-	
-	<select	id="LsldateSearchAllList"  resultType="List" parameterType="Buying">
-	SELECT 
-            b.*, 
-            e.EMP_NAME, 
-            c.CUST_NAME,
-            CASE 
-                WHEN buy_status = 0 THEN '구매 진행중'
-                WHEN buy_status = 1 THEN '구매 취소'
-                WHEN buy_status = 2 THEN '구매 완료'
-            END AS buy_status_detail,
-            (
-                SELECT COUNT(DISTINCT bd.P_ITEMCODE) 
-                FROM buying_detail bd 
-                 WHERE B.CUST_NO =  bd.cust_no
-            ) AS productCnt,
-            (
-                SELECT SUM(bd.bd_price * bd.bd_cnt) 
-                FROM buying_detail bd
-                 WHERE B.CUST_NO =  bd.cust_no
-            ) AS totalMoney,
-            (
-                SELECT SUM(bd.bd_cnt)
-                FROM buying_detail bd
-                WHERE B.CUST_NO =  bd.cust_no
-            ) AS totalCnt
-        FROM 
-            BUYING b
-            JOIN EMPLOYEE e ON b.EMP_NO = e.EMP_NO
-            JOIN CUSTOMER c ON b.CUST_NO = c.CUST_NO
-	</select>
-	
-	
+
 
 </mapper>

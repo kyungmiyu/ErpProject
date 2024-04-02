@@ -25,7 +25,10 @@
 		<typeAlias alias="JJ_Make_detail"   	type="com.oracle.erpProject.model.jjmodel.JJ_Make_detail"/> 
 		<typeAlias alias="JJ_Make"   			type="com.oracle.erpProject.model.jjmodel.JJ_Make"/>
 		<!-- 재준 끝-->
+		
+		<!--민경  -->
 		<typeAlias alias="mkProduct"   			type="com.oracle.erpProject.model.mkmodel.mkProduct"/>
+
 		
 		<!-- 현승 시작 -->
 		<typeAlias alias="LHS_Comm"			   	type="com.oracle.erpProject.model.lhsmodel.Comm"/>
@@ -34,6 +37,11 @@
 		<typeAlias alias="LHS_Stock_survey"			   	type="com.oracle.erpProject.model.lhsmodel.Stock_survey"/>
 		<typeAlias alias="LHS_Product"			   	type="com.oracle.erpProject.model.lhsmodel.Product"/>
 		<!-- 현승 끝 -->
+
+		<typeAlias alias="mkFactory"   			type="com.oracle.erpProject.model.mkmodel.mkFactory"/>
+		<typeAlias alias="mkCustomer"   			type="com.oracle.erpProject.model.mkmodel.mkCustomer"/>
+		<!--민경 끝  -->
+
 	</typeAliases>
 	
 	

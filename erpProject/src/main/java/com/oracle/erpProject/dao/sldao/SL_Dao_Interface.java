@@ -13,6 +13,14 @@ public interface SL_Dao_Interface {
 	// 날짜 검색 
 	int dateSearchtotCnt(Buying buying);
 
+	// 날짜 검색 리스트 
 	List<Buying> dateSearchAllList(Buying buying);
+
+	
+	// 구매 상세 페이지
+	Buying buyingDetail(Buying buying);
+
+	// 구매 상세 페이지 제품 리스트 
+	List<Buying> productDetail(Buying buying);
 
 }

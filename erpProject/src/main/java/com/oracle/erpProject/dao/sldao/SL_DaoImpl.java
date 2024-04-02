@@ -49,10 +49,33 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	@Override
 	public List<Buying> dateSearchAllList(Buying buying) {
 		System.out.println("SL_DaoImpl dateSearchAllList Start ->>>>>>");
+		System.out.println("SL_DaoImpl dateSearchAllList buying ->"+buying);
+		System.out.println("SL_DaoImpl dateSearchAllList getBuy_date ->"+buying.getBuy_date());
 		
 		List<Buying> dateSearchAllList = session.selectList("LsldateSearchAllList",buying);
+		System.out.println("SL_DaoImpl dateSearchAllList dateSearchAllList.size() ->>>>>>"+dateSearchAllList.size());
 		
 		return dateSearchAllList;
+	}
+
+	@Override
+	public Buying buyingDetail(Buying buying) {
+		System.out.println("SL_DaoImpl buyingDetail Start ->>>>>>");
+		
+		Buying buyingDetail = session.selectOne("LslbuyingDetail",buying);
+		
+		
+		return buyingDetail;
+	}
+
+	
+	@Override
+	public List<Buying> productDetail(Buying buying) {
+		System.out.println("SL_DaoImpl productDetail Start ->>>>>>");
+		
+		List<Buying> productDetail = session.selectList("LSlproductDetail", buying);
+		
+		return productDetail;
 	}
 	
 	
