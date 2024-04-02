@@ -69,4 +69,18 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		}
 		return makeRequest;
 	}
+
+	// 생산 상세 페이지
+	@Override
+	public JJ_Make_detail jjmakeDetail(int m_num) {
+		System.out.println("JJ_DaoImpl's jjmakeDetail Go!");
+		JJ_Make_detail jjmakeDetail = new JJ_Make_detail();
+		try {
+			jjmakeDetail = session.selectOne("jjmakeDetail", m_num);
+			System.out.println("JJ_DaoImpl's jjmakeDetail -> " + jjmakeDetail);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return jjmakeDetail;
+	}
 }

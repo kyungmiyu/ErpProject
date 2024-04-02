@@ -23,7 +23,7 @@ public class JJController {
 	private final JJ_Service_Interface js;
 	
 	// 생산 - 메인 리스트 페이지
-	@RequestMapping(value = "makeMain")
+	@GetMapping("makeMain")
 	public String jjmakeMain(JJ_Make_detail md, Model model) {
 		System.out.println("JJController's makeMain Go!");
 		
@@ -48,8 +48,23 @@ public class JJController {
 		return "jj/makeMain";
 	}
 	
+	// 생산 상세 페이지
+	@GetMapping("makeDetail")
+	public String jjmakeDetail(JJ_Make_detail md, Model model) {
+		System.out.println("JJController's jjmakeDetail Go!");
+		
+		JJ_Make_detail jjmakeDetail = js.jjmakeDetail(md.getM_num());
+		System.out.println("JJController's jjmakeDetail -> " + jjmakeDetail);
+		
+		model.addAttribute("jjmakeDetail", jjmakeDetail);
+		
+		return "jj/makeDetail";
+	}
+	
+	
+	
 	// 생산 - 생산요청 페이지
-	@RequestMapping(value = "makeFormRequest")
+	@GetMapping(value = "makeFormRequest")
 	public String makeFormRequest(Model model, HttpSession session) {
 //		if(session.getAttribute("emp_no")!=null) { // 로그인 된 상태
 			System.out.println("JJController's makeFormRequest Go!");

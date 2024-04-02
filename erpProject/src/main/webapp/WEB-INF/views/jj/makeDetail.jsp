@@ -31,6 +31,7 @@ legend {
   padding: 3px 6px;
 }
 </style>
+
 </head>
 
 <body>
@@ -47,24 +48,24 @@ legend {
 		<div class="card col-6">
 			<div class="table-responsive">
 				<div class="form-group">
-					<h2>생산 요청 게시판</h2>
+					<h2>생산 상세 게시글</h2>
 				</div>
-				<form action="makeRequest" method="post">
+				
 				  <div class="row">
 					  <div class="col">
 						  <label for="example-text-input" class="form-control-label">작업지시번호 m_num</label>
-						  <input class="form-control" type="number" value="${JJ_Make_detail.m_num}" id="example-text-input">
+						  <input class="form-control" type="number" value="${jjmakeDetail.m_num}" id="example-text-input" readonly>
 					  </div>
 				      <div class="col">
 				        <div class="mb-3">
 				        	<label for="form-select" class="form-control-label">작업지시상태 md_status</label>
-						    <select class="form-select" name="select_md_status" required aria-label="select example" id="form-select">
+						    <select class="form-select" required aria-label="select example" id="form-select">
 						      <option value="">선택사항</option>
-						      <option value="0">0.생산요청</option>
-						      <option value="1">1.영업생산요청</option>
-						      <option value="2">2.생산중</option>
-						      <option value="3">3.생산완료</option>
-						      <option value="5">5.수불완료</option>
+						      <option value="${jjmakeDetail.md_status}" <c:if test="${jjmakeDetail.md_status eq '생산요청'}">selected</c:if>>0.생산요청</option>
+						      <option value="${jjmakeDetail.md_status}" <c:if test="${jjmakeDetail.md_status eq '영업생산요청'}">selected</c:if>>1.영업생산요청</option>
+						      <option value="${jjmakeDetail.md_status}" <c:if test="${jjmakeDetail.md_status eq '생산중'}">selected</c:if>>2.생산중</option>
+						      <option value="${jjmakeDetail.md_status}" <c:if test="${jjmakeDetail.md_status eq '생산완료'}">selected</c:if>>3.생산완료</option>
+						      <option value="${jjmakeDetail.md_status}" <c:if test="${jjmakeDetail.md_status eq '수불완료'}">selected</c:if>>5.수불완료</option>
 						    </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 						 </div>
@@ -72,11 +73,11 @@ legend {
 				      <div class="col">
 				      	<div class="mb-3">
 				        	<label for="form-select" class="form-control-label">수불마감구분 rpnc_gubun</label>
-						    <select class="form-select" name="select_rpnc_gubun" required aria-label="select example" id="form-select">
+						    <select class="form-select" name="select_md_status" required aria-label="select example" id="form-select">
 						      <option value="">선택사항</option>
-						      <option value="0">0.마감전</option>
-						      <option value="1">1.가마감</option>
-						      <option value="2">2.마감</option>
+						      <option value="${jjmakeDetail.rpnc_gubun}" <c:if test="${jjmakeDetail.rpnc_gubun eq '0'}">selected</c:if>>0.마감전</option>
+						      <option value="${jjmakeDetail.rpnc_gubun}" <c:if test="${jjmakeDetail.rpnc_gubun eq '1'}">selected</c:if>>1.가마감</option>
+						      <option value="${jjmakeDetail.rpnc_gubun}" <c:if test="${jjmakeDetail.rpnc_gubun eq '2'}">selected</c:if>>2.마감</option>
 						     </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 				      	</div>
@@ -86,64 +87,66 @@ legend {
     					<legend>관리자 입력란</legend>
 					    <div class="form-group">
 					        <label for="example-search-input" class="form-control-label">작업순번 md_num</label>
-					        <input class="form-control" type="number" value="${JJ_Make_detail.md_num}" placeholder="작업순번" id="example-search-input">
+					        <input class="form-control" type="number" value="${jjmakeDetail.md_num}" placeholder="작업순번" id="example-search-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="example-tel-input" class="form-control-label">작업지시일자 md_date</label>
-					        <input class="form-control" type="date" value="${JJ_Make_detail.md_date}" placeholder="작업지시일자을 입력" id="example-tel-input">
+					        <fmt:formatDate value="${jjmakeDetail.md_date}" pattern="yyyy-MM-dd" var="formattedMdDate"/>
+					        <input class="form-control" type="date" value="${formattedMdDate}" placeholder="작업지시일자을 입력" id="example-tel-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="form-select" class="form-control-label">공장명 f_name</label>
-						    <select class="form-select" name="select_f_id" required aria-label="select example" id="form-select">
+						    <select class="form-select" name="select_md_status" required aria-label="select example" id="form-select" disabled>
 						      <option value="">선택사항</option>
-						      <option value="10001">A동 공장</option>
-						      <option value="10002">B동 공장</option>
+						      <option value="${jjmakeDetail.f_id}" <c:if test="${jjmakeDetail.f_id eq '10001'}">selected</c:if> >A동 공장</option>
+						      <option value="${jjmakeDetail.f_id}" <c:if test="${jjmakeDetail.f_id eq '10002'}">selected</c:if>>B동 공장</option>
 						     </select>
 					    </div>
 					    <div class="form-group">
 					        <label for="example-email-input" class="form-control-label">제품코드 p_itemcode</label>
-					        <input class="form-control" type="number" value="${JJ_Make_detail.p_itemcode}" placeholder="제품코드를 입력" id="example-email-input">
+					        <input class="form-control" type="number" value="${jjmakeDetail.p_itemcode}" placeholder="제품코드를 입력" id="example-email-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="example-url-input" class="form-control-label">제품명 p_name</label>
-					        <input class="form-control" type="text" value="${JJ_Make_detail.p_name}" placeholder="제품명을 입력" id="example-url-input">
+					        <input class="form-control" type="text" value="${jjmakeDetail.p_name}" placeholder="제품명을 입력" id="example-url-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="example-password-input" class="form-control-label">지시수량 md_quantity</label>
-					        <input class="form-control" type="number" value="${JJ_Make_detail.md_quantity}" placeholder="지시수량을 입력" id="example-password-input">
+					        <input class="form-control" type="number" value="${jjmakeDetail.md_quantity}" placeholder="지시수량을 입력" id="example-password-input">
 					    </div>
 				    </fieldset>
 				    <fieldset>
     					<legend>작업자 입력란</legend>
 					    <div class="form-group">
 					        <label for="example-number-input" class="form-control-label">작업자 md_worker</label>
-					        <input class="form-control" type="text" value="${JJ_Make_detail.md_worker}" placeholder="담당 작업자를 입력" id="example-number-input">
+					        <input class="form-control" type="text" value="${jjmakeDetail.md_worker}" placeholder="담당 작업자를 입력" id="example-number-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="example-datetime-local-input" class="form-control-label">작업인원 md_worker_num</label>
-					        <input class="form-control" type="number" value="${JJ_Make_detail.md_worker_num}" placeholder="작업인원수를 입력" id="example-datetime-local-input">
+					        <input class="form-control" type="number" value="${jjmakeDetail.md_worker_num}" placeholder="작업인원수를 입력" id="example-datetime-local-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="example-date-input" class="form-control-label">작업완료일자 md_work_date</label>
-					        <input class="form-control" type="date" value="${JJ_Make_detail.md_work_date}" placeholder="작업완료일자" id="example-date-input">
+					        <fmt:formatDate value="${jjmakeDetail.md_work_date}" pattern="yyyy-MM-dd" var="formattedMdWorkDate"/>
+					        <input class="form-control" type="date" value="${formattedMdWorkDate}" placeholder="작업완료일자" id="example-date-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="example-month-input" class="form-control-label">생산수량 md_pro_quantity</label>
-					        <input class="form-control" type="number" value="${JJ_Make_detail.md_pro_quantity}" placeholder="생산수량을 입력" id="example-month-input">
+					        <input class="form-control" type="number" value="${jjmakeDetail.md_pro_quantity}" placeholder="생산수량을 입력" id="example-month-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="example-month-input" class="form-control-label">비고 md_note</label>
-					        <input class="form-control" type="text" value="${JJ_Make_detail.md_note}" placeholder="작업 특이사항을 입력" id="example-month-input">
+					        <input class="form-control" type="text" value="${jjmakeDetail.md_note}" placeholder="작업 특이사항을 입력" id="example-month-input">
 					    </div>
 				    </fieldset>
 				    
 				    <!-- 생산 요청 게시판 - 저장, 삭제, 목록 버튼 -->
 					<div class="d-flex justify-content-end">
-						<button type="submit" class="btn btn-primary" id="buyProBtn">저장</button>
+						<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeSave'">저장</button>
 						<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeDelelte'">삭제</button>
 						<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeMain'">목록</button>
 					</div>
-				</form>
+				
 
 
 			</div>

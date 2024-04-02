@@ -17,14 +17,6 @@
 <%@ include file="../configHead.jsp"%>
 
 <style type="text/css">
-td {
-  transition: background-color 0.3s ease; /* 0.3초 동안 부드럽게 변경 */
-}
-
-td:hover {
-  background-color: rgba(0, 0, 0, 0.075);
-}
-
 </style>
 
 </head>
@@ -38,13 +30,13 @@ td:hover {
     
 		 <!-- ****** 공통 : 테이블 시작 ****** -->
 	 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
-		<div>
-			<h1>생산게시판</h1>
-		</div>
-		
+	 	 		
 		<!-- 생산 리스트 게시판 -->
 		<div class="card">
 		  <div class="table-responsive">
+	  		<div class="form-group">
+				<h2>생산게시판</h2>
+			</div>
 		    <table class="table align-items-center mb-0 table-hover">
 		      <thead>
 		        <tr>
@@ -59,12 +51,12 @@ td:hover {
 		      </thead>
 		      <tbody>
 			      <c:forEach var="jj_Make_detail" items="${makeList}">
-			        <tr>
+			        <tr onclick="window.location='makeDetail?m_num=${jj_Make_detail.m_num}'">
 			          <td class="text-center">
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_num}</h6> <!-- 작업순번 -->
 			          </td>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_num}</h6> <!-- 작업지시번호 -->
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_num}</a></h6> <!-- 작업지시번호 -->
 			          </td>
 			          <td class="text-center">
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_status}</h6> <!-- 작업상태 -->
@@ -86,10 +78,8 @@ td:hover {
 		      </tbody>
 		    </table>
 		  </div>
-		</div>
-		 	 	
-		
-		<!-- 페이징 -->
+		  
+		  <!-- 페이징 -->
 		<nav aria-label="Page navigation example" class="mt-3 mb-3">
 		  <ul class="pagination justify-content-center">
 		    <li class="page-item disabled">
@@ -114,6 +104,12 @@ td:hover {
 		<div class="d-flex justify-content-end">
 			<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeFormRequest'">생산 요청</button>
 		</div>
+		  
+		  
+		</div>
+		 	 	
+		
+		
 
    
     <!-- ****** 공통 : 테이블 끝 ****** -->

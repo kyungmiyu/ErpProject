@@ -49,4 +49,14 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 		System.out.println("JJ_ServiceImpl's makeRequest -> " + makeRequest);
 		return makeRequest;
 	}
+
+	// 생산 상세 페이지
+	@Override
+	public JJ_Make_detail jjmakeDetail(int m_num) {
+		System.out.println("JJ_ServiceImpl's jjmakeDetail Go!");
+		JJ_Make_detail jjmakeDetail = null;
+		jjmakeDetail = jjDao.jjmakeDetail(m_num);
+		System.out.println("JJ_ServiceImpl's jjmakeDetail -> " + jjmakeDetail);
+		return jjmakeDetail;
+	}
 }
