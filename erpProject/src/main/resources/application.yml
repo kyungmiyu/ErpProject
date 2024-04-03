@@ -47,7 +47,7 @@ spring:
           starttls.enable: true
 
 
-#MyBatis
+# MyBatis
 mybatis:
   config-location: classpath:configuration.xml
   mapper-locations: 
