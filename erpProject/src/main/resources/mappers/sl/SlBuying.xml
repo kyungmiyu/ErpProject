@@ -11,7 +11,7 @@
 		and c.cust_type = 1
 	</select>
 
-	<select id="LslbuyAlllist" resultType="Buying">
+	<select id="LslbuyAlllist" resultType="SLBuying">
 		SELECT
 		b.*,
 		e.EMP_NAME,
@@ -54,7 +54,7 @@
 
 
 	<select id="LsldateSearchtotCnt" resultType="int"
-		parameterType="Buying">
+		parameterType="SLBuying">
 		SELECT count(*)
 		from buying B,customer c
 		WHERE b.cust_no = c.cust_no
@@ -62,7 +62,7 @@
 		AND c.cust_type = 1
 	</select>
 
-	<select id="LsldateSearchAllList" resultType="Buying" parameterType="Buying">
+	<select id="LsldateSearchAllList" resultType="SLBuying" parameterType="SLBuying">
 		SELECT
 			b.*,
 			e.EMP_NAME,
@@ -100,7 +100,7 @@
 		</select>
 
 
-<select id="LslbuyingDetail"  parameterType="Buying" resultType="Buying">     
+<select id="LslbuyingDetail"  parameterType="SLBuying" resultType="SLBuying">     
    	SELECT 
 	    b.*,
 	    e.emp_name,
@@ -125,9 +125,9 @@
      AND
      	b.buy_date = #{buy_date}
 </select>
-<select id="LSlproductDetail" parameterType="Buying" resultType="Buying">
+<select id="LslproductDetail" parameterType="SLBuying" resultType="SLBuying">
 	   SELECT 
-	    b.buy_date, bd.cust_no, bd.bd_cnt, bd.bd_price, p.p_name, SUM(bd.bd_cnt * bd.bd_price) AS totalMoney
+	    b.buy_date, bd.cust_no, bd.bd_cnt, bd.bd_price, p.p_name, p.p_itemcode, SUM(bd.bd_cnt * bd.bd_price) AS totalMoney
 	FROM 
 	    buying b, buying_detail bd, product p
 	WHERE  
@@ -136,13 +136,18 @@
 	    AND bd.cust_no = #{cust_no}
 	    AND bd.buy_date = #{buy_date}
 	GROUP BY  
-	    b.buy_date, bd.cust_no, bd.bd_cnt, bd.bd_price, p.p_name
+	    b.buy_date, bd.cust_no, bd.bd_cnt, bd.bd_price, p.p_name, p.p_itemcode
 	</select>
 
-	<select id="LslproductDetail" resultType="Product" parameterType="Product">
-		 select p_name
+	<select id="LslproductList" resultType="SLProduct" >
+		select p_name, p_itemcode
         from product 
-        where p_fac_gubun is null
+        where p_fac_gubun = 1
 	</select>
+	
+	
+	<insert id="LsladdProduct" parameterType="SLBuying_detail">
+			 insert into buying_detail values ( #{buy_date},    #{cust_no}, #{p_itemcode},  #{bd_cnt}, #{bd_price} ) 
+	</insert>
 
 </mapper>
