@@ -4,7 +4,7 @@ server:
 # Oracle Connect
 spring:
 
-  # File Size
+  # File Sizem
   servlet:
     multipart:
       max-file-size: 10MB

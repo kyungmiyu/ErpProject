@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import com.oracle.erpProject.model.Buying;
 import com.oracle.erpProject.model.Product;
+import com.oracle.erpProject.model.slmodel.SLBuying;
+import com.oracle.erpProject.model.slmodel.SLBuying_detail;
+import com.oracle.erpProject.model.slmodel.SLProduct;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,10 +26,10 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	}
 
 	@Override
-	public List<Buying> buyAlllist(Buying buying) {
+	public List<SLBuying> buyAlllist(SLBuying buying) {
 		System.out.println("SL_DaoImpl buyAlllist Start ->>>>>>");
 		
-		List<Buying> buyAlllist = session.selectList("LslbuyAlllist", buying);
+		List<SLBuying> buyAlllist = session.selectList("LslbuyAlllist", buying);
 		
 		System.out.println("SL_DaoImpl buyAlllist ->>>>>>" + buyAlllist );
 		
@@ -36,7 +39,7 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	
 	
 	@Override
-	public int dateSearchtotCnt(Buying buying) {
+	public int dateSearchtotCnt(SLBuying buying) {
 		System.out.println("SL_DaoImpl dateSearchtotCnt Start ->>>>>>");
 		
 		
@@ -48,22 +51,22 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 
 	
 	@Override
-	public List<Buying> dateSearchAllList(Buying buying) {
+	public List<SLBuying> dateSearchAllList(SLBuying buying) {
 		System.out.println("SL_DaoImpl dateSearchAllList Start ->>>>>>");
 		System.out.println("SL_DaoImpl dateSearchAllList buying ->"+buying);
 		System.out.println("SL_DaoImpl dateSearchAllList getBuy_date ->"+buying.getBuy_date());
 		
-		List<Buying> dateSearchAllList = session.selectList("LsldateSearchAllList",buying);
+		List<SLBuying> dateSearchAllList = session.selectList("LsldateSearchAllList",buying);
 		System.out.println("SL_DaoImpl dateSearchAllList dateSearchAllList.size() ->>>>>>"+dateSearchAllList.size());
 		
 		return dateSearchAllList;
 	}
 
 	@Override
-	public Buying buyingDetail(Buying buying) {
+	public SLBuying buyingDetail(SLBuying buying) {
 		System.out.println("SL_DaoImpl buyingDetail Start ->>>>>>");
 		
-		Buying buyingDetail = session.selectOne("LslbuyingDetail",buying);
+		SLBuying buyingDetail = session.selectOne("LslbuyingDetail",buying);
 		
 		
 		return buyingDetail;
@@ -71,20 +74,31 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 
 
 	@Override
-	public List<Buying> productDetail(Buying buying) {
-		System.out.println("SL_DaoImpl productDetail Start ->>>>>>");
-		
-		List<Buying> productDetail = session.selectList("LSlproductDetail", buying);
+	public List<SLBuying> productDetail(SLBuying buying) {
+		System.out.println("SL_DaoImpl productDetail Start  kkk ->>>>>>");
+		System.out.println("SL_DaoImpl productDetail Start  buying->"+buying);
+		// 전체 품목 Get 
+		List<SLBuying> productDetail = session.selectList("LslproductDetail", buying);
 		
 		return productDetail;
 	}
 
 	// 제품 리스트
 	@Override
-	public List<Product> productList() {
-		List<Product> productList = session.selectList("LslproductDetail");
+	public List<SLProduct> productList() {
+		System.out.println("SL_DaoImpl productList  kkk ->>>>>>");
+
+		List<SLProduct> productList = session.selectList("LslproductList");
 		
 		return productList;
+	}
+
+	@Override
+	public int addProduct(SLBuying_detail slBuying_detail) {
+		System.out.println("SL_DaoImpl addProduct Start ->>>>>>");
+		System.out.println("SL_DaoImpl addProduct slBuying_detail ->"+slBuying_detail);
+		int addProduct = session.insert("LsladdProduct", slBuying_detail);
+		return addProduct;
 	}
 	
 	
