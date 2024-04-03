@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.dao.sldao.SL_Dao_Interface;
 import com.oracle.erpProject.model.Buying;
+import com.oracle.erpProject.model.Product;
 
 import lombok.RequiredArgsConstructor;
 
@@ -68,6 +69,13 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		List<Buying> productDetail = slDao.productDetail(buying);
 		
 		return productDetail;
+	}
+
+	@Override
+	public List<Product> productList() {
+		List<Product> productList = slDao.productList();
+		
+		return productList;
 	}
 	
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.oracle.erpProject.model.Buying;
+import com.oracle.erpProject.model.Product;
 import com.oracle.erpProject.service.slservice.SL_Service_Interface;
 import com.oracle.erpProject.service.slservice.buyingPaging;
 
@@ -120,23 +121,30 @@ public class SLController {
 		System.out.println("buyDetail Start ->>>>>>>>>>");
 		int cust_no = Integer.parseInt(request.getParameter("cust_no"));
 		String buy_date = request.getParameter("buy_date");
-		//int p_itemcode = Integer.parseInt(request.getParameter("p_itemcode"));
 		
 		buying.setCust_no(cust_no);
 		buying.setBuy_date(buy_date);
-		//buying.setP_itemcode(p_itemcode);
+		
 		
 		// 구매 상세 페이지 정보
 		Buying buyingDetail = slService.buyingDetail(buying);
 		System.out.println("buyingDetail >>>>>>" + buyingDetail);
 		
+		
+		// 구매 제품 정보 리스트
 		List<Buying> productDetail = slService.productDetail(buying);
 		System.out.println("productDetail >>>>>>" + productDetail.size());
+		
+		// 제품 리스트
+		List<Product> productList = slService.productList();
+		
+		
 
 		
 		
 		model.addAttribute("buyingDetail",buyingDetail);
 		model.addAttribute("productDetail",productDetail);
+		model.addAttribute("productList",productList);
 		return "sl/buyDetail";
 	}
 	

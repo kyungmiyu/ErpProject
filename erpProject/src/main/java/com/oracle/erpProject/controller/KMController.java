@@ -9,6 +9,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class KMController {
 
+	/* test */
+	@GetMapping(value="stest")
+	public String testPage() {
+		return "km/stest";
+	}
+	
 	/* 공통 화면 */
 	// 로그인
 	@GetMapping(value="loginForm")
@@ -30,6 +36,7 @@ public class KMController {
 		return "km/myPage";
 	}
 	
+	
 	/* 관리자 페이지 */
 	// 관리자페이지 화면
 	@GetMapping(value="adminMain")
@@ -50,7 +57,5 @@ public class KMController {
 		return "km/adminList";
 	}
 	
- 	// 메인 페이지
-	// 구성
 	
 }
