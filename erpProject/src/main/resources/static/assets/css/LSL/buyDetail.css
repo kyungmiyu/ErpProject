@@ -118,6 +118,45 @@
 }
 
 
+/* 구매 아이템 select Box */
+
+.buyItemSelectBox {
+	display: flex;
+	width: 95%;
+	height: 100px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 10px;
+	border: 1px solid #d2d6da;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#buyingItemSelect {
+	width: 350px;
+	height: 40px;
+	margin-right: 80px;
+}
+
+.buyItemCnt {
+	width: 350px;
+	height: 40px;
+	border-radius: 10px;
+	border: 1px solid #d2d6da;
+}
+
+.buyItemSelectBox p {
+	margin-top: 10px;
+	margin-right: 25px;
+	font-weight: bold;
+	color: black;
+}
+
+
+
+
 
 /* 구매 리스트  */
 
@@ -205,6 +244,14 @@
 	right:  40px;
 
 }
+
+#addBtn {
+	height: 40px;
+	margin-top: 15px;
+	margin-left: 20px;
+
+}
+
 
 /* 구매 상태 Box */
 .buyStatusBox {

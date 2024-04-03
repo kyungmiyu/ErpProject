@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -157,7 +158,7 @@ formRegistStockBegin ㅡ 기초재고 등록버튼 클릭 -> href: lhsFormRegist
 	// 제품등록 확인
 	@ResponseBody
 	@RequestMapping(value="lhsCheckNewItem")
-	public String lhsCheckNewItem(Product product, Employee emp, Model model) {
+	public Product lhsCheckNewItem(Product product, Employee emp, Model model) {
 		
 		System.out.println("lhsController lhsCheckNewItem start...");
 		
@@ -168,34 +169,30 @@ formRegistStockBegin ㅡ 기초재고 등록버튼 클릭 -> href: lhsFormRegist
 		// 								not null이면 구매table과 조인한 데이터 받기
 		
 		System.out.println("check itemcode: " + product.getP_itemcode());
+		System.out.println("check emp_no: " + emp.getEmp_no());
+		
 		Product checkProduct = lhs.checkProductBuy(product);
 		if (checkProduct == null) {
 			checkProduct = lhs.checkProductMake(product);
 		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-	    String jsonData = "";
-	    try {
-	        // product 객체를 JSON 문자열로 변환
-	        jsonData = mapper.writeValueAsString(checkProduct);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
 	    
-	    return jsonData;
+	    return checkProduct;
 	}
 	
 	// 기초재고 등록
 	@RequestMapping(value="lhsRegistStockBegin")
-	public String lhsRegistStockBegin(Employee emp, Model model) {
+	public String lhsRegistStockBegin(@RequestBody List<Stock> listStock, 
+										Employee emp, Model model) {
 		
+		System.out.println("lhsController lhsRegistStockBegin start...");
+		System.out.println(listStock);
 		// 민경님 신제품 데이터 받아서 사용
 		
 		/* 
 		lhs.insertStock();
 		*/
 		
-		return "redirect:lhsListStock";
+		return "redirect:lhsListStock?emp_no=" + emp.getEmp_no();
 	}
 	
 	// 실사재고조사 등록 폼

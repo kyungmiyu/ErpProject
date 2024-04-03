@@ -59,15 +59,18 @@ $(document).ready(function () {
         var year = selectedDate.substring(0, 4); // 연도 추출
         var month = selectedDate.substring(5, 7); // 월 추출
         var formattedDate = year + month; // 형식 변환
+        var emp_no = ${empData.emp_no}; 
         
         $.ajax({
             url: "lhsListStock", // 컨트롤러 URL 설정
             type: "GET", // GET 또는 POST
             data: { 
-            	st_year_month: formattedDate // 선택된 날짜 값 전달
+            	st_year_month: formattedDate,
+            	emp_no: emp_no
             },
             success: function (data) {
-            	window.location.href = "lhsListStock?st_year_month=" + formattedDate;
+            	window.location.href = "lhsListStock?st_year_month=" + formattedDate
+            										+ "&emp_no=" + emp_no;
             	
             },
             error: function (xhr, status, error) {
@@ -82,17 +85,21 @@ $(document).ready(function () {
          // 선택된 날짜와 구분 값 가져오기
          var selectedDate = ${stock.st_year_month}; // 변경된 날짜 가져오기
          var selectedOption = $("#filterOptions").val(); // 변경된 구분 가져오기
-         
+         var emp_no = ${empData.emp_no};
          // AJAX를 통해 서버로 데이터 전송
          $.ajax({
              url: "lhsListStock", // 컨트롤러 URL 설정
              type: "GET", // GET 또는 POST
              data: { 
                  st_year_month: selectedDate, // 선택된 날짜 값 전달
-                 gubun: selectedOption // 선택된 구분 값 전달
+                 gubun: selectedOption,
+                 emp_no: emp_no
+                 // 선택된 구분 값 전달
              },
              success: function (data) {
-            	 window.location.href = "lhsListStock?st_year_month=" + selectedDate + "&gubun="+selectedOption;
+            	 window.location.href = "lhsListStock?st_year_month=" + selectedDate 
+            			 								+ "&gubun=" + selectedOption
+            			 								+ "&emp_no=" + emp_no;
              },
              error: function (xhr, status, error) {
                  // 오류 발생 시 처리할 코드 작성
@@ -185,13 +192,13 @@ $(document).ready(function () {
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 				<c:if test="${page.startPage > page.pageBlock }">
-					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${page.startPage-page.pageBlock}&gubun=${param.gubun }">◁</a>
+					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${page.startPage-page.pageBlock}&gubun=${param.gubun }&emp_no=${empData.emp_no}">◁</a>
 				</c:if>
 				<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${i}&gubun=${param.gubun }">${i}</a>
+					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${i}&gubun=${param.gubun }&emp_no=${empData.emp_no}">${i}</a>
 				</c:forEach>
 				<c:if test="${page.endPage < page.totalPage }">
-					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${page.startPage+page.pageBlock}&gubun=${param.gubun }">▷</a>
+					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${page.startPage+page.pageBlock}&gubun=${param.gubun }&emp_no=${empData.emp_no}">▷</a>
 				</c:if>	
 			</ul>
 		</nav>

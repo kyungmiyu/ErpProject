@@ -23,9 +23,8 @@ public class Product {
 		private int p_isdeleted;				//취급여부 
 
 		// 0402 신제품체크 파라미터 (lhsCheckNewItem)
-		private String buy_manager;
-		private String bd_cnt;
-		private String m_manager;
-		private String md_pro_quantity;
+		private String new_item_manager;
+		private String new_item_quantity;
+		
 	
 }

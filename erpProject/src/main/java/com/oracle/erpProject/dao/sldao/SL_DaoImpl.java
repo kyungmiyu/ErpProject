@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.oracle.erpProject.model.Buying;
+import com.oracle.erpProject.model.Product;
 
 import lombok.RequiredArgsConstructor;
 
@@ -68,7 +69,7 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		return buyingDetail;
 	}
 
-	
+
 	@Override
 	public List<Buying> productDetail(Buying buying) {
 		System.out.println("SL_DaoImpl productDetail Start ->>>>>>");
@@ -76,6 +77,14 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		List<Buying> productDetail = session.selectList("LSlproductDetail", buying);
 		
 		return productDetail;
+	}
+
+	// 제품 리스트
+	@Override
+	public List<Product> productList() {
+		List<Product> productList = session.selectList("LslproductDetail");
+		
+		return productList;
 	}
 	
 	

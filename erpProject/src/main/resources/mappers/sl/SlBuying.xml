@@ -126,15 +126,23 @@
      	b.buy_date = #{buy_date}
 </select>
 <select id="LSlproductDetail" parameterType="Buying" resultType="Buying">
-    SELECT 
-       b.buy_date,b.cust_no, bd.bd_cnt,bd.bd_price, p.p_name, SUM(bd.bd_cnt * bd.bd_price) AS totalMoney
-    FROM buying b, buying_detail bd, product p
-    WHERE  b.buy_date = bd.buy_date
-    AND bd.p_itemcode = p.p_itemcode
-    AND b.cust_no = #{cust_no}
-    AND b.buy_date = #{buy_date}
-    GROUP by  b.buy_date, b.cust_no, bd.bd_cnt, bd.bd_price, p.p_name
+	   SELECT 
+	    b.buy_date, bd.cust_no, bd.bd_cnt, bd.bd_price, p.p_name, SUM(bd.bd_cnt * bd.bd_price) AS totalMoney
+	FROM 
+	    buying b, buying_detail bd, product p
+	WHERE  
+	    b.buy_date = bd.buy_date
+	    AND bd.p_itemcode = p.p_itemcode
+	    AND bd.cust_no = #{cust_no}
+	    AND bd.buy_date = #{buy_date}
+	GROUP BY  
+	    b.buy_date, bd.cust_no, bd.bd_cnt, bd.bd_price, p.p_name
 	</select>
 
+	<select id="LslproductDetail" resultType="Product" parameterType="Product">
+		 select p_name
+        from product 
+        where p_fac_gubun is null
+	</select>
 
 </mapper>
