@@ -1,9 +1,11 @@
 package com.oracle.erpProject.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +59,7 @@ public class JJController {
 		System.out.println("JJController's jjmakeDetail -> " + jjmakeDetail);
 		
 		model.addAttribute("jjmakeDetail", jjmakeDetail);
+		model.addAttribute("md", md);
 		
 		return "jj/makeDetail";
 	}
@@ -93,8 +96,45 @@ public class JJController {
 	
 	
 	
-	// 생산 - 메인 리스트 페이지 - 카테고리+검색어로 게시글을 조회
+	// 생산 - 메인 리스트 페이지 - 검색어로 게시글을 조회
+	@GetMapping("jjmakeSearch")
+	public String jjmakeSearch(JJ_Make_detail md, Model model) {
+		System.out.println("JJController's jjmakeSearch Go!");
+		
+		System.out.println("JJController's jjmakeSearch -> " + md);
+		//search count
+		int makeSearchCnt = js.makeSearchCnt(md);
+		System.out.println("JJController's jjmakeSearch makeSearchCnt -> " + makeSearchCnt);
+		
+		//search paging
+		JJ_Paging page = new JJ_Paging(makeSearchCnt, md.getCurrentPage());
+		System.out.println("JJController's jjmakeSearch page ->" + page);
+		
+		md.setStart(page.getStart());
+		md.setEnd(page.getEnd());
+		System.out.println("JJController's jjmakeSearch page ->" + page);
+		
+		//search List Load
+		List<JJ_Make_detail> makeSearchList = js.makeSearchList(md);
+		System.out.println("JJController's jjmakeSearch makeSearchList.size()->" + makeSearchList.size());
+		
+		model.addAttribute("cntMake", makeSearchCnt);
+		model.addAttribute("makeList", makeSearchList);
+		model.addAttribute("page", page);
+		model.addAttribute("md", md);
+		
+		return "jj/makeMain";
+	}
 	
+	
+	
+	// 게시글 삭제 적용
+	@RequestMapping("jjmakeDelete")
+	public String jjmakeDelete(JJ_Make_detail md) {
+		System.out.println("JJController's jjmakeDelete Go!");
+		int jjmakeDelete = js.jjmakeDelete(md.getM_num());
+		return "forward:makeMain";
+	}
 	
 	
 }

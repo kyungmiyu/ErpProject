@@ -23,8 +23,8 @@ public class JJ_Make_detail {
 	private int cus_no;				// 거래처 코드
 
 	// 조회용
-	private int start;
-	private int end;
+	private String search;				private String keyword;					
+	private int start;					private int end;
 	private String p_name;				// Product의 제품명 조회
 	private String select_md_status; 	// 생산요청페이지 작업지시상태 선택사항
 	private int select_rpnc_gubun; 	// 생산요청페이지 수불마감상태 선택사항

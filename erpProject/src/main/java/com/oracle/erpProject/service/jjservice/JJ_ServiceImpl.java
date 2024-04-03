@@ -59,4 +59,29 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 		System.out.println("JJ_ServiceImpl's jjmakeDetail -> " + jjmakeDetail);
 		return jjmakeDetail;
 	}
+
+	@Override
+	public int makeSearchCnt(JJ_Make_detail md) {
+		System.out.println("JJ_ServiceImpl's makeSearchCnt Go!");
+		int makeSearchCnt = jjDao.makeSearchCnt(md);
+		return makeSearchCnt;
+	}
+
+	@Override
+	public List<JJ_Make_detail> makeSearchList(JJ_Make_detail md) {
+		List<JJ_Make_detail> makeSearchList = null;
+		System.out.println("JJ_ServiceImpl's makeSearchList Go!");
+		makeSearchList = jjDao.makeSearchList(md);
+		System.out.println("JJ_ServiceImpl's makeSearchList.size() -> " + makeSearchList.size());
+		return makeSearchList;
+	}
+
+	// 삭제 기능
+	@Override
+	public int jjmakeDelete(int m_num) {
+		int jjmakeDelete = 0;
+		System.out.println("JJ_ServiceImpl's jjmakeDelete Go!");
+		jjmakeDelete = jjDao.jjmakeDelete(m_num);
+		return jjmakeDelete;
+	}
 }

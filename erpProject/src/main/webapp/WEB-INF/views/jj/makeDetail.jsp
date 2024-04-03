@@ -143,7 +143,7 @@ legend {
 				    <!-- 생산 요청 게시판 - 저장, 삭제, 목록 버튼 -->
 					<div class="d-flex justify-content-end">
 						<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeSave'">저장</button>
-						<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeDelelte'">삭제</button>
+						<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='jjmakeDelete?m_num=${md.m_num}'">삭제</button>
 						<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeMain'">목록</button>
 					</div>
 				

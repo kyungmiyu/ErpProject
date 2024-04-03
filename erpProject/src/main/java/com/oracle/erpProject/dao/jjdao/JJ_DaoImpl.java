@@ -83,4 +83,46 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		}
 		return jjmakeDetail;
 	}
+
+	@Override
+	public int makeSearchCnt(JJ_Make_detail md) {
+		int makeSearchCnt = 0;
+		System.out.println("JJ_DaoImpl's makeSearchCnt md->"+md);
+		if(md.getKeyword()==null) md.setKeyword("%");
+		try {
+			makeSearchCnt = session.selectOne("makeSearchCnt", md);
+			System.out.println("JJ_DaoImpl's makeSearchCnt ->" + makeSearchCnt);
+		} catch(Exception e) {
+			System.out.println("JJ_DaoImpl's makeSearchCnt Exception -> "+ e.getMessage());
+		}
+		return makeSearchCnt;
+	}
+
+	@Override
+	public List<JJ_Make_detail> makeSearchList(JJ_Make_detail md) {
+		List<JJ_Make_detail> makeSearchList = null;
+		System.out.println("JJ_DaoImpl's makeSearchList Go!");
+		try {
+			makeSearchList = session.selectList("makeSearchList", md);
+			System.out.println("JJ_DaoImpl's makeSearchList -> " + makeSearchList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return makeSearchList;
+	}
+
+	// 생산 삭제 기능
+	@Override
+	public int jjmakeDelete(int m_num) {
+		System.out.println("JJ_DaoImpl's jjmakeDelete Go!");
+		int jjmakeDelete = 0;
+		System.out.println("JJ_DaoImpl's jjmakeDelete m_num ->" + m_num);
+		try {
+			jjmakeDelete = session.delete("jjmakeDelete", m_num);
+			System.out.println("JJ_DaoImpl's jjmakeDelete -> " + jjmakeDelete);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jjmakeDelete;
+	}
 }

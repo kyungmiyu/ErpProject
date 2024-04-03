@@ -18,8 +18,9 @@
 			FROM (
 				SELECT *
 				FROM Make_detail
-				ORDER BY md_num) m
+			) m
 			JOIN Product p ON m.p_itemcode = p.p_itemcode
+			ORDER BY m_num DESC
 		)
 		WHERE rn >= #{start}
 		AND rn <= #{end}
@@ -77,8 +78,50 @@
 			JOIN Product p ON m.p_itemcode = p.p_itemcode
 			JOIN Factory f ON m.f_id = f.f_id
 		WHERE m_num = #{m_num}		
-		
 	</select>
+	
+	<!-- 검색어로 조회든 글을 카운트하는 쿼리 -->
+	<select id="makeSearchCnt" parameterType="JJ_Make_detail" resultType="int">
+		SELECT Count(*)
+		FROM Make_detail m
+			JOIN Product p ON m.p_itemcode = p.p_itemcode
+			JOIN Factory f ON m.f_id = f.f_id
+		WHERE (m.m_num LIKE '%' || #{keyword} || '%' 
+			OR m.md_status LIKE '%' || #{keyword} || '%' 
+			OR m.rpnc_gubun LIKE '%' || #{keyword} || '%' 
+			OR p.p_name LIKE '%' || #{keyword} || '%' 
+			OR m.md_worker LIKE '%' || #{keyword} || '%') 
+	</select>
+	
+	<!-- 검색어로 조회든 글들을 불러오는 쿼리 -->
+	<select id="makeSearchList" parameterType="JJ_Make_detail" resultType="JJ_Make_detail">
+ 		SELECT *
+		FROM
+		(
+			SELECT ROWNUM rn, f.*
+			FROM
+			(
+				SELECT m.*, p.p_name, f.f_name
+				FROM Make_detail m
+					JOIN Product p ON m.p_itemcode = p.p_itemcode
+					JOIN Factory f ON m.f_id = f.f_id
+				WHERE m.m_num LIKE '%' || #{keyword} || '%' 
+					OR m.md_status LIKE '%' || #{keyword} || '%' 
+					OR m.rpnc_gubun LIKE '%' || #{keyword} || '%' 
+					OR p.p_name LIKE '%' || #{keyword} || '%' 
+					OR m.md_worker LIKE '%' || #{keyword} || '%'
+				ORDER BY m.m_num DESC
+			) f
+		)
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 조회된 글을 삭제하는 쿼리 -->
+	<delete id="jjmakeDelete" parameterType="int">
+		DELETE FROM Make_detail
+		WHERE m_num = #{m_num}
+	</delete>
+	
 
 
 <!-- ============================ JJ's mappers 끝 ============================ -->

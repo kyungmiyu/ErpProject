@@ -12,7 +12,18 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+	function jjmakeSearchFn(pPage)  {
+	 	var keyword =   $("#keyword").val();
+		var sendData = 'currentPage='+pPage;
+		sendData = sendData + '&keyword='+keyword;
+	    /* alert("sendData->"+sendData);  */
+	    
+	    location.href="jjmakeSearch?"+sendData;
+	}
+	
 
+</script>
 <head>
 <%@ include file="../configHead.jsp"%>
 
@@ -79,26 +90,40 @@
 		    </table>
 		  </div>
 		  
-		  <!-- 페이징 -->
+		<!-- 페이징 -->
 		<nav aria-label="Page navigation example" class="mt-3 mb-3">
 		  <ul class="pagination justify-content-center">
 		    <li class="page-item disabled">
-		      <a class="page-link" href="javascript:;" tabindex="-1">
+		      <a class="page-link" href="jjmakeSearch?currentPage=${page.startPage-page.pageBlock}" tabindex="-1">
 		        <i class="fa fa-angle-left"></i>
-		        <span class="sr-only">Previous</span>
+		        <span class="sr-only">이전</span>
 		      </a>
 		    </li>
-		    <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
-		    <li class="page-item active"><a class="page-link" href="javascript:;">2</a></li>
-		    <li class="page-item"><a class="page-link" href="javascript:;">3</a></li>
+    		<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+            <li class="page-item"><a class="page-link" href="#" onclick="jjmakeSearchFn(${i})">${i}</a></li>
+            <%-- <li class="page-item"><button onclick="jjmakeSearchFn(${i})"></button></li> --%>
+            
+ 			</c:forEach>
 		    <li class="page-item">
-		      <a class="page-link" href="javascript:;">
+		      <a class="page-link" href="jjmakeSearch?currentPage=${page.startPage+page.pageBlock}">
 		        <i class="fa fa-angle-right"></i>
-		        <span class="sr-only">Next</span>
+		        <span class="sr-only">다음</span>
 		      </a>
 		    </li>
 		  </ul>
 		</nav>
+		
+		<!-- 검색 -->
+        <div class="col-auto text-center">
+		  <div class="bg-white border-radius-lg d-inline-flex me-2">
+		    <form class="d-flex align-items-center" role="search" action="jjmakeSearch" method="get">
+		      <input class="form-control border-0 me-1 px-4" type="search" 
+		              id="keyword" name="keyword" value="${md.keyword}" 
+		             placeholder="검색어를 입력하세요" aria-label="Search" style="width: 500px;">
+		      <button class="btn bg-gradient-primary my-1 me-1" type="submit">검색</button>
+		    </form>
+		  </div>
+		</div>
 		
 		<!-- 생산 등록 버튼 -->
 		<div class="d-flex justify-content-end">
