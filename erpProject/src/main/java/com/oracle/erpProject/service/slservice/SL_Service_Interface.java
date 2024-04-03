@@ -3,6 +3,7 @@ package com.oracle.erpProject.service.slservice;
 import java.util.List;
 
 import com.oracle.erpProject.model.Buying;
+import com.oracle.erpProject.model.Product;
 
 public interface SL_Service_Interface {
 
@@ -20,6 +21,9 @@ public interface SL_Service_Interface {
 	Buying buyingDetail(Buying buying);
 	// 구매 상세 페이지 제품 리스트
 	List<Buying> productDetail(Buying buying);
+	
+	// 구매 제품 리스트
+	List<Product> productList();
 	
 
 }

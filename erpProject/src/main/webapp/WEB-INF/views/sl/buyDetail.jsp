@@ -47,14 +47,25 @@
 		  	<label for="detailManager" id="detailManagerLabel">거래처 담당자</label>
 		    <div  class="form-control" id="detailManager" >${buyingDetail.emp_name}</div>
 		  </div>
-	 
-		   
 		</div>
-			  
 
 			  <div class="colNote">비고</div>
 			  <textarea type="text"  class="colNoteBox">${buyingDetail.buy_note}</textarea>
-
+			  
+			  
+			<div class="buyItemSelectBox">
+                <p>제품</p>
+                <select class="form-control" name="choices-button" id="buyingItemSelect" placeholder="Departure">
+                    <option value="item 1" selected="">Brazil</option>
+                    <option value="Choice 2">Bucharest</option>
+                    <option value="Choice 3">London</option>
+                    <option value="Choice 4">USA</option>
+                  </select>
+                  
+                 <p>수량</p>
+                 <input type="text" class="buyItemCnt" placeholder="수량을 입력하세요"/>
+                 <button type="button" class="btn btn-primary" id="addBtn" >추가</button>
+             </div>
 		  
 			 <div class="form-group" id="buyListItemsContainer">
 		    <div class="custom-select" id="buyListItems">
