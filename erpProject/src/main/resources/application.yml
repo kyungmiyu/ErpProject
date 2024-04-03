@@ -28,11 +28,18 @@ spring:
         format_sql: true
     show-sql: true # system.out에서 하이버네이트 실행 sql
     
- # view Resolver
+ # View Resolver
   mvc:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp    
+
+  thymeleaf:
+    cache: false
+    suffix: .html
+    prefix: classpath:/templates/
+    view-names: thymeleaf/*
+
 
   # gmail Transfer
   mail:
