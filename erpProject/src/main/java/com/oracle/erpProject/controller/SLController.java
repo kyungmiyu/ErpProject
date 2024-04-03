@@ -10,10 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.oracle.erpProject.model.Buying;
+import com.oracle.erpProject.model.Product;
+import com.oracle.erpProject.model.slmodel.SLBuying;
+import com.oracle.erpProject.model.slmodel.SLBuying_detail;
+import com.oracle.erpProject.model.slmodel.SLProduct;
 import com.oracle.erpProject.service.slservice.SL_Service_Interface;
 import com.oracle.erpProject.service.slservice.buyingPaging;
 
@@ -30,7 +35,7 @@ public class SLController {
 	
 	// 구매 페이지
 	@GetMapping(value = "buying")
-	public String buying(Buying buying, Model model) {
+	public String buying(SLBuying buying, Model model) {
 		System.out.println("SlController buying Start >>>>>>");
 		int totalbuyingCnt = slService.totalbuyingCnt();
 		
@@ -43,10 +48,11 @@ public class SLController {
 		buying.setEnd(buying.getEnd());
 		
 		
-		List<Buying> buyAlllist = slService.buyAlllist(buying);
+		List<SLBuying> buyAlllist = slService.buyAlllist(buying);
 		System.out.println("SlController buying buyAlllist >>>>" + buyAlllist);
 				
 		
+		model.addAttribute("buying",buying);
 		model.addAttribute("buyAlllist",buyAlllist);
 		model.addAttribute("totalbuyingCnt",totalbuyingCnt);	
 		model.addAttribute("buypage",buypage);
@@ -57,7 +63,7 @@ public class SLController {
 	
 	
 	@GetMapping("/selectedDateSearch")
-	public String selectedDate(@RequestParam("buy_date") String buy_date, Buying buying, Model model) {
+	public String selectedDate(@RequestParam("buy_date") String buy_date, SLBuying buying, Model model) {
 	    System.out.println("buy_date : " + buy_date);
 	    
 	    buying.setBuy_date(buy_date);
@@ -66,7 +72,7 @@ public class SLController {
 	    System.out.println("dateSearchtotCnt>>>>>>>" + dateSearchtotCnt);
 	 
 	    // 검색 결과를 가져옴
-	    List<Buying> buyAlllist = slService.dateSearchAllList(buying);
+	    List<SLBuying> buyAlllist = slService.dateSearchAllList(buying);
 	    System.out.println("selectedDate buyAlllist->" + buyAlllist);
 	    System.out.println("selectedDate buyAlllist.size->" + buyAlllist.size());
 	    
@@ -91,7 +97,6 @@ public class SLController {
 		}
 	    System.out.println("buying.getBuy_date()->" + buying.getBuy_date());
 		
-	    model.addAttribute("buying",buying);
 		model.addAttribute("buyAlllist",buyAlllist);
 		model.addAttribute("dateSearchtotCnt",dateSearchtotCnt);	
 		model.addAttribute("buypage",buypage);
@@ -116,28 +121,52 @@ public class SLController {
 	
 	// 구매 상세 페이지
 	@GetMapping(value = "buyDetail")
-	public String buyDetail(HttpServletRequest request, Buying buying, Model model) {
+	public String buyDetail(HttpServletRequest request, SLBuying buying, Model model) {
 		System.out.println("buyDetail Start ->>>>>>>>>>");
 		int cust_no = Integer.parseInt(request.getParameter("cust_no"));
 		String buy_date = request.getParameter("buy_date");
-		//int p_itemcode = Integer.parseInt(request.getParameter("p_itemcode"));
 		
 		buying.setCust_no(cust_no);
 		buying.setBuy_date(buy_date);
-		//buying.setP_itemcode(p_itemcode);
+		
 		
 		// 구매 상세 페이지 정보
-		Buying buyingDetail = slService.buyingDetail(buying);
+		SLBuying buyingDetail = slService.buyingDetail(buying);
 		System.out.println("buyingDetail >>>>>>" + buyingDetail);
 		
-		List<Buying> productDetail = slService.productDetail(buying);
+		
+		// 구매 제품 정보 리스트
+		List<SLBuying> productDetail = slService.productDetail(buying);
 		System.out.println("productDetail >>>>>>" + productDetail.size());
+		
+		// 제품 리스트
+		List<SLProduct> productList = slService.productList();
+
+		System.out.println("buying->" + buying);
 
 		
-		
+		model.addAttribute("buying",buying);
 		model.addAttribute("buyingDetail",buyingDetail);
 		model.addAttribute("productDetail",productDetail);
+		model.addAttribute("productList",productList);
 		return "sl/buyDetail";
 	}
+	
+	// 구매 상세페이지 수정
+	@PostMapping("/addProduct")
+	//public void buyingModify(@RequestParam("p_name") String p_name, @RequestParam("bd_cnt") int bd_cnt , SLBuying buying) { 
+	public void buyingDetailModify( SLBuying_detail sLBuying_detail  ) { 
+		
+		System.out.println("sLBuying_detail: " + sLBuying_detail);
+		
+		int addProduct = slService.addProduct(sLBuying_detail);
+		
+		
+		
+	}
+	
+	
+	
+	
 	
 }

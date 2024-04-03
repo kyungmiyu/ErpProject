@@ -16,16 +16,19 @@ public class JJ_Make_detail {
 	private Date md_work_date;		// 작업완료일자
 	private int md_quantity;		// 지시수량
 	private int md_pro_quantity;	// 생산수량
-	private int d_gubun;			// 수불마감구분
+	private int rpnc_gubun;			// 수불마감구분
 	private int md_worker_num;		// 작업인원
 	private String md_note;		// 비고
-	private Date s_date;			// 매출일자
+	private String s_date;			// 매출일자
 	private int cus_no;				// 거래처 코드
 
 	// 조회용
-	private int start;
-	private int end;
-	private String p_name;			// Product의 제품명 조회
+	private String search;				private String keyword;					
+	private int start;					private int end;
+	private String p_name;				// Product의 제품명 조회
+	private String select_md_status; 	// 생산요청페이지 작업지시상태 선택사항
+	private int select_rpnc_gubun; 	// 생산요청페이지 수불마감상태 선택사항
+	private int select_f_id; 		// 생산요청페이지 공장아이디 선택사항
 	
   	// Page 정보
     private String currentPage;

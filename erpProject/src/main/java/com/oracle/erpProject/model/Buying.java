@@ -35,6 +35,7 @@ public class Buying {
 	private int totalMoney; // 총금액
 	private int totalCnt; // 제품 전체 총 수량
 	private String managerName; // 구매 담당자
+	private String buyProduct; // 구매 제품
 	
 	
 	// 페이징
