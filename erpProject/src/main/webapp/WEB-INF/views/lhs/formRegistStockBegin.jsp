@@ -28,7 +28,7 @@
 		margin-left: 70px;
 	}
 	
-	#registBtn {
+	.temporayBtn {
 		position: absolute;
 	    right: 	100px;
 	}
@@ -56,8 +56,7 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // 페이지 로딩이 완료되면 실행될 함수
-
+    
     var stockYearMonthDay = "${stock.st_year_month_day}";
 
     // 날짜 값을 입력란에 넣어주기
@@ -84,64 +83,48 @@ $(document).ready(function () {
         var emp_no = ${empData.emp_no};
         
         $.ajax({
-            url: "lhsFormRegistStockBegin", // 컨트롤러 URL 설정
-            type: "GET", // GET 또는 POST
+            url: "lhsFormRegistStockBegin",
+            type: "GET",
             data: { 
-            	st_year_month_day: formattedDate, // 선택된 날짜 값 전달
+            	st_year_month_day: formattedDate,
             	emp_no : emp_no
             },
             success: function (data) {
             	window.location.href = "lhsFormRegistStockBegin?st_year_month_day=" + formattedDate +"&emp_no=" + emp_no;
             },
             error: function (xhr, status, error) {
-                // 오류 발생 시 처리할 코드 작성
                 console.error("Error occurred:", error);
             }
         });
     });
  	
- 	$(".itemCode").keypress(function(event) {
- 	    // 입력된 키 코드 가져오기
- 	    var keycode = (event.keyCode ? event.keyCode : event.which);
- 	    var emp_no = ${empData.emp_no}
- 	    // Enter 키의 keyCode 값은 13
- 	    if (keycode == '13') {
- 	        // Enter 키가 눌렸을 때 실행할 코드 작성
- 	        // 제품코드 값 가져오기
- 	        var itemCode = $(this).val();
+ 	$("#searchBtn").click(function() {
+ 		
+ 	    var emp_no = ${empData.emp_no};
+ 	    var itemCode = $(".itemCode").val();
  	        
  	        $.ajax({
  	            url: "lhsCheckNewItem",
  	            type: "GET",
  	            data: { 
- 	                itemCode: itemCode,
+ 	                p_itemcode: itemCode,
  	               	emp_no: emp_no
  	            },
  	            success: function(data) {
+ 	            	
+	            	if (data.p_name === undefined || 
+	 	            		 data.new_item_quantity === undefined ||
+	 	            			data.new_item_manager === undefined) {
+	 	                 alert("제품 코드를 다시 입력해주세요.");
+	 	                 
+	 	                 $(".itemCode").val("");
+	 	                 return;
+	            	}
+
  	               // 가져온 데이터를 각 입력란에 채워 넣기
- 	               $(".itemName").val(data.itemName);
- 	               $(".quantity").val(data.quantity);
- 	               $(".manager").val(data.manager);
- 	                
- 	               $("#registBtn").click(function() {
- 	                  // 입력된 값 가져오기
- 	                  var itemCode = $(".itemCode").val();
- 	                  var itemName = $(".itemName").val();
- 	                  var quantity = $(".quantity").val();
- 	                  var manager = $(".manager").val();
- 	                  
- 	                  // 리스트에 추가
- 	                  var listItem = "<tr><td>" + itemCode + "</td><td class='itemName'></td>"+
- 	                  					"<td class='quantity'></td><td class='manager'></td>"+
- 	                  					"<td><button type='button' class='btn btn-danger deleteBtn'>삭제</button></td></tr>";
- 	                  $("#resultList").append(listItem);
- 	                  
- 	                  // 입력란 비우기
- 	                  $(".itemCode").val("");
- 	                  $(".itemName").val("");
- 	                  $(".quantity").val("");
- 	                  $(".manager").val("");
- 	              });
+ 	               $(".itemName").val(data.p_name);
+ 	               $(".quantity").val(data.new_item_quantity);
+ 	               $(".manager").val(data.new_item_manager);
  	                
  	            },
  	            error: function(xhr, status, error) {
@@ -149,16 +132,77 @@ $(document).ready(function () {
  	                console.log("제품코드를 다시 입력해주세요");
  	            }
  	        });
- 	    }
  	});
  	
+ 	// 등록버튼 클릭 시
+     $("#registBtn").click(function() {
+          // 입력된 값 가져오기
+          var itemCode = $(".itemCode").val();
+          var itemName = $(".itemName").val();
+          var quantity = $(".quantity").val();
+          var manager = $(".manager").val();
+          
+          if ($("#resultList").find("td:first-child").filter(function() {
+              return $(this).text() === itemCode;
+          }).length > 0) {
+              alert("이미 리스트에 있는 제품코드입니다.");
+              
+              $(".itemCode").val("");
+              $(".itemName").val("");
+              $(".quantity").val("");
+              $(".manager").val("");
+              
+              return;
+          }
+          
+          // 리스트에 추가
+          var listItem = "<tr><td>" + 	itemCode + "</td><td>" + itemName + "</td>"+
+         					"<td>" + quantity + "</td><td>" + manager + "</td>"+
+          					"<td><button type='button' class='btn btn-danger deleteBtn'>삭제</button></td></tr>";
+          $("#resultList").append(listItem);
+          
+          $(".itemCode").val("");
+          $(".itemName").val("");
+          $(".quantity").val("");
+          $(".manager").val("");
+      });
  	
-    // 삭제 버튼 클릭 시
+    // 삭제버튼 클릭 시
     $(document).on("click", ".deleteBtn", function() {
         $(this).closest("tr").remove(); // 클릭된 버튼이 속한 행 삭제
     });
-});
+    
+    // 저장버튼 클릭 시
+    $("#saveBtn").click(function () {
+        // 리스트의 각 행을 읽어와서 데이터를 배열에 저장
+        var dataToSend = [];
 
+        $("#resultList").find("tr").each(function () {
+            var itemCode = $(this).find("td:eq(0)").text();
+            var quantity = $(this).find("td:eq(2)").text();
+            
+            dataToSend.push({
+                p_itemcode: itemCode,
+                st_quantity: quantity
+            });
+        });
+
+        // Ajax 요청으로 컨트롤러에 데이터 전송
+        $.ajax({
+            url: "lhsRegistStockBegin?emp_no=" + ${empData.emp_no},
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(dataToSend),
+            success: function (response) {
+            	alert("기초재고에 등록되었습니다.");
+                window.location.href = "/lhsListStock?emp_no=" + ${empData.emp_no};
+            },
+            error: function (xhr, status, error) {
+                console.error("Error occurred:", error);
+            }
+        });
+    });
+});
 </script>
 </head>
 <body>
@@ -215,9 +259,10 @@ $(document).ready(function () {
 		   
 		</div>
 
-	
+	<div class="temporayBtn">
+   	<button type="button" class="btn btn-primary" id="searchBtn">검색</button>
    	<button type="button" class="btn btn-primary" id="registBtn">등록</button>
-  
+  	</div>
    	</div>
    	<div class="text-center">
 	   	<table class="table" style="margin-left: 70px; width: 80%; hegight: 30px;">
@@ -227,7 +272,7 @@ $(document).ready(function () {
 		            <th scope="col">제품명</th>
 		            <th scope="col">수량</th>
 		            <th scope="col">담당자</th>
-		            <th scope="col">삭제</th>
+		            <th scope="col"></th>
 		        </tr>
 		    </thead>
 		    <tbody id="resultList"></tbody>
