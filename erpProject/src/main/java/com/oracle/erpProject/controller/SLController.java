@@ -1,5 +1,8 @@
 package com.oracle.erpProject.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -14,6 +17,7 @@ import com.oracle.erpProject.model.Buying;
 import com.oracle.erpProject.service.slservice.SL_Service_Interface;
 import com.oracle.erpProject.service.slservice.buyingPaging;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -31,15 +35,17 @@ public class SLController {
 		int totalbuyingCnt = slService.totalbuyingCnt();
 		
 		
-		List<Buying> buyAlllist = slService.buyAlllist(buying);
-		System.out.println("SlController buying buyAlllist >>>>" + buyAlllist);
+		
 		
 		// paging 처리
 		buyingPaging buypage = new buyingPaging(totalbuyingCnt, buying.getCurrentPage());
 		buying.setStart(buying.getStart());
 		buying.setEnd(buying.getEnd());
 		
-	
+		
+		List<Buying> buyAlllist = slService.buyAlllist(buying);
+		System.out.println("SlController buying buyAlllist >>>>" + buyAlllist);
+				
 		
 		model.addAttribute("buyAlllist",buyAlllist);
 		model.addAttribute("totalbuyingCnt",totalbuyingCnt);	
@@ -54,36 +60,42 @@ public class SLController {
 	public String selectedDate(@RequestParam("buy_date") String buy_date, Buying buying, Model model) {
 	    System.out.println("buy_date : " + buy_date);
 	    
-	    // 검색에 사용할 데이터 설정
 	    buying.setBuy_date(buy_date);
-	   
-	
 	    
-	    // 검색 결과의 총 개수
-	   int dateSearchtotCnt = slService.dateSearchtotCnt(buying);
-	   
-	    
+	    int dateSearchtotCnt = slService.dateSearchtotCnt(buying);
+	    System.out.println("dateSearchtotCnt>>>>>>>" + dateSearchtotCnt);
 	 
 	    // 검색 결과를 가져옴
 	    List<Buying> buyAlllist = slService.dateSearchAllList(buying);
-	    System.out.println("selectedDate buying" + buying);
+	    System.out.println("selectedDate buyAlllist->" + buyAlllist);
+	    System.out.println("selectedDate buyAlllist.size->" + buyAlllist.size());
 	    
 	 // paging 처리
  		buyingPaging buypage = new buyingPaging(dateSearchtotCnt, buying.getCurrentPage());
  		buying.setStart(buying.getStart());
  		buying.setEnd(buying.getEnd());
-   
+ 		
+ 		
+ 		// 목적 : 날짜 String --> Date형 String 로 변환하기 위해서
+ 	    // 포맷터        
+ 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");        
+ 		// 문자열 -> Date        
+ 		try {
+			Date date = formatter.parse(buying.getBuy_date());
+			 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			 String strBuy_date = format.format(date);
+			 buying.setBuy_date(strBuy_date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    System.out.println("buying.getBuy_date()->" + buying.getBuy_date());
 		
+	    model.addAttribute("buying",buying);
 		model.addAttribute("buyAlllist",buyAlllist);
 		model.addAttribute("dateSearchtotCnt",dateSearchtotCnt);	
 		model.addAttribute("buypage",buypage);
 	    
-	   
-	   
-
-	    
-	    
-	
 
 	    return "sl/buying";
 	}
@@ -92,9 +104,7 @@ public class SLController {
 	
 	
 	
-	
-	
-	
+
 	
 	// 구매 등록 페이지
 	@GetMapping(value = "buyingApply")
@@ -103,9 +113,30 @@ public class SLController {
 		return "sl/buyingApply";
 	}
 	
+	
 	// 구매 상세 페이지
 	@GetMapping(value = "buyDetail")
-	public String buyDetail() {
+	public String buyDetail(HttpServletRequest request, Buying buying, Model model) {
+		System.out.println("buyDetail Start ->>>>>>>>>>");
+		int cust_no = Integer.parseInt(request.getParameter("cust_no"));
+		String buy_date = request.getParameter("buy_date");
+		//int p_itemcode = Integer.parseInt(request.getParameter("p_itemcode"));
+		
+		buying.setCust_no(cust_no);
+		buying.setBuy_date(buy_date);
+		//buying.setP_itemcode(p_itemcode);
+		
+		// 구매 상세 페이지 정보
+		Buying buyingDetail = slService.buyingDetail(buying);
+		System.out.println("buyingDetail >>>>>>" + buyingDetail);
+		
+		List<Buying> productDetail = slService.productDetail(buying);
+		System.out.println("productDetail >>>>>>" + productDetail.size());
+
+		
+		
+		model.addAttribute("buyingDetail",buyingDetail);
+		model.addAttribute("productDetail",productDetail);
 		return "sl/buyDetail";
 	}
 	

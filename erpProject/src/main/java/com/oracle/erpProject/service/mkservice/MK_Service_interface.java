@@ -42,6 +42,14 @@ public interface MK_Service_interface {
 
 	mkCustomer getCustomerDetail(mkCustomer customer);
 
+	int searchedCustomerTotal(mkCustomer customer);
+
+	List<mkCustomer> listSearchCustomer(mkCustomer customer);
+
+	int UpdateCustomer(mkCustomer customer);
+
+	int insertCustomer(mkCustomer customer);
+
 //	void saveProductImagePath(mkProduct product);
 
 

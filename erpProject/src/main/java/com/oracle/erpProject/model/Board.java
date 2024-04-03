@@ -8,19 +8,19 @@ import lombok.Data;
 
 @Data
 public class Board {
-	private int B_NO;
-	private int EMP_NO;
-	private int B_CATEGORY;
-	private int BOARD_MID;
-	private String B_NAME; 
-	private String B_CONTENT;
-	private String B_FILE;
-	private int B_HIT;
+	private int b_no;
+	private int emp_no;
+	private int b_category;
+	private int board_mid;
+	private String b_name; 
+	private String b_content;
+	private String b_file;
+	private int b_hit;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date B_REGDATE;
-	private int B_GROUP;
-	private int B_REPLY_NO;
-	private int B_INDENT;
+	private Date b_regdate;
+	private int b_group;
+	private int b_reply_no;
+	private int b_indent;
 	
 	//조회용
 	private String search;

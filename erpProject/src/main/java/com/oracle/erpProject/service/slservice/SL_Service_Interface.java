@@ -15,5 +15,11 @@ public interface SL_Service_Interface {
 	int dateSearchtotCnt(Buying buying);
 	List<Buying> dateSearchAllList(Buying buying);
 	
+	
+	// 구매 상세 페이지
+	Buying buyingDetail(Buying buying);
+	// 구매 상세 페이지 제품 리스트
+	List<Buying> productDetail(Buying buying);
+	
 
 }
