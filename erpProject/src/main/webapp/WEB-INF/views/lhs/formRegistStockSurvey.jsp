@@ -100,9 +100,28 @@ $(document).ready(function () {
 	            }
 	            
 	            $("#selectItemCode").html(options);
+	            
+	            // 처음 드롭다운 메뉴 구성 후 data[0] 상세정보 제공
+                var p_itemcode = data[0].p_itemcode;
+                
+                $.ajax({
+                    type: "GET",
+                    url: "lhsGetDataProduct",
+                    data: {p_itemcode: p_itemcode},
+                    dataType: "json",
+                    success: function(data) {
+                    	
+                   	   $(".itemCode").val(data.p_itemcode);
+                   	   $(".itemName").val(data.p_name);
+                       $(".quantityStock").val(data.st_quantity);
+                       $(".quantityReal").val(data.st_quantity);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log("Error: " + textStatus + " - " + errorThrown);
+                    }
+                });
 	        },
 	        error: function (xhr, status, error) {
-	            // 데이터를 받아오는 데 실패했을 때 실행되는 코드
 	            console.error("Error occurred:", error);
 	        }
 	    });
@@ -133,8 +152,6 @@ $(document).ready(function () {
     });
  	
     $("#selectItemCode").change(function() {
-    	
-    	console.log( $(this).val());
         var p_itemcode = $(this).val();
         
         $.ajax({
@@ -146,15 +163,95 @@ $(document).ready(function () {
             	
            	   $(".itemCode").val(data.p_itemcode);
            	   $(".itemName").val(data.p_name);
-               $(".quantity").val(data.st_quantity);
-               $(".regdate").val(data.st_regdate);
+               $(".quantityStock").val(data.st_quantity);
+               $(".quantityReal").val(data.st_quantity);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log("Error: " + textStatus + " - " + errorThrown);
             }
         });
     });
- 	
+    
+    $("#registBtn").click(function(){
+    	var itemCode = $(".itemCode").val();
+    	var itemName = $(".itemName").val();
+    	var quantityStock = $(".quantityStock").val();
+    	var quantityReal = $(".quantityReal").val();
+    	var quantityDisposal = $(".quantityStock").val() - $(".quantityReal").val();
+    	
+    	if (itemCode === "" || itemName === "" || quantityStock === "") {
+     	    alert("제품코드를 선택 후 등록버튼을 눌러주세요.");
+     	    return;
+     	}
+    	
+    	if (quantityReal === "") {
+     	    alert("실수량을 입력해주세요.");
+     	    return;
+     	}
+    	
+    	if ($("#resultList").find("td:first-child").filter(function() {
+             return $(this).text() === itemCode;
+         }).length > 0) {
+             alert("이미 리스트에 있는 제품코드입니다.");
+             return;
+         }
+    	
+    	// 리스트에 추가
+    	var listItem = "<tr><td>" + itemCode + "</td><td>" + itemName + "</td>"+
+							"<td>" + quantityStock + "</td><td>" + quantityReal + "</td>"+
+							"<td>" + quantityDisposal +"</td>" +
+							"<td><button type='button' class='btn btn-danger deleteBtn'>삭제</button></td></tr>";
+		$("#resultList").append(listItem);
+    });
+    
+    // 삭제버튼 클릭 시
+    $(document).on("click", ".deleteBtn", function() {
+        $(this).closest("tr").remove(); // 클릭된 버튼이 속한 행 삭제
+    });
+    
+    // 저장버튼 클릭 시
+    $("#saveBtn").click(function () {
+        // 리스트의 각 행을 읽어와서 데이터를 배열에 저장
+        var dataToSend = [];
+        var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
+        var year = selectedDate.substring(0, 4); // 연도 추출
+        var month = selectedDate.substring(5, 7); // 월 추출
+        var formattedDate = year + month; // 형식 변환
+        var st_begin_end = 1;
+
+        $("#resultList").find("tr").each(function () {
+            var itemCode = $(this).find("td:eq(0)").text();
+            var quantityStock = $(this).find("td:eq(2)").text();
+            var quantityReal = $(this).find("td:eq(3)").text();
+            var quantityDisposal = $(this).find("td:eq(4)").text();
+            
+            dataToSend.push({
+            	st_year_month: formattedDate,
+            	st_begin_end: st_begin_end,
+            	p_itemcode: itemCode,
+                sts_quantity: quantityStock,
+                sts_realcnt: quantityReal,
+                sts_disposalcnt: quantityDisposal
+            });
+        });
+
+        // Ajax 요청으로 컨트롤러에 데이터 전송
+        $.ajax({
+            url: "lhsRegistStockSurvey?emp_no=" + ${empData.emp_no},
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(dataToSend),
+            success: function (response) {
+            	alert("실사 재고조사에 등록되었습니다.");
+                // window.location.href = "/lhsListStock?emp_no=" + ${empData.emp_no};
+            },
+            error: function (xhr, status, error) {
+                console.error("Error occurred:", error);
+            }
+        });
+    });
+    
+    
 });
 </script>
 </head>
@@ -212,10 +309,10 @@ $(document).ready(function () {
 		    <input type="text" class="form-control itemName" id="detailManager" placeholder="" readonly>
 		  </div>
 		  <div class="form-group" id="titleBox1">
-		    <label for="detailTitle" id="detailTitleLabel">수량</label>
-		    <input type="text" class="form-control quantity" id="detailTitle" placeholder="">
-		  	<label for="detailManager" id="detailManagerLabel">등록일</label>
-		    <input type="text" class="form-control regdate" id="detailManager" placeholder="" readonly>
+		    <label for="detailTitle" id="detailTitleLabel">창고수량</label>
+		    <input type="text" class="form-control quantityStock" id="detailTitle" placeholder="" readonly>
+		  	<label for="detailManager" id="detailManagerLabel">실수량</label>
+		    <input type="text" class="form-control quantityReal" id="detailManager" placeholder="" >
 		  </div>
 		   
 		</div>
@@ -223,6 +320,23 @@ $(document).ready(function () {
 	
    	<button type="button" class="btn btn-primary" id="registBtn">등록</button>
     </div> 
+    
+    <div class="text-center">
+	   	<table class="table" style="margin-left: 70px; width: 80%; hegight: 30px;">
+		    <thead>
+		        <tr>
+		            <th scope="col">제품코드</th>
+		            <th scope="col">제품명</th>
+		            <th scope="col">창고수량</th>
+		            <th scope="col">실수량</th>
+		            <th scope="col">폐기수량</th>
+		            <th scope="col"></th>
+		        </tr>
+		    </thead>
+		    <tbody id="resultList"></tbody>
+		</table>	
+	</div>   
+	
     <button type="button" class="btn btn-primary" id="saveBtn">저장</button>
    
     <!-- ****** 공통 : 테이블 끝 ****** -->

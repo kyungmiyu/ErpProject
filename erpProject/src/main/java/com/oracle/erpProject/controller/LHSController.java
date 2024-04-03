@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oracle.erpProject.model.lhsmodel.Employee;
 import com.oracle.erpProject.model.lhsmodel.Product;
 import com.oracle.erpProject.model.lhsmodel.Stock;
+import com.oracle.erpProject.model.lhsmodel.Stock_survey;
 import com.oracle.erpProject.service.lhsservice.LHSPaging;
 import com.oracle.erpProject.service.lhsservice.LHS_Serivce;
 
@@ -250,8 +251,11 @@ public class LHSController {
 
 	// 실사재고조사 등록
 	@RequestMapping(value = "lhsRegistStockSurvey")
-	public String lhsRegistStockSurvey(Employee emp, Model model) {
+	public String lhsRegistStockSurvey(@RequestBody List<Stock_survey> listSurvey, Employee emp, Model model) {
 
+		System.out.println("lhsController lhsRegistStockSurvey start...");
+		System.out.println("check emp_no: " + emp.getEmp_no());
+		System.out.println("check listSurvey: " + listSurvey.size());
 		// RnP_closing status=1 체크
 
 		/*

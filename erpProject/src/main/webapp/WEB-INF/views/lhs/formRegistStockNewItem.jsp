@@ -171,12 +171,11 @@ $(document).ready(function () {
               $(".itemName").val("");
               $(".quantity").val("");
               $(".regdate").val("");
-              
               return;
           }
           
           // 리스트에 추가
-          var listItem = "<tr><td>" + 	itemCode + "</td><td>" + itemName + "</td>"+
+          var listItem = "<tr><td>" + itemCode + "</td><td>" + itemName + "</td>"+
          					"<td>" + quantity + "</td><td>" + regdate + "</td>"+
           					"<td><button type='button' class='btn btn-danger deleteBtn'>삭제</button></td></tr>";
           $("#resultList").append(listItem);
