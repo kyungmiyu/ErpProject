@@ -25,10 +25,7 @@
 		FROM
 		    (SELECT rownum rn, a.*
 		    FROM
-		        (SELECT p.p_name, s.*,
-		        	CASE WHEN s.st_begin_end = 0 THEN '기초'
-				        WHEN s.st_begin_end = 1 THEN '기말'
-				    END AS 구분
+		        (SELECT p.p_name, s.*
 		        FROM product p, stock s
 		        WHERE p.p_itemcode = s.p_itemcode
 		            AND s.st_year_month = #{st_year_month}
@@ -42,19 +39,15 @@
 							AND st_begin_end = 1
 						</when>
 					</choose>
-		        ORDER BY s.st_regdate DESC, s.p_itemcode) a
+		        ORDER BY st_begin_end DESC, s.p_itemcode ) a
 			) b
 		WHERE rn BETWEEN #{start} and #{end}
 
-<!-- 		SELECT *
-		FROM
-		    (SELECT rownum rn, a.*
-		    FROM
-		        (SELECT p.p_name, s.*
-		        FROM product p, stock s
-		        WHERE p.p_itemcode = s.p_itemcode
-		            AND s.st_year_month = 202404
-		        ORDER BY s.st_regdate DESC, s.p_itemcode) a -->
 	</select>
+	
+	<insert id="lhsRegistStockNewItem" parameterType="LHS_Stock">
+		INSERT INTO stock
+		VALUES (#{st_year_month}, 0, #{p_itemcode}, #{st_quantity}, sysdate)
+	</insert>
 
 </mapper>

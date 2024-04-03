@@ -21,10 +21,15 @@ public interface LHS_Serivce {
 	// 월 재고리스트 조회
 	List<Stock> getListStock(Stock stock);
 	
-	// 신제품 구매테이블 조회
-	Product checkProductBuy(Product product);
+	// 신제품 등록여부 확인
+	Product checkExistenceNewItem(Product product);
 	
-	// 신제품 생산테이블 조회
-	Product checkProductMake(Product product);
+	// 신제품 기초재고 등록
+	int registStockNewItem(Stock stock);
+	
+	// 실사 재고조사 물품 상세정보 조회
+	Product getDataProduct(Product product);
+
+	
 
 }

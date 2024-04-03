@@ -83,14 +83,14 @@ $(document).ready(function () {
         var emp_no = ${empData.emp_no};
         
         $.ajax({
-            url: "lhsFormRegistStockBegin",
+            url: "lhsFormRegistStockNewItem",
             type: "GET",
             data: { 
             	st_year_month_day: formattedDate,
             	emp_no : emp_no
             },
             success: function (data) {
-            	window.location.href = "lhsFormRegistStockBegin?st_year_month_day=" + formattedDate +"&emp_no=" + emp_no;
+            	window.location.href = "lhsFormRegistStockNewItem?st_year_month_day=" + formattedDate +"&emp_no=" + emp_no;
             },
             error: function (xhr, status, error) {
                 console.error("Error occurred:", error);
@@ -104,32 +104,42 @@ $(document).ready(function () {
  	    var itemCode = $(".itemCode").val();
  	        
  	        $.ajax({
- 	            url: "lhsCheckNewItem",
+ 	            url: "lhsCheckExistenceNewItem",
  	            type: "GET",
  	            data: { 
  	                p_itemcode: itemCode,
  	               	emp_no: emp_no
  	            },
  	            success: function(data) {
+ 	            	 
  	            	
-	            	if (data.p_name === undefined || 
-	 	            		 data.new_item_quantity === undefined ||
-	 	            			data.new_item_manager === undefined) {
-	 	                 alert("제품 코드를 다시 입력해주세요.");
-	 	                 
-	 	                 $(".itemCode").val("");
-	 	                 return;
-	            	}
-
+            	    if (data.p_name === undefined) {
+            	        alert("등록되지 않은 제품입니다. 다시 입력해주세요");
+            	        $(".itemCode").val("");
+                	    $(".itemName").val("");
+                        $(".quantity").val("");
+                        $(".regdate").val("");
+                	    return;
+            	    }
+            	    
+            	    if (data.p_name === 'no') {
+            	        alert("이미 기초재고에 등록된 제품입니다.");
+            	        $(".itemCode").val("");
+                	    $(".itemName").val("");
+                        $(".quantity").val("");
+                        $(".regdate").val("");
+                	    return;
+            	    }
+	            	
  	               // 가져온 데이터를 각 입력란에 채워 넣기
  	               $(".itemName").val(data.p_name);
- 	               $(".quantity").val(data.new_item_quantity);
- 	               $(".manager").val(data.new_item_manager);
+ 	               $(".quantity").val(0);
+ 	               $(".regdate").val(data.p_regdate);
  	                
  	            },
  	            error: function(xhr, status, error) {
  	                // 오류 발생 시 처리할 코드 작성
- 	                console.log("제품코드를 다시 입력해주세요");
+ 	            	alert("제품코드를 입력 후 검색버튼을 눌러주세요.");
  	            }
  	        });
  	});
@@ -140,7 +150,17 @@ $(document).ready(function () {
           var itemCode = $(".itemCode").val();
           var itemName = $(".itemName").val();
           var quantity = $(".quantity").val();
-          var manager = $(".manager").val();
+          var regdate = $(".regdate").val();
+          
+          if (itemCode === "" || itemName === "" || quantity === "" || regdate === "") {
+        	    alert("제품코드를 입력 후 검색버튼을 눌러주세요.");
+        	    
+        	    $(".itemCode").val("");
+                $(".itemName").val("");
+                $(".quantity").val("");
+                $(".regdate").val("");
+        	    return;
+        	}
           
           if ($("#resultList").find("td:first-child").filter(function() {
               return $(this).text() === itemCode;
@@ -150,21 +170,21 @@ $(document).ready(function () {
               $(".itemCode").val("");
               $(".itemName").val("");
               $(".quantity").val("");
-              $(".manager").val("");
+              $(".regdate").val("");
               
               return;
           }
           
           // 리스트에 추가
           var listItem = "<tr><td>" + 	itemCode + "</td><td>" + itemName + "</td>"+
-         					"<td>" + quantity + "</td><td>" + manager + "</td>"+
+         					"<td>" + quantity + "</td><td>" + regdate + "</td>"+
           					"<td><button type='button' class='btn btn-danger deleteBtn'>삭제</button></td></tr>";
           $("#resultList").append(listItem);
           
           $(".itemCode").val("");
           $(".itemName").val("");
           $(".quantity").val("");
-          $(".manager").val("");
+          $(".regdate").val("");
       });
  	
     // 삭제버튼 클릭 시
@@ -176,6 +196,10 @@ $(document).ready(function () {
     $("#saveBtn").click(function () {
         // 리스트의 각 행을 읽어와서 데이터를 배열에 저장
         var dataToSend = [];
+        var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
+        var year = selectedDate.substring(0, 4); // 연도 추출
+        var month = selectedDate.substring(5, 7); // 월 추출
+        var formattedDate = year + month; // 형식 변환
 
         $("#resultList").find("tr").each(function () {
             var itemCode = $(this).find("td:eq(0)").text();
@@ -183,13 +207,15 @@ $(document).ready(function () {
             
             dataToSend.push({
                 p_itemcode: itemCode,
-                st_quantity: quantity
+                st_quantity: quantity,
+                st_year_month: formattedDate
+                
             });
         });
 
         // Ajax 요청으로 컨트롤러에 데이터 전송
         $.ajax({
-            url: "lhsRegistStockBegin?emp_no=" + ${empData.emp_no},
+            url: "lhsRegistStockNewItem?emp_no=" + ${empData.emp_no},
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(dataToSend),
@@ -225,12 +251,14 @@ $(document).ready(function () {
 			<div class="container-fluid">
 	               <div class="row">
                        <div class="col">
-                       		<form action="lhsFormRegistStockBegin" method="get">
+                       		<form action="lhsFormRegistStockNewItem" method="get">
+                     	  		<input type="hidden" name="emp_no" value="${empData.emp_no}">
                            		<button type="submit" class="btn btn-primary btn-block" id="registStockBeginBtn">기초재고 등록</button>
                            	</form>
                        </div>
                        <div class="col">
                        		<form action="lhsFormRegistStockSurvey" method="get">
+                           		<input type="hidden" name="emp_no" value="${empData.emp_no}">
                            		<button type="submit" class="btn btn-primary btn-block" id="registStockSurveyBtn">실사 재고조사 등록</button>
                            	</form>
                        </div>
@@ -251,9 +279,9 @@ $(document).ready(function () {
 		  </div>
 		  <div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">수량</label>
-		    <input type="text" class="form-control quantity" id="detailTitle" placeholder="" readonly>
-		  	<label for="detailManager" id="detailManagerLabel">담당자</label>
-		    <input type="text" class="form-control manager" id="detailManager" placeholder="" readonly>
+		    <input type="text" class="form-control quantity" id="detailTitle" placeholder="">
+		  	<label for="detailManager" id="detailManagerLabel">등록일</label>
+		    <input type="text" class="form-control regdate" id="detailManager" placeholder="" readonly>
 		  </div>
 	 
 		   

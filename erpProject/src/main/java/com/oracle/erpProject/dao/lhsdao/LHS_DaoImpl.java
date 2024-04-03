@@ -69,6 +69,7 @@ public class LHS_DaoImpl implements LHS_Dao {
 		List<Stock> listStock = null;
 		System.out.println("lhsDaoImpl getListStock start...");
 		
+		System.out.println("check day: " + stock.getSt_year_month());
 		try {
 			listStock = session.selectList("lhsGetListStock", stock);
 			System.out.println("lhsDaoImpl getListStock listStock.size()-> " + listStock.size());
@@ -78,38 +79,57 @@ public class LHS_DaoImpl implements LHS_Dao {
 		return listStock;
 	}
 
-	// 신제품 구매테이블 조회
+
+	// 신제품 등록여부 확인
 	@Override
-	public Product checkProductBuy(Product product) {
+	public Product checkExistenceNewItem(Product product) {
 		Product checkProduct = null;
-		System.out.println("lhsDaoImpl checkProductBuy start...");
+		Stock checkStock = null;
+		System.out.println("lhsDaoImpl checkExistenceNewItem start...");
 		
 		try {
-			checkProduct = session.selectOne("lhsCheckProductBuy", product);
-			System.out.println("lhsDaoImpl checkProductBuy checkProduct-> "+ checkProduct);
+			checkProduct = session.selectOne("lhsCheckExistenceNewItem", product);
+			checkStock = session.selectOne("lhsCheckExistenceStock", product);
+			
+			if (checkStock != null) {
+				checkProduct.setP_name("no");
+			}
+			
+			System.out.println("lhsDaoImpl checkExistenceNewItem checkProduct-> "+ checkProduct);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return checkProduct;
 	}
 
-	// 신제품 생산테이블 조회
+	// 신제품 기초재고 등록
 	@Override
-	public Product checkProductMake(Product product) {
-		Product checkProduct = null;
-		System.out.println("lhsDaoImpl checkProductMake start...");
+	public int registStockNewItem(Stock stock) {
+		int registResult = 0;
+		System.out.println("lhsDaoImpl registStockNewItem start...");
 		
 		try {
-			checkProduct = session.selectOne("lhsCheckProductMake", product);
-			System.out.println("lhsDaoImpl checkProductMake checkProduct-> "+ checkProduct);
+			registResult = session.insert("lhsRegistStockNewItem", stock);
+			System.out.println("lhsDaoImpl registStockNewItem registResult-> " + registResult);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return checkProduct;
+		return registResult;
 	}
-	
+
+	// 실사 재고조사 물품 상세정보 조회
+	@Override
+	public Product getDataProduct(Product product) {
+		Product productData = null;
+		System.out.println("lhsDaoImpl getDataProduct start...");
+		
+		try {
+			productData = session.selectOne("lhsGetDataProduct", product);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return productData;
+	}
 	
 
 

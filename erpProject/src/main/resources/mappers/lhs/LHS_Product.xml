@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracle.erpProject.LHS_ProductMapper">
 	
-	<select id="lhsCheckProductBuy" parameterType="LHS_Product" resultType="LHS_Product">
+<!-- 	<select id="lhsCheckProductBuy" parameterType="LHS_Product" resultType="LHS_Product">
 		SELECT p.*, b.buy_manager new_item_manager, bd.bd_cnt new_item_quantity
 		FROM product p, buying_detail bd, buying b
 		WHERE p.p_itemcode = bd.p_itemcode
@@ -21,6 +21,26 @@
 			AND m.m_num = md.m_num
 			AND p.p_itemcode = #{p_itemcode}
 			AND md.md_status = 3
+	</select> -->
+	
+	<select id="lhsCheckExistenceNewItem" parameterType="LHS_Product" resultType="LHS_Product">
+		SELECT *
+		FROM product
+		WHERE p_itemcode = #{p_itemcode}
+	</select>
+	
+	<select id="lhsCheckExistenceStock" parameterType="LHS_Product" resultType="LHS_Stock">
+		SELECT *
+		FROM stock
+		WHERE p_itemcode = #{p_itemcode}
+	</select>
+	
+	<select id="lhsGetDataProduct" parameterType="LHS_Product" resultType="LHS_Product">
+		SELECT p.*, s.st_regdate st_regdate, s.st_quantity st_quantity
+		FROM product p, stock s
+		WHERE p.p_itemcode = s.p_itemcode
+			AND p.p_itemcode = #{p_itemcode}
+            AND s.st_begin_end = 1
 	</select>
 
 </mapper>

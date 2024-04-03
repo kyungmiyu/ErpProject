@@ -75,7 +75,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 $(document).ready(function () {
-	
+	/*
+	$(document).ready(function () {
 		var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
         var year = selectedDate.substring(0, 4); // 연도 추출
         var month = selectedDate.substring(5, 7); // 월 추출
@@ -84,21 +85,20 @@ $(document).ready(function () {
         var gubun = "end";
         
 	    $.ajax({
-	        url: "lhsListItem",
+	        url: "lhsListStock",
 	        type: "GET",
 	        data: {
 	        	st_year_month: formattedDate,
             	emp_no : emp_no,
-            	gubun : gubun
+            	gubun : end
 	        },
-	        dataType: "json",
 	        success: function (data) {
-	        	
-	            var options = "";
-	            for (var i=0; i< data.length; i++) {
-	            options += "<option value='" + data[i].p_itemcode + "'>" + data[i].p_name + "</option>";
-	            }
+	            console.log("Received data:");
+	            var option = "";
 	            
+	            for (var i=0; i< data.length; i++) {
+	            	options += "<option value='" + data[i].p_itemcode + "'>" + data[i].p_name + "</option>";
+	            }
 	            $("#selectItemCode").html(options);
 	        },
 	        error: function (xhr, status, error) {
@@ -106,8 +106,9 @@ $(document).ready(function () {
 	            console.error("Error occurred:", error);
 	        }
 	    });
+	});
 	
-	
+	*/
  	$("#datePicker").change(function () {
         var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
         var year = selectedDate.substring(0, 4); // 연도 추출
@@ -124,6 +125,39 @@ $(document).ready(function () {
             	emp_no : emp_no
             },
             success: function (data) {
+            	
+    /*     		var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
+                var year = selectedDate.substring(0, 4); // 연도 추출
+                var month = selectedDate.substring(5, 7); // 월 추출
+                var formattedDate = year + month; // 형식 변환
+                var emp_no = ${empData.emp_no};
+                var gubun = "end";
+                
+        	    $.ajax({
+        	        url: "lhsListStock",
+        	        type: "GET",
+        	        data: {
+        	        	st_year_month: formattedDate,
+                    	emp_no : emp_no,
+                    	gubun : end
+        	        },
+        	        success: function (data) {
+        	            console.log("Received data:");
+        	            var option = "";
+        	            
+        	            for (var i=0; i< data.length; i++) {
+        	            	options += "<option value='" + data[i].p_itemcode + "'>" + data[i].p_name + "</option>";
+        	            }
+        	            $("#selectItemCode").html(options);
+        	            
+        	        },
+        	        error: function (xhr, status, error) {
+        	            // 데이터를 받아오는 데 실패했을 때 실행되는 코드
+        	            console.error("Error occurred:", error);
+        	        }
+        	    }); */
+            	
+            	
             	window.location.href = "lhsFormRegistStockSurvey?st_year_month_day=" + formattedDate +"&emp_no=" + emp_no;
             },
             error: function (xhr, status, error) {
@@ -132,29 +166,9 @@ $(document).ready(function () {
         });
     });
  	
-    $("#selectItemCode").change(function() {
-    	
-    	console.log( $(this).val());
-        var p_itemcode = $(this).val();
-        
-        $.ajax({
-            type: "GET",
-            url: "lhsGetDataProduct",
-            data: {p_itemcode: p_itemcode},
-            dataType: "json",
-            success: function(data) {
-            	
-           	   $(".itemCode").val(data.p_itemcode);
-           	   $(".itemName").val(data.p_name);
-               $(".quantity").val(data.st_quantity);
-               $(".regdate").val(data.st_regdate);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log("Error: " + textStatus + " - " + errorThrown);
-            }
-        });
-    });
- 	
+ 
+    
+
 });
 </script>
 </head>
@@ -193,11 +207,15 @@ $(document).ready(function () {
 			     <!-- datePicker -->
 			     	<div class="row">
 			     		<div class="col">
+						     <form>	    
 								<input type="date" id="datePicker" class="form-control" >
+							</form>
 						</div>
 						<div class="col">
+							<form>
 						   		<select class="form-select mr-2" name="search" id="selectItemCode">
 								</select>
+							</form>
 						</div>
 					</div>
 			  </div>
@@ -207,15 +225,15 @@ $(document).ready(function () {
 	 
 	 	<div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">제품코드</label>
-		    <input type="text" class="form-control itemCode" id="detailTitle" placeholder="" readonly>
+		    <input type="text" class="form-control" id="detailTitle" placeholder="">
 		  	<label for="detailManager" id="detailManagerLabel">제품명</label>
-		    <input type="text" class="form-control itemName" id="detailManager" placeholder="" readonly>
+		    <input type="text" class="form-control" id="detailManager" placeholder="">
 		  </div>
 		  <div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">수량</label>
-		    <input type="text" class="form-control quantity" id="detailTitle" placeholder="">
+		    <input type="text" class="form-control" id="detailTitle" placeholder="">
 		  	<label for="detailManager" id="detailManagerLabel">등록일</label>
-		    <input type="text" class="form-control regdate" id="detailManager" placeholder="" readonly>
+		    <input type="text" class="form-control" id="detailManager" placeholder="">
 		  </div>
 		   
 		</div>
