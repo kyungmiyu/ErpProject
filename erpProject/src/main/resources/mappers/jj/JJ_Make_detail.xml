@@ -35,45 +35,33 @@
 	
 		<!-- 생산요청 페이지 시 값들을 저장하는 쿼리 -->
  	<insert id="jjMakeRequestInsert" parameterType="JJ_Make_detail">
-		<selectKey keyProperty="m_num" resultType="int" order="BEFORE">
-			SELECT NVL(MAX(m_num), 0) + 1
-			FROM Make_detail
-		</selectKey>
-		
 		INSERT INTO Make_detail (
-			md_status, md_num, md_date, f_id, p_itemcode, p_name, md_quantity,
-			md_worker, md_worker_num, md_work_date, md_pro_quantity,
+			m_num,               md_num,           f_id,              md_status, 
+			p_itemcode,          md_worker,                              
+			md_date,     		 md_work_date,        
+			md_quantity,         md_pro_quantity,       
+			rpnc_gubun,			 md_worker_num,	     
 			md_note
 		)
-		
-		SELECT
-			<choose>
-				<when test="select_md_status == '0'">생산요청</when>
-				<when test="select_md_status == '1'">영업생산요청</when>
-				<when test="select_md_status == '2'">생산중</when>
-				<when test="select_md_status == '3'">생산완료</when>
-				<when test="select_md_status == '5'">수불완료</when>
-			</choose>,
-			<choose>
-				<when test="select_rpnc_gubun == '0'">0</when>
-				<when test="select_rpnc_gubun == '1'">1</when>
-				<when test="select_rpnc_gubun == '2'">2</when>
-			</choose>,
-			#{md_num}, #{md_date}, 
-			<choose>
-				<when test="select_f_id == '10001'">10001</when>
-				<when test="select_f_id == '10002'">10002</when>
-			</choose>,
-			#{p_itemcode}, p.p_name, #{md_quantity},
-			#{md_worker}, #{md_worker_num}, #{md_work_date}, #{md_pro_quantity},
-			#{md_note}
-		FROM Product p
-		WHERE p_itemcode = #{p_itemcode}
+		VALUES (
+			#{m_num},            #{md_num},         #{f_id},         #{md_status},
+			#{p_itemcode},       #{md_worker,       jdbcType=VARCHAR} ,        
+			#{md_date},          #{md_work_date,    jdbcType=DATE},			 
+            #{md_quantity},      #{md_pro_quantity, jdbcType=INTEGER},
+			#{rpnc_gubun},       #{md_worker_num,   jdbcType=INTEGER},  
+			#{md_note,           jdbcType=VARCHAR}
+		)
 	</insert>
 	
 	<!-- 생산게시판에서 1개의 글만 여는 쿼리 -->
 	<select id="jjmakeDetail" parameterType="int" resultType="JJ_Make_detail">
-		SELECT m.*, p.p_name, f.f_name
+		SELECT m.m_num,         m.md_num,          m.f_id,     m.md_status,
+		       m.p_itemcode,    m.md_worker,       
+		       to_char(m.md_date, 'YYYY-MM-DD') as md_date,  
+		       to_char(m.md_work_date, 'YYYY-MM-DD') as md_work_date,
+		       m.md_quantity,   m.md_pro_quantity,             m.rpnc_gubun,
+		       m.md_worker_num, m.md_note,         m.s_date,   m.cus_no,
+			   p.p_name, f.f_name
 		FROM Make_detail m
 			JOIN Product p ON m.p_itemcode = p.p_itemcode
 			JOIN Factory f ON m.f_id = f.f_id

@@ -45,7 +45,7 @@ legend {
 	 	<!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 
 		<!-- 생산 요청 게시판123 -->
-		<div class="card col-6">
+		<div class="card col-6 w-75 p-5 float-end">
 			<div class="table-responsive">
 				<div class="form-group">
 					<h2>생산 상세 게시글</h2>
@@ -73,7 +73,7 @@ legend {
 				      <div class="col">
 				      	<div class="mb-3">
 				        	<label for="form-select" class="form-control-label">수불마감구분 rpnc_gubun</label>
-						    <select class="form-select" name="select_md_status" required aria-label="select example" id="form-select">
+						    <select class="form-select" name="md_status" required aria-label="select example" id="form-select">
 						      <option value="">선택사항</option>
 						      <option value="${jjmakeDetail.rpnc_gubun}" <c:if test="${jjmakeDetail.rpnc_gubun eq '0'}">selected</c:if>>0.마감전</option>
 						      <option value="${jjmakeDetail.rpnc_gubun}" <c:if test="${jjmakeDetail.rpnc_gubun eq '1'}">selected</c:if>>1.가마감</option>
@@ -91,8 +91,7 @@ legend {
 					    </div>
 					    <div class="form-group">
 					        <label for="example-tel-input" class="form-control-label">작업지시일자 md_date</label>
-					        <fmt:formatDate value="${jjmakeDetail.md_date}" pattern="yyyy-MM-dd" var="formattedMdDate"/>
-					        <input class="form-control" type="date" value="${formattedMdDate}" placeholder="작업지시일자을 입력" id="example-tel-input">
+					        <input class="form-control" type="date" value="${jjmakeDetail.md_date}" placeholder="작업지시일자을 입력" id="example-tel-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="form-select" class="form-control-label">공장명 f_name</label>
@@ -127,8 +126,7 @@ legend {
 					    </div>
 					    <div class="form-group">
 					        <label for="example-date-input" class="form-control-label">작업완료일자 md_work_date</label>
-					        <fmt:formatDate value="${jjmakeDetail.md_work_date}" pattern="yyyy-MM-dd" var="formattedMdWorkDate"/>
-					        <input class="form-control" type="date" value="${formattedMdWorkDate}" placeholder="작업완료일자" id="example-date-input">
+					        <input class="form-control" type="date" value="${jjmakeDetail.md_work_date}" placeholder="작업완료일자" id="example-date-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="example-month-input" class="form-control-label">생산수량 md_pro_quantity</label>
