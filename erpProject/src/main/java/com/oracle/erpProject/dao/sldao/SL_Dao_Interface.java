@@ -4,26 +4,31 @@ import java.util.List;
 
 import com.oracle.erpProject.model.Buying;
 import com.oracle.erpProject.model.Product;
+import com.oracle.erpProject.model.slmodel.SLBuying;
+import com.oracle.erpProject.model.slmodel.SLBuying_detail;
+import com.oracle.erpProject.model.slmodel.SLProduct;
 
 public interface SL_Dao_Interface {
 
 	int totalbuyingCnt();
 
-	List<Buying> buyAlllist(Buying buying);
+	List<SLBuying> buyAlllist(SLBuying buying);
 
 	// 날짜 검색 
-	int dateSearchtotCnt(Buying buying);
+	int dateSearchtotCnt(SLBuying buying);
 
 	// 날짜 검색 리스트 
-	List<Buying> dateSearchAllList(Buying buying);
+	List<SLBuying> dateSearchAllList(SLBuying buying);
 
 	
 	// 구매 상세 페이지
-	Buying buyingDetail(Buying buying);
+	SLBuying buyingDetail(SLBuying buying);
 
 	// 구매 상세 페이지 제품 리스트 
-	List<Buying> productDetail(Buying buying);
+	List<SLBuying> productDetail(SLBuying buying);
 
-	List<Product> productList();
+	List<SLProduct> productList();
+
+	int addProduct(SLBuying_detail slBuying_detail);
 
 }

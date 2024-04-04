@@ -19,6 +19,12 @@
 		<typeAlias alias="Sale"   			type="com.oracle.erpProject.model.Sale"/> 
 		<typeAlias alias="Stock_survey"   	type="com.oracle.erpProject.model.Stock_survey"/> 
 		<typeAlias alias="Stock"   			type="com.oracle.erpProject.model.Stock"/> 
+			
+		<!-- 새잎 -->	
+		<typeAlias alias="SLBuying_detail"  type="com.oracle.erpProject.model.slmodel.SLBuying_detail"/> 
+		<typeAlias alias="SLBuying"   		type="com.oracle.erpProject.model.slmodel.SLBuying"/> 
+		<typeAlias alias="SLComm"   		type="com.oracle.erpProject.model.slmodel.SLComm"/> 
+		<typeAlias alias="SLProduct"   		type="com.oracle.erpProject.model.slmodel.SLProduct"/> 
 				
 		<!-- 재준 시작-->
 		<typeAlias alias="JJ_Comm"			type="com.oracle.erpProject.model.jjmodel.JJ_Comm"/>
@@ -31,15 +37,15 @@
 
 		
 		<!-- 현승 시작 -->
-		<typeAlias alias="LHS_Comm"			   	type="com.oracle.erpProject.model.lhsmodel.Comm"/>
-		<typeAlias alias="LHS_Employee"			   	type="com.oracle.erpProject.model.lhsmodel.Employee"/>
-		<typeAlias alias="LHS_Stock"			   	type="com.oracle.erpProject.model.lhsmodel.Stock"/>
-		<typeAlias alias="LHS_Stock_survey"			   	type="com.oracle.erpProject.model.lhsmodel.Stock_survey"/>
-		<typeAlias alias="LHS_Product"			   	type="com.oracle.erpProject.model.lhsmodel.Product"/>
+		<typeAlias alias="LHS_Comm"			type="com.oracle.erpProject.model.lhsmodel.Comm"/>
+		<typeAlias alias="LHS_Employee"		type="com.oracle.erpProject.model.lhsmodel.Employee"/>
+		<typeAlias alias="LHS_Stock"		type="com.oracle.erpProject.model.lhsmodel.Stock"/>
+		<typeAlias alias="LHS_Stock_survey"	type="com.oracle.erpProject.model.lhsmodel.Stock_survey"/>
+		<typeAlias alias="LHS_Product"		type="com.oracle.erpProject.model.lhsmodel.Product"/>
 		<!-- 현승 끝 -->
 
-		<typeAlias alias="mkFactory"   			type="com.oracle.erpProject.model.mkmodel.mkFactory"/>
-		<typeAlias alias="mkCustomer"   			type="com.oracle.erpProject.model.mkmodel.mkCustomer"/>
+		<typeAlias alias="mkFactory"   		type="com.oracle.erpProject.model.mkmodel.mkFactory"/>
+		<typeAlias alias="mkCustomer"   	type="com.oracle.erpProject.model.mkmodel.mkCustomer"/>
 		<!--민경 끝  -->
 
 	</typeAliases>

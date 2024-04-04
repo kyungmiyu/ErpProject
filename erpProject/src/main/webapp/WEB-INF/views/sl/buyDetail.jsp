@@ -1,16 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
 <link href="assets/css/LSL/buyDetail.css" rel="stylesheet">
-
-
- 
- <link href="assets/js/LSL/buying.js">
-
  
 <head>
 <%@ include file="../configHead.jsp"%>
@@ -32,12 +26,15 @@
 	 
 	 <div class="titleBox">
 
+
+
+
 		<button type="button" class="btn btn-primary" id="buyCancle">구매 취소</button>
 		<div class="buyStatusBox">구매 진행중</div>
 	 
 	 	<div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">제목</label>
-		    <input type="text" class="form-control" id="detailTitle" value="${buyingDetail.buy_title}">
+		    <div type="text" class="form-control" id="detailTitle">${buyingDetail.buy_title}</div>
 		  	<label for="detailManager" id="detailManagerLabel">거래처</label>
 		    <div  class="form-control" id="detailManager" >${buyingDetail.cust_name}</div>
 		  </div>
@@ -49,21 +46,25 @@
 		  </div>
 		</div>
 
-			  <div class="colNote">비고</div>
-			  <textarea type="text"  class="colNoteBox">${buyingDetail.buy_note}</textarea>
+		<div class="colNote">비고</div>
+			  <textarea type="text"  class="colNoteBox" disabled="disabled">${buyingDetail.buy_note}</textarea>
 			  
+			  <div>
+				  	 <input type="hidden" id="cust_no" value="${buying.cust_no}">
+			  		 <input type="hidden" id="buy_date" value="${buying.buy_date}">
 			  
+			  </div>
 			<div class="buyItemSelectBox">
                 <p>제품</p>
-                <select class="form-control" name="choices-button" id="buyingItemSelect" placeholder="Departure">
-                    <option value="item 1" selected="">Brazil</option>
-                    <option value="Choice 2">Bucharest</option>
-                    <option value="Choice 3">London</option>
-                    <option value="Choice 4">USA</option>
+                <select class="form-control" name="choices-button" id="buyingItemSelect">
+                    <option value="item 1" selected="">제품 선택</option>
+                    <c:forEach items="${productList}" var="productList">
+                    	<option  id="buyOption" value="${productList.p_itemcode}">${productList.p_name}</option>
+                    </c:forEach>                  
                   </select>
                   
                  <p>수량</p>
-                 <input type="text" class="buyItemCnt" placeholder="수량을 입력하세요"/>
+                 <input type="text" class="buyItemCnt" id="bd_cnt"  name="bd_cnt" disabled="disabled"/>
                  <button type="button" class="btn btn-primary" id="addBtn" >추가</button>
              </div>
 		  
@@ -98,5 +99,8 @@
    	<!-- Footer 푸터 -->
    	<%@ include file="../footer.jsp"%> 
   </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="assets/js/LSL/buyDetail.js"></script>
+  
 </body>
 </html>
