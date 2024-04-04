@@ -25,7 +25,8 @@
 		FROM
 		    (SELECT rownum rn, a.*
 		    FROM
-		        (SELECT p.p_name, s.*
+		        (SELECT p.p_name, s.st_begin_end, s.p_itemcode, s.st_quantity,
+		        		to_char(s.st_regdate, 'yyyy-MM-dd') st_regdate
 		        FROM product p, stock s
 		        WHERE p.p_itemcode = s.p_itemcode
 		            AND s.st_year_month = #{st_year_month}
@@ -39,7 +40,8 @@
 							AND st_begin_end = 1
 						</when>
 					</choose>
-		        ORDER BY st_begin_end DESC, s.p_itemcode ) a
+		        ORDER BY st_begin_end DESC, s.p_itemcode 
+		        ) a
 			) b
 		WHERE rn BETWEEN #{start} and #{end}
 

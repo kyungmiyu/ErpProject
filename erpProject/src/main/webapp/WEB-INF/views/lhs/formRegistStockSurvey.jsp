@@ -23,6 +23,19 @@
 <head>
 <%@ include file="../configHead.jsp"%>
 <style>
+
+	.titleBox {
+		margin-left: 20px;
+	}
+	
+	.container-fluid{
+		width: 97%;
+	}
+	
+	#detailManagerLabel, #detailManager{
+		margin-left: -20px
+	}
+	
 	.form-control {
 		width: 250px;
 		margin-left: 0px;
@@ -36,6 +49,7 @@
 	#saveBtn {
 		position: absolute;
 		right: 120px;
+		margin-right: 25px;
 	}
 	
 	.row {
@@ -50,9 +64,15 @@
 	}
 	
 	#selectItemCode {
-		width: 100px;
+		width: 300px; /* 화면 폭의 절반을 차지하도록 설정 */
 		height: 35px;
-		margin-left: -450px;
+		padding-left: 15px;
+	}
+	
+	#datePicker {
+		text-align: center;
+		width: 200px; /* 화면 폭의 절반을 차지하도록 설정 */
+	    margin-left: 15px; /* 오른쪽 여백 추가 */
 	}
 	
 </style>
@@ -251,7 +271,6 @@ $(document).ready(function () {
         });
     });
     
-    
 });
 </script>
 </head>
@@ -289,13 +308,8 @@ $(document).ready(function () {
                     </div>
 			     <!-- datePicker -->
 			     	<div class="row">
-			     		<div class="col">
-								<input type="date" id="datePicker" class="form-control" >
-						</div>
-						<div class="col">
-						   		<select class="form-select mr-2" name="search" id="selectItemCode">
-								</select>
-						</div>
+								<input type="date" id="datePicker" class="form-control mr-2" >
+						   		<select class="form-select mr-2" name="search" id="selectItemCode"></select>
 					</div>
 			  </div>
 		</div>

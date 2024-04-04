@@ -94,14 +94,14 @@ $(document).ready(function () {
         var emp_no = ${empData.emp_no};
         
         $.ajax({
-            url: "lhsListRnPCondBuy",
+            url: "lhsListRnPCondSale",
             type: "GET",
             data: { 
             	rnpc_year_month_day: formattedDate,
             	emp_no : emp_no
             },
             success: function (data) {
-            	window.location.href = "lhsListRnPCondBuy?rnpc_year_month_day=" + formattedDate
+            	window.location.href = "lhsListRnPCondSale?rnpc_year_month_day=" + formattedDate
 															+ "&emp_no=" + emp_no;
             },
             error: function (xhr, status, error) {
@@ -117,7 +117,7 @@ $(document).ready(function () {
          var emp_no = ${empData.emp_no};
 
          $.ajax({
-             url: "lhsListRnPCondBuy", // 컨트롤러 URL 설정
+             url: "lhsListRnPCondSale", // 컨트롤러 URL 설정
              type: "GET", // GET 또는 POST
              data: { 
             	 rnpc_year_month_day: selectedDate,
@@ -125,7 +125,7 @@ $(document).ready(function () {
                  emp_no: emp_no
              },
              success: function (data) {
-            	 window.location.href = "lhsListRnPCondBuy?rnpc_year_month_day=" + selectedDate 
+            	 window.location.href = "lhsListRnPCondSale?rnpc_year_month_day=" + selectedDate 
             			 								+ "&gubun=" + selectedOption
             			 								+ "&emp_no=" + emp_no;
              },
@@ -236,16 +236,16 @@ $(document).ready(function () {
 			<nav aria-label="Page navigation example">
 				<ul class="pagination justify-content-center">
 					<c:if test="${page.startPage > page.pageBlock }">
-						<li class="page-item"><a class="page-link" href="lhsListRnPCondBuy?currentPage=${page.startPage-page.pageBlock}
+						<li class="page-item"><a class="page-link" href="lhsListRnPCondSale?currentPage=${page.startPage-page.pageBlock}
 																							&emp_no=${empData.emp_no}&gubun=${param.gubun }
 																							&rnpc_year_month_day=${rnpc.rnpc_year_month_day }">◁</a>
 					</c:if>
 					<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-						<li class="page-item"><a class="page-link" href="lhsListRnPCondBuy?currentPage=${i}&emp_no=${empData.emp_no}&gubun=${param.gubun }
+						<li class="page-item"><a class="page-link" href="lhsListRnPCondSale?currentPage=${i}&emp_no=${empData.emp_no}&gubun=${param.gubun }
 																							&rnpc_year_month_day=${rnpc.rnpc_year_month_day }">${i}</a>
 					</c:forEach>
 					<c:if test="${page.endPage < page.totalPage }">
-						<li class="page-item"><a class="page-link" href="lhsListRnPCondBuy?currentPage=${page.startPage+page.pageBlock}
+						<li class="page-item"><a class="page-link" href="lhsListRnPCondSale?currentPage=${page.startPage+page.pageBlock}
 																							&emp_no=${empData.emp_no}&gubun=${param.gubun }
 																							&rnpc_year_month_day=${rnpc.rnpc_year_month_day }">▷</a>
 					</c:if>	

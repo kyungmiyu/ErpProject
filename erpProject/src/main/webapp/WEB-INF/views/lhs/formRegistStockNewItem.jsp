@@ -23,6 +23,19 @@
 <head>
 <%@ include file="../configHead.jsp"%>
 <style>
+
+	.titleBox {
+		margin-left: 20px;
+	}
+	
+	.container-fluid{
+		width: 97%;
+	}
+	
+	#detailManagerLabel, #detailManager{
+		margin-left: -20px
+	}
+	
 	.form-control {
 		width: 250px;
 		margin-left: 70px;
@@ -36,6 +49,7 @@
 	#saveBtn {
 		position: absolute;
 		right: 120px;
+		margin-right: 25px;
 	}
 	
 	.row {
@@ -49,6 +63,11 @@
 	    color: #fff; /* 텍스트 색상을 흰색으로 변경 */
 	}
 	
+	#datePicker {
+		text-align: center;
+		width: 200px; /* 화면 폭의 절반을 차지하도록 설정 */
+	    margin-left: 15px; /* 오른쪽 여백 추가 */
+	}
 	
 	
 </style>
@@ -122,8 +141,8 @@ $(document).ready(function () {
                 	    return;
             	    }
             	    
-            	    if (data.p_name === 'no') {
-            	        alert("이미 기초재고에 등록된 제품입니다.");
+            	    if (data.p_name === 'already') {
+            	        alert("이미 기초재고 등록된 제품입니다.");
             	        $(".itemCode").val("");
                 	    $(".itemName").val("");
                         $(".quantity").val("");
@@ -198,7 +217,9 @@ $(document).ready(function () {
         var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
         var year = selectedDate.substring(0, 4); // 연도 추출
         var month = selectedDate.substring(5, 7); // 월 추출
-        var formattedDate = year + month; // 형식 변환
+        var day = selectedDate.substring(8, 10); // 일 추출
+        var formattedDate1 = year + month; // 형식 변환
+        var formattedDate2 = year + month + day; // 형식 변환
 
         $("#resultList").find("tr").each(function () {
             var itemCode = $(this).find("td:eq(0)").text();
@@ -207,7 +228,8 @@ $(document).ready(function () {
             dataToSend.push({
                 p_itemcode: itemCode,
                 st_quantity: quantity,
-                st_year_month: formattedDate
+                st_year_month: formattedDate1,
+                st_year_month_day: formattedDate2
                 
             });
         });
@@ -262,9 +284,10 @@ $(document).ready(function () {
                            	</form>
                        </div>
                     </div>
-			     <!-- datePicker -->
-					<input type="date" id="datePicker" class="form-control" >
-			  
+                    
+                    <div class="row">
+						<input type="date" id="datePicker" class="form-control" >
+			  		</div>
 			  </div>
 		</div>
 	 

@@ -26,7 +26,7 @@ public class Employee {
 	private String emp_enabled;
 	private Date emp_wdate;
 	
-	// 0328 테스트용 사원리스트 파라미터 (lhs)
+	// 0328 현승 - 테스트용 사원리스트 파라미터 (lhs)
 	private String dept_name;
 	
 

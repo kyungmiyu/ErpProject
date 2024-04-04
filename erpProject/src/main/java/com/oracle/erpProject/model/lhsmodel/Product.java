@@ -22,11 +22,11 @@ public class Product {
 		private String p_fac_gubun;		//공장구분
 		private int p_isdeleted;				//취급여부 
 
-		// 0402 신제품체크 파라미터 (lhsCheckNewItem)
+		// 0402 현승 - 신제품체크 파라미터 (lhsCheckNewItem)
 		private String new_item_manager;
 		private String new_item_quantity;
 		
-		// 0403 실사 재고조사 물품 상세정보조회 파라미터 (lhsGetDataProduct)
+		// 0403 현승 - 실사 재고조사 물품 상세정보조회 파라미터 (lhsGetDataProduct)
 		private String st_regdate;
 		private int st_quantity;
 		

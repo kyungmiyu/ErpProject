@@ -3,7 +3,7 @@ package com.oracle.erpProject.model;
 import lombok.Data;
 
 @Data
-public class Deadline {
+public class RnP_closing {
 	
 
 	

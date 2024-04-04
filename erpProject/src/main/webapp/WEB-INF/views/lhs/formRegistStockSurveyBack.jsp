@@ -23,6 +23,19 @@
 <head>
 <%@ include file="../configHead.jsp"%>
 <style>
+
+	.titleBox {
+		margin-left: 10px;
+	}
+	
+	.container-fluid{
+		width: 97%;
+	}
+	
+	#detailManagerLabel, #detailManager{
+		margin-left: -20px
+	}
+	
 	.form-control {
 		width: 250px;
 		margin-left: 0px;

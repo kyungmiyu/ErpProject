@@ -10,7 +10,7 @@
 		<typeAlias alias="Buying"   						type="com.oracle.erpProject.model.Buying"/> 
 		<typeAlias alias="Comm"   						type="com.oracle.erpProject.model.Comm"/> 
 		<typeAlias alias="Customer"   					type="com.oracle.erpProject.model.Customer"/> 
-		<typeAlias alias="Deadline"   					type="com.oracle.erpProject.model.Deadline"/> 
+		<typeAlias alias="RnP_closing"   					type="com.oracle.erpProject.model.RnP_closing"/> 
 		<typeAlias alias="Department"   				type="com.oracle.erpProject.model.Department"/> 
 		<typeAlias alias="Employee"   							type="com.oracle.erpProject.model.Employee"/> 
 		<typeAlias alias="Factory"   					type="com.oracle.erpProject.model.Factory"/> 
@@ -36,6 +36,7 @@
 		<typeAlias alias="LHS_Stock"			   	type="com.oracle.erpProject.model.lhsmodel.Stock"/>
 		<typeAlias alias="LHS_Stock_survey"			   	type="com.oracle.erpProject.model.lhsmodel.Stock_survey"/>
 		<typeAlias alias="LHS_Product"			   	type="com.oracle.erpProject.model.lhsmodel.Product"/>
+		<typeAlias alias="LHS_RnP_closing"			   	type="com.oracle.erpProject.model.lhsmodel.RnP_closing"/>
 		<!-- 현승 끝 -->
 
 		<typeAlias alias="mkFactory"   			type="com.oracle.erpProject.model.mkmodel.mkFactory"/>

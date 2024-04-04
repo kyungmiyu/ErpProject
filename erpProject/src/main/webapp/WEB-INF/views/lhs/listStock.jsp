@@ -25,12 +25,23 @@
 <style>
 	#filterOptions {
 		position:absolute;
-		margin-left: 260px;
+		margin-left: 265px;
 		bottom: 5px;
 		width: 100px;
+
 	}
+	
+    .table {
+    	text-align: center;
+    }
+	
 	.form-select {
 		height: 36px;
+		padding-left: 30px;
+	}
+	
+	#datePicker {
+		text-align: center;
 	}
 		
 </style>
@@ -71,7 +82,6 @@ $(document).ready(function () {
             success: function (data) {
             	window.location.href = "lhsListStock?st_year_month=" + formattedDate
             										+ "&emp_no=" + emp_no;
-            	
             },
             error: function (xhr, status, error) {
                 // 오류 발생 시 처리할 코드 작성
@@ -86,15 +96,14 @@ $(document).ready(function () {
          var selectedDate = ${stock.st_year_month}; // 변경된 날짜 가져오기
          var selectedOption = $("#filterOptions").val(); // 변경된 구분 가져오기
          var emp_no = ${empData.emp_no};
-         // AJAX를 통해 서버로 데이터 전송
+
          $.ajax({
              url: "lhsListStock", // 컨트롤러 URL 설정
              type: "GET", // GET 또는 POST
              data: { 
-                 st_year_month: selectedDate, // 선택된 날짜 값 전달
+                 st_year_month: selectedDate,
                  gubun: selectedOption,
                  emp_no: emp_no
-                 // 선택된 구분 값 전달
              },
              success: function (data) {
             	 window.location.href = "lhsListStock?st_year_month=" + selectedDate 
@@ -107,7 +116,6 @@ $(document).ready(function () {
              }
          });
      });
-
 });
 
 </script>
@@ -131,7 +139,6 @@ $(document).ready(function () {
 
 			<div class="container-fluid">
 			     <!-- datePicker -->
-			     	<input type="hidden" id="selectedMonth" name="selectedMonth" value="${stock.st_year_month}">    
 					<input type="month" id="datePicker" class="form-control" value="${stock.st_year_month}">
 			   		<select class="form-select mr-2" name="gubun" id="filterOptions">
 						<option value="all" 
@@ -192,13 +199,18 @@ $(document).ready(function () {
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 				<c:if test="${page.startPage > page.pageBlock }">
-					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${page.startPage-page.pageBlock}&gubun=${param.gubun }&emp_no=${empData.emp_no}">◁</a>
+					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${page.startPage-page.pageBlock}
+																						&st_year_month=${stock.st_year_month }
+																						&gubun=${param.gubun }&emp_no=${empData.emp_no}">◁</a>
 				</c:if>
 				<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${i}&gubun=${param.gubun }&emp_no=${empData.emp_no}">${i}</a>
+					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${i}&st_year_month=${stock.st_year_month }
+																						&gubun=${param.gubun }&emp_no=${empData.emp_no}">${i}</a>
 				</c:forEach>
 				<c:if test="${page.endPage < page.totalPage }">
-					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${page.startPage+page.pageBlock}&gubun=${param.gubun }&emp_no=${empData.emp_no}">▷</a>
+					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${page.startPage+page.pageBlock}
+																						&st_year_month=${stock.st_year_month }
+																						&gubun=${param.gubun }&emp_no=${empData.emp_no}">▷</a>
 				</c:if>	
 			</ul>
 		</nav>

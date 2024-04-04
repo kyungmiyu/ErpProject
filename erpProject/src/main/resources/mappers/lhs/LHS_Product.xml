@@ -33,6 +33,7 @@
 		SELECT *
 		FROM stock
 		WHERE p_itemcode = #{p_itemcode}
+			AND st_begin_end = 0
 	</select>
 	
 	<select id="lhsGetDataProduct" parameterType="LHS_Product" resultType="LHS_Product">
