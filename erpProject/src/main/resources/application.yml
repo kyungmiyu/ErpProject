@@ -3,7 +3,6 @@ server:
 
 # Oracle Connect
 spring:
-
       
   # File Size
   servlet:
@@ -33,7 +32,12 @@ spring:
   mvc:
     view:
       prefix: /WEB-INF/views/
-      suffix: .jsp    
+      suffix: .jsp
+  thymeleaf:
+    cache: false
+    suffix: .html
+    prefix: classpath:/templates/
+    view-names: thymeleaf/*          
 
   # gmail Transfer
   mail:
