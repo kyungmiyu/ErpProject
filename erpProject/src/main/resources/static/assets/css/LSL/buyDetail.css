@@ -179,8 +179,8 @@
 .buyListTitle {
     display: flex;
     justify-content: space-between;
-    margin-left: 80px;
-    margin-right: 180px;
+    margin-left: 60px;
+    margin-right: 220px;
     color: black;
     font-weight: bold;
 }
@@ -200,11 +200,10 @@
 
 }
 
-.buyListItem  div{
-	width: 24%;
+.buyListItem  input{
+	width: 25%;
 	margin-top: 15px;
-	margin-left: 20px;
-	margin-right: 100px;
+	margin-right: 135px;
 	border-radius: 10px;
 	border: 1px solid #d2d6da;
 	text-align: center;
@@ -238,12 +237,25 @@
 	right: 35px;
 }
 
-#pDeleteBtn {
+.pDeleteBtn {
 	position: absolute;
-	margin-top: 10px;
-	right:  40px;
+	width: 70px;
+	font-size: 12px;
+	margin-top: 15px;
+	right:  20px; 
 
 }
+
+
+.pModifyBtn {
+	position: absolute;
+	width: 70px;	
+	font-size: 12px;
+	margin-top: 15px;	
+	right:  95px;
+
+} 
+
 
 #addBtn {
 	height: 40px;

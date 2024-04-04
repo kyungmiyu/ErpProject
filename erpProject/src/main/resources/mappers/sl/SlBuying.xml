@@ -20,6 +20,7 @@
 			WHEN b.buy_status = 0 THEN '구매 진행중'
 			WHEN b.buy_status = 1 THEN '구매 취소'
 			WHEN b.buy_status = 2 THEN '구매 완료'
+			WHEN b.buy_status = 5 THEN '수불 완료'
 		END AS buy_status_detail,
 		 (
 			 SELECT emp_name
@@ -71,6 +72,7 @@
 				WHEN b.buy_status = 0 THEN '구매 진행중'
 				WHEN b.buy_status = 1 THEN '구매 취소'
 				WHEN b.buy_status = 2 THEN '구매 완료'
+				WHEN b.buy_status = 5 THEN '수불 완료'
 			END AS buy_status_detail,
 			 (
 				 SELECT emp_name
@@ -109,6 +111,7 @@
         WHEN b.buy_status = 0 THEN '구매 진행중'
         WHEN b.buy_status = 1 THEN '구매 취소'
         WHEN b.buy_status = 2 THEN '구매 완료'
+        WHEN b.buy_status = 5 THEN '수불 완료'
     END AS buy_status_detail,
     (SELECT emp_name
 	     FROM employee
@@ -126,17 +129,17 @@
      	b.buy_date = #{buy_date}
 </select>
 <select id="LslproductDetail" parameterType="SLBuying" resultType="SLBuying">
-	   SELECT 
-	    b.buy_date, bd.cust_no, bd.bd_cnt, bd.bd_price, p.p_name, p.p_itemcode, SUM(bd.bd_cnt * bd.bd_price) AS totalMoney
+	SELECT 
+	    b.buy_date, bd.cust_no, bd.bd_cnt, p.p_name, p.p_itemcode, p.p_buyprice, SUM(DISTINCT bd.bd_cnt * p.p_buyprice) AS totalMoney
 	FROM 
-	    buying b, buying_detail bd, product p
+	    buying b
+	    JOIN buying_detail bd ON b.buy_date = bd.buy_date
+	    JOIN product p ON bd.p_itemcode = p.p_itemcode
 	WHERE  
-	    b.buy_date = bd.buy_date
-	    AND bd.p_itemcode = p.p_itemcode
-	    AND bd.cust_no = #{cust_no}
+	    bd.cust_no = #{cust_no}
 	    AND bd.buy_date = #{buy_date}
 	GROUP BY  
-	    b.buy_date, bd.cust_no, bd.bd_cnt, bd.bd_price, p.p_name, p.p_itemcode
+	    b.buy_date, bd.cust_no, bd.bd_cnt, p.p_name, p.p_itemcode, p.p_buyprice
 	</select>
 
 	<select id="LslproductList" resultType="SLProduct" >
@@ -145,9 +148,46 @@
         where p_fac_gubun = 1
 	</select>
 	
-	
 	<insert id="LsladdProduct" parameterType="SLBuying_detail">
-			 insert into buying_detail values ( #{buy_date},    #{cust_no}, #{p_itemcode},  #{bd_cnt}, #{bd_price} ) 
+			 insert into buying_detail values ( #{buy_date}, #{cust_no}, #{p_itemcode},  #{bd_cnt}, #{bd_price}) 
 	</insert>
+	
+	
+	<select id="LslgetProductList" parameterType="SLProduct"  resultType="SLProduct">
+		select p_itemcode
+        from buying_detail
+        where cust_no = #{cust_no}
+	    and buy_date = #{buy_date}
+	</select>
+	
+	<delete id="LsldeleteProduct" parameterType="SLBuying_detail">
+		delete from buying_detail 
+		where cust_no = #{cust_no} 
+		and buy_date= #{buy_date} 
+		and p_itemcode= #{p_itemcode}
+	</delete>
+	
+	<update id="LslbuyingModify" parameterType="SLBuying">
+		UPDATE buying
+        SET buy_note = #{buy_note}
+        WHERE buy_date = #{buy_date}
+        AND cust_no = #{cust_no}
+	</update>
+	
+	<update id="LslproductCntModify" parameterType="SLBuying_detail">
+		UPDATE buying_detail
+        SET bd_cnt = #{bd_cnt}
+        WHERE buy_date = #{buy_date}
+        AND cust_no = #{cust_no}
+        AND p_itemcode = #{p_itemcode}
+	</update>
+	
+	<update id="LslbuyStatusChange" parameterType="SLBuying">
+		UPDATE buying
+        SET buy_status = 1
+        WHERE buy_date = #{buy_date}
+        AND cust_no = #{cust_no}
+        AND buy_status != 2 
+	</update>
 
 </mapper>

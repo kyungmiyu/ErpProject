@@ -31,6 +31,20 @@ public interface SL_Service_Interface {
 	
 	// 구매 제품 추가
 	int addProduct(SLBuying_detail sLBuying_detail);
+
+	List<SLBuying_detail> getProductList(SLBuying_detail sLBuying_detail);
+
+	int deleteProduct(SLBuying_detail sLBuying_detail);
+
 	
+	
+	
+	int buyingModify(SLBuying buying);
+
+	int productCntModify(SLBuying_detail sLBuying_detail);
+
+	int buyStatusChange(SLBuying buying);
+
+
 
 }

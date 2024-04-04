@@ -30,6 +30,7 @@ public class SLBuying {
 	private String cust_name; // 거래처 
 	private int p_itemcode;		// 제품코드
 	private String p_name;				// 제품 이름 
+	private int p_buyprice;
 	private int bd_cnt;			// 구매수량
 	private int bd_price;		// 구매가격
 	private int totalMoney; // 총금액
