@@ -30,5 +30,17 @@ public interface SL_Dao_Interface {
 	List<SLProduct> productList();
 
 	int addProduct(SLBuying_detail slBuying_detail);
+	
+	
+
+	List<SLBuying_detail> getProductList(SLBuying_detail slBuying_detail);
+
+	int deleteProduct(SLBuying_detail sLBuying_detail);
+
+	int buyingModify(SLBuying buying);
+
+	int productCntModify(SLBuying_detail sLBuying_detail);
+
+	int buyStatusChange(SLBuying buying);
 
 }

@@ -100,6 +100,43 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		int addProduct = session.insert("LsladdProduct", slBuying_detail);
 		return addProduct;
 	}
+
+	@Override
+	public List<SLBuying_detail> getProductList(SLBuying_detail slBuying_detail) {
+		
+		List<SLBuying_detail> getProductList = session.selectList("LslgetProductList",slBuying_detail);
+		return getProductList;
+	}
+
+	
+	@Override
+	public int deleteProduct(SLBuying_detail sLBuying_detail) {
+		
+		int deleteProduct = session.delete("LsldeleteProduct", sLBuying_detail);
+		
+		return deleteProduct;
+	}
+
+	@Override
+	public int buyingModify(SLBuying buying) {
+		int buyingModify = session.update("LslbuyingModify",buying);
+		System.out.println("buyingModify buyingModify->"+buyingModify);
+		return buyingModify;
+	}
+
+	@Override
+	public int productCntModify(SLBuying_detail sLBuying_detail) {
+		int productCntModify = session.update("LslproductCntModify",sLBuying_detail);
+		
+		return productCntModify;
+	}
+
+	@Override
+	public int buyStatusChange(SLBuying buying) {
+		int buyStatusChange = session.update("LslbuyStatusChange", buying);
+		
+		return buyStatusChange;
+	}
 	
 	
 	
