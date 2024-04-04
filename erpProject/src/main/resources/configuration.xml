@@ -17,7 +17,6 @@
 		<typeAlias alias="Stock"   						type="com.oracle.erpProject.model.Stock"/> 
 			
 			
-			
 		<!-- 새잎 -->	
 		<typeAlias alias="SLBuying_detail"   			type="com.oracle.erpProject.model.slmodel.SLBuying_detail"/> 
 		<typeAlias alias="SLBuying"   						type="com.oracle.erpProject.model.slmodel.SLBuying"/> 
@@ -48,7 +47,7 @@
 		<!--민경 끝  -->
 		
 		<!-- 현석 -->
-		<typeAlias alias="YhsComm"			   	type="com.oracle.erpProject.model.yhsmodel.YhsComm"/>
+		<typeAlias alias="YHS_Comm"			   	type="com.oracle.erpProject.model.yhsmodel.YHS_Comm"/>
 		<typeAlias alias="YhsBoard"   				type="com.oracle.erpProject.model.yhsmodel.YhsBoard"/>
 
 	</typeAliases>
