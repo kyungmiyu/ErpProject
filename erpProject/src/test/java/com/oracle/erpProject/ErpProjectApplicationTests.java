@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ErpProjectApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void testInsertEmp() {
 	}
 
 }

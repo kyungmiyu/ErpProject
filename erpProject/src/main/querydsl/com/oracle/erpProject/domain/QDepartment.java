@@ -10,14 +10,14 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QKmDepartment is a Querydsl query type for KmDepartment
+ * QDepartment is a Querydsl query type for Department
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QKmDepartment extends EntityPathBase<KmDepartment> {
+public class QDepartment extends EntityPathBase<Department> {
 
-    private static final long serialVersionUID = 871567721L;
+    private static final long serialVersionUID = 1585298343L;
 
-    public static final QKmDepartment kmDepartment = new QKmDepartment("kmDepartment");
+    public static final QDepartment department = new QDepartment("department");
 
     public final StringPath dept_enabled = createString("dept_enabled");
 
@@ -27,16 +27,16 @@ public class QKmDepartment extends EntityPathBase<KmDepartment> {
 
     public final StringPath dept_phone = createString("dept_phone");
 
-    public QKmDepartment(String variable) {
-        super(KmDepartment.class, forVariable(variable));
+    public QDepartment(String variable) {
+        super(Department.class, forVariable(variable));
     }
 
-    public QKmDepartment(Path<? extends KmDepartment> path) {
+    public QDepartment(Path<? extends Department> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QKmDepartment(PathMetadata metadata) {
-        super(KmDepartment.class, metadata);
+    public QDepartment(PathMetadata metadata) {
+        super(Department.class, metadata);
     }
 
 }

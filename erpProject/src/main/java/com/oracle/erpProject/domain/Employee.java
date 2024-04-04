@@ -1,19 +1,28 @@
 package com.oracle.erpProject.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
-public class KmEmployee {
+//@ToString(exclude="empList")
+public class Employee { 			/* KM_Employee */
 
 	@Id
 	@GeneratedValue
@@ -36,4 +45,8 @@ public class KmEmployee {
 	private String emp_enabled; 	 // 계정활성화
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date emp_wdate; 		 // 입력일자 (사원 등록일자)
+	/*
+	@OneToMany(mappedBy = "Employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Employee> empList = new ArrayList<Employee>();
+	*/
 }

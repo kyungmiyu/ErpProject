@@ -10,20 +10,20 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QKmEmployee is a Querydsl query type for KmEmployee
+ * QEmployee is a Querydsl query type for Employee
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QKmEmployee extends EntityPathBase<KmEmployee> {
+public class QEmployee extends EntityPathBase<Employee> {
 
-    private static final long serialVersionUID = -1295888763L;
+    private static final long serialVersionUID = -271683517L;
 
-    public static final QKmEmployee kmEmployee = new QKmEmployee("kmEmployee");
+    public static final QEmployee employee = new QEmployee("employee");
 
     public final NumberPath<Integer> dept_no = createNumber("dept_no", Integer.class);
 
     public final StringPath emp_address = createString("emp_address");
 
-    public final DatePath<java.util.Date> emp_birth = createDate("emp_birth", java.util.Date.class);
+    public final StringPath emp_birth = createString("emp_birth");
 
     public final StringPath emp_email = createString("emp_email");
 
@@ -31,7 +31,7 @@ public class QKmEmployee extends EntityPathBase<KmEmployee> {
 
     public final StringPath emp_gender = createString("emp_gender");
 
-    public final DatePath<java.util.Date> emp_hiredate = createDate("emp_hiredate", java.util.Date.class);
+    public final StringPath emp_hiredate = createString("emp_hiredate");
 
     public final NumberPath<Integer> emp_job_comm = createNumber("emp_job_comm", Integer.class);
 
@@ -47,7 +47,7 @@ public class QKmEmployee extends EntityPathBase<KmEmployee> {
 
     public final StringPath emp_postcode = createString("emp_postcode");
 
-    public final DatePath<java.util.Date> emp_retired_date = createDate("emp_retired_date", java.util.Date.class);
+    public final StringPath emp_retired_date = createString("emp_retired_date");
 
     public final StringPath emp_role = createString("emp_role");
 
@@ -55,16 +55,16 @@ public class QKmEmployee extends EntityPathBase<KmEmployee> {
 
     public final DateTimePath<java.util.Date> emp_wdate = createDateTime("emp_wdate", java.util.Date.class);
 
-    public QKmEmployee(String variable) {
-        super(KmEmployee.class, forVariable(variable));
+    public QEmployee(String variable) {
+        super(Employee.class, forVariable(variable));
     }
 
-    public QKmEmployee(Path<? extends KmEmployee> path) {
+    public QEmployee(Path<? extends Employee> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QKmEmployee(PathMetadata metadata) {
-        super(KmEmployee.class, metadata);
+    public QEmployee(PathMetadata metadata) {
+        super(Employee.class, metadata);
     }
 
 }
