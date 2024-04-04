@@ -127,17 +127,17 @@
 		FROM make m, make_detail md, factory f, product p
 		WHERE m.m_num = md.m_num
 		    AND md.f_id = f.f_id
-		    AND md.f_id = p.f_id
+		    <!-- AND md.f_id = p.f_id -->
 		    AND md.p_itemcode = p.p_itemcode
-		    AND md.m_num = #{rnpc_date}
+		    AND to_date(md.m_num) = #{rnpc_date}
 		    <choose>
 		        <when test="gubun == 'all'">
 		        </when>
 		        <when test="gubun == 'ing'">
-		            AND md.md_status = 0
+		            AND md.md_status = 2
 		        </when>
 		        <when test="gubun == 'complete'">
-		            AND md.md_status = 4
+		            AND md.md_status = 3
 		        </when>
 		        <when test="gubun == 'close'">
 		            AND md.md_status = 5
@@ -148,28 +148,28 @@
 	<select id="lhsGetListRnPCondMake" parameterType="LHS_RnP_closing" resultType="LHS_RnP_closing">
 		SELECT *
 		FROM	
-			(SELECT rownum rn, a.*, to_char(a.rnpc_date, 'yyyy-MM-dd') rnpc_regdate
+			(SELECT rownum rn, a.* 
 			 FROM
 			 	 (SELECT p.p_name rnpc_p_name, p.p_itemcode rnpc_itemcode, md.md_pro_quantity rnpc_cnt, 
-			 	 		 m.m_manager rnpc_manager, to_date(md.m_num, 'yyyy-MM-dd') rnpc_date,
-			 	 		 CASE WHEN md.md_status = 0 THEN '생산진행'
-					        WHEN md.md_status = 4 THEN '생산완료'
+			 	 		 m.m_manager rnpc_manager, to_char(to_date(md.m_num), 'yyyy-MM-dd') rnpc_regdate,
+			 	 		 CASE WHEN md.md_status = 2 THEN '생산진행'
+					        WHEN md.md_status = 3 THEN '생산완료'
 					        WHEN md.md_status = 5 THEN '수불완료'
 					    END AS rnpc_status
 				    FROM make m, make_detail md, factory f, product p
 					WHERE m.m_num = md.m_num
 				    AND md.f_id = f.f_id
-				    AND md.f_id = p.f_id
+				    <!-- AND md.f_id = p.f_id -->
 				    AND md.p_itemcode = p.p_itemcode
-				    AND md.m_num = #{rnpc_date}
+				    AND to_date(md.m_num) = #{rnpc_date}
 					<choose>
 				        <when test="gubun == 'all'">
 				        </when>
 				        <when test="gubun == 'ing'">
-				            AND md.md_status = 0
+				            AND md.md_status = 2
 				        </when>
 				        <when test="gubun == 'complete'">
-				            AND md.md_status = 4
+				            AND md.md_status = 3
 				        </when>
 				        <when test="gubun == 'close'">
 				            AND md.md_status = 5
@@ -183,24 +183,13 @@
 	
 	<select id="lhsGetTotalRnPCondSurvey" parameterType="LHS_RnP_closing" resultType="int">
 		SELECT count(*)
-		FROM sale s, sale_detail sd, product p
-		WHERE s.s_date = sd.s_date
-		    AND s.cust_no = sd.cust_no
-		    AND sd.p_itemcode = p.p_itemcode
-		    AND s.s_date = #{rnpc_date}
-   		    <choose>
-				<when test="gubun == 'all'">
-				</when>
-				<when test="gubun == 'ing'">
-					AND s.s_status = 0
-				</when>
-				<when test="gubun == 'complete'">
-					AND s.s_status = 4
-				</when>
-				<when test="gubun == 'close'">
-					AND s.s_status = 5
-				</when>
-			</choose> 	
+		FROM product p, stock s, stock_survey ss
+		WHERE p.p_itemcode = s.p_itemcode
+		    AND p.p_itemcode = ss.p_itemcode
+		    AND s.st_year_month = ss.st_year_month
+		    AND s.st_begin_end = ss.st_begin_end
+		    AND ss.st_year_month = to_char(#{rnpc_date}, 'yyyyMM')
+		    AND ss.st_begin_end = 1
 	</select>
 	
 	<select id="lhsGetListRnPCondSurvey" parameterType="LHS_RnP_closing" resultType="LHS_RnP_closing">
@@ -208,31 +197,15 @@
 		FROM	
 			(SELECT rownum rn, a.*
 			 FROM
-			 	 (SELECT p.p_name rnpc_p_name, p.p_itemcode rnpc_itemcode, 
-			 	 		 sd.sd_cnt rnpc_cnt, s.s_manager rnpc_manager, to_char(s.s_wdate, 'yyyy-MM-dd') rnpc_regdate,
-			 	 		 CASE WHEN s.s_status = 0 THEN '판매진행'
-					        WHEN s.s_status = 4 THEN '판매완료'
-					        WHEN s.s_status = 5 THEN '수불완료'
-					    END AS rnpc_status
-				  FROM sale s, sale_detail sd, product p
-				  WHERE s.s_date = sd.s_date
-				      AND s.cust_no = sd.cust_no
-				      AND sd.p_itemcode = p.p_itemcode
-				      AND s.s_date = #{rnpc_date}
-					<choose>
-						<when test="gubun == 'all'">
-						</when>
-						<when test="gubun == 'ing'">
-							AND s.s_status = 0
-						</when>
-						<when test="gubun == 'complete'">
-							AND s.s_status = 4
-						</when>
-						<when test="gubun == 'close'">
-							AND s.s_status = 5
-						</when>
-					</choose> 
-				  ORDER BY s.s_status DESC, p.p_itemcode
+			 	 (SELECT p.p_name, ss.*
+				  FROM product p, stock s, stock_survey ss
+				  WHERE p.p_itemcode = s.p_itemcode
+				      AND p.p_itemcode = ss.p_itemcode
+				      AND s.st_year_month = ss.st_year_month
+				      AND s.st_begin_end = ss.st_begin_end
+				      AND ss.st_year_month = to_char(#{rnpc_date}, 'yyyyMM')
+				      AND ss.st_begin_end = 1
+				  ORDER BY p.p_itemcode
 				 ) a
 			) 
 		WHERE rn BETWEEN #{start} and #{end}

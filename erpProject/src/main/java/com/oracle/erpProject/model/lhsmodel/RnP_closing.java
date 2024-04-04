@@ -26,4 +26,6 @@ public class RnP_closing {
 	private String rnpc_regdate;
 	private String rnpc_status;	
 	private String rnpc_filter;
+	private int rnpc_cnt_real;
+	private int rnpc_cnt_disposal;
 }

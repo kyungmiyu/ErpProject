@@ -152,7 +152,7 @@ $(document).ready(function () {
 	
 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 	 <div class="buyingList">
-	 <label class="buyLabel">수불 일일 구매내역</label>
+	 <label class="buyLabel">수불 일일 판매내역</label>
 	  <!-- search bar -->
 		<div class="searchBar">
 
@@ -252,7 +252,9 @@ $(document).ready(function () {
 				</ul>
 			</nav>
 			<c:if test="${empData.emp_role == 'role_admin'}">
-				<button type="button" class="btn btn-primary downer-btn" id="buyProBtn3">월말마감</button>
+				<c:if test="${today >0}">
+					<button type="button" class="btn btn-primary downer-btn" id="buyProBtn3">월말마감</button>
+				</c:if>
 				<button type="button" class="btn btn-primary downer-btn" id="buyProBtn2">해제</button>
 				<button type="button" class="btn btn-primary downer-btn" id="buyProBtn1">마감</button>
 			</c:if>

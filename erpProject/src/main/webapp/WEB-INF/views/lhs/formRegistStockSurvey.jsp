@@ -255,7 +255,6 @@ $(document).ready(function () {
             });
         });
 
-        // Ajax 요청으로 컨트롤러에 데이터 전송
         $.ajax({
             url: "lhsRegistStockSurvey?emp_no=" + ${empData.emp_no},
             type: "POST",
@@ -263,7 +262,7 @@ $(document).ready(function () {
             data: JSON.stringify(dataToSend),
             success: function (response) {
             	alert("실사 재고조사에 등록되었습니다.");
-                // window.location.href = "/lhsListStock?emp_no=" + ${empData.emp_no};
+                //window.location.href = "/lhsListRnPCondBuy?emp_no=" + ${empData.emp_no};
             },
             error: function (xhr, status, error) {
                 console.error("Error occurred:", error);

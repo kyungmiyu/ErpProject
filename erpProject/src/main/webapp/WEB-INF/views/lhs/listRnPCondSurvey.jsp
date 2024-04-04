@@ -152,14 +152,14 @@ $(document).ready(function () {
 	
 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 	 <div class="buyingList">
-	 <label class="buyLabel">수불 일일 구매내역</label>
+	 <label class="buyLabel">수불 월말 재고조사내역</label>
 	  <!-- search bar -->
 		<div class="searchBar">
 
 			<div class="container-fluid">
 			     <!-- datePicker -->
 					<input type="date" id="datePicker" class="form-control" >
-					<select class="form-select mr-2" name="gubun" id="filterOptions">
+					<%-- <select class="form-select mr-2" name="gubun" id="filterOptions">
 						<option value="all" 
 							<c:if test ="${param.gubun == 'all'}">
 								selected</c:if>>전체</option>
@@ -172,7 +172,7 @@ $(document).ready(function () {
 						<option value="close" 
 							<c:if test ="${param.gubun == 'close'}">
 								selected</c:if>>수불완료</option>
-					</select>
+					</select> --%>
 			  </div>
 		</div>
 		
@@ -197,10 +197,10 @@ $(document).ready(function () {
 			      <th scope="col">구분</th>
 			      <th scope="col">제품코드</th>
 			      <th scope="col">제품명</th>
-			      <th scope="col">수량</th>
-			      <th scope="col">담당자</th>
+			      <th scope="col">창고수량</th>
+			      <th scope="col">실수량</th>
+			      <th scope="col">페기수량</th>
 			      <th scope="col">등록일</th>
-			      <th scope="col">진행상태</th>
 			    </tr>
 			  </thead>
 		  
@@ -222,9 +222,9 @@ $(document).ready(function () {
 				      <td>${closing.rnpc_itemcode }</td>
 				      <td>${closing.rnpc_p_name }</td>
 				      <td>${closing.rnpc_cnt }</td>
-				      <td>${closing.rnpc_manager }</td>
+				      <td>${closing.rnpc_cnt_real }</td>
+   				      <td>${closing.rnpc_cnt_disposal }</td>
 				      <td>${closing.rnpc_regdate }</td>
-				      <td>${closing.rnpc_status }</td>
 				    </tr>
 				  </tbody>
 				  <c:set var="num" value="${num - 1 }"></c:set>
@@ -252,7 +252,9 @@ $(document).ready(function () {
 				</ul>
 			</nav>
 			<c:if test="${empData.emp_role == 'role_admin'}">
-				<button type="button" class="btn btn-primary downer-btn" id="buyProBtn3">월말마감</button>
+				<c:if test="${today >0}">
+					<button type="button" class="btn btn-primary downer-btn" id="buyProBtn3">월말마감</button>
+				</c:if>
 				<button type="button" class="btn btn-primary downer-btn" id="buyProBtn2">해제</button>
 				<button type="button" class="btn btn-primary downer-btn" id="buyProBtn1">마감</button>
 			</c:if>

@@ -153,7 +153,6 @@ public class LHS_DaoImpl implements LHS_Dao {
 		
 		try {
 			productData = session.selectOne("lhsGetDataProduct", product);
-			System.out.println("lhsDaoImpl getDataProduct productData.getP_itemcode()-> " + productData.getP_itemcode());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

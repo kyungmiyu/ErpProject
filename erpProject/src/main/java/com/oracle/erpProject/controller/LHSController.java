@@ -269,7 +269,7 @@ public class LHSController {
 		
 		// 제품정보 조회
 		Product productData = lhs.getDataProduct(product);
-		System.out.println("getDataProduct p_name-> " + product.getP_name());
+		System.out.println("getDataProduct p_itemcode-> " + productData.getP_itemcode());
 		
 		return productData; 
 		
@@ -277,20 +277,47 @@ public class LHSController {
 
 	// 실사재고조사 등록	-- 미완
 	@RequestMapping(value = "lhsRegistStockSurvey")
-	public String lhsRegistStockSurvey(@RequestBody List<Stock_survey> listSurvey, Employee emp, Model model) {
+	public String lhsRegistStockSurvey(@RequestBody List<Stock_survey> listSurvey, Stock stock, Employee emp, Model model) {
 
 		System.out.println("lhsController lhsRegistStockSurvey start...");
-		System.out.println("check emp_no: " + emp.getEmp_no());
-		System.out.println("check listSurvey: " + listSurvey.size());
-		// RnP_closing status=1 체크
+		System.out.println("check listSurvey: " + listSurvey);
+		
+		// 사원데이터 조회
+		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		
+		// 1. RnP_closing status=1 체크
 
+		// sysdate 년월일만 string으로 변환
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+		String formattedDate = dateFormat.format(new Date());
+		stock.setSt_year_month_day(formattedDate);
+		stock.setSt_year_month(formattedDate.substring(0, formattedDate.length() - 2));
+		
+		RnP_closing checkStatus = lhs.checkStatusRnPClosing(stock);
+		System.out.println("checkStatusRnPClosing checkStatus->" + checkStatus.getRnpc_status());
+		
+		// 2. if select StockSurvey = null -> insertStockSurvey 
+		//    else if select StockSurvey != null -> updateStockSurvey
+
+		Stock_survey checkStockSurvey = lhs.checkExistenceStockSurvey(stock);
+		System.out.println("checkExistenceStockSurvey checkStockSurvey-> " + checkStockSurvey);
+		
+		// 넣는 값 일일이 넣기
+		if (checkStockSurvey == null) {
+			int registResult = lhs.registStockSurvey(listSurvey);
+			System.out.println("registStockSurvey registResult-> " + registResult);
+		}
+		else if (checkStockSurvey != null) {
+			int updateResult = lhs.updateStockSurvey(listSurvey);
+		}
+		
 		/*
 		 * 프로시져 패키시 실행? if select StockSurvey = null -> insertStockSurvey else if select
 		 * StockSurvey != null -> updateStockSurvey // 조건: 날짜 redirect:
 		 * lhsListRnpCondBuy (월말마감 누르려고)
 		 * 
 		 */
-		return "redirect: lhsListRnpCondBuy"; // 월말마감 버튼 누르려고
+		return "redirect:lhsListStock?emp_no=" + emp.getEmp_no();// 월말마감 버튼 누르려고
 	}
 	
 	/*
@@ -332,8 +359,10 @@ public class LHSController {
 			e.printStackTrace();
 		}
 		
-		rnpc.setRnpc_filter("구매");
-		 
+		// 현재날짜 25일 이상인지 체크
+		LocalDate currentDate = LocalDate.now();
+		int today = currentDate.getDayOfMonth();
+	
 		// 수불 일일내역(구매) total수 조회
 		int totalRnPClosing = lhs.getTotalRnPCondBuy(rnpc);
 		System.out.println("getTotalRnPCondBuy totalRnPClosing-> " + totalRnPClosing);
@@ -348,6 +377,7 @@ public class LHSController {
 		System.out.println("getListRnPCondBuy listSize-> " + listRnPClosing.size());
 		
 		model.addAttribute("rnpc", rnpc);
+		model.addAttribute("today", today);
 		model.addAttribute("empData", empData);
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
@@ -389,6 +419,10 @@ public class LHSController {
 		
 		rnpc.setRnpc_filter("판매");
 		
+		// 현재날짜 25일 이상인지 체크
+		LocalDate currentDate = LocalDate.now();
+		int today = currentDate.getDayOfMonth();
+		
 		// 수불 일일내역(판매) total수 조회
 		int totalRnPClosing = lhs.getTotalRnPCondSale(rnpc);
 		System.out.println("getTotalRnPCondSale totalRnPClosing-> " + totalRnPClosing);
@@ -403,6 +437,7 @@ public class LHSController {
 		System.out.println("getListRnPCondSale listSize-> " + listRnPClosing.size());
 		
 		model.addAttribute("rnpc", rnpc);
+		model.addAttribute("today", today);
 		model.addAttribute("empData", empData);
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
@@ -444,6 +479,10 @@ public class LHSController {
 		
 		rnpc.setRnpc_filter("생산");
 		
+		// 현재날짜 25일 이상인지 체크
+		LocalDate currentDate = LocalDate.now();
+		int today = currentDate.getDayOfMonth();
+		
 		// 수불 일일내역(생산) total수 조회
 		int totalRnPClosing = lhs.getTotalRnPCondMake(rnpc);
 		System.out.println("getTotalRnPCondMake totalRnPClosing-> " + totalRnPClosing);
@@ -458,6 +497,7 @@ public class LHSController {
 		System.out.println("getListRnPCondMake listSize-> " + listRnPClosing.size());
 		
 		model.addAttribute("rnpc", rnpc);
+		model.addAttribute("today", today);
 		model.addAttribute("empData", empData);
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
@@ -496,7 +536,13 @@ public class LHSController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		 
+		
+		rnpc.setRnpc_filter("재고조사");
+		
+		// 현재날짜 25일 이상인지 체크
+		LocalDate currentDate = LocalDate.now();
+		int today = currentDate.getDayOfMonth();
+		
 		// 수불 일일내역(재고조사) total수 조회
 		int totalRnPClosing = lhs.getTotalRnPCondSurvey(rnpc);
 		System.out.println("getTotalRnPCondSurvey totalRnPClosing-> " + totalRnPClosing);
@@ -511,6 +557,7 @@ public class LHSController {
 		System.out.println("getListRnPCondSurvey listSize-> " + listRnPClosing.size());
 		
 		model.addAttribute("rnpc", rnpc);
+		model.addAttribute("today", today);
 		model.addAttribute("empData", empData);
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
