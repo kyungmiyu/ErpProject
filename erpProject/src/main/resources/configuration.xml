@@ -5,48 +5,51 @@
   
 <configuration>
 	<typeAliases>
-		<typeAlias alias="Board"   			type="com.oracle.erpProject.model.Board"/>
-		<typeAlias alias="Buying_detail"   	type="com.oracle.erpProject.model.Buying_detail"/> 
-		<typeAlias alias="Buying"   		type="com.oracle.erpProject.model.Buying"/> 
-		<typeAlias alias="Comm"   			type="com.oracle.erpProject.model.Comm"/> 
-		<typeAlias alias="Customer"   		type="com.oracle.erpProject.model.Customer"/> 
-		<typeAlias alias="Deadline"   		type="com.oracle.erpProject.model.Deadline"/> 
-		<typeAlias alias="Department"   	type="com.oracle.erpProject.model.Department"/> 
-		<typeAlias alias="Employee"   		type="com.oracle.erpProject.model.Employee"/> 
-		<typeAlias alias="Factory"   		type="com.oracle.erpProject.model.Factory"/> 
-		<typeAlias alias="Product"   		type="com.oracle.erpProject.model.Product"/> 
-		<typeAlias alias="Sale_detail"   	type="com.oracle.erpProject.model.Sale_detail"/> 
-		<typeAlias alias="Sale"   			type="com.oracle.erpProject.model.Sale"/> 
-		<typeAlias alias="Stock_survey"   	type="com.oracle.erpProject.model.Stock_survey"/> 
-		<typeAlias alias="Stock"   			type="com.oracle.erpProject.model.Stock"/> 
+		<typeAlias alias="Customer"   					type="com.oracle.erpProject.model.Customer"/> 
+		<typeAlias alias="Deadline"   					type="com.oracle.erpProject.model.Deadline"/> 
+		<typeAlias alias="Department"   				type="com.oracle.erpProject.model.Department"/> 
+		<typeAlias alias="Employee"   					type="com.oracle.erpProject.model.Employee"/> 
+		<typeAlias alias="Factory"   					type="com.oracle.erpProject.model.Factory"/> 
+		<typeAlias alias="Product"   					type="com.oracle.erpProject.model.Product"/> 
+		<typeAlias alias="Sale_detail"   				type="com.oracle.erpProject.model.Sale_detail"/> 
+		<typeAlias alias="Sale"   							type="com.oracle.erpProject.model.Sale"/> 
+		<typeAlias alias="Stock_survey"   			type="com.oracle.erpProject.model.Stock_survey"/> 
+		<typeAlias alias="Stock"   						type="com.oracle.erpProject.model.Stock"/> 
+			
+			
 			
 		<!-- 새잎 -->	
-		<typeAlias alias="SLBuying_detail"  type="com.oracle.erpProject.model.slmodel.SLBuying_detail"/> 
-		<typeAlias alias="SLBuying"   		type="com.oracle.erpProject.model.slmodel.SLBuying"/> 
-		<typeAlias alias="SLComm"   		type="com.oracle.erpProject.model.slmodel.SLComm"/> 
-		<typeAlias alias="SLProduct"   		type="com.oracle.erpProject.model.slmodel.SLProduct"/> 
+		<typeAlias alias="SLBuying_detail"   			type="com.oracle.erpProject.model.slmodel.SLBuying_detail"/> 
+		<typeAlias alias="SLBuying"   						type="com.oracle.erpProject.model.slmodel.SLBuying"/> 
+		<typeAlias alias="SLComm"   						type="com.oracle.erpProject.model.slmodel.SLComm"/> 
+		<typeAlias alias="SLProduct"   					type="com.oracle.erpProject.model.slmodel.SLProduct"/> 
+		
 				
 		<!-- 재준 시작-->
-		<typeAlias alias="JJ_Comm"			type="com.oracle.erpProject.model.jjmodel.JJ_Comm"/>
-		<typeAlias alias="JJ_Make_detail"   type="com.oracle.erpProject.model.jjmodel.JJ_Make_detail"/> 
-		<typeAlias alias="JJ_Make"   		type="com.oracle.erpProject.model.jjmodel.JJ_Make"/>
+		<typeAlias alias="JJ_Comm"			   	type="com.oracle.erpProject.model.jjmodel.JJ_Comm"/>
+		<typeAlias alias="JJ_Make_detail"   	type="com.oracle.erpProject.model.jjmodel.JJ_Make_detail"/> 
+		<typeAlias alias="JJ_Make"   			type="com.oracle.erpProject.model.jjmodel.JJ_Make"/>
 		<!-- 재준 끝-->
 		
 		<!--민경  -->
-		<typeAlias alias="mkProduct"   		type="com.oracle.erpProject.model.mkmodel.mkProduct"/>
+		<typeAlias alias="mkProduct"   			type="com.oracle.erpProject.model.mkmodel.mkProduct"/>
 
 		
 		<!-- 현승 시작 -->
-		<typeAlias alias="LHS_Comm"			type="com.oracle.erpProject.model.lhsmodel.Comm"/>
-		<typeAlias alias="LHS_Employee"		type="com.oracle.erpProject.model.lhsmodel.Employee"/>
-		<typeAlias alias="LHS_Stock"		type="com.oracle.erpProject.model.lhsmodel.Stock"/>
-		<typeAlias alias="LHS_Stock_survey"	type="com.oracle.erpProject.model.lhsmodel.Stock_survey"/>
-		<typeAlias alias="LHS_Product"		type="com.oracle.erpProject.model.lhsmodel.Product"/>
+		<typeAlias alias="LHS_Comm"			   	type="com.oracle.erpProject.model.lhsmodel.Comm"/>
+		<typeAlias alias="LHS_Employee"			   	type="com.oracle.erpProject.model.lhsmodel.Employee"/>
+		<typeAlias alias="LHS_Stock"			   	type="com.oracle.erpProject.model.lhsmodel.Stock"/>
+		<typeAlias alias="LHS_Stock_survey"			   	type="com.oracle.erpProject.model.lhsmodel.Stock_survey"/>
+		<typeAlias alias="LHS_Product"			   	type="com.oracle.erpProject.model.lhsmodel.Product"/>
 		<!-- 현승 끝 -->
 
-		<typeAlias alias="mkFactory"   		type="com.oracle.erpProject.model.mkmodel.mkFactory"/>
-		<typeAlias alias="mkCustomer"   	type="com.oracle.erpProject.model.mkmodel.mkCustomer"/>
+		<typeAlias alias="mkFactory"   			type="com.oracle.erpProject.model.mkmodel.mkFactory"/>
+		<typeAlias alias="mkCustomer"   			type="com.oracle.erpProject.model.mkmodel.mkCustomer"/>
 		<!--민경 끝  -->
+		
+		<!-- 현석 -->
+		<typeAlias alias="YhsComm"			   	type="com.oracle.erpProject.model.yhsmodel.YhsComm"/>
+		<typeAlias alias="YhsBoard"   				type="com.oracle.erpProject.model.yhsmodel.YhsBoard"/>
 
 	</typeAliases>
 	
