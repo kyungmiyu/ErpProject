@@ -24,8 +24,6 @@ public class QEmployee extends EntityPathBase<Employee> {
 
     public final QDepartment department;
 
-    public final NumberPath<Integer> dept_no = createNumber("dept_no", Integer.class);
-
     public final StringPath emp_address = createString("emp_address");
 
     public final StringPath emp_birth = createString("emp_birth");
