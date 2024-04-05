@@ -3,7 +3,7 @@ server:
 
 # Oracle Connect
 spring:
-
+      
   # File Size
   servlet:
     multipart:
@@ -12,23 +12,32 @@ spring:
 
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-#    url: jdbc:oracle:thin:@172.30.1.7:1521/xe
+    #url: jdbc:oracle:thin:@172.30.1.7:1521/xe
     url: jdbc:oracle:thin:@localhost:1521/xe
     username: SMInventory
     password: tiger
 
  # Jpa Setting
   jpa:
-    show-sql: true  # system.out에서 하이버네이트 실행 sql
+    database-platform: org.hibernate.dialect.OracleDialect
+    generate-ddl: false
     hibernate:
       ddl-auto: update #none create
-
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true # system.out에서 하이버네이트 실행 sql
+    
  # view Resolver
   mvc:
     view:
       prefix: /WEB-INF/views/
-      suffix: .jsp    
-      
+      suffix: .jsp
+  thymeleaf:
+    cache: false
+    suffix: .html
+    prefix: classpath:/templates/
+    view-names: thymeleaf/*          
 
   # gmail Transfer
   mail:
@@ -42,10 +51,7 @@ spring:
           auth: true
           starttls.enable: true
 
-
-
-
-#MyBatis
+# MyBatis
 mybatis:
   config-location: classpath:configuration.xml
   mapper-locations: 
@@ -57,12 +63,13 @@ mybatis:
     - classpath:mappers/sl/*.xml
     - classpath:mappers/yhs/*.xml
 
-
-logging.level:
-  org.hibernate.SQL: debug   # logger를 통해 하이버네이트 실행 SQL
-  
-  
-  
-  
-  
-  
+#Logging
+logging:
+  level:
+    com:
+      oracle:
+        erpProject: info
+    org:
+      hibernate: info
+      springframwork:
+        security: debug
