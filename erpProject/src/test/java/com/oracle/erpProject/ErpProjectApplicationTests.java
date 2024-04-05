@@ -1,5 +1,6 @@
 package com.oracle.erpProject;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -14,8 +15,10 @@ import org.springframework.data.repository.ListPagingAndSortingRepository;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.oracle.erpProject.domain.Department;
+import com.oracle.erpProject.domain.Employee;
 import com.oracle.erpProject.domain.QDepartment;
 import com.oracle.erpProject.repository.DepartmentRepository;
+import com.oracle.erpProject.repository.EmployeeRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryFactory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -32,11 +35,15 @@ class ErpProjectApplicationTests {
 	@Autowired
 	DepartmentRepository deptRepo;
 	
+	@Autowired
+	EmployeeRepository empRepo;
+	
 	JPAQueryFactory queryFactory;
 	
 	@Test
 	public void testInsertDept() {
 		
+		/* Departemt test */
 		/*
 		Department dept = new Department();
 		dept.setDept_name("물류");
@@ -106,6 +113,7 @@ class ErpProjectApplicationTests {
 			deptRepo.save(dept);
 		}
 		*/
+		
 		/*
 		// 페이징
 		Pageable paging = PageRequest.of(0, 5, Sort.Direction.DESC, "deptNo");
@@ -116,6 +124,30 @@ class ErpProjectApplicationTests {
 		System.out.println(pageInfo.nextPageable());
 		List<Department> deptList = pageInfo.getContent();
 		System.out.println(deptList);
+		*/
+		
+		/* Employee test */
+		/*
+		Employee emp = new Employee();
+		emp.setDept_no(0);
+		emp.setEmp_address("서울");
+		emp.setEmp_birth("2024-04-05");
+		emp.setEmp_email("a@gmail.com");
+		emp.setEmp_enabled("Y");
+		emp.setEmp_gender("F");
+		emp.setEmp_hiredate("2024-04-05");
+		emp.setEmp_job_comm(0);
+		emp.setEmp_job_name(0);
+		emp.setEmp_name("kim");
+		emp.setEmp_password("123456");
+		emp.setEmp_phone("010-0000-0000");
+		emp.setEmp_postcode("0000");
+		emp.setEmp_retired_date("2024-04-05");
+		emp.setEmp_role("role_employee");
+		emp.setEmp_status("Y");
+		emp.setEmp_wdate(new Date());
+		
+		empRepo.save(emp);
 		*/
 	}
 	
