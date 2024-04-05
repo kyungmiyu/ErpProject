@@ -20,7 +20,7 @@ public class Employee { /* KM_Employee */
 	@Id
 	@GeneratedValue
 	private int emp_no; // 사원번호
-	private int dept_no; // 부서번호
+	//private int dept_no; // 부서번호
 	private int emp_job_comm; // 직책 중분류
 	private int emp_job_name; // 직책 중분류
 	private String emp_name; // 사원 이름
