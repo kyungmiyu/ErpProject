@@ -15,4 +15,10 @@ public class MainController {
 		return "main";
 	}
 	
+	/*
+	@GetMapping("errorPage")
+	public String errorPage() {
+		return "thymeleaf/errorPage";
+	}
+	*/
 }

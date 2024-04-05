@@ -3,10 +3,13 @@ package com.oracle.erpProject.domain;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
@@ -18,7 +21,8 @@ import lombok.Setter;
 public class Employee { /* KM_Employee */
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "EMP_NO_SEQ")
+	@SequenceGenerator(name = "EMP_NO_SEQ", sequenceName = "EMP_NO_SEQ", allocationSize = 1)
 	private int emp_no; // 사원번호
 	//private int dept_no; // 부서번호
 	private int emp_job_comm; // 직책 중분류
@@ -39,7 +43,7 @@ public class Employee { /* KM_Employee */
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date emp_wdate; // 입력일자 (사원 등록일자)
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="dept_no")
 	private Department department;
 }

@@ -2,6 +2,7 @@ package com.oracle.erpProject;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.oracle.erpProject.domain.Department;
 import com.oracle.erpProject.domain.Employee;
 import com.oracle.erpProject.domain.QDepartment;
+import com.oracle.erpProject.domain.QEmployee;
 import com.oracle.erpProject.repository.DepartmentRepository;
 import com.oracle.erpProject.repository.EmployeeRepository;
 import com.querydsl.core.BooleanBuilder;
@@ -24,6 +26,7 @@ import com.querydsl.core.QueryFactory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -41,6 +44,7 @@ class ErpProjectApplicationTests {
 	JPAQueryFactory queryFactory;
 	
 	@Test
+	@Transactional
 	public void testInsertDept() {
 		
 		/* Departemt test */
@@ -62,7 +66,7 @@ class ErpProjectApplicationTests {
 		dept = new Department();
 		dept.setDept_name("영업");
 		dept.setDept_phone("3535");
-		dept.setDept_enabled("Y");// 그거 어떻게하는데요..?	
+		dept.setDept_enabled("Y");
 		
 		deptRepo.save(dept);
 		*/
@@ -127,28 +131,108 @@ class ErpProjectApplicationTests {
 		*/
 		
 		/* Employee test */
+		
 		/*
+		// 등록
+		Department dept = new Department();
+		dept.setDept_name("인사");
+		dept.setDept_phone("1111");
+		dept.setDept_enabled("Y");
+		deptRepo.save(dept);
+		
 		Employee emp = new Employee();
-		emp.setDept_no(0);
 		emp.setEmp_address("서울");
-		emp.setEmp_birth("2024-04-05");
+		emp.setEmp_birth("20240405");
 		emp.setEmp_email("a@gmail.com");
 		emp.setEmp_enabled("Y");
 		emp.setEmp_gender("F");
-		emp.setEmp_hiredate("2024-04-05");
-		emp.setEmp_job_comm(0);
-		emp.setEmp_job_name(0);
+		emp.setEmp_hiredate("20240405");
+		emp.setEmp_job_comm(200);
+		emp.setEmp_job_name(10);
 		emp.setEmp_name("kim");
 		emp.setEmp_password("123456");
-		emp.setEmp_phone("010-0000-0000");
+		emp.setEmp_phone("01000000000");
 		emp.setEmp_postcode("0000");
-		emp.setEmp_retired_date("2024-04-05");
+		emp.setEmp_retired_date("20240405");
 		emp.setEmp_role("role_employee");
 		emp.setEmp_status("Y");
 		emp.setEmp_wdate(new Date());
 		
+		emp.setDepartment(dept);
 		empRepo.save(emp);
 		*/
+		
+		/*
+		// 수정
+		Employee emp = empRepo.findById(1702).get();
+		emp.setEmp_name("YU");
+		empRepo.save(emp);
+		*/
+		
+		/*
+		// 테스트용
+		for (int i=0; i<5; i++) {
+			Department dept = new Department();
+			dept.setDept_name("인사"+i);
+			dept.setDept_phone("1111");
+			dept.setDept_enabled("Y");
+			deptRepo.save(dept);
+			
+			Employee emp = new Employee();
+			emp.setEmp_address("서울");
+			emp.setEmp_birth("20240405");
+			emp.setEmp_email("a@gmail.com");
+			emp.setEmp_enabled("Y");
+			emp.setEmp_gender("F");
+			emp.setEmp_hiredate("20240405");
+			emp.setEmp_job_comm(200);
+			emp.setEmp_job_name(10);
+			emp.setEmp_name("kim");
+			emp.setEmp_password("123456");
+			emp.setEmp_phone("01000000000"+i);
+			emp.setEmp_postcode("0000");
+			emp.setEmp_retired_date("20240405");
+			emp.setEmp_role("role_employee");
+			emp.setEmp_status("Y");
+			emp.setEmp_wdate(new Date());
+			
+			emp.setDepartment(dept);
+			empRepo.save(emp);
+		}
+
+		// 한 건 조회
+		Employee emp = empRepo.findById(1702).get();
+		System.out.println("findbyID : "+emp);
+		
+		 */
+		
+		// 삭제
+		
+		
+		
+		
+		
+		
+		
+		// 리스트 조회
+		
+		
+		
+		
+		
+		// 검색
+		/*
+		BooleanBuilder builder = new BooleanBuilder();
+		QEmployee qemp = QEmployee.employee;
+		if(emp_name.equals("YU")) {
+			builder.and(qemp.emp_name.like("Y"));
+		}
+		List<Department> deptList = new JPAQueryFactory(em).selectFrom(qemp).where(builder).fetch();
+		System.out.println(deptList);
+		*/
+		// 페이징
+		
+		
 	}
 	
 }
