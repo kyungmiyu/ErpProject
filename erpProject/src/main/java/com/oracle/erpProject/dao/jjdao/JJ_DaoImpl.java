@@ -57,6 +57,7 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		return requestMakeList;
 	}
 
+	// 생산게시판 생산 요청 기능
 	@Override
 	public int makeRequest(JJ_Make_detail md) {
 		int makeRequest = 0;
@@ -84,6 +85,7 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		return jjmakeDetail;
 	}
 
+	// 검색어 카운트 기능
 	@Override
 	public int makeSearchCnt(JJ_Make_detail md) {
 		int makeSearchCnt = 0;
@@ -98,6 +100,7 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		return makeSearchCnt;
 	}
 
+	// 검색어 리스트 기능
 	@Override
 	public List<JJ_Make_detail> makeSearchList(JJ_Make_detail md) {
 		List<JJ_Make_detail> makeSearchList = null;

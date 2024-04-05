@@ -1,5 +1,7 @@
 package com.oracle.erpProject.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
 import com.oracle.erpProject.service.jjservice.JJ_Paging;
 import com.oracle.erpProject.service.jjservice.JJ_Service_Interface;
@@ -22,9 +25,9 @@ import lombok.RequiredArgsConstructor;
 
 public class JJController {
 	
-	private final JJ_Service_Interface js;
+	private final JJ_Service_Interface js;	
 	
-	// 생산 - 메인 리스트 페이지
+	// 생산 상세 - 리스트 페이지
 	@GetMapping("makeMain")
 	public String jjmakeMain(JJ_Make_detail md, Model model) {
 		System.out.println("JJController's makeMain Go!");
@@ -57,7 +60,6 @@ public class JJController {
 		
 		JJ_Make_detail jjmakeDetail = js.jjmakeDetail(md.getM_num());
 		System.out.println("JJController's jjmakeDetail -> " + jjmakeDetail);
-		
 		model.addAttribute("jjmakeDetail", jjmakeDetail);
 		model.addAttribute("md", md);
 		
@@ -84,13 +86,28 @@ public class JJController {
 	}
 	
 	// 생산 - 생산요청 페이지 - 입력 적용
-	@PostMapping(value = "makeRequest")
-	public String makeRequest(JJ_Make_detail md, Model model) {
+	@RequestMapping(value = "makeRequest")
+	public String makeRequest(JJ_Make_detail md) {
 		System.out.println("JJController's makeRequest Go!");
-		int makeRequest = js.makeRequest(md);
-		System.out.println("JJController's makeRequest -> " + makeRequest);
+		int makeRequest=0;
+		try {
+			// 원인: 타입 변환시 int -> String, 또는 String -> Date 타입 변환간 오류 발생
+//			md.setF_id(md.getF_id());
+//			md.setMd_status(md.getMd_status());
+//			md.setRpnc_gubun(md.getRpnc_gubun());
+//			md.setMd_date(md.getMd_date());
+			
+			System.out.println("JJController's makeRequest md -> " + md);
 		
-		return "foward:makeMain";
+			
+			makeRequest = js.makeRequest(md);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//System.out.println("JJController's makeRequest -> " + makeRequest);
+		
+		return "foward:jj/makeMain";
 	}
 	
 	

@@ -138,6 +138,7 @@ public class SLController {
 		// 구매 제품 정보 리스트
 		List<SLBuying> productDetail = slService.productDetail(buying);
 		System.out.println("productDetail >>>>>>" + productDetail.size());
+		System.out.println("productDetail @@@@@@" + productDetail);
 		
 		// 제품 리스트
 		List<SLProduct> productList = slService.productList();
@@ -145,25 +146,14 @@ public class SLController {
 		System.out.println("buying->" + buying);
 
 		
-		model.addAttribute("buying",buying);
+	
 		model.addAttribute("buyingDetail",buyingDetail);
 		model.addAttribute("productDetail",productDetail);
 		model.addAttribute("productList",productList);
 		return "sl/buyDetail";
 	}
 	
-	// 구매 상세페이지 수정
-	@PostMapping("/addProduct")
-	//public void buyingModify(@RequestParam("p_name") String p_name, @RequestParam("bd_cnt") int bd_cnt , SLBuying buying) { 
-	public void buyingDetailModify( SLBuying_detail sLBuying_detail  ) { 
-		
-		System.out.println("sLBuying_detail: " + sLBuying_detail);
-		
-		int addProduct = slService.addProduct(sLBuying_detail);
-		
-		
-		
-	}
+	
 	
 	
 	

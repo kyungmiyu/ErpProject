@@ -15,6 +15,8 @@ public class KMController {
 		return "km/stest";
 	}
 	
+	/* 세션 유저 정보 */
+	
 	/* 공통 화면 */
 	// 로그인
 	@GetMapping(value="loginForm")
@@ -35,6 +37,9 @@ public class KMController {
 	public String myPage() {
 		return "km/myPage";
 	}
+	
+	
+	
 	
 	
 	/* 관리자 페이지 */

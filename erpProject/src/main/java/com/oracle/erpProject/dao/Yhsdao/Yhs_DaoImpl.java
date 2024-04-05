@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.oracle.erpProject.model.Board;
+import com.oracle.erpProject.model.yhsmodel.YhsBoard;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +18,7 @@ public class Yhs_DaoImpl implements Yhs_Dao_Interface {
 	// Mybatis DB 연동 
     private final SqlSession session;
 	@Override
-	public int totalBoard(Board board) {
+	public int totalBoard(YhsBoard board) {
 		int totBoardCount = 0;
 		System.out.println("BoardDaoImpl Start total..." );
 
@@ -31,8 +32,8 @@ public class Yhs_DaoImpl implements Yhs_Dao_Interface {
 	}
 	
 	@Override
-	public List<Board> listBoard(Board board) {
-		List<Board> boardList = null;
+	public List<YhsBoard> listBoard(YhsBoard board) {
+		List<YhsBoard> boardList = null;
 		System.out.println("Yhs_DaoImpl listBoard Start ..." );
 		try {
 			//                             Map ID        parameter

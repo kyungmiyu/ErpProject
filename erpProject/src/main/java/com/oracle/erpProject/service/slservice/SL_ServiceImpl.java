@@ -87,5 +87,46 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		
 		return addProduct;
 	}
+
+	@Override
+	public List<SLBuying_detail> getProductList(SLBuying_detail slBuying_detail) {
+		
+		List<SLBuying_detail> getProductList = slDao.getProductList(slBuying_detail);
+		
+		return getProductList;
+	}
+
+	
+	@Override
+	public int deleteProduct(SLBuying_detail sLBuying_detail) {
+		
+		int deleteProduct = slDao.deleteProduct(sLBuying_detail);
+		
+		return deleteProduct;
+	}
+
+	@Override
+	public int buyingModify(SLBuying buying) {
+		
+		int buyingModify = slDao.buyingModify(buying);
+		return buyingModify;
+	}
+
+	@Override
+	public int productCntModify(SLBuying_detail sLBuying_detail) {
+		
+		int productCntModify = slDao.productCntModify(sLBuying_detail);
+		
+		
+		return productCntModify;
+	}
+
+	@Override
+	public int buyStatusChange(SLBuying buying) {
+		
+		int buyStatusChange = slDao.buyStatusChange(buying);
+		
+		return buyStatusChange;
+	}
 	
 }

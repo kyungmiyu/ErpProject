@@ -15,4 +15,12 @@ public class JJ_Make {
 	private String m_isDeleted;	// 삭제여부
 	private String m_note;			// 비고
 	
+	// 조회용
+	private String search;				private String keyword;					
+	private int start;					private int end;
+	private String p_name;				// Product의 제품명 조회
+	
+  	// Page 정보
+    private String currentPage;    
+	
 }

@@ -51,11 +51,10 @@
 		    <table class="table align-items-center mb-0 table-hover">
 		      <thead>
 		        <tr>
-		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
 		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업지시번호</th>
 		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업상태</th>
-		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">제품명</th>
-		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업자</th>
+		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업지시유형</th>
+		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업요청담당자</th>
 		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업지시일자</th>
 		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업완료일자</th>
 		        </tr>
