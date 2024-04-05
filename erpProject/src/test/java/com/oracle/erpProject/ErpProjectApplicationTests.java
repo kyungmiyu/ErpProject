@@ -44,7 +44,6 @@ class ErpProjectApplicationTests {
 	JPAQueryFactory queryFactory;
 	
 	@Test
-	@Transactional
 	public void testInsertDept() {
 		
 		/* Departemt test */
@@ -199,7 +198,12 @@ class ErpProjectApplicationTests {
 			emp.setDepartment(dept);
 			empRepo.save(emp);
 		}
+		
+		*/
+		
+		
 
+	/*
 		// 한 건 조회
 		Employee emp = empRepo.findById(1702).get();
 		System.out.println("findbyID : "+emp);
