@@ -43,4 +43,8 @@ public interface SL_Dao_Interface {
 
 	int buyStatusChange(SLBuying buying);
 
+	SLBuying customerSearch(SLBuying buying);
+
+	int buyingApplyWrite(SLBuying buying);
+
 }

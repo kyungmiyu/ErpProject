@@ -37,7 +37,7 @@ public class SLBuying {
 	private int totalCnt; // 제품 전체 총 수량
 	private String managerName; // 구매 담당자
 	private String buyProduct; // 구매 제품
-	
+	private String keyword; // 거래처 검색 키워드
 	
 	// 페이징
 	private int start;

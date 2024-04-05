@@ -142,6 +142,7 @@
 	    b.buy_date, bd.cust_no, bd.bd_cnt, p.p_name, p.p_itemcode, p.p_buyprice
 	</select>
 
+	
 	<select id="LslproductList" resultType="SLProduct" >
 		select p_name, p_itemcode
         from product 
@@ -149,7 +150,7 @@
 	</select>
 	
 	<insert id="LsladdProduct" parameterType="SLBuying_detail">
-			 insert into buying_detail values ( #{buy_date}, #{cust_no}, #{p_itemcode},  #{bd_cnt}, #{bd_price}) 
+			 insert into buying_detail values (#{buy_date}, #{cust_no}, #{p_itemcode}, #{bd_cnt}, #{bd_price}) 
 	</insert>
 	
 	
@@ -189,5 +190,23 @@
         AND cust_no = #{cust_no}
         AND buy_status != 2 
 	</update>
+	
+	<select id="LslcustomerSearch" parameterType="SLBuying" resultType="SLBuying">
+	SELECT c.*, e.emp_name, b.buy_manager, b.buy_date,
+		(SELECT emp_name FROM employee WHERE emp_no = b.buy_manager) AS managerName
+	FROM customer c, buying b, employee e
+	WHERE c.cust_no = b.cust_no
+	AND c.emp_no = e.emp_no
+	AND c.cust_name LIKE '%' || #{keyword} || '%'
+
+	</select>
+	
+	<insert id="LslbuyingApplyWrite" parameterType="SLBuying">
+	INSERT INTO buying (buy_date, cust_no, emp_no, buy_title, buy_status, buy_manager, buy_note, buy_wdate) 
+	VALUES (#{buy_date}, #{cust_no}, #{emp_no}, COALESCE(#{buy_title}, ''), 0, #{buy_manager}, #{buy_note}, SYSDATE)
+
+	
+	</insert>
+	
 
 </mapper>

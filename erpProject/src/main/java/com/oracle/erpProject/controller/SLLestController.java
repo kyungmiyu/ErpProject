@@ -44,14 +44,14 @@ public class SLLestController {
 	
 	
 	// 구매 상세페이지 제품 추가
-	@PostMapping("/addProduct")
-	public void buyingDetailModify( SLBuying_detail sLBuying_detail  ) { 
-		
-		System.out.println("sLBuying_detail: " + sLBuying_detail);
-		
-		int addProduct = slService.addProduct(sLBuying_detail);
-
-	}
+		@PostMapping("/addProduct")
+		public int buyingDetailModify( SLBuying_detail sLBuying_detail  ) { 
+			
+			System.out.println("sLBuying_detail: " + sLBuying_detail);
+			
+			int addProduct = slService.addProduct(sLBuying_detail);
+			return addProduct;
+		}
 	
 	// 구매 상세페이지 제품 수정
 	@PostMapping("/productCntModify")
@@ -84,6 +84,17 @@ public class SLLestController {
 		int buyStatusChange = slService.buyStatusChange(buying);
 		
 		return buyStatusChange;
+	}
+	
+	
+	// 구매 등록 페이지 거래처 검색
+	@PostMapping("/customerSearch")
+	public SLBuying customerSearch(@RequestBody SLBuying buying) {
+		SLBuying customerSearch = slService.customerSearch(buying);
+		
+		System.out.println("customerSearch>>>>>>>>>" + customerSearch);
+	
+		return customerSearch;
 	}
 	
 	

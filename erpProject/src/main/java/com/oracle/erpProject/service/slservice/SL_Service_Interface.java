@@ -42,8 +42,13 @@ public interface SL_Service_Interface {
 	int buyingModify(SLBuying buying);
 
 	int productCntModify(SLBuying_detail sLBuying_detail);
+	
 
 	int buyStatusChange(SLBuying buying);
+
+	SLBuying customerSearch(SLBuying buying);
+
+	int buyingApplyWrite(SLBuying buying);
 
 
 

@@ -31,6 +31,7 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		
 		List<SLBuying> buyAlllist = session.selectList("LslbuyAlllist", buying);
 		
+		
 		System.out.println("SL_DaoImpl buyAlllist ->>>>>>" + buyAlllist );
 		
 		return buyAlllist;
@@ -136,6 +137,24 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		int buyStatusChange = session.update("LslbuyStatusChange", buying);
 		
 		return buyStatusChange;
+	}
+
+	@Override
+	public SLBuying customerSearch(SLBuying buying) {
+		SLBuying customerSearch = session.selectOne("LslcustomerSearch",buying);
+		
+		System.out.println("customerSearch >>>>>>>>" +customerSearch);
+		return customerSearch;
+	}
+
+	@Override
+	public int buyingApplyWrite(SLBuying buying) {
+		
+		System.out.println("buyingApplyWrite SLBuying >>>>>>" + buying);
+		
+		int buyingApplyWrite = session.insert("LslbuyingApplyWrite", buying);
+		
+		return buyingApplyWrite;
 	}
 	
 	

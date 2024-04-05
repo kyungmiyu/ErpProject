@@ -128,5 +128,18 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		
 		return buyStatusChange;
 	}
+
+	@Override
+	public SLBuying customerSearch(SLBuying buying) {
+		SLBuying customerSearch = slDao.customerSearch(buying);
+		return customerSearch;
+	}
+
+	@Override
+	public int buyingApplyWrite(SLBuying buying) {
+	
+		int buyingApplyWrite = slDao.buyingApplyWrite(buying);
+		return buyingApplyWrite;
+	}
 	
 }

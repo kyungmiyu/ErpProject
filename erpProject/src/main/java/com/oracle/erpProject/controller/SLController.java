@@ -49,7 +49,7 @@ public class SLController {
 		
 		
 		List<SLBuying> buyAlllist = slService.buyAlllist(buying);
-		System.out.println("SlController buying buyAlllist >>>>" + buyAlllist);
+		System.out.println("SlController buying buyAlllist@@@@ >>>>" + buyAlllist);
 				
 		
 		model.addAttribute("buying",buying);
@@ -105,19 +105,6 @@ public class SLController {
 	    return "sl/buying";
 	}
 
-
-	
-	
-	
-
-	
-	// 구매 등록 페이지
-	@GetMapping(value = "buyingApply")
-	public String buyingApply() {
-		
-		return "sl/buyingApply";
-	}
-	
 	
 	// 구매 상세 페이지
 	@GetMapping(value = "buyDetail")
@@ -140,6 +127,7 @@ public class SLController {
 		System.out.println("productDetail >>>>>>" + productDetail.size());
 		System.out.println("productDetail @@@@@@" + productDetail);
 		
+		
 		// 제품 리스트
 		List<SLProduct> productList = slService.productList();
 
@@ -154,6 +142,46 @@ public class SLController {
 	}
 	
 	
+
+	
+	// 구매 등록 페이지
+	@GetMapping(value = "buyingApply")
+	public String buyingApply(SLBuying buying, Model model) {
+		
+
+
+		// 제품 리스트
+		List<SLProduct> productList = slService.productList();
+		System.out.println("buying->" + buying);
+
+	
+		model.addAttribute("productList",productList);
+				
+		return "sl/buyingApply";
+	}
+	
+	@PostMapping(value = "buyingApplyWrite")
+	public String buyingApplyWrite(HttpServletRequest request, SLBuying buying) {
+		
+		String buy_date =request.getParameter("buy_date");
+		int cust_no = Integer.parseInt(request.getParameter("cust_no"));
+		int emp_no = Integer.parseInt(request.getParameter("emp_no"));
+		String buy_title = request.getParameter("buy_title");
+		String buy_manager =request.getParameter("buy_manager");
+		
+		buying.setBuy_date(buy_date);
+		buying.setCust_no(cust_no);
+		buying.setEmp_no(emp_no);
+		buying.setBuy_title(buy_title);
+		buying.setBuy_manager(buy_manager);
+		
+		System.out.println("buyingApplyWrite buying *********" + buying);
+	
+		//int buyingApplyWrite = slService.buyingApplyWrite(buying);
+		
+		
+	return "sl/buying";	
+	}
 	
 	
 	

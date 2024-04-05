@@ -24,35 +24,46 @@
 	 <div class="buyDetail">
 	 <label class="buyDetailLabel">구매 등록</label>
 	 
-	 <div class="titleBox">
-
-
-
-
-		<button type="button" class="btn btn-primary" id="buyCancle">구매 등록</button>
+	  <form id="buyingApplyWrite" method="post" action="/buyingApplyWrite">
+	 	<div class="titleBox">
+		
 	  	<button type="button" class="btn btn-primary .customerSearchBtn" id="customerSearchBtn"> 검색</button>
+		  	<input type="hidden" name="buy_date" id="buy_date" />
+		  	<input type="hidden" name="cust_no" id="cust_no" />
+			<input type="hidden" name="emp_no" id="emp_no" />
+			<input type="hidden" name="buy_manager" id="buy_manager" />
+			
 	 	<div class="form-group" id="titleBox1">
-		    <label for="detailTitle" id="detailTitleLabel">제목</label>
-		    <div class="form-control" id="detailTitle">${buyingDetail.buy_title}</div>
+		    <label for="detailTitle" id="detailTitleLabel" >제목</label>
+		    <input class="form-control" id="buy_title" name="buy_title" placeholder="구매전표_YYYYMMDD_거래처명" />
 		  	<label for="detailManager" id="detailManagerLabel" >거래처</label>
-		    <input  class="form-control" id="detailManager" value="${buyingDetail.cust_name}" placeholder="거래처를 검색하세요.">
+		    <input  class="form-control" id="cust_name" name="cust_no" value="" placeholder="거래처를 검색하세요." disabled="disabled" />
 		  </div>
 		  <div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">구매 담당자</label>
-		    <div class="form-control" id="detailTitle">${buyingDetail.managerName}</div>
-		  	<label for="detailManager" id="detailManagerLabel">거래처 담당자</label>
-		    <div  class="form-control" id="detailManager" >${buyingDetail.emp_name}</div>
+		    <input class="form-control" id="managerName"  name ="managerName"  disabled="disabled"/>
+		  	<label for="detailManager" id="detailManagerLabel" >거래처 담당자</label>
+		    <input  class="form-control" id="emp_name" disabled="disabled" />
 		  </div>
 		</div>
+		
+		
+		<div class="customerSearchPopup">
+            <p>거래처 검색</p>
+            <input type="text" class="cusSearchBox" name="keyword" placeholder="거래처명을 입력하세요."/>
+            <div class="cusSearchName"></div>
+            <p id="cusSearchXBtn">X</p>
+            <button type="button" class="btn btn-primary" id="cusSearchBtn">검색</button>
+        </div>
+		
 
 		<div class="colNote">비고</div>
-			 <textarea class="colNoteBox"  id="colNoteBox" disabled="disabled">${buyingDetail.buy_note}</textarea>
-			  
-			  <div>
-				  	 <input type="hidden" id="cust_no" value="${buyingDetail.cust_no}">
-			  		 <input type="hidden" id="buy_date" value="${buyingDetail.buy_date}">
+			 <textarea class="colNoteBox"  id="buy_note" name="buy_note" ></textarea>
+			 
+			 <button type="submit" class="btn btn-primary" id="buyCancle">구매 등록</button>
 
-			  </div>
+			 </form>
+			 
 			
 			<div class="buyItemSelectBox">
                 <p>제품</p>
@@ -64,7 +75,7 @@
                   </select>
                   
                  <p>수량</p>
-                 <input type="text" class="buyItemCnt" id="bd_cnt"  name="bd_cnt" disabled="disabled"/>
+                 <input type="text" class="buyItemCnt" id="bd_cnt"  name="bd_cnt" />
                  <button type="button" class="btn btn-primary" id="addBtn" >추가</button>
              </div>
 		  
@@ -101,7 +112,7 @@
    	<%@ include file="../footer.jsp"%> 
   </main>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="assets/js/LSL/buyDetail.js"></script>
+  <script src="assets/js/LSL/buyingApply.js"></script>
   
 </body>
 </html>

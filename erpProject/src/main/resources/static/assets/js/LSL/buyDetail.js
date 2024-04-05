@@ -13,121 +13,125 @@ $(document).ready(function() {
 
 
 
-
-
 	// 수정 버튼 클릭 시 입력 필드 활성화
-	$("#buyModify").click(function() {
-		$("input[type='text']").removeAttr("disabled");
-		$("textarea").removeAttr("disabled");
-		$(".bdCnt").removeAttr("disabled");
-		$(".pDeleteBtn").show();
-		$(".pModifyBtn").show();
-		$("#addBtn").show();
+	 $("#buyModify").click(function() {
+        $("input[type='text']").removeAttr("disabled");
+        $("textarea").removeAttr("disabled");
+        $(".bdCnt").removeAttr("disabled");
+        $(".pDeleteBtn").show();
+        $(".pModifyBtn").show();
+        $("#addBtn").show();
+    });
 
-	});
 
-
-	// 추가 버튼 클릭 시 기존에 있는 품목 비교
 	$("#addBtn").click(function() {
-		var p_itemcode = $("#buyingItemSelect").val();
-		var cust_no = $("#cust_no").val();
-		var buy_date = $("#buy_date").val();
+    var p_itemcode = $("#buyingItemSelect").val();
+    var cust_no = $("#cust_no").val();
+    var buy_date = $("#buy_date").val();
 
-		console.log(p_itemcode);
+    console.log(p_itemcode);
 
+    $.ajax({
+        type: "GET",
+        url: "/getProductList",
+        data: {
+            cust_no: cust_no,
+            buy_date: buy_date
+        },
+        success: function(getProductList) {
+            console.log(getProductList);
 
-		$.ajax({
-			type: "GET",
-			url: "/getProductList",
-			data: {
-				cust_no: cust_no,
-				buy_date: buy_date
-			},
-			success: function(getProductList) {
-				console.log(getProductList);
+            var isExistingProduct = getProductList.some(function(product) {
+                console.log("p_itemcode:", p_itemcode);
+                console.log("product.p_itemcode:", product.p_itemcode);
 
-				var isExistingProduct = getProductList.some(function(product) {
-					console.log("p_itemcode:", p_itemcode);
-					console.log("product.p_itemcode:", product.p_itemcode);
+                var existing = product.p_itemcode == p_itemcode;
+                console.log("isExistingProduct:", existing);
+                return existing;
+            });
 
-					var existing = product.p_itemcode == p_itemcode;
-					console.log("isExistingProduct:", existing);
-					return existing;
-				});
+            if (isExistingProduct) {
+                alert("이미 등록된 제품입니다.");
+                $("#buyingItemSelect").val("item 1");
+                $(".buyItemCnt").val("");
+            } else {
+                addProduct(p_itemcode, cust_no, buy_date); 
+            }
+        },
+        error: function(error) {
+            console.log("에러 발생:", error);
+        }
+    });
+});
 
-				if (isExistingProduct) {
-					alert("이미 등록된 제품입니다.");
-					$("#buyingItemSelect").val("item 1");
-					$(".buyItemCnt").val("");
-				} else {
-					addProduct();
-				}
-			},
-			error: function(error) {
-				console.log("에러 발생:", error);
-			}
-		});
-	});
+// 제품 추가
+function addProduct(p_itemcode, cust_no, buy_date) {
+    var bd_cnt = $("#bd_cnt").val();
+    var bd_price = $("#p_buyprice").val();
 
-	// 제품 추가
-	function addProduct() {
-		var p_itemcode = $("#buyingItemSelect").val();
-		var bd_cnt = $("#bd_cnt").val();
-		var cust_no = $("#cust_no").val();
-		var buy_date = $("#buy_date").val();
-		var bd_price = $("#p_buyprice").val();
-
-		console.log(bd_price);
-
-		$.ajax({
-			type: "POST",
-			url: "/addProduct",
-			data: {
-				p_itemcode: p_itemcode,
-				bd_cnt: bd_cnt,
-				cust_no: cust_no,
-				buy_date: buy_date,
-				bd_price: bd_price
-			},
-			success: function(response) {
-				console.log("productData" + response);
-				$("#buyingItemSelect").val("item 1");
-				$(".buyItemCnt").val("");
-			},
-			error: function(error) {
-				console.log("에러 발생:", error);
-			}
-		});
-	}
-
+    $.ajax({
+        type: "POST",
+        url: "/addProduct",
+        data: {
+            p_itemcode: p_itemcode,
+            bd_cnt: bd_cnt,
+            cust_no: cust_no,
+            buy_date: buy_date,
+            bd_price: bd_price
+        },
+        success: function(productDetail) {
+            console.log("productData" + productDetail);
+            
+            var newItem = `<li class="buyListItem">
+                                <input type="hidden" id="p_buyprice" value="${productDetail.bd_price}">
+                                <input type="hidden" class="p_itemcode" value="${productDetail.p_itemcode}">
+                                <input value="${productDetail.p_itemcode}" disabled="disabled">
+                                <input value="${productDetail.bd_price}" disabled="disabled">
+                                <input class="bdCnt" value="${productDetail.bd_cnt}" disabled="disabled">
+                                <input value="${productDetail.totalMoney}" disabled="disabled">
+                                <button type="button" class="btn btn-primary pModifyBtn"> 수정</button>
+                                <button type="button" class="btn btn-primary pDeleteBtn"> 삭제</button>
+                            </li>`;
+            $("#productList").append(newItem);
+            $("#buyingItemSelect").val("item 1");
+            $(".buyItemCnt").val("");
+         
+            
+        },
+        error: function(error) {
+            console.log("에러 발생:", error);
+        }
+    });
+}
 
 	// 삭제 버튼 클릭시 제품 삭제
-	$("#pDeleteBtn").click(function() {
-		var cust_no = $("#cust_no").val();
-		var buy_date = $("#buy_date").val();
-		var p_itemcode = $(".p_itemcode").val();
+	  $(document).on("click", ".pDeleteBtn", function() {
+        var cust_no = $("#cust_no").val();
+        var buy_date = $("#buy_date").val();
+        var p_itemcode = $(this).closest('.buyListItem').find('.p_itemcode').val();
 
-		console.log(p_itemcode);
+        console.log(p_itemcode);
 
-		$.ajax({
-			type: "POST",
-			url: "/deleteProduct",
-			data: {
-				p_itemcode: p_itemcode,
-				cust_no: cust_no,
-				buy_date: buy_date
-			},
-			success: function(response) {
-				console.log("삭제 완료" + response);
-				$(this).closest("li").remove();
+        var $deletedItem = $(this).closest("li"); // 삭제된 요소 참조
 
-			},
-			error: function(error) {
-				console.log("에러" + error);
-			}
+        $.ajax({
+            type: "POST",
+            url: "/deleteProduct",
+            data: {
+                p_itemcode: p_itemcode,
+                cust_no: cust_no,
+                buy_date: buy_date
+            },
+            success: function(response) {
+                console.log("삭제 완료", response);
+                $deletedItem.remove(); // 삭제된 요소를 DOM에서 제거
+            },
+            error: function(error) {
+                console.log("에러", error);
+            }
+        });
+    });
 
-		});
-	});
 
 	// 완료 버튼 클릭 시 입력 데이터 저장
 	$("#buyComple").click(function() {
@@ -175,39 +179,36 @@ $(document).ready(function() {
 	});
 
 	// 제품 수정 
-	$("#pModifyBtn").click(function() {
-		var bd_cnt = $(this).closest('.buyListItem').find('.bdCnt').val();
-		var cust_no = $("#cust_no").val();
-		var buy_date = $("#buy_date").val();
-		var p_itemcode = $(".p_itemcode").val();
-		var bd_price = $("#p_buyprice").val();
+	$(document).on("click", ".pModifyBtn", function() {
+        var bd_cnt = $(this).closest('.buyListItem').find('.bdCnt').val();
+        var cust_no = $("#cust_no").val();
+        var buy_date = $("#buy_date").val();
+        var p_itemcode = $(this).closest('.buyListItem').find('.p_itemcode').val();
+        var bd_price = $(this).closest('.buyListItem').find('#p_buyprice').val();
 
-		var productCntModify = {
-			bd_cnt: bd_cnt,
-			cust_no: cust_no,
-			buy_date: buy_date,
-			p_itemcode: p_itemcode,
-			bd_price: bd_price
-		};
+        var productCntModify = {
+            bd_cnt: bd_cnt,
+            cust_no: cust_no,
+            buy_date: buy_date,
+            p_itemcode: p_itemcode,
+            bd_price: bd_price
+        };
 
-
-		$.ajax({
-			type: "POST",
-			url: "/productCntModify",
-			data: JSON.stringify(productCntModify),
-			dataType: 'json',
-			contentType: 'application/json',
-			success: function(response) {
-				console.log("buyModifyData" + productCntModify);
-			},
-			error: function(error) {
-				console.log("전송 실패");
-				console.log(error);
-
-			}
-		});
-
-	});
+        $.ajax({
+            type: "POST",
+            url: "/productCntModify",
+            data: JSON.stringify(productCntModify),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function(response) {
+                console.log("buyModifyData", productCntModify);
+            },
+            error: function(error) {
+                console.log("전송 실패");
+                console.log(error);
+            }
+        });
+    });
 
 
 
