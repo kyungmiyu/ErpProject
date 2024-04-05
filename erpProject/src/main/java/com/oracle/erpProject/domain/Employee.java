@@ -5,6 +5,8 @@ import java.util.Date;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
@@ -18,7 +20,7 @@ public class Employee { /* KM_Employee */
 	@Id
 	@GeneratedValue
 	private int emp_no; // 사원번호
-	private int dept_no; // 부서번호
+	//private int dept_no; // 부서번호
 	private int emp_job_comm; // 직책 중분류
 	private int emp_job_name; // 직책 중분류
 	private String emp_name; // 사원 이름
@@ -36,5 +38,8 @@ public class Employee { /* KM_Employee */
 	private String emp_enabled; // 계정활성화
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date emp_wdate; // 입력일자 (사원 등록일자)
-
+	
+	@ManyToOne
+	@JoinColumn(name="dept_no")
+	private Department department;
 }

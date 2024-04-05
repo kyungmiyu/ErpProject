@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -29,7 +27,7 @@ public class Department { /* KM_Department */
 	// @Column(columnDefinition = "defalut 'Y'")
 	String dept_enabled; // 부서존재여부
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Employee> empList = new ArrayList<Employee>();
-
+	
 }
