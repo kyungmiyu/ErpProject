@@ -2,6 +2,7 @@ package com.oracle.erpProject.model.slmodel;
 
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -27,6 +28,7 @@ public class SLBuying {
 	private String buy_status_detail; //  구매 상태 이름 
 	private int productCnt; // 총 구매한 제품의 타입 수 
 	private String emp_name; // 거래처 담당자 이름
+	private int dept_no; // 부서 번
 	private String cust_name; // 거래처 
 	private int p_itemcode;		// 제품코드
 	private String p_name;				// 제품 이름 
@@ -38,6 +40,9 @@ public class SLBuying {
 	private String managerName; // 구매 담당자
 	private String buyProduct; // 구매 제품
 	private String keyword; // 거래처 검색 키워드
+	
+	private List<SLBuying> productList;
+	
 	
 	// 페이징
 	private int start;

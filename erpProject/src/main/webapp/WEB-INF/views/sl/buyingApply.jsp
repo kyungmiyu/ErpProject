@@ -24,15 +24,12 @@
 	 <div class="buyDetail">
 	 <label class="buyDetailLabel">구매 등록</label>
 	 
-	  <form id="buyingApplyWrite" method="post" action="/buyingApplyWrite">
+	  <form id="buyingApplyWrite" method="post" action="buyingApplyWrite">
 	 	<div class="titleBox">
-		
 	  	<button type="button" class="btn btn-primary .customerSearchBtn" id="customerSearchBtn"> 검색</button>
-		  	<input type="hidden" name="buy_date" id="buy_date" />
 		  	<input type="hidden" name="cust_no" id="cust_no" />
 			<input type="hidden" name="emp_no" id="emp_no" />
 			<input type="hidden" name="buy_manager" id="buy_manager" />
-			
 	 	<div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel" >제목</label>
 		    <input class="form-control" id="buy_title" name="buy_title" placeholder="구매전표_YYYYMMDD_거래처명" />
@@ -41,12 +38,16 @@
 		  </div>
 		  <div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">구매 담당자</label>
-		    <input class="form-control" id="managerName"  name ="managerName"  disabled="disabled"/>
+		    <select class="form-control" id="managerName">
+			</select>
 		  	<label for="detailManager" id="detailManagerLabel" >거래처 담당자</label>
 		    <input  class="form-control" id="emp_name" disabled="disabled" />
 		  </div>
 		</div>
-		
+		<div class="colNote">비고</div>
+			 <textarea class="colNoteBox"  id="buy_note" name="buy_note" ></textarea>
+			 <button type="submit" class="btn btn-primary" id="buyApplyBtn">구매 등록</button>
+		</form>
 		
 		<div class="customerSearchPopup">
             <p>거래처 검색</p>
@@ -56,22 +57,14 @@
             <button type="button" class="btn btn-primary" id="cusSearchBtn">검색</button>
         </div>
 		
-
-		<div class="colNote">비고</div>
-			 <textarea class="colNoteBox"  id="buy_note" name="buy_note" ></textarea>
-			 
-			 <button type="submit" class="btn btn-primary" id="buyCancle">구매 등록</button>
-
-			 </form>
-			 
 			
 			<div class="buyItemSelectBox">
                 <p>제품</p>
                 <select class="form-control" name="choices-button" id="buyingItemSelect">
                     <option value="item 1" selected="">제품 선택</option>
                     <c:forEach items="${productList}" var="productList">
-                    	<option value="${productList.p_itemcode}">${productList.p_name}</option>
-                    </c:forEach>                  
+						<option value="${productList.p_itemcode}" data-buyprice="${productList.p_buyprice}">${productList.p_name}</option>               
+						 </c:forEach>                  
                   </select>
                   
                  <p>수량</p>
@@ -88,21 +81,10 @@
 		                <div>제품 수량</div>
 		                <div>총 금액</div>
 		            </li>
-            <c:forEach var="productDetail" items="${productDetail}">
-                <li class="buyListItem">
-                 	<input type="hidden" id=p_buyprice value="${productDetail.p_buyprice}">
-                	<input type="hidden" class ="p_itemcode" value="${productDetail.p_itemcode}">
-                    <input value="${productDetail.p_name}" disabled="disabled">
-                    <input value="${productDetail.p_buyprice}" disabled="disabled">
-                    <input class="bdCnt" value="${productDetail.bd_cnt}" disabled="disabled">
-                    <input value="${productDetail.totalMoney}" disabled="disabled">
-                    <button type="button" class="btn btn-primary pModifyBtn" id="pModifyBtn"> 수정</button>
-                    <button type="button" class="btn btn-primary pDeleteBtn" id="pDeleteBtn"> 삭제</button>
-                </li>
-            </c:forEach>
         </ul>
     </div>
 </div>
+
 	
     </div> 
    

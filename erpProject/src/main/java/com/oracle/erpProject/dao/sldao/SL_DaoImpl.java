@@ -5,8 +5,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.oracle.erpProject.model.Buying;
-import com.oracle.erpProject.model.Product;
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
 import com.oracle.erpProject.model.slmodel.SLProduct;
@@ -90,17 +88,11 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		System.out.println("SL_DaoImpl productList  kkk ->>>>>>");
 
 		List<SLProduct> productList = session.selectList("LslproductList");
+		System.out.println("SL_DaoImpl productList  ㅎㅎㅎ ->>>>>>" +productList);
 		
 		return productList;
 	}
 
-	@Override
-	public int addProduct(SLBuying_detail slBuying_detail) {
-		System.out.println("SL_DaoImpl addProduct Start ->>>>>>");
-		System.out.println("SL_DaoImpl addProduct slBuying_detail ->"+slBuying_detail);
-		int addProduct = session.insert("LsladdProduct", slBuying_detail);
-		return addProduct;
-	}
 
 	@Override
 	public List<SLBuying_detail> getProductList(SLBuying_detail slBuying_detail) {
@@ -123,6 +115,14 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		int buyingModify = session.update("LslbuyingModify",buying);
 		System.out.println("buyingModify buyingModify->"+buyingModify);
 		return buyingModify;
+	}
+	
+	@Override
+	public int addProduct(SLBuying_detail slBuying_detail) {
+		System.out.println("SL_DaoImpl addProduct Start ->>>>>>");
+		System.out.println("SL_DaoImpl addProduct slBuying_detail ->"+slBuying_detail);
+		int addProduct = session.insert("LsladdProduct", slBuying_detail);
+		return addProduct;
 	}
 
 	@Override
@@ -148,6 +148,16 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	}
 
 	@Override
+	public List<SLBuying> getManagerList(SLBuying buying) {
+		
+		List<SLBuying> getManagerList = session.selectList("LslgetManagerList", buying);
+		System.out.println("getManagerList getManagerList >>>>>>" + getManagerList);
+		
+		
+		return getManagerList;
+	}
+	
+	@Override
 	public int buyingApplyWrite(SLBuying buying) {
 		
 		System.out.println("buyingApplyWrite SLBuying >>>>>>" + buying);
@@ -155,6 +165,13 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		int buyingApplyWrite = session.insert("LslbuyingApplyWrite", buying);
 		
 		return buyingApplyWrite;
+	}
+	
+
+	@Override
+	public int buyingApplyAddDetail(SLBuying buying) {
+		int buyingApplyAddDetail = session.insert("LslbuyingApplyAddDetail", buying);
+		return buyingApplyAddDetail;
 	}
 	
 	

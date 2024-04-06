@@ -2,8 +2,6 @@ package com.oracle.erpProject.service.slservice;
 
 import java.util.List;
 
-import com.oracle.erpProject.model.Buying;
-import com.oracle.erpProject.model.Product;
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
 import com.oracle.erpProject.model.slmodel.SLProduct;
@@ -47,8 +45,16 @@ public interface SL_Service_Interface {
 	int buyStatusChange(SLBuying buying);
 
 	SLBuying customerSearch(SLBuying buying);
-
+	
 	int buyingApplyWrite(SLBuying buying);
+
+	int buyingApplyAddDetail(SLBuying buying);
+
+	List<SLBuying> getManagerList(SLBuying buying);
+
+
+
+	
 
 
 

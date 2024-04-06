@@ -61,7 +61,7 @@
                 <select class="form-control" name="choices-button" id="buyingItemSelect">
                     <option value="item 1" selected="">제품 선택</option>
                     <c:forEach items="${productList}" var="productList">
-                    	<option value="${productList.p_itemcode}">${productList.p_name}</option>
+						<option value="${productList.p_itemcode}" data-buyprice="${productList.p_buyprice}">${productList.p_name}</option>     
                     </c:forEach>                  
                   </select>
                   
@@ -84,7 +84,7 @@
                  	<input type="hidden" id=p_buyprice value="${productDetail.p_buyprice}">
                 	<input type="hidden" class ="p_itemcode" value="${productDetail.p_itemcode}">
                     <input value="${productDetail.p_name}" disabled="disabled">
-                    <input value="${productDetail.p_buyprice}" disabled="disabled">
+                    <input value="${productDetail.bd_price}" disabled="disabled">
                     <input class="bdCnt" value="${productDetail.bd_cnt}" disabled="disabled">
                     <input value="${productDetail.totalMoney}" disabled="disabled">
                     <button type="button" class="btn btn-primary pModifyBtn" id="pModifyBtn"> 수정</button>

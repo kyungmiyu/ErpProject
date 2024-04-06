@@ -3,16 +3,15 @@ package com.oracle.erpProject.service.slservice;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.oracle.erpProject.dao.sldao.SL_Dao_Interface;
-import com.oracle.erpProject.model.Buying;
-import com.oracle.erpProject.model.Product;
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
 import com.oracle.erpProject.model.slmodel.SLProduct;
 
 import lombok.RequiredArgsConstructor;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class SL_ServiceImpl implements SL_Service_Interface {
@@ -81,12 +80,7 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		return productList;
 	}
 
-	@Override
-	public int addProduct(SLBuying_detail slBuying_detail) {
-		int addProduct = slDao.addProduct(slBuying_detail);
-		
-		return addProduct;
-	}
+	
 
 	@Override
 	public List<SLBuying_detail> getProductList(SLBuying_detail slBuying_detail) {
@@ -134,12 +128,53 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		SLBuying customerSearch = slDao.customerSearch(buying);
 		return customerSearch;
 	}
+	
+	@Override
+	public List<SLBuying> getManagerList(SLBuying buying) {
+		
+		List<SLBuying> getManagerList = slDao.getManagerList(buying);
+		
+		return getManagerList;
+	}
+	
+	
 
 	@Override
-	public int buyingApplyWrite(SLBuying buying) {
-	
-		int buyingApplyWrite = slDao.buyingApplyWrite(buying);
-		return buyingApplyWrite;
+	public int addProduct(SLBuying_detail slBuying_detail) {
+		int addProduct = slDao.addProduct(slBuying_detail);
+		
+		return addProduct;
 	}
+	
+	
+	@Override
+	public int buyingApplyWrite(SLBuying buying) {
+	    // 부모 테이블에 데이터 추가
+	    int buyingApplyWrite = slDao.buyingApplyWrite(buying);
+	          
+	        return buyingApplyWrite;
+	   
+	}
+	
+	
+	@Override
+	public int buyingApplyAddDetail(SLBuying buying) {
+		int buyingApplyAddDetail = slDao.buyingApplyAddDetail(buying);
+		return buyingApplyAddDetail;
+	}
+
+	
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
