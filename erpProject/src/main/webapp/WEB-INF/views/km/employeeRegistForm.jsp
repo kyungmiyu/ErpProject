@@ -39,7 +39,7 @@
 		</c:if>		
 		<c:if test="${mode=='regist'}">
 			<c:set var="formAction" value="employeeRegistProc" />
-		</c:if>
+		</c:if>0
 		<c:if test="${mode=='edit'}">
 			<c:set var="formAction" value="employeeEditProc" />
 			<c:set var="emp_status_edit" value="${employee.empStatus}" />
@@ -266,6 +266,7 @@
 											</div>
 										</div>
 									</c:if>
+								
 									<div class="button-row d-flex">
 										<c:if test="${mode=='edit'}">
 											<button class="btn btn-outline-dark ms-auto mb-0 js-btn-next">비밀번호 초기화</button>
@@ -277,6 +278,7 @@
 						</div>
 					</div>
 				</div>
+					</div>
 			</form>
 		</div>
 
@@ -290,6 +292,6 @@
 			<i class="ni ni-bold-up"> </i>
 		</a>
 	</div>
-
+	
 </body>
 </html>
