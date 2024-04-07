@@ -8,19 +8,19 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-   
-   @Bean
-   public BCryptPasswordEncoder encodePwd() {
-      return new BCryptPasswordEncoder();
-   }
-   
-   @Bean
-   protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-      http.cors(cors -> cors.disable())
-          .csrf(csrf -> csrf.disable())
-          ;
-      
-      return http.build();
-   }
+
+	@Bean
+	public BCryptPasswordEncoder encodePwd() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.cors(cors -> cors.disable())
+		    .csrf(csrf -> csrf.disable())
+		    ;
+
+		return http.build();
+	}
 
 }

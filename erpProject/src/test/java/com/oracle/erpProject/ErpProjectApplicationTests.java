@@ -156,11 +156,39 @@ class ErpProjectApplicationTests {
 		emp.setEmp_role("role_employee");
 		emp.setEmp_status("Y");
 		emp.setEmp_wdate(new Date());
-		
-		emp.setDepartment(dept);
-		empRepo.save(emp);
+
+		// 등록
+		/*
+		Department dept = new Department();
+		dept.setDept_name("인사");
+		dept.setDept_phone("1111");
+		dept.setDept_enabled("Y");
+		deptRepo.save(dept);
 		*/
-		
+		/*
+		for (int i=0; i<100; i++) {
+			Employee emp = new Employee();
+			emp.setEmpAddress("서울");
+			emp.setEmpBirth("20240405");
+			emp.setEmpEmail("a@gmail.com");
+			emp.setEmpEnabled("Y");
+			emp.setEmpGender("F");
+			emp.setEmpHiredate("20240405");
+			emp.setEmpJobComm(200);
+			emp.setEmpJobName(10);
+			emp.setEmpName("kim");
+			emp.setEmpPassword("123456");
+			emp.setEmpPhone("01000000000");
+			emp.setEmpPostcode("0000");
+			emp.setEmpRetiredDate("20240405");
+			emp.setEmpRole("role_employee");
+			emp.setEmpStatus("Y");
+			emp.setEmpWdate(new Date());
+			emp.setDeptNo(100);
+			
+			empRepo.save(emp);
+		}
+		*/
 		/*
 		// 수정
 		Employee emp = empRepo.findById(1702).get();
@@ -212,17 +240,52 @@ class ErpProjectApplicationTests {
 		
 		// 삭제
 		
+		/*
+		// 테스트용
+		for (int i=0; i<100; i++) {
+			Department dept = new Department();
+			dept.setDept_name("인사"+i);
+			dept.setDept_phone("1111");
+			dept.setDept_enabled("Y");
+			deptRepo.save(dept);
+			
+			Employee emp = new Employee();
+			emp.setEmp_address("서울");
+			emp.setEmp_birth("20240405");
+			emp.setEmp_email("a@gmail.com");
+			emp.setEmp_enabled("Y");
+			emp.setEmp_gender("F");
+			emp.setEmp_hiredate("20240405");
+			emp.setEmp_job_comm(200);
+			emp.setEmp_job_name(10);
+			emp.setEmp_name("kim");
+			emp.setEmp_password("123456");
+			emp.setEmp_phone("01000000000"+i);
+			emp.setEmp_postcode("0000");
+			emp.setEmp_retired_date("20240405");
+			emp.setEmp_role("role_employee");
+			emp.setEmp_status("Y");
+			emp.setEmp_wdate(new Date());
+			
+			emp.setDepartment(dept);
+			empRepo.save(emp);
+		}
 		
 		
+		*/
+		
+
+		/*
+		// 한 건 조회
+		Employee emp = empRepo.findById(1702).get();
+		System.out.println("findbyID : "+emp);
+		*/
 		
 		
-		
+		// 삭제
+		//empRepo.deleteById(1);
 		
 		// 리스트 조회
-		
-		
-		
-		
 		
 		// 검색
 		/*
@@ -240,7 +303,6 @@ class ErpProjectApplicationTests {
 	}
 	
 }
-
 
 
 

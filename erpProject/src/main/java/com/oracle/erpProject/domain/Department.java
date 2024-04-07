@@ -26,11 +26,10 @@ public class Department { /* KM_Department */
 	private int dept_no; // 부서번호(코드)
 	private String dept_name; // 부서명
 	private String dept_phone; // 부서전화번호
-	// @Column(columnDefinition = "defalut 'Y'")
+//	@Column(columnDefinition = "defalut 'Y'")
 	private String dept_enabled; // 부서존재여부
 
-//	@OneToMany(mappedBy="department", fetch = FetchType.LAZY, orphanRemoval = true)
-	@OneToMany(mappedBy="department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Employee> empList = new ArrayList<Employee>();
 	
 }

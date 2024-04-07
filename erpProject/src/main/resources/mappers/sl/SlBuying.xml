@@ -35,9 +35,9 @@
 		) AS productCnt,
 		(
 			SELECT SUM(bd.bd_price * bd.bd_cnt)
-			FROM buying_detail bd
-			 WHERE BD.CUST_NO = B.CUST_NO
-	    	AND BD.buy_date = b.buy_date
+		    FROM buying_detail bd
+		    WHERE bd.cust_no = b.cust_no
+		    AND bd.buy_date = b.buy_date
 		) AS totalMoney,
 		(
 			SELECT SUM(bd.bd_cnt)
@@ -85,7 +85,7 @@
 				WHERE B.CUST_NO = bd.cust_no
 			) AS productCnt,
 			(
-			SELECT SUM(bd.bd_price * bd.bd_cnt)
+			SELECT SUM(bd.bd_price*bd.bd_price)
 				FROM buying_detail bd
 				WHERE B.CUST_NO = bd.cust_no
 			) AS totalMoney,
@@ -129,27 +129,27 @@
      	b.buy_date = #{buy_date}
 </select>
 <select id="LslproductDetail" parameterType="SLBuying" resultType="SLBuying">
-	SELECT 
-	    b.buy_date, bd.cust_no, bd.bd_cnt, p.p_name, p.p_itemcode, p.p_buyprice, SUM(DISTINCT bd.bd_cnt * p.p_buyprice) AS totalMoney
-	FROM 
-	    buying b
-	    JOIN buying_detail bd ON b.buy_date = bd.buy_date
-	    JOIN product p ON bd.p_itemcode = p.p_itemcode
-	WHERE  
-	    bd.cust_no = #{cust_no}
-	    AND bd.buy_date = #{buy_date}
-	GROUP BY  
-	    b.buy_date, bd.cust_no, bd.bd_cnt, p.p_name, p.p_itemcode, p.p_buyprice
-	</select>
-
+    SELECT 
+        b.buy_date, bd.cust_no, bd.bd_cnt, p.p_name, p.p_itemcode, bd.bd_price, SUM(bd.bd_cnt * bd.bd_price) AS totalMoney
+    FROM 
+        buying b
+        JOIN buying_detail bd ON b.buy_date = bd.buy_date AND b.cust_no = bd.cust_no
+        JOIN product p ON bd.p_itemcode = p.p_itemcode
+    WHERE  
+        bd.cust_no = #{cust_no}
+        AND bd.buy_date = #{buy_date}
+    GROUP BY  
+        b.buy_date, bd.cust_no, bd.bd_cnt, p.p_name, p.p_itemcode, bd.bd_price
+</select>
+	
 	<select id="LslproductList" resultType="SLProduct" >
-		select p_name, p_itemcode
-        from product 
-        where p_fac_gubun = 1
+		select p.*
+        from product p
+        where p.p_fac_gubun = 1
 	</select>
 	
 	<insert id="LsladdProduct" parameterType="SLBuying_detail">
-			 insert into buying_detail values ( #{buy_date}, #{cust_no}, #{p_itemcode},  #{bd_cnt}, #{bd_price}) 
+			 insert into buying_detail values (#{buy_date}, #{cust_no}, #{p_itemcode}, #{bd_cnt}, #{bd_price}) 
 	</insert>
 	
 	
@@ -189,5 +189,31 @@
         AND cust_no = #{cust_no}
         AND buy_status != 2 
 	</update>
+	
+	<select id="LslcustomerSearch" parameterType="SLBuying" resultType="SLBuying">
+	SELECT c.*, e.emp_name
+	FROM customer c
+	JOIN employee e ON c.emp_no = e.emp_no
+	AND c.cust_name LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<insert id="LslbuyingApplyWrite" parameterType="SLBuying">
+	INSERT INTO buying (buy_date, cust_no, emp_no, buy_title, buy_status, buy_manager, buy_note, buy_wdate) 
+	VALUES (#{buy_date}, #{cust_no}, #{emp_no}, COALESCE(#{buy_title}, ''), 0, #{buy_manager}, #{buy_note}, SYSDATE)
 
+	</insert>
+	
+	<select id="LslgetManagerList" parameterType="SLBuying" resultType="SLBuying" >
+	 
+	SELECT e.emp_name, e.emp_no
+	FROM EMPLOYEE e
+	WHERE e.dept_no = 3
+	</select>
+
+
+	<insert id="LslbuyingApplyAddDetail" parameterType="SLBuying">
+        insert into buying_detail (buy_date, cust_no, p_itemcode, bd_cnt, bd_price)
+        values (#{buy_date}, #{cust_no}, #{p_itemcode}, #{bd_cnt}, #{bd_price})  
+	</insert>
+	
 </mapper>

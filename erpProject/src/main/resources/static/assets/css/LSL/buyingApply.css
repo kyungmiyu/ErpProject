@@ -63,7 +63,14 @@
 	text-align: center;
 
 }
-#detailTitle {
+#buy_title {
+	width: 600px;
+	margin-left: 10px;
+	margin-right: 30px;
+	text-align: center;
+}
+
+#managerName {
 	width: 600px;
 	margin-left: 10px;
 	margin-right: 30px;
@@ -82,7 +89,13 @@
 
 }
 
-#detailManager {
+#cust_name {
+	width: 600px;
+	margin-left: 10px;
+	margin-right: 30px;
+	text-align: center;
+}
+#emp_name {
 	width: 600px;
 	margin-left: 10px;
 	margin-right: 30px;
@@ -229,7 +242,7 @@
 	
 }
 
-#buyCancle {
+#buyApplyBtn {
 	position: absolute;
 	font-size: 0.9rem;
 	width: 100px;
@@ -288,3 +301,69 @@
 	color: white;
 	background-color: #5e72e4d9;
 }
+
+
+/* 거래처 검색 팝업 창 */
+.customerSearchPopup {
+	display: none;
+	position: fixed;
+	top: 30%;
+	left: 45%;
+	background-color: #ffffff;
+	width: 500px;
+	height: 200px;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	z-index: 9999; /* 다른 요소 위에 표시 */
+}
+.customerSearchPopup p {
+	color: black;
+	
+}
+
+.cusSearchBox {
+	position: absolute;
+	left: 30px;
+	width: 320px;
+	border-radius: 5px;
+}
+
+.cusSearchName {
+	position:absolute;
+	width: 300px;
+	top: 130px;
+	left: 35px;
+	border-bottom: 1px solid #cccccc;
+	
+}
+
+#cusSearchBtn {
+	position: absolute;
+	top: 60px;
+	height: 40px;
+	right: 70px;
+	border: 1px solid #d2d6da;
+	border-radius: 10px;
+	color: white;
+}
+
+#cusChioceBtn {
+	position: absolute;
+	top: 120px;
+	right: 80px;
+}
+
+#cusSearchXBtn {
+	position:absolute;
+	right: 20px;
+	top: 10px;
+	cursor: pointer;
+	
+	
+}
+
+.cusSearchName {
+	cursor: pointer;
+}
+
