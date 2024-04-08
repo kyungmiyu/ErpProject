@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -87,29 +88,28 @@ public class JJController {
 	
 	// 생산 - 생산요청 페이지 - 입력 적용
 	@RequestMapping(value = "makeRequest")
-	public String makeRequest(JJ_Make_detail md) {
+	public String makeRequest(JJ_Make m, JJ_Make_detail md, BindingResult result) {
 		System.out.println("JJController's makeRequest Go!");
-		int makeRequest=0;
 		try {
-			// 원인: 타입 변환시 int -> String, 또는 String -> Date 타입 변환간 오류 발생
-//			md.setF_id(md.getF_id());
-//			md.setMd_status(md.getMd_status());
-//			md.setRpnc_gubun(md.getRpnc_gubun());
-//			md.setMd_date(md.getMd_date());
+			int makeRequest1 = js.makeRequest1(m);
+			System.out.println("JJController's makeRequest1 -> " + makeRequest1);
 			
-			System.out.println("JJController's makeRequest md -> " + md);
-		
-			
-			makeRequest = js.makeRequest(md);
+			int makeRequest2 = js.makeRequest2(md);
+			System.out.println("JJController's makeRequest2 -> " + makeRequest2);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// 예외 처리
 			e.printStackTrace();
+			
+			result.reject("error", "요청을 처리하는 동안 문제가 발생했습니다. 나중에 다시 시도해주세요.");
 		}
-		//System.out.println("JJController's makeRequest -> " + makeRequest);
 		
 		return "foward:jj/makeMain";
 	}
-	
+// 원인: 타입 변환시 int -> String, 또는 String -> Date 타입 변환간 오류 발생
+//	md.setF_id(md.getF_id());
+//	md.setMd_status(md.getMd_status());
+//	md.setRpnc_gubun(md.getRpnc_gubun());
+//	md.setMd_date(md.getMd_date());
 	
 	
 	

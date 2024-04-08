@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.dao.jjdao.JJ_Dao_Interface;
+import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
 
 import lombok.RequiredArgsConstructor;
@@ -42,12 +43,21 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 	}
 
 	@Override
-	public int makeRequest(JJ_Make_detail md) {
-		int makeRequest = 0;
-		System.out.println("JJ_ServiceImpl's makeRequest Go!");
-		makeRequest = jjDao.makeRequest(md);
-		System.out.println("JJ_ServiceImpl's makeRequest -> " + makeRequest);
-		return makeRequest;
+	public int makeRequest1(JJ_Make m) {
+		int makeRequest1 = 0;
+		System.out.println("JJ_ServiceImpl's makeRequest1 Go!");
+		makeRequest1 = jjDao.makeRequest1(m);
+		System.out.println("JJ_ServiceImpl's makeRequest1 -> " + makeRequest1);
+		return makeRequest1;
+	}
+	
+	@Override
+	public int makeRequest2(JJ_Make_detail md) {
+		int makeRequest2 = 0;
+		System.out.println("JJ_ServiceImpl's makeRequest2 Go!");
+		makeRequest2 = jjDao.makeRequest2(md);
+		System.out.println("JJ_ServiceImpl's makeRequest2 -> " + makeRequest2);
+		return makeRequest2;
 	}
 
 	// 생산 상세 페이지
@@ -84,4 +94,5 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 		jjmakeDelete = jjDao.jjmakeDelete(m_num);
 		return jjmakeDelete;
 	}
+
 }

@@ -45,7 +45,7 @@ legend {
 	 	<!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 
 		<!-- 생산 요청 게시판123 -->
-		<div class="card col-6 w-75 p-5 float-end">
+		<div class="card col-9 w-75 p-5 float-end">
 			<div class="table-responsive">
 				<div class="form-group">
 					<h2>생산 상세 게시글</h2>
@@ -54,7 +54,7 @@ legend {
 				  <div class="row">
 					  <div class="col">
 						  <label for="example-text-input" class="form-control-label">작업지시번호 m_num</label>
-						  <input class="form-control" type="number" value="${jjmakeDetail.m_num}" id="example-text-input" readonly>
+						  <input class="form-control" type="number" value="${jjmakeDetail.m_num}" placeholder="yyyymmdd방식으로 기입" id="example-text-input" readonly>
 					  </div>
 				      <div class="col">
 				        <div class="mb-3">
@@ -90,8 +90,8 @@ legend {
 					        <input class="form-control" type="number" value="${jjmakeDetail.md_num}" placeholder="작업순번" id="example-search-input">
 					    </div>
 					    <div class="form-group">
-					        <label for="example-tel-input" class="form-control-label">작업지시일자 md_date</label>
-					        <input class="form-control" type="date" value="${jjmakeDetail.md_date}" placeholder="작업지시일자을 입력" id="example-tel-input">
+					        <label for="example-tel-input" class="form-control-label">작업지시일자 m_sdate</label>
+					        <input class="form-control" type="date" value="${jjmakeDetail.m_sdate}" placeholder="날짜 선택" id="example-tel-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="form-select" class="form-control-label">공장명 f_name</label>

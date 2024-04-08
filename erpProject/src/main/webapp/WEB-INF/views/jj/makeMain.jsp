@@ -43,7 +43,7 @@
 	 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 	 	 		
 		<!-- 생산 리스트 게시판 -->
-		<div class="card col-12 w-100 p-5 float-end">
+		<div class="card col-10 w-100 p-5 float-end">
 		  <div class="table-responsive">
 	  		<div class="form-group">
 				<h2>생산게시판</h2>
@@ -79,7 +79,7 @@
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_worker}</h6> <!-- 작업자 -->
 			          </td>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_date}</h6> <!-- 작업지시일자 -->
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_sdate}</h6> <!-- 작업지시일자 -->
 			          </td>
 			          <td class="text-center">
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_work_date}</h6> <!-- 작업완료일자 -->

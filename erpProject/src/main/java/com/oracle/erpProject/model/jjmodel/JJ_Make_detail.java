@@ -12,7 +12,7 @@ public class JJ_Make_detail {
 	private String md_status;			// 작업지시상태	(0. 작업요청, 1. 영업생산요청, 2. 생산중, 3. 생산완료, 4. 수불완료)
 	private int p_itemcode;				// 제품코드
 	private String md_worker;			// 작업자
-	private String md_date;				// 작업지시일자
+	private String m_sdate;				// 작업지시일자
 	private String md_work_date;		// 작업완료일자
 	private int md_quantity;			// 지시수량
 	private int md_pro_quantity;		// 생산수량

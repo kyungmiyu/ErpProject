@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+
+import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
 
 import lombok.RequiredArgsConstructor;
@@ -57,18 +59,31 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		return requestMakeList;
 	}
 
-	// 생산게시판 생산 요청 기능
 	@Override
-	public int makeRequest(JJ_Make_detail md) {
-		int makeRequest = 0;
-		System.out.println("JJ_DaoImpl's makeRequest Go!");
+	public int makeRequest1(JJ_Make m) {
+		int makeRequest1 = 0;
+		System.out.println("JJ_DaoImpl's makeRequest1 Go!");
 		try {
-			makeRequest = session.insert("jjMakeRequestInsert", md);
-			System.out.println("JJ_DaoImpl's makeRequest -> " + makeRequest);
+			makeRequest1 = session.insert("jjMakeRequestInsert1", m);
+			System.out.println("JJ_DaoImpl's makeRequest1 -> " + makeRequest1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return makeRequest;
+		return makeRequest1;
+	}
+	
+	// 생산게시판 생산 요청 기능
+	@Override
+	public int makeRequest2(JJ_Make_detail md) {
+		int makeRequest2 = 0;
+		System.out.println("JJ_DaoImpl's makeRequest2 Go!");
+		try {
+			makeRequest2 = session.insert("jjMakeRequestInsert2", md);
+			System.out.println("JJ_DaoImpl's makeRequest2 -> " + makeRequest2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return makeRequest2;
 	}
 
 	// 생산 상세 페이지
@@ -128,4 +143,5 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		}
 		return jjmakeDelete;
 	}
+
 }
