@@ -79,7 +79,7 @@ legend {
 				  <div class="row">
 					  <div class="col">
 						  <label for="m_num" class="form-control-label">작업지시번호 m_num</label>
-						  <input class="form-control" type="number" name="m_num" value="${JJ_Make_detail.m_num}" placeholder="yyyymmdd01형식으로 입력해주세요" id="m_num">
+						  <input class="form-control" type="number" name="m_num" value="${JJ_Make.m_num}" placeholder="yyyymmdd01형식으로 입력해주세요" id="m_num">
 					  </div>
 				      <div class="col">
 				        <div class="mb-3">
@@ -119,6 +119,11 @@ legend {
 					        <label for="m_sdate" class="form-control-label">작업지시일자 m_sdate</label>
 					        <input class="form-control" type="date" name="m_sdate" value="${JJ_Make_detail.m_sdate}"
 					        		placeholder="작업지시일자을 입력" id="m_sdate">
+					    </div>
+					    <div class="form-group">
+					        <label for="md_worker" class="form-control-label">작업지시담당자 m_manager</label>
+					        <input class="form-control" type="text" name="md_worker" value="${JJ_Make.m_manager}"
+					        		placeholder="담당 작업자를 입력" id="md_worker">
 					    </div>
 					    <div class="form-group">
 					        <label for="form-select" class="form-control-label">공장명 f_name</label>
