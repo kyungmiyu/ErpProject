@@ -8,4 +8,5 @@ import com.oracle.erpProject.domain.Department;
 /* KM_DepartmentRepository */
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Integer> {
+
 }

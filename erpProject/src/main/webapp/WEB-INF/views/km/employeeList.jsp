@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <%@ include file="../configHead.jsp"%>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
@@ -26,30 +27,29 @@
 	<main class="main-content position-relative border-radius-lg ">
 		<!-- Header 헤더 -->
 		<%@ include file="adminHeader.jsp"%>
-
+		
 		<div class="main-body container-fluid py-4">
-
-			<!-- ***************************************************************** -->
 			<div class="row">
 				<div class="col-12">
 					<div class="card mb-4">
 						<div class="card-header pb-0">
-							<h6>Information</h6>
-						</div>
-						 <div class="col-auto">
-				            <div class="bg-white border-radius-lg d-flex me-2">
-				            <form action="/listEmployeeProc" name="searchForm" method="POST">
-				              	<select class="form-select" name="searchType">
-								  <option value="A" selected>전체</option>
-								  <option value="E">사원</option>
-								  <option value="D">부서명</option>
-								</select>
-							 	<input type="text" name="searchValue" class="form-control border-0 ps-3" placeholder="검색어를 입력하세요">
-				              	<input type="button" onclick="submitSearchForm()" value="Search" class="btn bg-gradient-primary my-1 me-1" />
-				            </form>
-				            </div>
-				          </div>
-				          
+							<div class="row">
+								<div class="col-12 d-flex">
+									<h6 class="col-8">Information</h6>
+							        <div class="bg-white border-radius-lg ms-auto d-flex">
+									    <form action="/listEmployeeProc" name="searchForm" method="POST" class=" d-flex align-items-center">
+									         <select class="form-select me-1" name="searchType" style="width: 150px">
+												 <option value="all" selected>전체</option>
+											     <option value="empName">사원</option>
+												 <option value="deptName">부서명</option>
+											 </select>
+										     <input type="text" name="searchValue" class="form-control border-1 me-1 ps-3 my-1" placeholder="검색어를 입력하세요" style="width: 300px">
+										     <input type="button" onclick="submitSearchForm()" value="Search" class="btn bg-gradient-primary mb-0" />
+									     </form>
+							    	 </div>
+					        	</div>
+							</div>
+					    </div>
 						<div class="card-body px-0 pt-0 pb-2">
 							<div class="table-responsive p-0">
 								<table class="table align-items-center mb-0">
@@ -64,6 +64,46 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${listEmployee}" var="employee">
+											<c:set var="emp_job_name" value="" />
+											<c:choose>
+												<c:when test="${employee.empJobName eq 10}">
+													<c:set var="emp_job_name" value="사장" />
+												</c:when>
+												<c:when test="${employee.empJobName eq 20}">
+													<c:set var="emp_job_name" value="부장" />
+												</c:when>
+												<c:when test="${employee.empJobName eq 30}">
+													<c:set var="emp_job_name" value="차장" />
+												</c:when>
+												<c:when test="${employee.empJobName eq 40}">
+													<c:set var="emp_job_name" value="과장" />
+												</c:when>
+												<c:when test="${employee.empJobName eq 50}">
+													<c:set var="emp_job_name" value="대리" />
+												</c:when>
+												<c:when test="${employee.empJobName eq 60}">
+													<c:set var="emp_job_name" value="사원" />
+												</c:when>
+											</c:choose>
+											
+											<c:set var="emp_role" value="" />
+											<c:choose>
+												<c:when test="${employee.empRole eq 'role_employee'}">
+													<c:set var="emp_role" value="일반 사원" />
+												</c:when>
+												<c:when test="${employee.empRole eq 'role_manager_buy'}">
+													<c:set var="emp_role" value="구매 관리자" />
+												</c:when>
+												<c:when test="${employee.empRole eq 'role_manager_sale'}">
+													<c:set var="emp_role" value="생산 관리자" />
+												</c:when>
+												<c:when test="${employee.empRole eq 'role_manager_make'}">
+													<c:set var="emp_role" value="판매 관리자" />
+												</c:when>
+												<c:when test="${employee.empRole eq 'role_admin'}">
+													<c:set var="emp_role" value="ERP 관리자" />
+												</c:when>
+											</c:choose>
 											<tr>
 												<td>
 													<div class="d-flex px-2 py-1">
@@ -77,14 +117,14 @@
 													</div>
 												</td>
 												<td>
-													<p class="text-xs font-weight-bold mb-0">${employee.empJobName}</p>
+													<p class="text-xs font-weight-bold mb-0">${emp_job_name}</p>
 													<p class="text-xs text-secondary mb-0">부서명</p>
 												</td>
-												<td class="align-middle text-center text-sm"><span
-													class="badge badge-sm bg-gradient-success">${employee.empRole}</span>
+												<td class="align-middle text-center text-sm">
+													<span class="badge badge-sm bg-gradient-success">${emp_role}</span>
 												</td>
-												<td class="align-middle text-center"><span
-													class="text-secondary text-xs font-weight-bold">${employee.empHireDate}</span>
+												<td class="align-middle text-center">
+													<span class="text-secondary text-xs font-weight-bold">${employee.empHireDate}</span>
 												</td>
 												<td class="align-middle">
 													<a href="/employeeEditForm?empNo=${employee.empNo}" class="text-secondary font-weight-bold text-xs"
@@ -95,13 +135,35 @@
 									</tbody>
 								</table>
 							</div>
-						</div>
+						</div>					
+						
+						<nav aria-label="Page navigation example">
+						  <ul class="pagination justify-content-center">
+						  <c:if test="${paging.hasPrevious()}">
+						    <li class="page-item">
+						      <a class="page-link" href="/employeeList?pageNo=${paging.previousOrFirst().getPageNumber()}">
+						        <i class="fa fa-angle-left"></i>
+						      </a>
+						    </li>
+						  </c:if >
+						    <c:forEach var="i" begin="1" end="${page.getTotalPages()}" >
+							    <li class="page-item"><a class="page-link" href="/employeeList?pageNo=${i}">${i}</a></li>
+						    </c:forEach>
+						    <c:if test="${paging.hasNext()}">
+							    <li class="page-item">
+						      <a class="page-link" href="/employeeList?pageNo=${paging.next().getPageNumber()}">
+						        <i class="fa fa-angle-right"></i>
+						      </a>
+						    </li>
+						    </c:if>
+						  </ul>
+						</nav>
+						
 					</div>
 				</div>
 			</div>
-			<!-- ***************************************************************** -->
 		</div>
-
+		
 		<!-- Footer 푸터 -->
 		<%@ include file="../footer.jsp"%>
 	</main>

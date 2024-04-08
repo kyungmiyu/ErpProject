@@ -16,6 +16,7 @@ public interface EmployeeDao {
 	Employee getEmployee(int emp_no);
 	
 	Employee updateEmployee(Employee employee);
-	
-	
+
+	Page<Employee> listPage(Pageable pageable);
+
 }

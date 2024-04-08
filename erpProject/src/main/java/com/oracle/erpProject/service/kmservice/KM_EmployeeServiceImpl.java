@@ -3,6 +3,8 @@ package com.oracle.erpProject.service.kmservice;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +21,17 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 	public Employee registEmployee(Employee employee) {
 		return employeeDaoImpl.registEmployee(employee);
 	}
-
+/*
 	@Override
 	public List<Employee> listEmployee(Pageable paging) {
 		return employeeDaoImpl.listEmployee(paging).getContent();
 	}
-	
+*/	
+	@Override
+	public Page<Employee> listPage(Pageable pageable) {
+		return employeeDaoImpl.listPage(pageable);
+	}
+
 	@Override
 	public Employee getEmployee(int emp_no) {
 		return employeeDaoImpl.getEmployee(emp_no);
@@ -40,9 +47,6 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 	public Employee deleteEmployee(Employee employee) {
 		return null;
 	}
-
-	
-
 
 
 }

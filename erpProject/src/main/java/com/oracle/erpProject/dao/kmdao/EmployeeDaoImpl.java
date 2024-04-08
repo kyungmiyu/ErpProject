@@ -1,7 +1,11 @@
 package com.oracle.erpProject.dao.kmdao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -21,12 +25,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public Page<Employee> listEmployee(Pageable paging) {
+		System.out.println("page ->"+ paging);
 		return employeeRepository.findAll(paging);
 	}
 
 	@Override
 	public Employee getEmployee(int emp_no) {
-		System.out.println("Dao emp_no ===> " + emp_no);
 		return employeeRepository.findById(emp_no).get();
 	}
 
@@ -35,5 +39,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		employeeRepository.findById(employee.getEmpNo()).get();
 		return employeeRepository.save(employee);
 	}
+
+	// test
+	@Override
+	public Page<Employee> listPage(Pageable pageable) {
+		return employeeRepository.findAll(PageRequest.of(0, 10));
+	}
+
 
 }

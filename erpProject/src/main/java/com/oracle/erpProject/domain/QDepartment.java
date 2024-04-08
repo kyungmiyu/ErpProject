@@ -20,13 +20,13 @@ public class QDepartment extends EntityPathBase<Department> {
 
     public static final QDepartment department = new QDepartment("department");
 
-    public final StringPath dept_enabled = createString("dept_enabled");
+    public final StringPath deptEnabled = createString("deptEnabled");
 
-    public final StringPath dept_name = createString("dept_name");
+    public final StringPath deptName = createString("deptName");
 
-    public final NumberPath<Integer> dept_no = createNumber("dept_no", Integer.class);
+    public final NumberPath<Integer> deptNo = createNumber("deptNo", Integer.class);
 
-    public final StringPath dept_phone = createString("dept_phone");
+    public final StringPath deptPhone = createString("deptPhone");
 
     public final ListPath<Employee, QEmployee> empList = this.<Employee, QEmployee>createList("empList", Employee.class, QEmployee.class, PathInits.DIRECT2);
 
@@ -43,3 +43,4 @@ public class QDepartment extends EntityPathBase<Department> {
     }
 
 }
+

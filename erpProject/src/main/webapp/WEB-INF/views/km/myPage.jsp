@@ -106,7 +106,7 @@
             <div class="bg-gradient-dark card-img-top">
               <div class="bg-transparent shadow-xl">
                 <div class="overflow-hidden">
-                  <img src="../assets/img/bg-profile.jpg" alt="Image placeholder" class="card-img-top">
+                  <img src="../assets/img/bggray.jpg" alt="Image placeholder" class="card-img-top">
                 </div>
               </div>
             </div>

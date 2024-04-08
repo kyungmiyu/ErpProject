@@ -1,6 +1,9 @@
 package com.oracle.erpProject.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.oracle.erpProject.domain.Department;
 import com.oracle.erpProject.domain.Employee;
+import com.oracle.erpProject.service.kmservice.KM_DepartmentServiceImpl;
 import com.oracle.erpProject.service.kmservice.KM_EmployeeServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -23,12 +28,14 @@ public class KMController {
 	@Autowired
 	private KM_EmployeeServiceImpl employeeServiceImpl;
 
+	@Autowired
+	private KM_DepartmentServiceImpl departmentServiceImpl;
+	
 	/* test */
 	@GetMapping(value = "stest")
 	public String testPage() {
 		return "km/stest";
 	}
-	
 	
 	
 	/* 공통 화면 */
@@ -56,9 +63,9 @@ public class KMController {
 	
 	/* 관리자 페이지 */
 	// 관리자페이지 화면
-	@GetMapping(value = "adminMain")
-	public String adminMain() {
-		return "km/adminMain";
+	@GetMapping(value = "adminHome")
+	public String adminHome() {
+		return "km/adminHome";
 	}
 	
 	// 사원 등록 화면
@@ -79,15 +86,20 @@ public class KMController {
 	@RequestMapping(value = "/listEmployeeProc")
 	public String listEmployeeProc(
 			Model model, 
-			@RequestParam(required = false, value ="currPageNum") String currPageNum) {
-		currPageNum = currPageNum == null ? "1" : currPageNum; 
-		int startRowNum = (Integer.parseInt(currPageNum) - 1) * 10 + 1;
-		Pageable paging = PageRequest.of(startRowNum, 10, Sort.Direction.DESC, "empNo");
-		model.addAttribute("listEmployee", employeeServiceImpl.listEmployee(paging));
+			@RequestParam(required = false, defaultValue = "1", value ="pageNo") int pageNo) {
+		//pageNo = pageNo == null ? "1" : pageNo;
+		//int pageNum = Integer.parseInt(pageNo);
+		//--pageNum;
+		//int startRowNum = (Integer.parseInt(pageNo) - 1) * 10; // 0 ~ 10 ~ 20 해당 페이지의 시작 로우번호
+		Pageable paging = PageRequest.of(pageNo, 10, Sort.Direction.DESC, "empNo");
+		//Page<Employee> listPage = employeeServiceImpl.listPage(paging);
+		Page<Employee> listEmployee = employeeServiceImpl.listPage(paging);
+		model.addAttribute("listEmployee", listEmployee.getContent()); //
+		model.addAttribute("page",listEmployee);
+		model.addAttribute("pageNo", pageNo);
 		return "km/employeeList";
 	}
 	
-
 	//@RequestParam(value = "searchType", required = false, defaultValue = "A") String searchType,
 	//@RequestParam(value = "searchValue", required = false, defaultValue = "") String searchValue)
 
@@ -109,7 +121,17 @@ public class KMController {
 		employeeServiceImpl.updateEmployee(employee);
 		return "km/employeeRegistForm";
 	}
-		
+	
 
-	/* 세션 유저 정보 */
+/*
+	// 부서
+	@RequestMapping(value="departmentListProc")
+	public String departmentListProc(Model model) {
+		List<Department> listDepartment = departmentServiceImpl.listDepartment();
+		model.addAttribute("listDepartment", listDepartment);
+		return "km/departmentList";
+*/
+	
+	
+	
 }
