@@ -20,23 +20,24 @@ public class YHSController {
 		
 	@GetMapping(value = "board") 
 	public String boardList(Model model, YhsBoard board) {
-		/*
-		 * System.out.println("YHSController boardList start..."); int totalBoard =
-		 * yhs_Service_Interface.totalBoard(board);
-		 * System.out.println("YHSController Start totalBoard->"+totalBoard);
-		 * 
-		 * // Paging 작업 Paging page = new Paging(totalBoard, board.getCurrentPage());
-		 * System.out.println("test page : " + page ); // Parameter ask --> Page만 추가
-		 * Setting board.setStart(page.getStart()); // 시작시 1
-		 * board.setEnd(page.getEnd()); // 시작시 10
-		 * System.out.println("YHSController boardList board->"+board);
-		 * 
-		 * List<YhsBoard> listBoard = yhs_Service_Interface.listBoard(board);
-		 * System.out.println("YHSController  listBoard.size()=>" + listBoard.size());
-		 * 
-		 * model.addAttribute("listBoard" , listBoard); model.addAttribute("page",
-		 * page); model.addAttribute("totalBoard",totalBoard);
-		 */
+		System.out.println("YHSController boardList start..."); 
+		int totalBoard = yhs_Service_Interface.totalBoard(board);
+		System.out.println("YHSController Start totalBoard->"+totalBoard);
+		 
+		// Paging 작업 
+		Paging page = new Paging(totalBoard, board.getCurrentPage());
+		System.out.println("test page : " + page ); 
+		// Parameter ask --> Page만 추가 Setting 
+		board.setStart(page.getStart()); // 시작시 1
+		board.setEnd(page.getEnd()); // 시작시 10
+		System.out.println("YHSController boardList board->"+board);
+		  
+		List<YhsBoard> listBoard = yhs_Service_Interface.listBoard(board);
+		System.out.println("YHSController  listBoard.size()=>" + listBoard.size());
+		 
+		model.addAttribute("listBoard" , listBoard); model.addAttribute("page",
+		page); model.addAttribute("totalBoard",totalBoard);
+		 
 		
 		return "Yhs/board";
 	}

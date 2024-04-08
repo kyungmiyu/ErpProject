@@ -11,5 +11,9 @@ public interface Yhs_Dao_Interface {
 	int totalBoard(YhsBoard board);
 	
 	List<YhsBoard> listBoard(YhsBoard board);
+	
+	YhsBoard boardContents(int b_no);
+	
+	int boardViewCnt(YhsBoard board);
 
 }

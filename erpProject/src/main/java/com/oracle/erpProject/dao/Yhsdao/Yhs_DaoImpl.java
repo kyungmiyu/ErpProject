@@ -45,4 +45,18 @@ public class Yhs_DaoImpl implements Yhs_Dao_Interface {
 		return boardList;
 	}
 
+	@Override
+	public YhsBoard boardContents(int b_no) {
+		System.out.println("Yhs_DaoImpl boardContents Start...");
+		YhsBoard boardContents = session.selectOne("slboardAskContents", b_no);
+		System.out.println("Yhs_DaoImpl boardContents -> " + boardContents);
+		return boardContents;
+	}
+
+	@Override
+	public int boardViewCnt(YhsBoard board) {
+		int boardViewCnt = session.update("slboardFreeViewCnt", board);
+		return boardViewCnt;
+	}
+
 }

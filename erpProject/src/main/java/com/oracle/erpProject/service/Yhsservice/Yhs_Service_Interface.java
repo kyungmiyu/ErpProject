@@ -23,3 +23,4 @@ public interface Yhs_Service_Interface {
 //	int boardReplyCnt(int b_no);
 
 }
+
