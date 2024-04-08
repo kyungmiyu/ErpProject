@@ -41,7 +41,7 @@
                   <c:forEach items="${listBoard}" var="board">
 	                  <tr>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs">${board.b_name}</h6>
+			          	<h6 class="mb-0 text-xs"><a href="boardContents?b_no=${board.b_no}">${board.b_name}</a></h6>		
 			          </td>
 			         <td class="text-center">
 			          	<h6 class="mb-0 text-xs">${board.emp_no}</h6>
@@ -90,6 +90,7 @@
 					
               </div>
             </div>
+            
           </div>
         </div>
       </div>
