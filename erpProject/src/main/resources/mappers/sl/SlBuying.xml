@@ -20,6 +20,7 @@
 			WHEN b.buy_status = 0 THEN '구매 진행중'
 			WHEN b.buy_status = 1 THEN '구매 취소'
 			WHEN b.buy_status = 2 THEN '구매 완료'
+			WHEN b.buy_status = 5 THEN '수불 완료'
 		END AS buy_status_detail,
 		 (
 			 SELECT emp_name
@@ -34,9 +35,9 @@
 		) AS productCnt,
 		(
 			SELECT SUM(bd.bd_price * bd.bd_cnt)
-			FROM buying_detail bd
-			 WHERE BD.CUST_NO = B.CUST_NO
-	    	AND BD.buy_date = b.buy_date
+		    FROM buying_detail bd
+		    WHERE bd.cust_no = b.cust_no
+		    AND bd.buy_date = b.buy_date
 		) AS totalMoney,
 		(
 			SELECT SUM(bd.bd_cnt)
@@ -71,6 +72,7 @@
 				WHEN b.buy_status = 0 THEN '구매 진행중'
 				WHEN b.buy_status = 1 THEN '구매 취소'
 				WHEN b.buy_status = 2 THEN '구매 완료'
+				WHEN b.buy_status = 5 THEN '수불 완료'
 			END AS buy_status_detail,
 			 (
 				 SELECT emp_name
@@ -83,7 +85,7 @@
 				WHERE B.CUST_NO = bd.cust_no
 			) AS productCnt,
 			(
-			SELECT SUM(bd.bd_price * bd.bd_cnt)
+			SELECT SUM(bd.bd_price*bd.bd_price)
 				FROM buying_detail bd
 				WHERE B.CUST_NO = bd.cust_no
 			) AS totalMoney,
@@ -109,6 +111,7 @@
         WHEN b.buy_status = 0 THEN '구매 진행중'
         WHEN b.buy_status = 1 THEN '구매 취소'
         WHEN b.buy_status = 2 THEN '구매 완료'
+        WHEN b.buy_status = 5 THEN '수불 완료'
     END AS buy_status_detail,
     (SELECT emp_name
 	     FROM employee
@@ -126,28 +129,91 @@
      	b.buy_date = #{buy_date}
 </select>
 <select id="LslproductDetail" parameterType="SLBuying" resultType="SLBuying">
-	   SELECT 
-	    b.buy_date, bd.cust_no, bd.bd_cnt, bd.bd_price, p.p_name, p.p_itemcode, SUM(bd.bd_cnt * bd.bd_price) AS totalMoney
-	FROM 
-	    buying b, buying_detail bd, product p
-	WHERE  
-	    b.buy_date = bd.buy_date
-	    AND bd.p_itemcode = p.p_itemcode
-	    AND bd.cust_no = #{cust_no}
-	    AND bd.buy_date = #{buy_date}
-	GROUP BY  
-	    b.buy_date, bd.cust_no, bd.bd_cnt, bd.bd_price, p.p_name, p.p_itemcode
-	</select>
-
-	<select id="LslproductList" resultType="SLProduct" >
-		select p_name, p_itemcode
-        from product 
-        where p_fac_gubun = 1
-	</select>
+    SELECT 
+        b.buy_date, bd.cust_no, bd.bd_cnt, p.p_name, p.p_itemcode, bd.bd_price, SUM(bd.bd_cnt * bd.bd_price) AS totalMoney
+    FROM 
+        buying b
+        JOIN buying_detail bd ON b.buy_date = bd.buy_date AND b.cust_no = bd.cust_no
+        JOIN product p ON bd.p_itemcode = p.p_itemcode
+    WHERE  
+        bd.cust_no = #{cust_no}
+        AND bd.buy_date = #{buy_date}
+    GROUP BY  
+        b.buy_date, bd.cust_no, bd.bd_cnt, p.p_name, p.p_itemcode, bd.bd_price
+</select>
 	
+	<select id="LslproductList" resultType="SLProduct" >
+		select p.*
+        from product p
+        where p.p_fac_gubun = 1
+	</select>
 	
 	<insert id="LsladdProduct" parameterType="SLBuying_detail">
-			 insert into buying_detail values ( #{buy_date},    #{cust_no}, #{p_itemcode},  #{bd_cnt}, #{bd_price} ) 
+			 insert into buying_detail values (#{buy_date}, #{cust_no}, #{p_itemcode}, #{bd_cnt}, #{bd_price}) 
 	</insert>
+	
+	
+	<select id="LslgetProductList" parameterType="SLProduct"  resultType="SLProduct">
+		select p_itemcode
+        from buying_detail
+        where cust_no = #{cust_no}
+	    and buy_date = #{buy_date}
+	</select>
+	
+	<delete id="LsldeleteProduct" parameterType="SLBuying_detail">
+		delete from buying_detail 
+		where cust_no = #{cust_no} 
+		and buy_date= #{buy_date} 
+		and p_itemcode= #{p_itemcode}
+	</delete>
+	
+	<update id="LslbuyingModify" parameterType="SLBuying">
+		UPDATE buying
+        SET buy_note = #{buy_note}
+        WHERE buy_date = #{buy_date}
+        AND cust_no = #{cust_no}
+	</update>
+	
+	<update id="LslproductCntModify" parameterType="SLBuying_detail">
+		UPDATE buying_detail
+        SET bd_cnt = #{bd_cnt}
+        WHERE buy_date = #{buy_date}
+        AND cust_no = #{cust_no}
+        AND p_itemcode = #{p_itemcode}
+	</update>
+	
+	<update id="LslbuyStatusChange" parameterType="SLBuying">
+		UPDATE buying
+        SET buy_status = 1
+        WHERE buy_date = #{buy_date}
+        AND cust_no = #{cust_no}
+        AND buy_status != 2 
+	</update>
+	
+	<select id="LslcustomerSearch" parameterType="SLBuying" resultType="SLBuying">
+	SELECT c.*, e.emp_name
+	FROM customer c
+	JOIN employee e ON c.emp_no = e.emp_no
+	AND c.cust_name LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<insert id="LslbuyingApplyWrite" parameterType="SLBuying">
+	INSERT INTO buying (buy_date, cust_no, emp_no, buy_title, buy_status, buy_manager, buy_note, buy_wdate) 
+	VALUES (#{buy_date}, #{cust_no}, #{emp_no}, COALESCE(#{buy_title}, ''), 0, #{buy_manager}, #{buy_note}, SYSDATE)
 
+	</insert>
+	
+	<select id="LslgetManagerList" parameterType="SLBuying" resultType="SLBuying" >
+	 
+	SELECT e.emp_name, e.emp_no
+	FROM EMPLOYEE e
+	WHERE e.dept_no = 3
+	</select>
+
+
+	<insert id="LslbuyingApplyAddDetail" parameterType="SLBuying">
+        insert into buying_detail (buy_date, cust_no, p_itemcode, bd_cnt, bd_price)
+        values (#{buy_date}, #{cust_no}, #{p_itemcode}, #{bd_cnt}, #{bd_price})  
+	</insert>
+	
 </mapper>

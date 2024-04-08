@@ -2,22 +2,17 @@ package com.oracle.erpProject.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
-
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-import com.oracle.erpProject.model.Buying;
-import com.oracle.erpProject.model.Product;
 import com.oracle.erpProject.model.slmodel.SLBuying;
-import com.oracle.erpProject.model.slmodel.SLBuying_detail;
 import com.oracle.erpProject.model.slmodel.SLProduct;
 import com.oracle.erpProject.service.slservice.SL_Service_Interface;
 import com.oracle.erpProject.service.slservice.buyingPaging;
@@ -49,7 +44,7 @@ public class SLController {
 		
 		
 		List<SLBuying> buyAlllist = slService.buyAlllist(buying);
-		System.out.println("SlController buying buyAlllist >>>>" + buyAlllist);
+		System.out.println("SlController buying buyAlllist@@@@ >>>>" + buyAlllist);
 				
 		
 		model.addAttribute("buying",buying);
@@ -105,19 +100,6 @@ public class SLController {
 	    return "sl/buying";
 	}
 
-
-	
-	
-	
-
-	
-	// 구매 등록 페이지
-	@GetMapping(value = "buyingApply")
-	public String buyingApply() {
-		
-		return "sl/buyingApply";
-	}
-	
 	
 	// 구매 상세 페이지
 	@GetMapping(value = "buyDetail")
@@ -138,6 +120,8 @@ public class SLController {
 		// 구매 제품 정보 리스트
 		List<SLBuying> productDetail = slService.productDetail(buying);
 		System.out.println("productDetail >>>>>>" + productDetail.size());
+		System.out.println("productDetail @@@@@@" + productDetail);
+		
 		
 		// 제품 리스트
 		List<SLProduct> productList = slService.productList();
@@ -145,24 +129,40 @@ public class SLController {
 		System.out.println("buying->" + buying);
 
 		
-		model.addAttribute("buying",buying);
+	
 		model.addAttribute("buyingDetail",buyingDetail);
 		model.addAttribute("productDetail",productDetail);
 		model.addAttribute("productList",productList);
+		
 		return "sl/buyDetail";
 	}
 	
-	// 구매 상세페이지 수정
-	@PostMapping("/addProduct")
-	//public void buyingModify(@RequestParam("p_name") String p_name, @RequestParam("bd_cnt") int bd_cnt , SLBuying buying) { 
-	public void buyingDetailModify( SLBuying_detail sLBuying_detail  ) { 
+	
+
+	
+	// 구매 등록 페이지
+	@GetMapping(value = "buyingApply")
+	public String buyingApply(SLBuying buying, Model model) {
 		
-		System.out.println("sLBuying_detail: " + sLBuying_detail);
+
+		LocalDate today = LocalDate.now();
+        String formattedDate = today.format(DateTimeFormatter.BASIC_ISO_DATE);
+        
+        buying.setBuy_date(formattedDate);
+		// 구매 제품 정보 리스트
+		List<SLBuying> productDetail = slService.productDetail(buying);
+		System.out.println("productDetail >>>>>>" + productDetail.size());
+		System.out.println("productDetail @@@@@@" + productDetail);
+
+		// 제품 리스트
+		List<SLProduct> productList = slService.productList();
+		System.out.println("buying->" + buying);
 		
-		int addProduct = slService.addProduct(sLBuying_detail);
 		
-		
-		
+		model.addAttribute("productList",productList);
+		model.addAttribute("productDetail",productDetail);
+				
+		return "sl/buyingApply";
 	}
 	
 	

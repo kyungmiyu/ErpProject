@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -27,6 +28,8 @@ public class QDepartment extends EntityPathBase<Department> {
 
     public final StringPath dept_phone = createString("dept_phone");
 
+    public final ListPath<Employee, QEmployee> empList = this.<Employee, QEmployee>createList("empList", Employee.class, QEmployee.class, PathInits.DIRECT2);
+
     public QDepartment(String variable) {
         super(Department.class, forVariable(variable));
     }
@@ -40,4 +43,3 @@ public class QDepartment extends EntityPathBase<Department> {
     }
 
 }
-

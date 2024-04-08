@@ -3,7 +3,6 @@ server:
 
 # Oracle Connect
 spring:
-
       
   # File Size
   servlet:
@@ -13,8 +12,8 @@ spring:
 
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@172.30.1.7:1521/xe
-    #url: jdbc:oracle:thin:@localhost:1521/xe
+    #url: jdbc:oracle:thin:@172.30.1.7:1521/xe
+    url: jdbc:oracle:thin:@localhost:1521/xe
     username: SMInventory
     password: tiger
 
@@ -33,7 +32,12 @@ spring:
   mvc:
     view:
       prefix: /WEB-INF/views/
-      suffix: .jsp    
+      suffix: .jsp
+  thymeleaf:
+    cache: false
+    suffix: .html
+    prefix: classpath:/templates/
+    view-names: thymeleaf/*          
 
   # gmail Transfer
   mail:

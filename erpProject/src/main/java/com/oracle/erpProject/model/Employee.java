@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class Employee {
 	
-	private int emp_no;
-	private int emp_dept_comm;
+	private int emp_no; // PK
+	private int dept_no; // FK
 	private int emp_job_comm;
 	private int emp_job_name;
 	private String emp_name;
@@ -25,10 +25,5 @@ public class Employee {
 	private String emp_role;
 	private String emp_enabled;
 	private Date emp_wdate;
-	
-	// 0328 현승추가
-	private String dept_name;
-	
-
 
 }

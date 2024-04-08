@@ -125,7 +125,7 @@ public class MkController {
 		  public String productC() {
 		  System.out.println("MK Controller productC start");
 		 
-		return "mk/productC";
+		  return "mk/productC";
 	}
 		  
 	// 제품 등록 
@@ -194,6 +194,7 @@ public class MkController {
 		// 제품 수정 로직 
 		
 		@PostMapping("updateProduct")
+	//	public String updateProduct(@ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
 		public String updateProduct(@ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
 	
 				System.out.println("MK_Controller UpdateProductProduct start...");

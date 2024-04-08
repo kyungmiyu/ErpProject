@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -30,7 +31,7 @@
 
 
 		<button type="button" class="btn btn-primary" id="buyCancle">구매 취소</button>
-		<div class="buyStatusBox">구매 진행중</div>
+		<div class="buyStatusBox" id="buyStatusBox">${buyingDetail.buy_status_detail}</div>
 	 
 	 	<div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">제목</label>
@@ -47,19 +48,20 @@
 		</div>
 
 		<div class="colNote">비고</div>
-			  <textarea type="text"  class="colNoteBox" disabled="disabled">${buyingDetail.buy_note}</textarea>
+			 <textarea class="colNoteBox"  id="colNoteBox" disabled="disabled">${buyingDetail.buy_note}</textarea>
 			  
 			  <div>
-				  	 <input type="hidden" id="cust_no" value="${buying.cust_no}">
-			  		 <input type="hidden" id="buy_date" value="${buying.buy_date}">
-			  
+				  	 <input type="hidden" id="cust_no" value="${buyingDetail.cust_no}">
+			  		 <input type="hidden" id="buy_date" value="${buyingDetail.buy_date}">
+
 			  </div>
+			
 			<div class="buyItemSelectBox">
                 <p>제품</p>
                 <select class="form-control" name="choices-button" id="buyingItemSelect">
                     <option value="item 1" selected="">제품 선택</option>
                     <c:forEach items="${productList}" var="productList">
-                    	<option  id="buyOption" value="${productList.p_itemcode}">${productList.p_name}</option>
+						<option value="${productList.p_itemcode}" data-buyprice="${productList.p_buyprice}">${productList.p_name}</option>     
                     </c:forEach>                  
                   </select>
                   
@@ -69,7 +71,7 @@
              </div>
 		  
 			 <div class="form-group" id="buyListItemsContainer">
-		    <div class="custom-select" id="buyListItems">
+		   		 <div class="custom-select" id="buyListItems">
 		        <ul class="buyList">
 		            <li class="buyListTitle">
 		                <div>제품명</div>
@@ -79,11 +81,14 @@
 		            </li>
             <c:forEach var="productDetail" items="${productDetail}">
                 <li class="buyListItem">
-                    <div>${productDetail.p_name}</div>
-                    <div>${productDetail.bd_price}</div>
-                    <div>${productDetail.bd_cnt}</div>
-                    <div>${productDetail.totalMoney}</div>
-                    <button type="button" class="btn btn-primary" id="pDeleteBtn"> 삭제</button>
+                 	<input type="hidden" id=p_buyprice value="${productDetail.p_buyprice}">
+                	<input type="hidden" class ="p_itemcode" value="${productDetail.p_itemcode}">
+                    <input value="${productDetail.p_name}" disabled="disabled">
+                    <input value="${productDetail.bd_price}" disabled="disabled">
+                    <input class="bdCnt" value="${productDetail.bd_cnt}" disabled="disabled">
+                    <input value="${productDetail.totalMoney}" disabled="disabled">
+                    <button type="button" class="btn btn-primary pModifyBtn" id="pModifyBtn"> 수정</button>
+                    <button type="button" class="btn btn-primary pDeleteBtn" id="pDeleteBtn"> 삭제</button>
                 </li>
             </c:forEach>
         </ul>
