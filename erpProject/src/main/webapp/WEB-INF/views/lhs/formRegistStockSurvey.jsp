@@ -265,7 +265,7 @@ $(document).ready(function () {
                 //window.location.href = "/lhsListRnPCondBuy?emp_no=" + ${empData.emp_no};
             },
             error: function (xhr, status, error) {
-                console.error("Error occurred:", error);
+                console.log("실사재고조사 등록 실패");
             }
         });
     });
