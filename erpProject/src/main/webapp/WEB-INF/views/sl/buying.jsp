@@ -46,10 +46,11 @@
 			     <button class="btn btn-primary" id ="searchBtn"  type="submit">검색</button>
 			  </form>
 			  <select class="form-control" id="optionBox" name="choices-button" id="choices-button">
-				  <option value="Choice 1" selected="">진행 상태</option>
-				  <option value="Choice 2">구매 진행중</option>
-				  <option value="Choice 3">구매 취소</option>
-				  <option value="Choice 4">구매 완료</option>
+				  <option value="" selected="">진행 상태</option>
+				  <option value="0">구매 진행중</option>
+				  <option value="1">구매 취소</option>
+				  <option value="2">구매 완료</option>
+				    <option value="5">수불 완료</option>
 				</select>
 			  
 			  </div>
@@ -76,7 +77,7 @@
 		      <td><a href="buyDetail?cust_no=${buyAlllist.cust_no}&&buy_date=${buyAlllist.buy_date}">${buyAlllist.buy_title}</a></td>
 		      <td>${buyAlllist.cust_name}</td>
 		      <td>${buyAlllist.buy_date}</td>
-		      <td>${buyAlllist.managerName}</td>
+		      <td>${buyAlllist.buy_manager}</td>
 		      <td>${buyAlllist.productCnt}</td>
 		      <td>${buyAlllist.totalCnt}</td>
 		      <td>${buyAlllist.totalMoney}</td>
@@ -91,7 +92,7 @@
 								<li class="page-item"><a class="page-link" href="#">◁</a></li>
 								</c:if>
 								<c:forEach var="i" begin="${buypage.startPage}" end="${buypage.endPage}">
-								<li class="page-item"><a class="page-link" href="#">${i}</a></li>
+								<li class="page-item"><a class="page-link" href="buying?currentPage=${i}">${i}</a></li>
 								</c:forEach>
 								<c:if test="${buypage.startPage < buypage.pageBlock}">
 								<li class="page-item"><a class="page-link" href="#">▷</a></li>

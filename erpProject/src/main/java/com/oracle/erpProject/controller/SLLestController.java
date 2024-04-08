@@ -2,19 +2,21 @@ package com.oracle.erpProject.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
 import com.oracle.erpProject.service.slservice.SL_Service_Interface;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -105,32 +107,53 @@ public class SLLestController {
 	public List<SLBuying> getManagerList(SLBuying buying) {
 		List<SLBuying> getManagerList = slService.getManagerList(buying);
 		
+		System.out.println("SLLestController getManagerList>>>>>>>>>" + getManagerList.size());
+		
 		return getManagerList;
 	}
 
 	
-	@Transactional
+	/*
+	 * @GetMapping("/checkBuyData") public SLBuying
+	 * checkBuyData(@RequestParam("cust_no") int custNo) {
+	 * 
+	 * SLBuying buying = new SLBuying();
+	 * 
+	 * LocalDate today = LocalDate.now(); 
+	 * String formattedDate =today.format(DateTimeFormatter.BASIC_ISO_DATE);
+	 * buying.setBuy_date(formattedDate); buying.setCust_no(custNo);
+	 * 
+	 * 
+	 * SLBuying checkBuyData = slService.checkBuyData(buying);
+	 * System.out.println("SLLestController checkBuyData *********" + checkBuyData);
+	 * 
+	 * return checkBuyData; }
+	 */
+	
+	
+	
 	@PostMapping("/buyingApplyWrite")
-	public String buyingApplyWrite(@RequestBody SLBuying buying, Model model) {
+	public String buyingApplyWrite(@RequestBody SLBuying buying) {
 	    
-	    LocalDate today = LocalDate.now();
-	    String formattedDate = today.format(DateTimeFormatter.BASIC_ISO_DATE);
-	    buying.setBuy_date(formattedDate);
+		System.out.println("SLLestController buyingApplyWrite Start >>>>>");
+
+		
+		 System.out.println("SLLestController buyingApplyWrite SLBuing >>>>>" +buying);
+		 
+
+	    int result = slService.buyingApplyWrite(buying);
 	    
-	    // 로그 확인
-	    System.out.println("buyingApplyWrite buying *********" + buying);
-	    
-	  
-	    int buyingApplyWrite = slService.buyingApplyWrite(buying);
-	    
-//	    List<SLBuying> productList = buying.getProductList();
-//	    System.out.println("buyingApplyWrite productList *********" + productList);
-//	    
-//	    int buyingApplyAddDetail = slService.buyingApplyAddDetail(buying);
-//	    
-	    
-	    return "sl/buying";    
+	    if (result > 0) {
+	        return "redirect:/buying";
+	    } else {
+	        return "error";
+	    }
 	}
+	
+	   
+ 
+ 
+    
 	
 
 }

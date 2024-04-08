@@ -18,6 +18,8 @@ public interface SL_Dao_Interface {
 	// 날짜 검색 리스트 
 	List<SLBuying> dateSearchAllList(SLBuying buying);
 
+	// 구매 상태 검색 
+	int statusSearchtotCnt(SLBuying buying);
 	
 	// 구매 상세 페이지
 	SLBuying buyingDetail(SLBuying buying);
@@ -44,9 +46,15 @@ public interface SL_Dao_Interface {
 	SLBuying customerSearch(SLBuying buying);
 
 	int buyingApplyWrite(SLBuying buying);
-
+	
 	List<SLBuying> getManagerList(SLBuying buying);
 
-	int buyingApplyAddDetail(SLBuying buying);
+	SLBuying checkBuyData(SLBuying buying);
+
+	List<SLBuying> StatusSearchAllList(SLBuying buying);
+
+
+
+
 
 }

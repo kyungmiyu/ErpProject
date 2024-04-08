@@ -29,8 +29,12 @@
 
 
 
-
-		<button type="button" class="btn btn-primary" id="buyCancle">구매 취소</button>
+		<select class="form-control" id="buyStatusSelect">
+			<option value="0" selected="">진행 상태</option>
+		    <option value="1">구매 취소</option>
+		    <option value="2">구매 완료</option>
+		</select>
+		
 		<div class="buyStatusBox" id="buyStatusBox">${buyingDetail.buy_status_detail}</div>
 	 
 	 	<div class="form-group" id="titleBox1">
@@ -41,7 +45,7 @@
 		  </div>
 		  <div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">구매 담당자</label>
-		    <div class="form-control" id="detailTitle">${buyingDetail.managerName}</div>
+		    <div class="form-control" id="detailTitle">${buyingDetail.buy_manager}</div>
 		  	<label for="detailManager" id="detailManagerLabel">거래처 담당자</label>
 		    <div  class="form-control" id="detailManager" >${buyingDetail.emp_name}</div>
 		  </div>

@@ -34,14 +34,12 @@ public class SLController {
 		System.out.println("SlController buying Start >>>>>>");
 		int totalbuyingCnt = slService.totalbuyingCnt();
 		
-		
-		
-		
 		// paging 처리
 		buyingPaging buypage = new buyingPaging(totalbuyingCnt, buying.getCurrentPage());
-		buying.setStart(buying.getStart());
-		buying.setEnd(buying.getEnd());
-		
+		buying.setStart(buypage.getStart());
+		buying.setEnd(buypage.getEnd());
+	
+		System.out.println("buyingPaging >>>>>>>" + buying);
 		
 		List<SLBuying> buyAlllist = slService.buyAlllist(buying);
 		System.out.println("SlController buying buyAlllist@@@@ >>>>" + buyAlllist);
@@ -62,6 +60,7 @@ public class SLController {
 	    System.out.println("buy_date : " + buy_date);
 	    
 	    buying.setBuy_date(buy_date);
+	   
 	    
 	    int dateSearchtotCnt = slService.dateSearchtotCnt(buying);
 	    System.out.println("dateSearchtotCnt>>>>>>>" + dateSearchtotCnt);
@@ -77,6 +76,7 @@ public class SLController {
  		buying.setEnd(buying.getEnd());
  		
  		
+ 		/*
  		// 목적 : 날짜 String --> Date형 String 로 변환하기 위해서
  	    // 포맷터        
  		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");        
@@ -90,10 +90,38 @@ public class SLController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    System.out.println("buying.getBuy_date()->" + buying.getBuy_date());
+	    */
 		
 		model.addAttribute("buyAlllist",buyAlllist);
 		model.addAttribute("dateSearchtotCnt",dateSearchtotCnt);	
+		model.addAttribute("buypage",buypage);
+	    
+
+	    return "sl/buying";
+	}
+	
+	@GetMapping("/selectedSearch")
+	public String selectedStatus(@RequestParam("buy_status") String buy_status, SLBuying buying, Model model) {	    
+
+	    buying.setBuy_date(buy_status);
+	    
+	    int statusSearchtotCnt = slService.statusSearchtotCnt(buying);
+	    System.out.println("dateSearchtotCnt>>>>>>>" + statusSearchtotCnt);
+	 
+	    // 검색 결과를 가져옴
+	    List<SLBuying> buyAlllist = slService.StatusSearchAllList(buying);
+	    System.out.println("selectedDate buyAlllist->" + buyAlllist);
+	    System.out.println("selectedDate buyAlllist.size->" + buyAlllist.size());
+	    
+	 // paging 처리
+ 		buyingPaging buypage = new buyingPaging(statusSearchtotCnt, buying.getCurrentPage());
+ 		buying.setStart(buying.getStart());
+ 		buying.setEnd(buying.getEnd());
+ 		
+ 		
+		
+		model.addAttribute("buyAlllist",buyAlllist);
+		model.addAttribute("dateSearchtotCnt",statusSearchtotCnt);	
 		model.addAttribute("buypage",buypage);
 	    
 

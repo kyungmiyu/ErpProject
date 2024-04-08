@@ -46,11 +46,17 @@ public interface SL_Service_Interface {
 
 	SLBuying customerSearch(SLBuying buying);
 	
+	List<SLBuying> getManagerList(SLBuying buying);
+
+	SLBuying checkBuyData(SLBuying buying);
+
 	int buyingApplyWrite(SLBuying buying);
 
-	int buyingApplyAddDetail(SLBuying buying);
+	int statusSearchtotCnt(SLBuying buying);
 
-	List<SLBuying> getManagerList(SLBuying buying);
+	List<SLBuying> StatusSearchAllList(SLBuying buying);
+
+	
 
 
 

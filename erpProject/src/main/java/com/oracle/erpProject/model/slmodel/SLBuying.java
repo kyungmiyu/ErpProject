@@ -41,7 +41,7 @@ public class SLBuying {
 	private String buyProduct; // 구매 제품
 	private String keyword; // 거래처 검색 키워드
 	
-	private List<SLBuying> productList;
+	private List<SLBuying_detail> productList;
 	
 	
 	// 페이징

@@ -53,6 +53,23 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		return dateSearchAllList;
 	}
 
+	// 구매 상태 검색 
+	@Override
+	public int statusSearchtotCnt(SLBuying buying) {
+		int statusSearchtotCnt = slDao.statusSearchtotCnt(buying);
+		
+		return statusSearchtotCnt;
+	}
+
+	// 구매 상태 검색 리스트 
+	@Override
+	public List<SLBuying> StatusSearchAllList(SLBuying buying) {
+		List<SLBuying> StatusSearchAllList = slDao.StatusSearchAllList(buying);
+		
+		return StatusSearchAllList;
+	}
+	
+	
 	// 구매 상세 페이지
 	@Override
 	public SLBuying buyingDetail(SLBuying buying) {
@@ -149,19 +166,25 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 	
 	@Override
 	public int buyingApplyWrite(SLBuying buying) {
-	    // 부모 테이블에 데이터 추가
+	   
+		System.out.println("SL_ServiceImpl buyingApplyWrite Start");
+		
 	    int buyingApplyWrite = slDao.buyingApplyWrite(buying);
 	          
 	        return buyingApplyWrite;
 	   
 	}
 	
-	
+
 	@Override
-	public int buyingApplyAddDetail(SLBuying buying) {
-		int buyingApplyAddDetail = slDao.buyingApplyAddDetail(buying);
-		return buyingApplyAddDetail;
+	public SLBuying checkBuyData(SLBuying buying) {
+		SLBuying checkBuyData = slDao.checkBuyData(buying);
+		
+		return checkBuyData;
 	}
+
+
+
 
 	
 

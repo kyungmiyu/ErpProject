@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
@@ -14,7 +17,8 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class SL_DaoImpl implements SL_Dao_Interface{
-
+	
+	private  final PlatformTransactionManager transactionManager;
 	private final SqlSession session;
 
 	@Override
@@ -61,6 +65,22 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		return dateSearchAllList;
 	}
 
+	// 구매 상태 검색 
+	@Override
+	public int statusSearchtotCnt(SLBuying buying) {
+		int statusSearchtotCnt = session.selectOne("LslstatusSearchtotCnt",buying);
+		return statusSearchtotCnt;
+	}
+	
+	@Override
+	public List<SLBuying> StatusSearchAllList(SLBuying buying) {
+		List<SLBuying> StatusSearchAllList = session.selectList("LslStatusSearchAllList", buying);
+		return StatusSearchAllList;
+	}
+
+	
+	
+	
 	@Override
 	public SLBuying buyingDetail(SLBuying buying) {
 		System.out.println("SL_DaoImpl buyingDetail Start ->>>>>>");
@@ -160,20 +180,50 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	@Override
 	public int buyingApplyWrite(SLBuying buying) {
 		
-		System.out.println("buyingApplyWrite SLBuying >>>>>>" + buying);
+		System.out.println("SL_DaoImpl buyingApplyWrite Start>>>>>>");
 		
-		int buyingApplyWrite = session.insert("LslbuyingApplyWrite", buying);
+		int result = 0;
 		
-		return buyingApplyWrite;
+		
+		System.out.println("DAO    buyingApplyWrite SLBuying >>>>>>" + buying);
+		List<SLBuying_detail> productList = buying.getProductList();
+		
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		
+		try {
+			result = session.insert("LslbuyingApplyWrite", buying);
+			for(SLBuying_detail  sLBuying_detail :  productList ) {
+				System.out.println("DAO sLBuying_detail->"+sLBuying_detail);
+				result = session.insert("LslbuyingApplyProductList", sLBuying_detail);
+			}
+		
+
+			 transactionManager.commit(txStatus);
+			 
+		
+		} catch (Exception e) {
+			System.out.println("EmpDaoImpl totalEmp Exception->"+e.getMessage());
+			transactionManager.rollback(txStatus);
+		}
+		
+		
+		
+		return result;
 	}
 	
 
-	@Override
-	public int buyingApplyAddDetail(SLBuying buying) {
-		int buyingApplyAddDetail = session.insert("LslbuyingApplyAddDetail", buying);
-		return buyingApplyAddDetail;
-	}
 	
+	
+	
+	@Override
+	public SLBuying checkBuyData(SLBuying buying) {
+		SLBuying checkBuyData = session.selectOne("LslcheckBuyData", buying);
+		
+		return checkBuyData;
+	}
+
+
+
 	
 	
 }
