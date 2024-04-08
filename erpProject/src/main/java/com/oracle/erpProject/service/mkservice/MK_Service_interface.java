@@ -28,27 +28,27 @@ public interface MK_Service_interface {
 
 	mkFactory factoryDetail(mkFactory factory);
 
-	int insertFactory(mkFactory factory);
-
-	int searchedFactoryTotal(mkFactory factory);
-
-	List<mkFactory> listSearchFactory(mkFactory factory);
-
-	int UpdateFactory(mkFactory factory);
-
-	int totalCustomer(mkCustomer customer);
-
-	List<mkCustomer> listCustomer(mkCustomer customer);
-
-	mkCustomer getCustomerDetail(mkCustomer customer);
-
-	int searchedCustomerTotal(mkCustomer customer);
-
-	List<mkCustomer> listSearchCustomer(mkCustomer customer);
-
 	int UpdateCustomer(mkCustomer customer);
 
 	int insertCustomer(mkCustomer customer);
+
+	List<mkCustomer> listCustomer(mkCustomer customer);
+
+	int totalCustomer(mkCustomer customer);
+
+	List<mkCustomer> listSearchCustomer(mkCustomer customer);
+
+	int searchedCustomerTotal(mkCustomer customer);
+
+	mkCustomer getCustomerDetail(mkCustomer customer);
+
+	int UpdateFactory(mkFactory factory);
+
+	List<mkFactory> listSearchFactory(mkFactory factory);
+
+	int searchedFactoryTotal(mkFactory factory);
+
+	int insertFactory(mkFactory factory);
 
 //	void saveProductImagePath(mkProduct product);
 

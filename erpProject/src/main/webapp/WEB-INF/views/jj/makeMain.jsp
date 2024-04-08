@@ -12,19 +12,22 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+	function jjmakeSearchFn(pPage)  {
+	 	var keyword =   $("#keyword").val();
+		var sendData = 'currentPage='+pPage;
+		sendData = sendData + '&keyword='+keyword;
+	    /* alert("sendData->"+sendData);  */
+	    
+	    location.href="jjmakeSearch?"+sendData;
+	}
+	
 
+</script>
 <head>
 <%@ include file="../configHead.jsp"%>
 
 <style type="text/css">
-td {
-  transition: background-color 0.3s ease; /* 0.3초 동안 부드럽게 변경 */
-}
-
-td:hover {
-  background-color: rgba(0, 0, 0, 0.075);
-}
-
 </style>
 
 </head>
@@ -38,13 +41,13 @@ td:hover {
     
 		 <!-- ****** 공통 : 테이블 시작 ****** -->
 	 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
-		<div>
-			<h1>생산게시판</h1>
-		</div>
-		
+	 	 		
 		<!-- 생산 리스트 게시판 -->
-		<div class="card">
+		<div class="card col-12 w-100 p-5 float-end">
 		  <div class="table-responsive">
+	  		<div class="form-group">
+				<h2>생산게시판</h2>
+			</div>
 		    <table class="table align-items-center mb-0 table-hover">
 		      <thead>
 		        <tr>
@@ -59,12 +62,12 @@ td:hover {
 		      </thead>
 		      <tbody>
 			      <c:forEach var="jj_Make_detail" items="${makeList}">
-			        <tr>
+			        <tr onclick="window.location='makeDetail?m_num=${jj_Make_detail.m_num}'">
 			          <td class="text-center">
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_num}</h6> <!-- 작업순번 -->
 			          </td>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_num}</h6> <!-- 작업지시번호 -->
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_num}</a></h6> <!-- 작업지시번호 -->
 			          </td>
 			          <td class="text-center">
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_status}</h6> <!-- 작업상태 -->
@@ -76,44 +79,62 @@ td:hover {
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_worker}</h6> <!-- 작업자 -->
 			          </td>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs"><fmt:formatDate value="${jj_Make_detail.md_date}" pattern="yyyy-MM-dd"/></h6> <!-- 작업지시일자 -->
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_date}</h6> <!-- 작업지시일자 -->
 			          </td>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs"><fmt:formatDate value="${jj_Make_detail.md_work_date}" pattern="yyyy-MM-dd"/></h6> <!-- 작업완료일자 -->
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_work_date}</h6> <!-- 작업완료일자 -->
 			          </td>
 			        </tr>
 				  </c:forEach>
 		      </tbody>
 		    </table>
 		  </div>
-		</div>
-		 	 	
-		
+		  
 		<!-- 페이징 -->
 		<nav aria-label="Page navigation example" class="mt-3 mb-3">
 		  <ul class="pagination justify-content-center">
 		    <li class="page-item disabled">
-		      <a class="page-link" href="javascript:;" tabindex="-1">
+		      <a class="page-link" href="jjmakeSearch?currentPage=${page.startPage-page.pageBlock}" tabindex="-1">
 		        <i class="fa fa-angle-left"></i>
-		        <span class="sr-only">Previous</span>
+		        <span class="sr-only">이전</span>
 		      </a>
 		    </li>
-		    <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
-		    <li class="page-item active"><a class="page-link" href="javascript:;">2</a></li>
-		    <li class="page-item"><a class="page-link" href="javascript:;">3</a></li>
+    		<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+            <li class="page-item"><a class="page-link" href="#" onclick="jjmakeSearchFn(${i})">${i}</a></li>
+            <%-- <li class="page-item"><button onclick="jjmakeSearchFn(${i})"></button></li> --%>
+            
+ 			</c:forEach>
 		    <li class="page-item">
-		      <a class="page-link" href="javascript:;">
+		      <a class="page-link" href="jjmakeSearch?currentPage=${page.startPage+page.pageBlock}">
 		        <i class="fa fa-angle-right"></i>
-		        <span class="sr-only">Next</span>
+		        <span class="sr-only">다음</span>
 		      </a>
 		    </li>
 		  </ul>
 		</nav>
 		
+		<!-- 검색 -->
+        <div class="col-auto text-center">
+		  <div class="bg-white border-radius-lg d-inline-flex me-2">
+		    <form class="d-flex align-items-center" role="search" action="jjmakeSearch" method="get">
+		      <input class="form-control border-0 me-1 px-4" type="search" 
+		              id="keyword" name="keyword" value="${md.keyword}" 
+		             placeholder="검색어를 입력하세요" aria-label="Search" style="width: 500px;">
+		      <button class="btn bg-gradient-primary my-1 me-1" type="submit">검색</button>
+		    </form>
+		  </div>
+		</div>
+		
 		<!-- 생산 등록 버튼 -->
 		<div class="d-flex justify-content-end">
 			<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeFormRequest'">생산 요청</button>
 		</div>
+		  
+		  
+		</div>
+		 	 	
+		
+		
 
    
     <!-- ****** 공통 : 테이블 끝 ****** -->

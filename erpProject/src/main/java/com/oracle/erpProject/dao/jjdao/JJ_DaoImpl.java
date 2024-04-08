@@ -57,6 +57,7 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		return requestMakeList;
 	}
 
+	// 생산게시판 생산 요청 기능
 	@Override
 	public int makeRequest(JJ_Make_detail md) {
 		int makeRequest = 0;
@@ -68,5 +69,63 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 			e.printStackTrace();
 		}
 		return makeRequest;
+	}
+
+	// 생산 상세 페이지
+	@Override
+	public JJ_Make_detail jjmakeDetail(int m_num) {
+		System.out.println("JJ_DaoImpl's jjmakeDetail Go!");
+		JJ_Make_detail jjmakeDetail = new JJ_Make_detail();
+		try {
+			jjmakeDetail = session.selectOne("jjmakeDetail", m_num);
+			System.out.println("JJ_DaoImpl's jjmakeDetail -> " + jjmakeDetail);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return jjmakeDetail;
+	}
+
+	// 검색어 카운트 기능
+	@Override
+	public int makeSearchCnt(JJ_Make_detail md) {
+		int makeSearchCnt = 0;
+		System.out.println("JJ_DaoImpl's makeSearchCnt md->"+md);
+		if(md.getKeyword()==null) md.setKeyword("%");
+		try {
+			makeSearchCnt = session.selectOne("makeSearchCnt", md);
+			System.out.println("JJ_DaoImpl's makeSearchCnt ->" + makeSearchCnt);
+		} catch(Exception e) {
+			System.out.println("JJ_DaoImpl's makeSearchCnt Exception -> "+ e.getMessage());
+		}
+		return makeSearchCnt;
+	}
+
+	// 검색어 리스트 기능
+	@Override
+	public List<JJ_Make_detail> makeSearchList(JJ_Make_detail md) {
+		List<JJ_Make_detail> makeSearchList = null;
+		System.out.println("JJ_DaoImpl's makeSearchList Go!");
+		try {
+			makeSearchList = session.selectList("makeSearchList", md);
+			System.out.println("JJ_DaoImpl's makeSearchList -> " + makeSearchList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return makeSearchList;
+	}
+
+	// 생산 삭제 기능
+	@Override
+	public int jjmakeDelete(int m_num) {
+		System.out.println("JJ_DaoImpl's jjmakeDelete Go!");
+		int jjmakeDelete = 0;
+		System.out.println("JJ_DaoImpl's jjmakeDelete m_num ->" + m_num);
+		try {
+			jjmakeDelete = session.delete("jjmakeDelete", m_num);
+			System.out.println("JJ_DaoImpl's jjmakeDelete -> " + jjmakeDelete);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jjmakeDelete;
 	}
 }

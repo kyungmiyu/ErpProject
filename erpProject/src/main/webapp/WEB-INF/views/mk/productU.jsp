@@ -301,7 +301,8 @@ function previewImage(input) {
 			
 						<!-- img-->
 								<!-- 이미지 업로드 필드 -->
-						<form action="updateProduct" method="post" name="product" enctype="multipart/form-data">
+				<form action="updateProduct" method="post" name="product" enctype="multipart/form-data"> 
+						<!-- <form action="updateProduct33" method="post" > -->
 						  
 							<div class="form-group">
 							   <label for="uploadFile">이미지 업로드</label>
