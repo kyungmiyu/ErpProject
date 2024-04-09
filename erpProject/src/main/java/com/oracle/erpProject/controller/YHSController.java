@@ -47,16 +47,15 @@ public class YHSController {
 		public String boardContents(HttpServletRequest request, Model model, YhsBoard board) {
 			int b_no = Integer.parseInt(request.getParameter("b_no"));
 			
-			System.out.println("boardFreeContents cboard_no : " + b_no);
+			System.out.println("boardContents b_no : " + b_no);
 			YhsBoard boardContents = yhs_Service_Interface.boardContents(b_no);
-			System.out.println("LslController replyBoardFreeList Start..");
+			System.out.println("YHSController boardContents Start..");
 
-			// 자유게시판 조회수
+			// 게시판 조회수
 			int boardViewCnt = yhs_Service_Interface.boardViewCnt(board);
 
-			// 자유 게시판 댓글수
+			// 게시판 댓글수
 			int boardReplyCnt = yhs_Service_Interface.boardReplyCnt(b_no);
-			
 			// 파일 첨부 된 글
 //			List<YhsBoard> boardFile = yhs_Service_Interface.boardFile(b_no);
 			
@@ -71,16 +70,30 @@ public class YHSController {
 	
 //	게시판 글쓰기	
 	@GetMapping(value = "boardForm")
-	public String askForm(HttpServletRequest request, Model model) {
+	public String boardForm(HttpServletRequest request, Model model) {
 		System.out.println("BoardController Start boardForm...");
 		
 		String bregdate = request.getParameter("b_regdate");
 	 // 세션에서 보내는 사람의 아이디 가져오기
-        Long empNo = (Long) request.getSession().getAttribute("user_no");
+        Long empNo = (Long) request.getSession().getAttribute("emp_no");
         
      // 모델에 데이터 추가 (세션ID, 유저리스트)
         model.addAttribute("empNo", empNo);
 
-		return "yhs/askForm";
+		return "Yhs/boardForm";
 	}
+//	
+//	@GetMapping(value = "askForm")
+//	public String askForm(HttpServletRequest request, Model model) {
+//		System.out.println("AskController Start askForm...");
+//		
+//		String adminStart = request.getParameter("admin_start");
+//	 // 세션에서 보내는 사람의 아이디 가져오기
+//        Long userNo = (Long) request.getSession().getAttribute("user_no");
+//        
+//     // 모델에 데이터 추가 (세션ID, 유저리스트)
+//        model.addAttribute("userNo", userNo);
+//
+//		return "yhs/askForm";
+//	}
 }

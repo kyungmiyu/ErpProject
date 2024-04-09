@@ -87,7 +87,13 @@
 					        </c:if>
 					    </ul>
 					</nav>
-					
+					<div class="d-flex justify-content-end">
+			                  <a href="boardForm">
+			                    <button type="button" class="btn-msg-primary">
+			                      글작성
+			                    </button>
+			                  </a>
+			                </div>
               </div>
             </div>
             

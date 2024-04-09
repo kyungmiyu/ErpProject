@@ -51,14 +51,16 @@ public class Yhs_ServiceImpl implements Yhs_Service_Interface{
 	// 자유 게시판 리스트 조회수 
 	@Override
 	public int boardViewCnt(YhsBoard board) {
-		int boardFreeViewCnt = yhs_Dao_Interface.boardViewCnt(board);
-		return boardFreeViewCnt;
+		int boardViewCnt = yhs_Dao_Interface.boardViewCnt(board);
+		return boardViewCnt;
 	}
 
 	@Override
 	public YhsBoard boardContents(int b_no) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Yhs_ServiceImpl boardContents Start...");
+		YhsBoard boardContents = yhs_Dao_Interface.boardContents(b_no);
+		System.out.println("Yhs_ServiceImpl boardContents -> " + boardContents);
+		return boardContents;
 	}
 
 	@Override

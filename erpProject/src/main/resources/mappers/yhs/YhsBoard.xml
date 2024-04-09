@@ -10,5 +10,20 @@
    
 	select * from board		
    </select>
+   
+<select id="yhsboardContents" parameterType="int"
+	resultType="YhsBoard">
+	SELECT board.*, e.emp_no
+	FROM board
+	INNER JOIN employee e
+	ON board.EMP_NO = e.EMP_NO
+	WHERE BOARD.B_NO = #{b_no}
+	</select>
+   
+   	<update id="yhsboardViewCnt" parameterType="YhsBoard">
+		update board
+		set b_hit = b_hit+1 where
+		b_no=#{b_no}
+	</update>
 
 </mapper>
