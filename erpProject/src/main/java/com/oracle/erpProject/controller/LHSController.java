@@ -293,31 +293,31 @@ public class LHSController {
 		stock.setSt_year_month_day(formattedDate);
 		stock.setSt_year_month(formattedDate.substring(0, formattedDate.length() - 2));
 		
-		// 1. 오늘 수불마감 여부 체크 (선택한날짜 x)
-		int checkStatus = lhs.checkStatusRnPClosing(stock);
-		System.out.println("checkStatusRnPClosing checkStatus->" + checkStatus);
-		
-		if (checkStatus == 0) {
-			System.out.println("수불마감 먼저해");
-		} else if (checkStatus == 1) {
-			
-			// 2. 재고조사 데이터가 이미 있는지 체크
-			// 2. if select StockSurvey = null -> insertStockSurvey 
-			//    else if select StockSurvey != null -> updateStockSurvey
-
-			Stock_survey checkStockSurvey = lhs.checkExistenceStockSurvey(stock);
-			System.out.println("checkExistenceStockSurvey checkStockSurvey-> " + checkStockSurvey);
-			
-			// 넣는 값 일일이 넣기
-			if (checkStockSurvey == null) {
-				int registResult = lhs.registStockSurvey(listSurvey);
-				System.out.println("registStockSurvey registResult-> " + registResult);
-			}
-			else if (checkStockSurvey != null) {
-				int updateResult = lhs.updateStockSurvey(listSurvey);
-			}
-			
-		}
+//		// 1. 오늘 수불마감 여부 체크 (선택한날짜 x)
+//		int checkStatus = lhs.checkStatusRnPClosing(stock);
+//		System.out.println("checkStatusRnPClosing checkStatus->" + checkStatus);
+//		
+//		if (checkStatus == 0) {
+//			System.out.println("수불마감 먼저해");
+//		} else if (checkStatus == 1) {
+//			
+//			// 2. 재고조사 데이터가 이미 있는지 체크
+//			// 2. if select StockSurvey = null -> insertStockSurvey 
+//			//    else if select StockSurvey != null -> updateStockSurvey
+//
+//			Stock_survey checkStockSurvey = lhs.checkExistenceStockSurvey(stock);
+//			System.out.println("checkExistenceStockSurvey checkStockSurvey-> " + checkStockSurvey);
+//			
+//			// 넣는 값 일일이 넣기
+//			if (checkStockSurvey == null) {
+//				int registResult = lhs.registStockSurvey(listSurvey);
+//				System.out.println("registStockSurvey registResult-> " + registResult);
+//			}
+//			else if (checkStockSurvey != null) {
+//				int updateResult = lhs.updateStockSurvey(listSurvey);
+//			}
+//			
+//		}
 		
 		
 		
@@ -585,6 +585,12 @@ public class LHSController {
 	// 일일마감 버튼
 	@RequestMapping(value = "lhsDailyClosing")
 	public String lhsDailyClosing() {
+		
+		
+		System.out.println("lhsController lhsDailyClosing start...");
+		
+		
+		
 
 		/*
 		 * lhs.dailyClosing (프로시져 패키지 실행) -> 1. 구매, 판매, 생산 status update (일반완료 -> 수불완료)
