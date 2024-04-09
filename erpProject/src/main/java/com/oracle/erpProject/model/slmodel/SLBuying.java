@@ -21,8 +21,8 @@ public class SLBuying {
 	
 
 	// 조회용 수불 마감
-	private String d_year_month;	// 년월일
-	private int d_cubun;					// 수불마감구분
+	private String rnpc_year_month_day;	// 년월일
+	private int rnpc_gubun;					// 수불마감구분
 	
 	// 조회용
 	private String buy_status_detail; //  구매 상태 이름 

@@ -23,25 +23,17 @@
 	
 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 	 <div class="buyDetail">
-	 <label class="buyDetailLabel">구매 상세</label>
+	 <label class="buyDetailLabel">판매 상세</label>
 	 
 	 <div class="titleBox">
 
 
-		<c:if test="${buyingDetail.buy_status_detail eq '구매 진행중'}">
-		    <select class="form-control" id="buyStatusSelect">
-		        <option value="0" selected="">진행 상태</option>
-		        <option value="1">구매 취소</option>
-		        <option value="2">구매 완료</option>
-		    </select>
-		</c:if>
-		<c:if test="${buyingDetail.buy_status_detail ne '구매 진행중'}">
-		    <select class="form-control" id="buyStatusSelect" disabled>
-		        <option value="0" selected="">진행 상태</option>
-		        <option value="1">구매 취소</option>
-		        <option value="2">구매 완료</option>
-		    </select>
-		</c:if>
+
+		<select class="form-control" id="buyStatusSelect">
+			<option value="0" selected="">진행 상태</option>
+		    <option value="2">생산 작업 요청</option>
+		    <option value="4">판매 완료</option>
+		</select>
 		
 		<div class="buyStatusBox" id="buyStatusBox">${buyingDetail.buy_status_detail}</div>
 	 
@@ -52,7 +44,7 @@
 		    <div  class="form-control" id="detailManager" >${buyingDetail.cust_name}</div>
 		  </div>
 		  <div class="form-group" id="titleBox1">
-		    <label for="detailTitle" id="detailTitleLabel">구매 담당자</label>
+		    <label for="detailTitle" id="detailTitleLabel">판매 담당자</label>
 		    <div class="form-control" id="detailTitle">${buyingDetail.buy_manager}</div>
 		  	<label for="detailManager" id="detailManagerLabel">거래처 담당자</label>
 		    <div  class="form-control" id="detailManager" >${buyingDetail.emp_name}</div>
@@ -91,27 +83,24 @@
 		                <div>제품 수량</div>
 		                <div>총 금액</div>
 		            </li>
-	            <c:forEach var="productDetail" items="${productDetail}">
-	                <li class="buyListItem">
-	                 	<input type="hidden" id=p_buyprice value="${productDetail.p_buyprice}">
-	                	<input type="hidden" class ="p_itemcode" value="${productDetail.p_itemcode}">
-	                    <input value="${productDetail.p_name}" disabled="disabled">
-	                    <input value="${productDetail.bd_price}" disabled="disabled">
-	                    <input class="bdCnt" value="${productDetail.bd_cnt}" disabled="disabled">
-	                    <input value="${productDetail.totalMoney}" disabled="disabled">
-	                    <button type="button" class="btn btn-primary pModifyBtn" id="pModifyBtn"> 수정</button>
-	                    <button type="button" class="btn btn-primary pDeleteBtn" id="pDeleteBtn"> 삭제</button>
-	                </li>
-	            </c:forEach>
+            <c:forEach var="productDetail" items="${productDetail}">
+                <li class="buyListItem">
+                 	<input type="hidden" id=p_buyprice value="${productDetail.p_buyprice}">
+                	<input type="hidden" class ="p_itemcode" value="${productDetail.p_itemcode}">
+                    <input value="${productDetail.p_name}" disabled="disabled">
+                    <input value="${productDetail.bd_price}" disabled="disabled">
+                    <input class="bdCnt" value="${productDetail.bd_cnt}" disabled="disabled">
+                    <input value="${productDetail.totalMoney}" disabled="disabled">
+                    <button type="button" class="btn btn-primary pModifyBtn" id="pModifyBtn"> 수정</button>
+                    <button type="button" class="btn btn-primary pDeleteBtn" id="pDeleteBtn"> 삭제</button>
+                </li>
+            </c:forEach>
         </ul>
     </div>
 </div>
-	<c:choose>
-    <c:when test="${buyingDetail.buy_status_detail eq '구매 진행중'}">
-        <button type="button" class="btn btn-primary" id="buyModify">수정</button>
-        <button type="button" class="btn btn-primary" id="buyComple">완료</button>
-    </c:when>
-</c:choose>
+	
+   	<button type="button" class="btn btn-primary" id="buyModify">수정</button>
+    <button type="button" class="btn btn-primary" id="buyComple">완료</button>
     </div> 
    
     <!-- ****** 공통 : 테이블 끝 ****** -->

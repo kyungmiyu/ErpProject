@@ -5,6 +5,7 @@ import java.util.List;
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
 import com.oracle.erpProject.model.slmodel.SLProduct;
+import com.oracle.erpProject.model.slmodel.SLSale;
 
 public interface SL_Dao_Interface {
 
@@ -52,6 +53,33 @@ public interface SL_Dao_Interface {
 	SLBuying checkBuyData(SLBuying buying);
 
 	List<SLBuying> StatusSearchAllList(SLBuying buying);
+
+	int searchKeywordtotCnt(SLBuying buying);
+
+	List<SLBuying> keywordSearchAllList(SLBuying buying);
+
+	int closingStatu(SLBuying buying);
+	
+	
+	
+	/*------------------------------ 판매 --------------------------------------------*/
+	
+
+	int totalSaleCnt();
+
+	List<SLSale> saleAlllist(SLSale sale);
+
+	int saleDateSearchtotCnt(SLSale sale);
+
+	List<SLSale> saleDateSearchAllList(SLSale sale);
+
+	int saleStatusSearchtotCnt(SLSale sale);
+
+	List<SLSale> saleStatusSearchAllList(SLSale sale);
+
+	int saleSearchKeywordtotCnt(SLSale sale);
+
+	List<SLSale> saleKeywordSearchAllList(SLSale sale);
 
 
 

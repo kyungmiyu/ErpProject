@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* List */
-.buyingList {
+.saleList {
 	position:relative;
 	padding-top:150px;
 	padding-bottom:100px;
@@ -28,7 +28,7 @@
 }
 
 
-#buyProBtn {
+#saleProBtn {
 	position:absolute;
 	font-size: 0.8rem;
 	width: 100px;
@@ -49,7 +49,7 @@
 
 
 /* Title */
-.buyLabel {
+.saleLabel {
 	position:absolute;
 	top: 20px;
 	left: 20px;

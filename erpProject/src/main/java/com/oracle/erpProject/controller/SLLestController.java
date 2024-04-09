@@ -25,6 +25,22 @@ public class SLLestController {
 	
 	private final SL_Service_Interface slService;
 	
+	// 수불 마감 여부
+	@GetMapping("/closingStatus")
+	public int closingStatu(SLBuying buying) {
+		
+		LocalDate today = LocalDate.now(); 
+		String formattedDate =today.format(DateTimeFormatter.BASIC_ISO_DATE);
+		buying.setRnpc_year_month_day(formattedDate);
+		 
+		int closingStatu = slService.closingStatu(buying);
+		
+		System.out.println("수불 마감 여부 +++++++++++" + closingStatu);
+		return closingStatu;
+	}
+	
+	
+	
 	@GetMapping("/getProductList")
 	public List<SLBuying_detail>getProductList(SLBuying_detail sLBuying_detail) {
 		System.out.println("getProductList sLBuying_detail" + sLBuying_detail);
@@ -50,7 +66,7 @@ public class SLLestController {
 	
 	// 구매 상세페이지 제품 추가
 		@PostMapping("/addProduct")
-		public int buyingDetailModify( SLBuying_detail sLBuying_detail  ) { 
+		public int buyingDetailModify(SLBuying_detail sLBuying_detail  ) { 
 			
 			System.out.println("sLBuying_detail: " + sLBuying_detail);
 		

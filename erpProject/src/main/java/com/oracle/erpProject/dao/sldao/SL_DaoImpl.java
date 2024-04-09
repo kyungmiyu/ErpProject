@@ -11,6 +11,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
 import com.oracle.erpProject.model.slmodel.SLProduct;
+import com.oracle.erpProject.model.slmodel.SLSale;
 
 import lombok.RequiredArgsConstructor;
 
@@ -129,13 +130,26 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		
 		return deleteProduct;
 	}
-
+	/*
+	 * @Override public int buyingModify(SLBuying buying) { int buyingModify =
+	 * session.update("LslbuyingModify",buying);
+	 * System.out.println("buyingModify buyingModify->"+buyingModify); return
+	 * buyingModify; }
+	 */
+	
 	@Override
 	public int buyingModify(SLBuying buying) {
-		int buyingModify = session.update("LslbuyingModify",buying);
-		System.out.println("buyingModify buyingModify->"+buyingModify);
-		return buyingModify;
+		
+		System.out.println("SL_DaoImpl buyingModify Start>>>>>>");
+		
+		int result = session.update("LslbuyingModify", buying);
+			
+		
+		
+		return result;
 	}
+	
+	
 	
 	@Override
 	public int addProduct(SLBuying_detail slBuying_detail) {
@@ -217,9 +231,102 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	
 	@Override
 	public SLBuying checkBuyData(SLBuying buying) {
+		
 		SLBuying checkBuyData = session.selectOne("LslcheckBuyData", buying);
 		
+		
 		return checkBuyData;
+	}
+
+	@Override
+	public int searchKeywordtotCnt(SLBuying buying) {
+		
+		int searchKeywordtotCnt = session.selectOne("LslsearchKeywordtotCnt", buying);
+		
+		return searchKeywordtotCnt;
+	}
+
+	@Override
+	public List<SLBuying> keywordSearchAllList(SLBuying buying) {
+		
+		List<SLBuying> keywordSearchAllList = session.selectList("LslkeywordSearchAllList" , buying);
+		
+		
+		return keywordSearchAllList;
+	}
+
+	@Override
+	public int closingStatu(SLBuying buying) {
+		int closingStatu = session.selectOne("LslclosingStatu", buying);
+		return closingStatu;
+	}
+
+	
+	
+	/*------------------------------ 판매 --------------------------------------------*/
+	
+	
+	@Override
+	public int totalSaleCnt() {
+		
+		int totalSaleCnt = session.selectOne("LsltotalSaleCnt");
+		
+		return totalSaleCnt;
+	}
+
+	@Override
+	public List<SLSale> saleAlllist(SLSale sale) {
+		
+		List<SLSale> saleAlllist = session.selectList("LslsaleAlllist", sale);
+		
+		return saleAlllist;
+	}
+
+	@Override
+	public int saleDateSearchtotCnt(SLSale sale) {
+	
+		int saleDateSearchtotCnt = session.selectOne("LslsaleDateSearchtotCnt", sale);
+		
+		return saleDateSearchtotCnt;
+	}
+
+	@Override
+	public List<SLSale> saleDateSearchAllList(SLSale sale) {
+		
+		System.out.println("dateSearchAllList sale" + sale);
+		
+		List<SLSale> dateSearchAllList = session.selectList("LslsaleDateSearchAllList", sale);
+		
+		return dateSearchAllList;
+	}
+
+	@Override
+	public int saleStatusSearchtotCnt(SLSale sale) {
+		
+		int saleStatusSearchtotCnt = session.selectOne("LslsaleStatusSearchtotCnt", sale);
+		
+		return saleStatusSearchtotCnt;
+	}
+
+	@Override
+	public List<SLSale> saleStatusSearchAllList(SLSale sale) {
+		
+		List<SLSale> saleStatusSearchAllList = session.selectList("LslsaleStatusSearchAllList", sale);
+		
+		return saleStatusSearchAllList;
+	}
+
+	@Override
+	public int saleSearchKeywordtotCnt(SLSale sale) {
+		int saleSearchKeywordtotCnt = session.selectOne("LslsaleSearchKeywordtotCnt" , sale);
+		return saleSearchKeywordtotCnt;
+	}
+
+	@Override
+	public List<SLSale> saleKeywordSearchAllList(SLSale sale) {
+		List<SLSale> saleKeywordSearchAllList = session.selectList("LslsaleKeywordSearchAllList", sale);
+		
+		return saleKeywordSearchAllList;
 	}
 
 

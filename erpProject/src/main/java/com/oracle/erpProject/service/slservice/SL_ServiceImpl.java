@@ -9,6 +9,7 @@ import com.oracle.erpProject.dao.sldao.SL_Dao_Interface;
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
 import com.oracle.erpProject.model.slmodel.SLProduct;
+import com.oracle.erpProject.model.slmodel.SLSale;
 
 import lombok.RequiredArgsConstructor;
 @Transactional
@@ -69,6 +70,14 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		return StatusSearchAllList;
 	}
 	
+	
+	// 수불 마감 여부
+	@Override
+	public int closingStatu(SLBuying buying) {
+		int closingStatu = slDao.closingStatu(buying);
+		return closingStatu;
+	}
+
 	
 	// 구매 상세 페이지
 	@Override
@@ -183,7 +192,89 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		return checkBuyData;
 	}
 
+	@Override
+	public int searchKeywordtotCnt(SLBuying buying) {
+		
+		int searchKeywordtotCnt = slDao.searchKeywordtotCnt(buying);
+		
+		return searchKeywordtotCnt;
+	}
 
+	@Override
+	public List<SLBuying> keywordSearchAllList(SLBuying buying) {
+		List<SLBuying> keywordSearchAllList = slDao.keywordSearchAllList(buying);
+		
+		return keywordSearchAllList;
+	}
+
+
+	
+	/*------------------------------------------ 판매 ---------------------------------------------------------*/
+
+
+	// 판매 페이지 
+	@Override
+	public int totalSaleCnt() {
+		
+		int totalSaleCnt = slDao.totalSaleCnt();
+		
+		return totalSaleCnt;
+	}
+
+	// 판매 페이지 리스트 
+	@Override
+	public List<SLSale> saleAlllist(SLSale sale) {
+		
+		List<SLSale> saleAlllist = slDao.saleAlllist(sale);
+		
+		return saleAlllist;
+	}
+
+	@Override
+	public int saleDateSearchtotCnt(SLSale sale) {
+		
+		int saleDateSearchtotCnt = slDao.saleDateSearchtotCnt(sale);
+		
+		return saleDateSearchtotCnt;
+	}
+
+	@Override
+	public List<SLSale> saleDateSearchAllList(SLSale sale) {
+		
+		List<SLSale> saleDateSearchAllList = slDao.saleDateSearchAllList(sale);
+		
+		return saleDateSearchAllList;
+	}
+
+	
+	
+	@Override
+	public int saleStatusSearchtotCnt(SLSale sale) {
+		int saleStatusSearchtotCnt = slDao.saleStatusSearchtotCnt(sale);
+		return saleStatusSearchtotCnt;
+	}
+
+	@Override
+	public List<SLSale> saleStatusSearchAllList(SLSale sale) {
+		List<SLSale> saleStatusSearchAllList = slDao.saleStatusSearchAllList(sale);
+		return saleStatusSearchAllList;
+	}
+
+	@Override
+	public int saleSearchKeywordtotCnt(SLSale sale) {
+		
+		int saleSearchKeywordtotCnt = slDao.saleSearchKeywordtotCnt(sale);
+		
+		return saleSearchKeywordtotCnt;
+	}
+
+	@Override
+	public List<SLSale> saleKeywordSearchAllList(SLSale sale) {
+		
+		List<SLSale> saleKeywordSearchAllList = slDao.saleKeywordSearchAllList(sale);
+		
+		return saleKeywordSearchAllList;
+	}
 
 
 	
