@@ -16,7 +16,6 @@
 		} else {
 			$('form[name="searchForm"]').submit();
 		}
-		
 	}
 </script>
 </head>
@@ -121,7 +120,7 @@
 													<p class="text-xs text-secondary mb-0">부서명</p>
 												</td>
 												<td class="align-middle text-center text-sm">
-													<span class="badge badge-sm bg-gradient-success">${emp_role}</span>
+													<span class="badge badge-sm bg-success">${emp_role}</span>
 												</td>
 												<td class="align-middle text-center">
 													<span class="text-secondary text-xs font-weight-bold">${employee.empHireDate}</span>

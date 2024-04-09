@@ -13,10 +13,12 @@ public interface EmployeeDao {
 	
 	Page<Employee> listEmployee(Pageable paging);
 	
-	Employee getEmployee(int emp_no);
+	Employee getEmployee(int empNo);
 	
 	Employee updateEmployee(Employee employee);
 
 	Page<Employee> listPage(Pageable pageable);
+	
+	Employee findByEmpNo(int empNo);
 
 }

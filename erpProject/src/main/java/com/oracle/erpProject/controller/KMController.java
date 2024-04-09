@@ -1,12 +1,12 @@
 package com.oracle.erpProject.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.oracle.erpProject.domain.Department;
 import com.oracle.erpProject.domain.Employee;
 import com.oracle.erpProject.service.kmservice.KM_DepartmentServiceImpl;
 import com.oracle.erpProject.service.kmservice.KM_EmployeeServiceImpl;
 
+import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -31,36 +33,102 @@ public class KMController {
 	@Autowired
 	private KM_DepartmentServiceImpl departmentServiceImpl;
 	
-	/* test */
-	@GetMapping(value = "stest")
-	public String testPage() {
-		return "km/stest";
-	}
-	
+	@Autowired
+	private final JavaMailSender mailSender;
 	
 	/* 공통 화면 */
 	// 로그인
-	@GetMapping(value = "loginForm")
-	public String loginPage() {
+	@GetMapping(value = "/loginForm")
+	public String loginForm() {
 		System.out.println("KMController loginPage start...*");
 		return "km/loginForm";
 	}
 	
+	// 로그인
+	@PostMapping(value="/loginProc")
+	public String loginProc(HttpServletRequest request, @RequestParam("empNo") String empNo, @RequestParam("empPassword") String empPassword, Model model) {
+		System.out.println("KMController loginPage start...*");
+		HttpSession session = request.getSession();
+		Employee employee = employeeServiceImpl.findByEmpNo(Integer.parseInt(empNo));
+		if (employee !=null && employee.getEmpPassword().equals(empPassword)) {
+			session.setAttribute("empNo", empNo);
+			session.setAttribute("empRole", employee.getEmpRole());
+			return "main";
+		} else {
+			model.addAttribute("mode", "error");
+			return "redirect:/loginForm";
+		}
+	}
+	
 	// 아이디 찾기
 	@GetMapping(value = "/findAccountForm")
-	public String findInfo() {
-		System.out.println("KMController findId start...*");
+	public String findEmployeeForm(Model model) {
+		model.addAttribute("mode", "findAccount");
 		return "km/findAccountForm";
 	}
 	
-	// 마이페이지
-	@GetMapping(value = "/myPage")
-	public String myPage() {
-		return "km/myPage";
+	@RequestMapping(value="/findAccountProc")
+	private String findAccountProc(Model model, @RequestParam("empEmail") String empEmail, @RequestParam("empNo") String empNo) {
+		System.out.println("KMController findAccountProc start---*");
+		Employee employee = employeeServiceImpl.findByEmpNo(Integer.parseInt(empNo));
+		
+		if (employee != null && employee.getEmpEmail().equals(empEmail)) {
+			
+			String tomail = empEmail;
+			String setfrom = "yk.km0304@gmail.com";
+			String title = "erp 관리자입니다 비밀번호 변경 안내";
+			
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true , "UTF-8");
+				messageHelper.setFrom(setfrom);
+				messageHelper.setTo(tomail);
+				messageHelper.setSubject(title);
+				
+				String tempPassword = (int) (Math.random() * 999999) + 1 + "";
+				messageHelper.setText("안녕하세요" + employee.getEmpName() +" 님의 임시 비밀번호입니다 : " + tempPassword);
+				mailSender.send(message);
+				
+				employee.setEmpPassword(tempPassword);
+				employeeServiceImpl.updateEmployee(employee);
+				model.addAttribute("mode", "check");
+				System.out.println("KMController findAccountProc mode : check");
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("mode", "none");
+				System.out.println("KMController findAccountProc mode : none");
+			}
+		}
+		return "km/findAccountForm";
 	}
 	
+	@PostMapping(value = "/verifyCode")
+	private String verifyCode(@RequestParam("code") int code, @RequestParam("empNo") String empNo, Model model) {
+		Employee employee = employeeServiceImpl.findByEmpNo(Integer.parseInt(empNo));
+		if(employee != null && employee.getEmpPassword().equals(String.valueOf(code))) {
+			return "km/loginForm";
+		}
+		model.addAttribute("mode", "findAccount");
+		return "km/findAccountForm";
+	}
 	
+	// 마이페이지 화면
+	@GetMapping(value = "/myPageForm")
+	public String myPageForm(@RequestParam("empNo") String empNo, Model model) {
+		// empNo를 제대로 받아오기
+		// null 체크
+		return "km/myPageForm";
+	}
 	
+	// 마이페이지 사원 정보 수정
+	@PostMapping(value="/myPageEditProc")
+	public String myPageEditProc(Model model, @RequestParam("empNo") String empNo, Employee employee) {
+		model.addAttribute("mode", "edit");
+		model.addAttribute("employee", employeeServiceImpl.getEmployee(Integer.parseInt(empNo)));
+		employeeServiceImpl.updateEmployee(employee);
+		return "km/myPageForm";
+	}
+		
 	/* 관리자 페이지 */
 	// 관리자페이지 화면
 	@GetMapping(value = "adminHome")
@@ -122,7 +190,7 @@ public class KMController {
 		return "km/employeeRegistForm";
 	}
 	
-
+	
 /*
 	// 부서
 	@RequestMapping(value="departmentListProc")
@@ -131,6 +199,10 @@ public class KMController {
 		model.addAttribute("listDepartment", listDepartment);
 		return "km/departmentList";
 */
+	
+	
+	// 세션
+	
 	
 	
 	

@@ -21,8 +21,29 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-</head>
+  <!-- jQuery와 Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+	$(document).ready(function() {
+	    $("#loginForm").submit(function(event) {
+	        var empNoValue = $("input[name='empNo']").val().trim();
+	        var empPasswordValue = $("input[name='empPassword']").val().trim();
+	        
+	        if (empNoValue === "" || empPasswordValue === "") {
+	            event.preventDefault(); 
+	            alert("아이디와 비밀번호를 확인해주세요");
+	        }
+	    });
+	});
+  </script>
+  </head>
+  <c:if test="${error == 'error'}">
+  	<script>
+  		alert("아이디와 비밀번호를 확인해주세요");
+  	</script>
+  </c:if>
 <body>
 <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
@@ -49,12 +70,12 @@
                   <p class="mb-0">아이디와 비밀번호를 입력하세요</p>
                 </div>
                 <div class="card-body">
-                  <form role="form" method="post">
+                  <form action="/loginProc" method="post" id="loginForm">
                     <div class="mb-3">
-                      <input type="text" name="username" class="form-control form-control-lg" placeholder="Id" aria-label="Id">
+                      <input type="text" name="empNo" class="form-control form-control-lg" placeholder="Id" aria-label="Id">
                     </div>
                     <div class="mb-3">
-                      <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
+                      <input type="text" name="empPassword" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
                     </div>
                     <div class="form-check form-switch">
                       <input class="form-check-input" type="checkbox" id="rememberMe">
@@ -96,5 +117,6 @@
       </div>
     </section>
   </main>
+  
 </body>
 </html>

@@ -22,13 +22,8 @@
            </a>
          </li>
          <li class="nav-item px-3 d-flex align-items-center">
-           <a href="javascript:;" class="nav-link text-white p-0">
-             <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-           </a>
-         </li>
-         <li class="nav-item dropdown pe-2 d-flex align-items-center">
-           <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-             <i class="fa fa-bell cursor-pointer"></i>
+           <a href="/loginForm" class="nav-link text-white p-0">
+           	<button type="button" class="btn bg-light btn-tooltip mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Log Out" data-container="body" data-animation="true" style="color: black;" onmouseover="this.style.color='black'" onmouseout="this.style.color=''">logout</button>
            </a>
          </li>
        </ul>

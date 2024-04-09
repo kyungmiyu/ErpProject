@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -40,7 +40,7 @@
 		</c:if>		
 		<c:if test="${mode=='regist'}">
 			<c:set var="formAction" value="employeeRegistProc" />
-		</c:if>0
+		</c:if>
 		<c:if test="${mode=='edit'}">
 			<c:set var="formAction" value="employeeEditProc" />
 			<c:set var="emp_status_edit" value="${employee.empStatus}" />
@@ -296,17 +296,18 @@
 										</c:if>
 										<input type="button" onClick="submitForm()" class="btn btn-dark ms-2 mb-0 js-btn-next" value="저장" />
 									</div>
+									
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</form>
+			</div>
+		</form>
+	</div>
 
-		</div>
-
-		<!-- Footer 푸터 -->
-		<%@ include file="../footer.jsp"%>
+	<!-- Footer 푸터 -->
+	<%@ include file="../footer.jsp"%>
 		
 		
 	</main>

@@ -1,6 +1,7 @@
 package com.oracle.erpProject.service.kmservice;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,6 +48,12 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 	public Employee deleteEmployee(Employee employee) {
 		return null;
 	}
+	@Override
+	public Employee findByEmpNo(int empNo) {
+		return employeeDaoImpl.findByEmpNo(empNo);
+	}
+
+	
 
 
 }
