@@ -30,8 +30,8 @@ public class KMController {
 	@Autowired
 	private KM_EmployeeServiceImpl employeeServiceImpl;
 
-	@Autowired
-	private KM_DepartmentServiceImpl departmentServiceImpl;
+//	@Autowired
+//	private KM_DepartmentServiceImpl departmentServiceImpl;
 	
 	@Autowired
 	private final JavaMailSender mailSender;
@@ -114,18 +114,22 @@ public class KMController {
 	
 	// 마이페이지 화면
 	@GetMapping(value = "/myPageForm")
-	public String myPageForm(@RequestParam("empNo") String empNo, Model model) {
-		// empNo를 제대로 받아오기
-		// null 체크
+	public String myPageForm(HttpSession session, Model model) {
+		String empNo = (String) session.getAttribute("empNo");
+		Employee employee = employeeServiceImpl.findByEmpNo(Integer.parseInt(empNo));
+		model.addAttribute("employee", employee);
+		model.addAttribute("mode", "view");
 		return "km/myPageForm";
 	}
 	
 	// 마이페이지 사원 정보 수정
 	@PostMapping(value="/myPageEditProc")
-	public String myPageEditProc(Model model, @RequestParam("empNo") String empNo, Employee employee) {
+	public String myPageEditProc(Model model, HttpSession session, Employee employee) {
+		String empNo = (String) session.getAttribute("empNo");
+		employee.setEmpNo(Integer.parseInt(empNo));
+		employeeServiceImpl.updateEmployee(employee);
 		model.addAttribute("mode", "edit");
 		model.addAttribute("employee", employeeServiceImpl.getEmployee(Integer.parseInt(empNo)));
-		employeeServiceImpl.updateEmployee(employee);
 		return "km/myPageForm";
 	}
 		
@@ -159,8 +163,9 @@ public class KMController {
 		//int pageNum = Integer.parseInt(pageNo);
 		//--pageNum;
 		//int startRowNum = (Integer.parseInt(pageNo) - 1) * 10; // 0 ~ 10 ~ 20 해당 페이지의 시작 로우번호
-		Pageable paging = PageRequest.of(pageNo, 10, Sort.Direction.DESC, "empNo");
 		//Page<Employee> listPage = employeeServiceImpl.listPage(paging);
+
+		Pageable paging = PageRequest.of(pageNo, 10, Sort.Direction.DESC, "empNo");
 		Page<Employee> listEmployee = employeeServiceImpl.listPage(paging);
 		model.addAttribute("listEmployee", listEmployee.getContent()); //
 		model.addAttribute("page",listEmployee);
@@ -199,11 +204,6 @@ public class KMController {
 		model.addAttribute("listDepartment", listDepartment);
 		return "km/departmentList";
 */
-	
-	
-	// 세션
-	
-	
 	
 	
 }

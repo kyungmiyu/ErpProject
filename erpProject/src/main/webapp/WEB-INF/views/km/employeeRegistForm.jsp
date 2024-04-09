@@ -10,7 +10,7 @@
 <%@ include file="../configHead.jsp"%>
 </head>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script defer type="text/javascript">
+<script>
 	function submitForm() {
 		$("input[name='empPhone']").val(
 			$("input[name='emp_phone1']").val()
