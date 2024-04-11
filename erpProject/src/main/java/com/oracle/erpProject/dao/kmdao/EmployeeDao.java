@@ -14,7 +14,7 @@ public interface EmployeeDao {
 
 	Employee findByEmpNo(int empNo);
 	
-	Integer countEmplyeeList();
+	Integer countEmployeeList();
 
 	List<Employee> getEmployeeList(int size, int offset, String searchType, String searchValue);
 

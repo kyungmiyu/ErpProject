@@ -47,7 +47,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	
 	// list count
 	@Override
-	public Integer countEmplyeeList() {
+	public Integer countEmployeeList() {
 		return employeeRepository.findAll().size();
 	}
 

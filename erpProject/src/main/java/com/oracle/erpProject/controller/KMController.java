@@ -167,12 +167,12 @@ public class KMController {
 		
 		List<Employee> listEmployee = employeeServiceImpl.getEmployeeList(10, (pageNo-1)*10, searchType, searchValue);
 		
-		int totalPageCount = employeeServiceImpl.countEmplyeeList();
+		int totalPageCount = employeeServiceImpl.countEmployeeList();
 		int pageCountPerBlock = 5;
 		int startPageNo = pageNo - (pageNo-1) % pageCountPerBlock;
 		int endPageNo = startPageNo + pageCountPerBlock-1;
 		
-		System.out.println("totalEmployyCount ==> " + totalPageCount);
+		System.out.println("totalEmployeeCount ==> " + totalPageCount);
 		System.out.println("pageNo ===> " + pageNo);
 		System.out.println("totalPageCount ===> " + totalPageCount);
 		System.out.println("startPageNo ===> " + startPageNo);

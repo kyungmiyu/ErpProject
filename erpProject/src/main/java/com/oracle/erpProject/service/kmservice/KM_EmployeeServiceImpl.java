@@ -45,8 +45,8 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 	}
 	
 	@Override
-	public Integer countEmplyeeList() {
-		return employeeDaoImpl.countEmplyeeList();
+	public Integer countEmployeeList() {
+		return employeeDaoImpl.countEmployeeList();
 	};
 	
 	
