@@ -50,6 +50,14 @@ public interface MK_Service_interface {
 
 	int insertFactory(mkFactory factory);
 
+	List<mkProduct> proCategory(mkProduct mkProduct);
+
+	List<mkProduct> fList(mkProduct product);
+
+	
+
+
+
 //	void saveProductImagePath(mkProduct product);
 
 

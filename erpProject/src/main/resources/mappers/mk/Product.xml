@@ -103,6 +103,18 @@
 			    p_isdeleted = #{p_isdeleted}
 			    WHERE p_itemcode = #{p_itemcode}
 			</update>
+			
+		<select id="proCategory"  resultType="mkProduct">
+		
+		select comm_bcd,comm_mcd,comm_content from comm where comm_bcd=300
+
+		</select>  
+		
+		<select id="fList"  resultType="mkProduct">
+		
+		select f_id from factory 
+
+		</select>  
 
 
 

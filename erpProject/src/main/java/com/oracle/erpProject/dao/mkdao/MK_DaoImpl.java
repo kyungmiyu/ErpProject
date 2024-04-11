@@ -319,6 +319,23 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 		}
 		return insertResult;
 	}
+
+	@Override
+	public List<mkProduct> proCategory(mkProduct mkProduct) {
+		System.out.println("MKDaoImpl proCategory Start");
+		List<mkProduct> proCategory = null;
+		proCategory = session.selectList("proCategory",proCategory);
+		return proCategory;
+	}
+//List<mkProduct> fList(mkProduct product);
+	@Override
+	public List<mkProduct> fList(mkProduct product){
+		System.out.println("MK DaoImpl fList Start");
+		List<mkProduct> fList =null;
+		fList = session.selectList("fList",fList);
+		return fList;
+	}
+
 		
 	}
 

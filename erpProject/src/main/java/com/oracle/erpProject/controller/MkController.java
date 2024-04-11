@@ -122,20 +122,35 @@ public class MkController {
 	// 제품등록 화면
 		  
 		  @GetMapping("/productC") 
-		  public String productC() {
+		  public String productC(Model model, mkProduct product) {
 		  System.out.println("MK Controller productC start");
-		 
+			List<mkProduct> proCategory =null;
+			List<mkProduct> fList = null;
+			proCategory = mk_Service_interface.proCategory(product);
+			fList=mk_Service_interface.fList(product);
+			model.addAttribute("proCategory", proCategory);
+			model.addAttribute("fList",fList);
 		  return "mk/productC";
 	}
 		  
 	// 제품 등록 
 		
 		@PostMapping(value="writeProduct")
-		public String writeProduct(@ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
+		public String writeProduct(@ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes,Model model) {
 			
 			System.out.println("MK_Controller WriteProduct start...");
-			System.out.println("product data->"+product);
 			
+			
+			String category = request.getParameter("pro_midcategory");
+			int midCategory = Integer.parseInt(category);
+			product.setPro_midcategory(midCategory);
+			
+			
+			String fId = request.getParameter("f_id");
+			int intFid = Integer.parseInt(fId);
+			product.setF_id(intFid);
+			
+			System.out.println("product data->"+product);
 			//파일 저장 경로 설정 
 			String uploadFolder = request.getSession().getServletContext().getRealPath("/upload/");
 			
@@ -157,6 +172,8 @@ public class MkController {
 				}
 			}
 			
+			
+
 			//제품 정보 저장 로직 구현 
 			int insertResult = mk_Service_interface.insertProduct(product);
 			if(insertResult>0)
@@ -497,6 +514,7 @@ public class MkController {
 		}
 	}
 
-	
 
+	
+	
 }

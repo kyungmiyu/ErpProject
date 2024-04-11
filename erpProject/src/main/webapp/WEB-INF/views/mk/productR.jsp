@@ -25,6 +25,7 @@ $(document).ready(function() {
             	var imagePath ='../upload/' +product.p_image;
                 $('#p_itemcode').val(product.p_itemcode); // 제품코드
                 $('#pro_category').val(product.pro_category); //제품대분류
+               	$('#pro_midcategory').val(product.pro_midcategory);
                 $('#f_id').val(product.f_id); // 제품공장
                 /*  */
                  $('#p_buyprice').val(product.p_buyprice); // 매입가격
@@ -32,6 +33,7 @@ $(document).ready(function() {
                 $('#p_regdate').val(product.p_regdate); // 등록날자
                 $('#p_name').val(product.p_name); // 제품코드
                 $('#p_fac_gubun').val(product.p_fac_gubun); // 제품명
+                $('#p_saleprice').val(product.p_saleprice);
                 // 이미지 경로 업데이트
                 $('#productImage').attr('src',imagePath);
             },
@@ -315,10 +317,7 @@ $(document).ready(function() {
 					                <label for="p_isdeleted">판매상태</label> 
 					                <input type="email" class="form-control" id="p_isdeleted"  readonly>
 					            </div>
-					             <div class="form-group">
-					                <label for="p_regdate">등록날짜</label> 
-					                <input type="email" class="form-control" id="p_regdate"  readonly>
-					            </div>
+					            
 					        
 					        </div>
 					        <div class="col-md-6">
@@ -328,19 +327,19 @@ $(document).ready(function() {
 					            </div>
 					            <div class="form-group">
 					                <label for="exampleFormControlInput5">제품 중분류</label> 
-					                <input type="email" class="form-control" id="exampleFormControlInput5"  readonly>
+					                <input type="email" class="form-control" id="pro_midcategory"  readonly>
 					            </div>
 					            <div class="form-group">
 					                <label for="p_fac_gubun">공장구분</label> 
 					                <input type="email" class="form-control" id="p_fac_gubun"  readonly>
 					            </div>
 					            <div class="form-group">
-					                <label for="p_buyprice">매입가격</label> 
-					                <input type="email" class="form-control" id="p_buyprice"  readonly>
+					                <label for="p_saleprice">매입가격</label> 
+					                <input type="email" class="form-control" id="p_saleprice"  readonly>
 					            </div>
 					            <div class="form-group">
-					                <label for="exampleFormControlInput7">판매 담당자</label> 
-					                <input type="email" class="form-control" id="exampleFormControlInput7" readonly >
+					                <label for="p_regdate">등록날짜</label> 
+					                <input type="email" class="form-control" id="p_regdate"  readonly>
 					            </div>
 					         
 					        </div>

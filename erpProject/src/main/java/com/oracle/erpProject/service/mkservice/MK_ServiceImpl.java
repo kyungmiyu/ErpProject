@@ -201,7 +201,30 @@ public class MK_ServiceImpl implements MK_Service_interface {
 		result = mk_Dao_Interface.insertCustomer(customer);
 		return result;
 	}
+
+	@Override
+	public List<mkProduct> proCategory(mkProduct mkProduct) {
+		System.out.println("MK_Service Impl proCategory Start");
+		List<mkProduct> proCategory =null;
+		proCategory=mk_Dao_Interface.proCategory(mkProduct);
+		
+		return proCategory;
 	}
+
+	@Override
+	public List<mkProduct> fList(mkProduct product) {
+		System.out.println("MK_Service Impl fList Start");
+		List<mkProduct> fList =null;
+		fList = mk_Dao_Interface.fList(product);
+		return fList;
+	}
+
+
+
+
+
+	}
+
 
 
 	
