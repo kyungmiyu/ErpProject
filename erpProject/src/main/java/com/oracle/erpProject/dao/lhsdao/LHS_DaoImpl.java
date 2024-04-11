@@ -335,6 +335,42 @@ public class LHS_DaoImpl implements LHS_Dao {
 			}
 			return listRnPClosing;
 		}
+		
+		// 수불마감 버튼
+		@Override
+		public int closingRnP(RnP_closing rnpc) {
+			int resultStatus = 0;
+			try {
+				resultStatus = session.selectOne("lhsClosingRnP", rnpc);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return resultStatus;
+		}
+
+		// 마감해제 버튼
+		@Override
+		public int unclosingRnP(RnP_closing rnpc) {
+			int resultStatus = 0;
+			try {
+				resultStatus = session.selectOne("lhsUnclosingRnP", rnpc);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return resultStatus;
+		}
+
+		// 월말마감 버튼
+		@Override
+		public int monthlyClosing(RnP_closing rnpc) {
+			int resultStatus = 0;
+			try {
+				resultStatus = session.selectOne("lhsMonthlyClosing", rnpc);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return resultStatus;
+		}
 
 
 }

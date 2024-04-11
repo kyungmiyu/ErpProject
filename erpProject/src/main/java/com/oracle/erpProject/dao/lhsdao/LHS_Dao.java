@@ -97,5 +97,14 @@ public interface LHS_Dao {
 	// 수불 일일내역4 리스트 조회 (재고조사)
 	List<RnP_closing> getListRnPCondSurvey(RnP_closing rnpc);
 
+	// 수불마감 버튼
+	int closingRnP(RnP_closing rnpc);
+
+	// 마감해제 버튼
+	int unclosingRnP(RnP_closing rnpc);
+
+	// 월말마감 버튼
+	int monthlyClosing(RnP_closing rnpc);
+
 
 }

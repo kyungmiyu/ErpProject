@@ -163,13 +163,6 @@ public class LHSController {
 		model.addAttribute("empData", empData);
 
 		return "lhs/formRegistStockNewItem";
-
-		/*
-		 * formRegistStockBegin ㅡ 기초재고 등록버튼 클릭 -> href: lhsFormRegistStockBegin 실사재고조사
-		 * 등록버튼 클릭 -> href: lhsFormRegistStockSurvey 날짜선택 -> #selectMonth by ajax
-		 * (lhsFormRegistStockBegin) 등록버튼 클릭 -> #registTemporary by ajax 저장버튼 클릭 ->
-		 * #registReal by ajax (lhsRegistStockBegin)
-		 */
 	}
 
 	// 신제품 등록여부 확인
@@ -278,7 +271,7 @@ public class LHSController {
 		
 	}
 
-	// 실사재고조사 등록	-- 미완
+	// 실사재고조사 등록
 	@ResponseBody
 	@RequestMapping(value = "lhsRegistStockSurvey")
 	public int lhsRegistStockSurvey(@RequestBody List<Stock_survey> listSurvey, Stock stock, Employee emp, Model model) {
@@ -355,20 +348,9 @@ public class LHSController {
 			
 		}
 		return 0;
-		
-		// return "redirect:lhsListStock?emp_no=" + emp.getEmp_no();// 월말마감 버튼 누르려고
 	}
 	
-	/*
-	 * formRegistStockSurvey ㅡ // RnP_closing status=1 체크 -> alert로 경고 기초재고 등록버튼 클릭
-	 * -> href: lhsFormRegistStockBegin 실사재고조사 등록버튼 클릭 -> href:
-	 * lhsFormRegistStockSurvey 날짜선택 -> #selectMonth by ajax
-	 * (lhsFormRegistStockSurvey) 등록버튼 클릭 -> #registTemporary by ajax 저장버튼 클릭 ->
-	 * #registReal by ajax (lhsRegistStockSurvey) // RnP_closing status=1 아니면 ajax
-	 * fail처리
-	 */
 
-	
 	/****************************************************************************/
 		/* 수불 일일내역 조회 */
 
@@ -423,12 +405,6 @@ public class LHSController {
 		
 		return "lhs/listRnPCondBuy";
 
-		/*
-		 * listRnPCondBuy ㅡ 날짜선택 ->#selectMonth by ajax (lhsListRnPCondBuy) 상단버튼 클릭 ->
-		 * href: 각 버튼 폼으로 이동 (재고조사 버튼은 sysdate > 25일일때만 visible) 마감버튼 클릭 -> href:
-		 * lhsDailyClosing 해제버튼 클릭 -> href: lhsClosingCancel 월말마감버튼 클릭 -> href:
-		 * lhsMonthlyClosing
-		 */
 	}
  
 	// 수불 일일내역2 조회 (판매)
@@ -483,12 +459,6 @@ public class LHSController {
 
 		return "lhs/listRnPCondSale";
 
-		/*
-		 * listRnPCondBuy ㅡ 날짜선택 ->#selectMonth by ajax (lhsListRnPCondBuy) 상단버튼 클릭 ->
-		 * href: 각 버튼 폼으로 이동 (재고조사 버튼은 sysdate > 25일일때만 visible) 마감버튼 클릭 -> href:
-		 * lhsDailyClosing 해제버튼 클릭 -> href: lhsClosingCancel 월말마감버튼 클릭 -> href:
-		 * lhsMonthlyClosing
-		 */
 	}
 
 	// 수불 일일내역3 조회 (생산)
@@ -543,12 +513,6 @@ public class LHSController {
 
 		return "lhs/listRnPCondMake";
 
-		/*
-		 * listRnPCondBuy ㅡ 날짜선택 ->#selectMonth by ajax (lhsListRnPCondBuy) 상단버튼 클릭 ->
-		 * href: 각 버튼 폼으로 이동 (재고조사 버튼은 sysdate > 25일일때만 visible) 마감버튼 클릭 -> href:
-		 * lhsDailyClosing 해제버튼 클릭 -> href: lhsClosingCancel 월말마감버튼 클릭 -> href:
-		 * lhsMonthlyClosing
-		 */
 	}
 
 	// 수불 일일내역4 조회 (재고조사)
@@ -603,23 +567,32 @@ public class LHSController {
 
 		return "lhs/listRnPCondSurvey";
 
-		/*
-		 * listRnPCondBuy ㅡ 날짜선택 ->#selectMonth by ajax (lhsListRnPCondBuy) 상단버튼 클릭 ->
-		 * href: 각 버튼 폼으로 이동 (재고조사 버튼은 sysdate > 25일일때만 visible) 마감버튼 클릭 -> href:
-		 * lhsDailyClosing 해제버튼 클릭 -> href: lhsClosingCancel 월말마감버튼 클릭 -> href:
-		 * lhsMonthlyClosing
-		 */
 	}
 
-	// 일일마감 버튼
-	@RequestMapping(value = "lhsDailyClosing")
-	public String lhsDailyClosing() {
+	// 수불마감 버튼
+	@ResponseBody
+	@RequestMapping(value = "lhsClosingRnP")
+	public int lhsClosingRnP(Employee emp, RnP_closing rnpc, Model model) {
+		
+		System.out.println("lhsController lhsClosingRnP start...");
+		
+		System.out.println("empno: " +emp.getEmp_no());
+		System.out.println("date: " +rnpc.getRnpc_year_month_day());
 		
 		
-		System.out.println("lhsController lhsDailyClosing start...");
+		int resultStatus = lhs.closingRnP(rnpc);
 		
+		if (resultStatus == 0) {
+			System.out.println("0이다");
+		}
+	
+		else if (resultStatus == 1) {
+			System.out.println("1이다");
+		}
 		
-		
+		else if (resultStatus == -1 ) {
+			System.out.println("-1이라 오류다");
+		}
 
 		/*
 		 * lhs.dailyClosing (프로시져 패키지 실행) -> 1. 구매, 판매, 생산 status update (일반완료 -> 수불완료)
@@ -631,12 +604,34 @@ public class LHSController {
 		 * 수량 update --- getListRnpCondMake -> updateStockMakeQuantity
 		 */
 
-		return "redirect: lhsListStock";
+		return resultStatus;
+		//return "redirect:lhsListStock?emp_no="+emp.getEmp_no();
 	}
 
-	// 마감취소 버튼
-	@RequestMapping(value = "lhsClosingCancel")
-	public String lhsClosingCancel() {
+	// 마감해제 버튼
+	@ResponseBody
+	@RequestMapping(value = "lhsUnclosingRnP")
+	public int lhsUnclosingRnP(Employee emp, RnP_closing rnpc, Model model) {
+		
+		System.out.println("lhsController lhsUnclosingRnP start...");
+		
+		System.out.println("empno: " +emp.getEmp_no());
+		System.out.println("date: " +rnpc.getRnpc_year_month_day());
+		
+		int resultStatus = lhs.unclosingRnP(rnpc);
+		
+		if (resultStatus == 0) {
+			System.out.println("0이다");
+		}
+	
+		else if (resultStatus == 1) {
+			System.out.println("1이다");
+		}
+		
+		else if (resultStatus == -1 ) {
+			System.out.println("-1이라 오류다");
+		}
+		
 
 		/*
 		 * lhs.closingCancel (프로시져 패키시 실행) -> 1. 구매, 판매, 생산 status update (수불완료 -> 일반완료)
@@ -646,14 +641,36 @@ public class LHSController {
 		 * --- getListRnpCondSale -> restoreStockSaleQuantity select 생산내역 -> Stock 수량
 		 * update --- getListRnpCondMake -> restoreStockMakeQuantity
 		 */
-
-		return "redirect: lhsListStock";
+		
+		return resultStatus;
+		// return "redirect:lhsListStock?emp_no="+emp.getEmp_no();
 	}
 
 	// 월말마감 버튼
+	@ResponseBody
 	@RequestMapping(value = "lhsMonthlyClosing")
-	public String lhsMonthlyClosing() {
+	public int lhsMonthlyClosing(Employee emp, RnP_closing rnpc, Model model) {
 
+		System.out.println("lhsController lhsMonthlyClosing start...");
+		
+		System.out.println("empno: " +emp.getEmp_no());
+		System.out.println("date: " +rnpc.getRnpc_year_month_day());
+		
+		
+		int resultStatus = lhs.monthlyClosing(rnpc);
+		
+		if (resultStatus == 0) {
+			System.out.println("0이다");
+		}
+	
+		else if (resultStatus == 1) {
+			System.out.println("1이다");
+		}
+		
+		else if (resultStatus == -1 ) {
+			System.out.println("-1이라 오류다");
+		}
+		
 		/*
 		 * lhs.monthlyClosing (프로시져 패키지 실행) // 수불마감구분=1인지 체크 -> 구매, 판매, 생산 stauts=5인지 체크
 		 * 수불마감구분=1인지 체크 1. 수불마감구분 update --- updateStatusRnPClosing2 2. 재고조사 조회 ---
@@ -661,7 +678,8 @@ public class LHSController {
 		 * --- insertStockNextMonth
 		 */
 
-		return "redirect: lhsListStock";
+		return resultStatus;
+		// return "redirect:lhsListStock?emp_no="+emp.getEmp_no();
 	}
 
 } // class

@@ -216,5 +216,29 @@ public class LHS_ServiceImpl implements LHS_Serivce {
 		return listRnPClosing;
 	}
 
+	// 수불마감 버튼
+	@Override
+	public int closingRnP(RnP_closing rnpc) {
+		int resultStatus = 0;
+		resultStatus = lhs.closingRnP(rnpc);
+		return resultStatus;
+	}
+
+	// 마감해제 버튼
+	@Override
+	public int unclosingRnP(RnP_closing rnpc) {
+		int resultStatus = 0;
+		resultStatus = lhs.unclosingRnP(rnpc);
+		return resultStatus;
+	}
+
+	// 월말마감 버튼
+	@Override
+	public int monthlyClosing(RnP_closing rnpc) {
+		int resultStatus = 0;
+		resultStatus = lhs.monthlyClosing(rnpc);
+		return resultStatus;
+	}
+
 
 }

@@ -51,5 +51,20 @@
 		INSERT INTO stock
 		VALUES (#{st_year_month}, 0, #{p_itemcode}, #{st_quantity}, sysdate)
 	</insert>
+	
+	<select id="lhsClosingRnP" parameterType="LHS_RnP_closing" resultType="int">
+		SELECT stock_close.rnp_closing_process(#{rnpc_year_month_day)
+		FROM dual
+	</select>
+	
+	<select id="lhsUnclosingRnP" parameterType="LHS_RnP_closing" resultType="int">
+		SELECT stock_close.rnp_unclosing_process(#{rnpc_year_month_day)
+		FROM dual
+	</select>
+	
+	<select id="lhsMonthlyClosing" parameterType="LHS_RnP_closing" resultType="int">
+		SELECT stock_close.month_closing_process(#{rnpc_year_month_day)
+		FROM dual
+	</select>
 
 </mapper>

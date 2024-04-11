@@ -38,10 +38,6 @@
 		right: 40px;
     }
     
-    .container-fluid {
-    	
-    }
-    
     .table {
     	text-align: center;
     }
@@ -135,6 +131,93 @@ $(document).ready(function () {
              }
          });
      });
+	 
+	 $("#buyProBtn1").click(function () {
+		 
+	        var selectedDate = $("#datePicker").val();
+	        var year = selectedDate.substring(0, 4);
+	        var month = selectedDate.substring(5, 7);
+	        var day = selectedDate.substring(8, 10);
+	        var formattedDate = year + month + day;
+	        
+	        var emp_no = "${empData.emp_no}";
+
+	        $.ajax({
+	             url: "lhsClosingRnP",
+	             type: "GET",
+	             data: { 
+	            	 rnpc_year_month_day: formattedDate,
+	                 emp_no: emp_no
+	             },
+	             success: function (data) {
+	            	 
+	            	 alert(data);
+	            	 // window.location.href = "lhsClosingRnP?emp_no=" + emp_no +"&rnpc_year_month_day=" + formattedDate;
+	             },
+	             error: function (xhr, status, error) {
+	                 // 오류 발생 시 처리할 코드 작성
+	                 console.error("Error occurred:", error);
+	             }
+	         });
+	    });
+	 
+	 $("#buyProBtn2").click(function () {
+		 
+	        var selectedDate = $("#datePicker").val();
+	        var year = selectedDate.substring(0, 4);
+	        var month = selectedDate.substring(5, 7);
+	        var day = selectedDate.substring(8, 10);
+	        var formattedDate = year + month + day;
+	        
+	        var emp_no = "${empData.emp_no}";
+
+	        $.ajax({
+	             url: "lhsUnclosingRnP",
+	             type: "GET",
+	             data: { 
+	            	 rnpc_year_month_day: formattedDate,
+	                 emp_no: emp_no
+	             },
+	             success: function (data) {
+	            	 
+	            	 alert(data);
+	            	 // window.location.href = "lhsClosingRnP?emp_no=" + emp_no +"&rnpc_year_month_day=" + formattedDate;
+	             },
+	             error: function (xhr, status, error) {
+	                 // 오류 발생 시 처리할 코드 작성
+	                 console.error("Error occurred:", error);
+	             }
+	         });
+	    });
+	 
+	 $("#buyProBtn3").click(function () {
+		 
+	        var selectedDate = $("#datePicker").val();
+	        var year = selectedDate.substring(0, 4);
+	        var month = selectedDate.substring(5, 7);
+	        var day = selectedDate.substring(8, 10);
+	        var formattedDate = year + month + day;
+	        
+	        var emp_no = "${empData.emp_no}";
+
+	        $.ajax({
+	             url: "lhsMonthlyClosing",
+	             type: "GET",
+	             data: { 
+	            	 rnpc_year_month_day: formattedDate,
+	                 emp_no: emp_no
+	             },
+	             success: function (data) {
+	            	 
+	            	 alert(data);
+	            	 // window.location.href = "lhsClosingRnP?emp_no=" + emp_no +"&rnpc_year_month_day=" + formattedDate;
+	             },
+	             error: function (xhr, status, error) {
+	                 // 오류 발생 시 처리할 코드 작성
+	                 console.error("Error occurred:", error);
+	             }
+	         });
+	    });
     
 });
 </script>
@@ -256,7 +339,8 @@ $(document).ready(function () {
 					<button type="button" class="btn btn-primary downer-btn" id="buyProBtn3">월말마감</button>
 				</c:if>
 				<button type="button" class="btn btn-primary downer-btn" id="buyProBtn2">해제</button>
-				<button type="button" class="btn btn-primary downer-btn" id="buyProBtn1">마감</button>
+				<button type="button" class="btn btn-primary downer-btn" id="buyProBtn1"
+					onclick="location.href='lhsListRnPCondBuy?emp_no=${empData.emp_no }& }'">마감</button>
 			</c:if>
     </div> 
    
