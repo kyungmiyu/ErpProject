@@ -236,7 +236,9 @@ $(document).ready(function () {
         var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
         var year = selectedDate.substring(0, 4); // 연도 추출
         var month = selectedDate.substring(5, 7); // 월 추출
-        var formattedDate = year + month; // 형식 변환
+        var day = selectedDate.substring(8, 10); // 일 추출
+        var year_month_day = year + month + day; // 형식 변환
+        var year_month = year + month; // 형식 변환
         var st_begin_end = 1;
 
         $("#resultList").find("tr").each(function () {
@@ -246,7 +248,7 @@ $(document).ready(function () {
             var quantityDisposal = $(this).find("td:eq(4)").text();
             
             dataToSend.push({
-            	st_year_month: formattedDate,
+            	st_year_month: year_month,
             	st_begin_end: st_begin_end,
             	p_itemcode: itemCode,
                 sts_quantity: quantityStock,
@@ -256,16 +258,24 @@ $(document).ready(function () {
         });
 
         $.ajax({
-            url: "lhsRegistStockSurvey?emp_no=" + ${empData.emp_no},
+            url: "lhsRegistStockSurvey?emp_no=" + ${empData.emp_no} + "&st_year_month_day=" + year_month_day,
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(dataToSend),
-            success: function (response) {
-            	alert("실사 재고조사에 등록되었습니다.");
-                //window.location.href = "/lhsListRnPCondBuy?emp_no=" + ${empData.emp_no};
+            success: function (data) {
+            	
+            	if (data === 0) {
+            		alert("실사 재고조사가 등록되었습니다.");
+            		window.location.href = "/lhsListRnPCondSurvey?emp_no=" + ${empData.emp_no};
+            	}
+            	
+            	else if (data === 1) {
+            		alert("수불마감을 먼저 진행해주세요.");
+            		window.location.href = "/lhsListRnPCondBuy?emp_no=" + ${empData.emp_no};
+            	}
             },
             error: function (xhr, status, error) {
-                console.log("실사재고조사 등록 실패");
+                console.log("실사 재고조사 등록 실패");
             }
         });
     });

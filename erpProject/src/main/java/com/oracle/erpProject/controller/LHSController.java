@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -276,8 +279,9 @@ public class LHSController {
 	}
 
 	// 실사재고조사 등록	-- 미완
+	@ResponseBody
 	@RequestMapping(value = "lhsRegistStockSurvey")
-	public String lhsRegistStockSurvey(@RequestBody List<Stock_survey> listSurvey, Stock stock, Employee emp, Model model) {
+	public int lhsRegistStockSurvey(@RequestBody List<Stock_survey> listSurvey, Stock stock, Employee emp, Model model) {
 
 		System.out.println("lhsController lhsRegistStockSurvey start...");
 		System.out.println("check listSurvey: " + listSurvey);
@@ -285,49 +289,74 @@ public class LHSController {
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
 		
-		// 1. RnP_closing status=1 체크
-
 		// sysdate 년월일만 string으로 변환
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		String formattedDate = dateFormat.format(new Date());
-		stock.setSt_year_month_day(formattedDate);
-		stock.setSt_year_month(formattedDate.substring(0, formattedDate.length() - 2));
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+//		String formattedDate = dateFormat.format(new Date());
+//		stock.setSt_year_month_day(formattedDate);
+//		stock.setSt_year_month(formattedDate.substring(0, formattedDate.length() - 2));
 		
-//		// 1. 오늘 수불마감 여부 체크 (선택한날짜 x)
-//		int checkStatus = lhs.checkStatusRnPClosing(stock);
-//		System.out.println("checkStatusRnPClosing checkStatus->" + checkStatus);
-//		
-//		if (checkStatus == 0) {
-//			System.out.println("수불마감 먼저해");
-//		} else if (checkStatus == 1) {
-//			
-//			// 2. 재고조사 데이터가 이미 있는지 체크
-//			// 2. if select StockSurvey = null -> insertStockSurvey 
-//			//    else if select StockSurvey != null -> updateStockSurvey
-//
-//			Stock_survey checkStockSurvey = lhs.checkExistenceStockSurvey(stock);
-//			System.out.println("checkExistenceStockSurvey checkStockSurvey-> " + checkStockSurvey);
-//			
-//			// 넣는 값 일일이 넣기
-//			if (checkStockSurvey == null) {
-//				int registResult = lhs.registStockSurvey(listSurvey);
-//				System.out.println("registStockSurvey registResult-> " + registResult);
-//			}
-//			else if (checkStockSurvey != null) {
-//				int updateResult = lhs.updateStockSurvey(listSurvey);
-//			}
-//			
-//		}
+		Map<String, Object> params = new HashMap<>();
+		params.put("p_yyyymmdd", stock.getSt_year_month_day());
+		params.put("p_rnpc_gubun", null);
 		
+		// 1. 수불마감 구분 확인 (프로시져 호출)
+		lhs.checkGubunRnPClosing(params);
 		
+		int checkGubun = (int) params.get("p_rnpc_gubun");
+		System.out.println("checkStatusRnPClosing checkGubun->" + checkGubun);
 		
-		/*
-		 * 프로시져 패키시 실행? if select StockSurvey = null -> insertStockSurvey else if select
-		 * StockSurvey != null -> updateStockSurvey // 조건: 날짜 redirect:
-		 * lhsListRnpCondBuy (월말마감 누르려고)
-		 * 
-		 */
-		return "redirect:lhsListStock?emp_no=" + emp.getEmp_no();// 월말마감 버튼 누르려고
+		// 1-1. 수불마감 구분 0인 경우
+		if (checkGubun == 0) {
+			System.out.println("수불마감 먼저해");
+			return 1;
+		} 
+		
+		// 1-2. 수불마감 구분 0이 아닌 경우
+		else if (checkGubun > 0) {
+			
+			stock.setSt_year_month(stock.getSt_year_month_day().substring(0, stock.getSt_year_month_day().length() - 2));
+			
+			// 2. 재고조사 데이터 유무 체크
+			int checkStockSurvey = lhs.checkExistenceStockSurvey(stock);
+			System.out.println("checkExistenceStockSurvey checkStockSurvey-> " + checkStockSurvey);
+			
+				// 2-1. 재고조사 데이터가 없는 경우
+				if (checkStockSurvey == 0) {
+					for (Stock_survey stock_survey : listSurvey) {
+						// 재고조사 데이터 등록
+						int registResult = lhs.registStockSurvey(stock_survey);
+						System.out.println("registStockSurvey registResult-> " + registResult);
+					}
+				}
+				
+				// 2-2. 재고조사 데이터가 있는 경우
+				else if (checkStockSurvey != 0) {
+					
+					for (Stock_survey stock_survey : listSurvey) {
+					// 3. 제품코드별 재고조사 데이터 유무 체크
+						int checkItemcode = lhs.checkExistenceStockSurveyPerItemcode(stock_survey);
+						System.out.println("checkExistenceStockSurvey checkItemcode-> " + checkItemcode);
+						
+						// 3-1. 해당 제품코드 데이터가 없는 경우
+						if (checkItemcode == 0) {
+							// 재고조사 데이터 등록
+							int registResult = lhs.registStockSurvey(stock_survey);
+							System.out.println("registStockSurvey registResult-> " + registResult);
+						}
+						
+						// 3-2. 해당 제품코드 데이터가 있는 경우
+						else if (checkItemcode != 0) {
+							// 재고조사 데이터 업데이트
+							int updateResult = lhs.updateStockSurvey(stock_survey);
+							System.out.println("registStockSurvey updateResult-> " + updateResult);
+						}
+					}
+				}
+			
+		}
+		return 0;
+		
+		// return "redirect:lhsListStock?emp_no=" + emp.getEmp_no();// 월말마감 버튼 누르려고
 	}
 	
 	/*

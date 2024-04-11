@@ -1,6 +1,7 @@
 package com.oracle.erpProject.service.lhsservice;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import com.oracle.erpProject.model.lhsmodel.Employee;
 import com.oracle.erpProject.model.lhsmodel.Product;
 import com.oracle.erpProject.model.lhsmodel.RnP_closing;
 import com.oracle.erpProject.model.lhsmodel.Stock;
+import com.oracle.erpProject.model.lhsmodel.Stock_survey;
 
 import lombok.RequiredArgsConstructor;
 
@@ -101,6 +103,44 @@ public class LHS_ServiceImpl implements LHS_Serivce {
 		Product productData = null;
 		productData = lhs.getDataProduct(product);
 		return productData;
+	}
+	
+	// 1. 수불마감 구분 확인 (프로시져 호출)
+	@Override
+	public void checkGubunRnPClosing(Map<String, Object> params) {
+		lhs.checkGubunRnPClosing(params);
+	}
+	
+	// 2. 재고조사 데이터 유무 체크
+	@Override
+	public int checkExistenceStockSurvey(Stock stock) {
+		int checkStockSurvey = 0;
+		checkStockSurvey = lhs.checkExistenceStockSurvey(stock);
+		return checkStockSurvey;
+	}
+
+	// 3. 제품코드별 재고조사 데이터 유무 체크
+	@Override
+	public int checkExistenceStockSurveyPerItemcode(Stock_survey stock_survey) {
+		int checkItemcode = 0;
+		checkItemcode = lhs.checkExistenceStockSurveyPerItemcode(stock_survey);
+		return checkItemcode;
+	}
+
+	// 재고조사 데이터 등록
+	@Override
+	public int registStockSurvey(Stock_survey stock_survey) {
+		int registResult = 0;
+		registResult = lhs.registStockSurvey(stock_survey);
+		return registResult;
+	}
+
+	// 재고조사 데이터 업데이트
+	@Override
+	public int updateStockSurvey(Stock_survey stock_survey) {
+		int updateResult = 0;
+		updateResult = lhs.updateStockSurvey(stock_survey);
+		return updateResult;
 	}
 
 
