@@ -17,8 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.oracle.erpProject.domain.Department;
 import com.oracle.erpProject.domain.Employee;
-import com.oracle.erpProject.domain.QDepartment;
-import com.oracle.erpProject.domain.QEmployee;
 import com.oracle.erpProject.repository.DepartmentRepository;
 import com.oracle.erpProject.repository.EmployeeRepository;
 import com.querydsl.core.BooleanBuilder;

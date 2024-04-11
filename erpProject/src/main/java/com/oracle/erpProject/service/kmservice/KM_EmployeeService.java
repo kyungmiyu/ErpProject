@@ -1,10 +1,7 @@
 package com.oracle.erpProject.service.kmservice;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.domain.Employee;
@@ -13,8 +10,6 @@ import com.oracle.erpProject.domain.Employee;
 public interface KM_EmployeeService {
 
 	Employee registEmployee(Employee employee);
-
-	//List<Employee> listEmployee(Pageable paging);
 	
 	Employee getEmployee(int emp_no);
 	
@@ -22,7 +17,9 @@ public interface KM_EmployeeService {
 
 	Employee deleteEmployee(Employee employee);
 
-	Page<Employee> listPage(Pageable pageable);
-
 	Employee findByEmpNo(int empNo);
+	
+	Integer countEmplyeeList();	
+
+	List<Employee> getEmployeeList(int size, int offset, String searchType, String searchValue);
 }

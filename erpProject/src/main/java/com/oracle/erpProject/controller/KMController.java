@@ -1,10 +1,13 @@
 package com.oracle.erpProject.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -154,28 +157,35 @@ public class KMController {
 		return "km/employeeList";
 	}
 	
-	// 사원 리스트 조회
+	// 사원 리스트 조회, 검색, 페이징
 	@RequestMapping(value = "/listEmployeeProc")
 	public String listEmployeeProc(
 			Model model, 
-			@RequestParam(required = false, defaultValue = "1", value ="pageNo") int pageNo) {
-		//pageNo = pageNo == null ? "1" : pageNo;
-		//int pageNum = Integer.parseInt(pageNo);
-		//--pageNum;
-		//int startRowNum = (Integer.parseInt(pageNo) - 1) * 10; // 0 ~ 10 ~ 20 해당 페이지의 시작 로우번호
-		//Page<Employee> listPage = employeeServiceImpl.listPage(paging);
-
-		Pageable paging = PageRequest.of(pageNo, 10, Sort.Direction.DESC, "empNo");
-		Page<Employee> listEmployee = employeeServiceImpl.listPage(paging);
-		model.addAttribute("listEmployee", listEmployee.getContent()); //
-		model.addAttribute("page",listEmployee);
+			@RequestParam(required = false, defaultValue = "1", value ="pageNo") int pageNo,
+			@RequestParam(value = "searchType", required = false, defaultValue = "A") String searchType,
+			@RequestParam(value = "searchValue", required = false) String searchValue) {
+		
+		List<Employee> listEmployee = employeeServiceImpl.getEmployeeList(10, (pageNo-1)*10, searchType, searchValue);
+		
+		int totalPageCount = employeeServiceImpl.countEmplyeeList();
+		int pageCountPerBlock = 5;
+		int startPageNo = pageNo - (pageNo-1) % pageCountPerBlock;
+		int endPageNo = startPageNo + pageCountPerBlock-1;
+		
+		System.out.println("totalEmployyCount ==> " + totalPageCount);
+		System.out.println("pageNo ===> " + pageNo);
+		System.out.println("totalPageCount ===> " + totalPageCount);
+		System.out.println("startPageNo ===> " + startPageNo);
+		System.out.println("endPageNo ===> " + endPageNo);
+		
+		model.addAttribute("listEmployee", listEmployee);
 		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("totalPageCount", totalPageCount);
+		model.addAttribute("pageCountPerBlock", pageCountPerBlock);
+		model.addAttribute("startPageNo", startPageNo);
+		model.addAttribute("endPageNo", endPageNo);
 		return "km/employeeList";
 	}
-	
-	//@RequestParam(value = "searchType", required = false, defaultValue = "A") String searchType,
-	//@RequestParam(value = "searchValue", required = false, defaultValue = "") String searchValue)
-
 	
 	// 사원 조회 및 수정 폼
 	@GetMapping(value = "/employeeEditForm")

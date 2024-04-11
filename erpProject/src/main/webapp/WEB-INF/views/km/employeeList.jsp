@@ -34,13 +34,13 @@
 						<div class="card-header pb-0">
 							<div class="row">
 								<div class="col-12 d-flex">
-									<h6 class="col-8">Information</h6>
+									<h6 class="col-6">Information</h6>
 							        <div class="bg-white border-radius-lg ms-auto d-flex">
 									    <form action="/listEmployeeProc" name="searchForm" method="POST" class=" d-flex align-items-center">
 									         <select class="form-select me-1" name="searchType" style="width: 150px">
-												 <option value="all" selected>전체</option>
-											     <option value="empName">사원</option>
-												 <option value="deptName">부서명</option>
+												 <option value="A" selected>전체</option>
+											     <option value="E">사원</option>
+												 <option value="D">부서명</option>
 											 </select>
 										     <input type="text" name="searchValue" class="form-control border-1 me-1 ps-3 my-1" placeholder="검색어를 입력하세요" style="width: 300px">
 										     <input type="button" onclick="submitSearchForm()" value="Search" class="btn bg-gradient-primary mb-0" />
@@ -135,29 +135,31 @@
 								</table>
 							</div>
 						</div>					
-						
-						<nav aria-label="Page navigation example">
+
+					 	<nav aria-label="Page navigation example">
 						  <ul class="pagination justify-content-center">
-						  <c:if test="${paging.hasPrevious()}">
+						  <c:if test="${startPageNo > pageCountPerBlock}">
 						    <li class="page-item">
-						      <a class="page-link" href="/employeeList?pageNo=${paging.previousOrFirst().getPageNumber()}">
+						      <a class="page-link" href="/listEmployeeProc?pageNo=${startPageNo - pageCountPerBlock}">
 						        <i class="fa fa-angle-left"></i>
+						        <span class="sr-only">Previous</span>
 						      </a>
 						    </li>
-						  </c:if >
-						    <c:forEach var="i" begin="1" end="${page.getTotalPages()}" >
-							    <li class="page-item"><a class="page-link" href="/employeeList?pageNo=${i}">${i}</a></li>
+						  </c:if>
+						    <c:forEach var="i" begin="${startPageNo}" end="${endPageNo}">
+							    <li class="page-item"><a class="page-link" href="/listEmployeeProc?pageNo=${i}">${i}</a></li>
 						    </c:forEach>
-						    <c:if test="${paging.hasNext()}">
+						    <c:if test="${endPageNo < totalPageCount}">
 							    <li class="page-item">
-						      <a class="page-link" href="/employeeList?pageNo=${paging.next().getPageNumber()}">
+						      <a class="page-link" href="/listEmployeeProc?pageNo=${startPageNo + pageCountPerBlock}">
 						        <i class="fa fa-angle-right"></i>
+						        <span class="sr-only">Next</span>
 						      </a>
 						    </li>
 						    </c:if>
 						  </ul>
 						</nav>
-						
+		
 					</div>
 				</div>
 			</div>
