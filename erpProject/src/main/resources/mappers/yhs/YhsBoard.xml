@@ -25,5 +25,17 @@
 		set b_hit = b_hit+1 where
 		b_no=#{b_no}
 	</update>
+	
+	<insert id="yhsInsertBoard" parameterType="YhsBoard">
+		INSERT INTO BOARD(b_no,emp_no,b_category,board_mid,b_name,b_content,b_regdate)
+		VALUES (b_no_seq.nextval,
+				1,
+				1,
+				1,
+				#{b_name}, 
+				#{b_content},
+				sysdate
+				)
+	</insert>	
 
 </mapper>

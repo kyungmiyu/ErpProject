@@ -34,6 +34,17 @@
     --bs-btn-border-radius: 7px;
 }
 </style>
+<script type="text/javascript">
+function chk(){
+	title_value = document.getElementById("admin_title").value;
+	if(title_value.trim() !== "" || title_value === null){
+		return true;
+	}else{
+		alert("제목을 입력해주세요");
+		return false;
+	}
+}
+</script>
 </head>
 <body>
  	<div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -55,27 +66,27 @@
               <h5 class="card-title">작성하기</h5>
              <%--  <c:if test="${msg!=null}">${msg}</c:if> --%>
               <!-- General Form Elements -->
-						<form action="boardWrite" method="post" name="frm" onsubmit="return chk()">
+						<form action="boardWrite" method="post" name="frm">
 
 							<div class="row mb-3">
-								<label for="inputText" class="col-sm-2 col-form-label">제목</label>
+				 				<label for="inputText" class="col-sm-2 col-form-label">제목</label>
 								<div class="col-sm-10">
 									<!-- <input type="text" class="form-control"> -->
-									<input type="text" class="form-control" name="admin_title"
-										value="${BOARD_ADMIN.admin_title}" required="required" id="admin_title">
+									<input type="text" class="form-control" name="b_name"
+										value="${board.b_name}" required="required" id="b_name">
 								</div>
 							</div>
 
 							<div class="row mb-3">
 								<label for="inputPassword" class="col-sm-2 col-form-label">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" name="admin_content"
-										value="${BOARD_ADMIN.admin_content}" style="height: 453px"></textarea>
+									<textarea class="form-control" name="b_content" id="b_content"
+										value="${board.b_content}" style="height: 453px"></textarea>
 								</div>
 							</div>
 							<div class="floatright">
 								<button type="submit" class="btn btn-primary">글작성</button>
-								<!-- 	<a href="ask">글작성 kkk</a></button>     -->
+								 	<!-- <a href="board">글작성 </a></button>      -->
 							</div>
 
 						</form>

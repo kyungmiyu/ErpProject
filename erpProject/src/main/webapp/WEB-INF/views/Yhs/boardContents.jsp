@@ -315,17 +315,17 @@
 			<div class="row card main-card card-body">
 				<div class="card-header community-post-header">
 					<h3 class="card-title post-header-title">
-						${boardContent.b_name}</h3>
+						${boardContents.b_name}</h3>
 					<div class="card-subtitle post-user-container">
 						<i class="bi bi-person-circle post-user-profile"></i>
 						<div class="card-title-header">
 							<h5 class="card-title post-user-name">
-								<a href="#">${boardContent.emp_no}</a>
+								<a href="#">${boardContents.emp_no}</a>
 							</h5>
 							<div class="card-subtitle post-subtitle">
 								<p class="post-updated-at">
 									작성일
-									<fmt:formatDate value="${boardContent.b_regdate}"
+									<fmt:formatDate value="${boardContents.b_regdate}"
 										pattern="yyyy.MM.dd a hh:mm" />
 								</p>
 							</div>
@@ -333,7 +333,7 @@
 					</div>
 				</div>
 				<div class="community-post-header-body">
-					<span class="post-content">${boardContent.b_content}</span>
+					<span class="post-content">${boardContents.b_content}</span>
 				</div>
 
 				<button type="button" class="btn bacList" onclick="goBack()">

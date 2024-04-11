@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.oracle.erpProject.model.yhsmodel.YhsBoard;
 import com.oracle.erpProject.service.Yhsservice.Paging;
@@ -63,9 +65,13 @@ public class YHSController {
 			model.addAttribute("boardReplyCnt", boardReplyCnt);
 			model.addAttribute("boardViewCnt", boardViewCnt);
 			model.addAttribute("boardContents", boardContents);
+			System.out.println("boardReplyCnt" + boardReplyCnt);
+			System.out.println("boardViewCnt" + boardViewCnt);
+			System.out.println("boardContents" + boardContents);
 			return "Yhs/boardContents";
+			
 		}
-	
+		
 	
 	
 //	게시판 글쓰기	
@@ -75,25 +81,23 @@ public class YHSController {
 		
 		String bregdate = request.getParameter("b_regdate");
 	 // 세션에서 보내는 사람의 아이디 가져오기
-        Long empNo = (Long) request.getSession().getAttribute("emp_no");
+//        Long empNo = (Long) request.getSession().getAttribute("emp_no");
         
      // 모델에 데이터 추가 (세션ID, 유저리스트)
-        model.addAttribute("empNo", empNo);
+//        model.addAttribute("empNo", empNo);
 
 		return "Yhs/boardForm";
 	}
-//	
-//	@GetMapping(value = "askForm")
-//	public String askForm(HttpServletRequest request, Model model) {
-//		System.out.println("AskController Start askForm...");
-//		
-//		String adminStart = request.getParameter("admin_start");
-//	 // 세션에서 보내는 사람의 아이디 가져오기
-//        Long userNo = (Long) request.getSession().getAttribute("user_no");
-//        
-//     // 모델에 데이터 추가 (세션ID, 유저리스트)
-//        model.addAttribute("userNo", userNo);
-//
-//		return "yhs/askForm";
-//	}
+	
+	@PostMapping(value = "boardWrite")
+	public String boardWrite(@ModelAttribute YhsBoard board ,Model model,HttpServletRequest request ) {
+		System.out.println("YHSController Start boardWrite..." );
+//		Long empNo = (Long) request.getSession().getAttribute("emp_no");
+//		board.setEmp_no(empNo);
+		System.out.println("YHSControllesr boardWrite ask->" + board);
+		int insertResult = yhs_Service_Interface.insertBoard(board);
+		System.out.println("YHSController insertResult insertResult->"+insertResult );
+		return "redirect:/board";
+
+	}
 }

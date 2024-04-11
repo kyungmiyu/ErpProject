@@ -58,5 +58,18 @@ public class Yhs_DaoImpl implements Yhs_Dao_Interface {
 		int boardViewCnt = session.update("yhsboardViewCnt", board);
 		return boardViewCnt;
 	}
+	
+	@Override
+	public int insertBoard(YhsBoard board) {
+		int result = 0;
+		System.out.println("Yhs_DaoImpl insert Start..." );
+		try {
+			result = session.insert("yhsInsertBoard",board);
+			System.out.println("Yhs_DaoImpl insert ask->" + board);
+		} catch (Exception e) {
+			System.out.println("Yhs_DaoImpl insert Exception->"+e.getMessage());
+		}
+		return result;
+	}
 
 }

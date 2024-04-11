@@ -23,6 +23,8 @@ public interface Yhs_Service_Interface {
 	
 	// 게시판 상세페이지 파일 조회
 	List<YhsBoard> boardFile(int b_no);
+	
+	int insertBoard(YhsBoard board);
 
 }
 

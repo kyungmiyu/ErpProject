@@ -81,6 +81,14 @@ public class Yhs_ServiceImpl implements Yhs_Service_Interface{
 //		List<LslboardFile> boardFreeFile = ld.boardFreeFile(cboard_no);
 //		return boardFreeFile;
 //	}
+	
+	public int insertBoard(YhsBoard board) {
+		int result = 0;
+		System.out.println("Yhs_ServiceImpl insertBoard start...");
+		result = yhs_Dao_Interface.insertBoard(board);
+		return result;
+	}
+
 
 
 }
