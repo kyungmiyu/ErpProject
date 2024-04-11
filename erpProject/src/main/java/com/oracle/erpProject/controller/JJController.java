@@ -30,7 +30,7 @@ public class JJController {
 	
 	// 생산 상세 - 리스트 페이지
 	@GetMapping("makeMain")
-	public String jjmakeMain(JJ_Make_detail md, Model model) {
+	public String jjmakeMain(JJ_Make m, JJ_Make_detail md, Model model) {
 		System.out.println("JJController's makeMain Go!");
 		
 		// 게시글 전체 개수 조회
@@ -43,12 +43,12 @@ public class JJController {
 		md.setEnd(page.getEnd());
 		System.out.println("JJController's page ->" + page);
 		
-		// 게시글들을의 리스트 불러오기
-		List<JJ_Make_detail> makeList = js.makeList(md);
-		System.out.println("JJController's makeList ->" + makeList);
+		// JJ_Make_detail의 리스트 불러오기
+		List<JJ_Make_detail> makedetailList = js.makedetailList(md);
+		System.out.println("JJController's makeList ->" + makedetailList);
 		
 		model.addAttribute("cntMake", cntMake);
-		model.addAttribute("makeList", makeList);
+		model.addAttribute("makeList", makedetailList);
 		model.addAttribute("page", page);
 		
 		return "jj/makeMain";
@@ -58,7 +58,7 @@ public class JJController {
 	@GetMapping("makeDetail")
 	public String jjmakeDetail(JJ_Make_detail md, Model model) {
 		System.out.println("JJController's jjmakeDetail Go!");
-		
+		System.out.println("JJController's jjmakeDetail md->"+md);
 		JJ_Make_detail jjmakeDetail = js.jjmakeDetail(md.getM_num());
 		System.out.println("JJController's jjmakeDetail -> " + jjmakeDetail);
 		model.addAttribute("jjmakeDetail", jjmakeDetail);

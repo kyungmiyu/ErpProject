@@ -83,8 +83,8 @@ legend {
 					  </div>
 				      <div class="col">
 				        <div class="mb-3">
-				        	<label for="form-select" class="form-control-label">작업지시상태 md_status</label>
-						    <select class="form-select" name="md_status" required aria-label="select example" id="form-select">
+				        	<label for="form-select" class="form-control-label">작업지시상태 m_status</label>
+						    <select class="form-select" name="m_status" required aria-label="select example" id="form-select">
 						      <option value="">선택사항</option>
 						      <option value="0">0.생산요청</option>
 						      <option value="1">1.영업생산요청</option>
@@ -122,14 +122,14 @@ legend {
 					    </div>
 					    <div class="form-group">
 					        <label for="md_worker" class="form-control-label">작업지시담당자 m_manager</label>
-					        <input class="form-control" type="text" name="md_worker" value="${JJ_Make.m_manager}"
+					        <input class="form-control" type="text" name="m_manager" value="${JJ_Make.m_manager}"
 					        		placeholder="담당 작업자를 입력" id="md_worker">
 					    </div>
 					    <div class="form-group">
 					        <label for="form-select" class="form-control-label">공장명 f_name</label>
 						    <select class="form-select" name="f_id" required aria-label="select example" id="form-select">
 						      <option value="">선택사항</option>
-						      <option value="10001">A동 공장</option>
+						      <option value="${JJ_Make_detail.f_id}">A동 공장</option>
 						      <option value="10002">B동 공장</option>
 						     </select>
 					    </div>
@@ -180,8 +180,7 @@ legend {
 				    
 				    <!-- 생산 요청 게시판 - 저장, 삭제, 목록 버튼 -->
 					<div class="d-flex justify-content-end">
-						<button type="submit" class="btn btn-primary" id="buyProBtn">저장</button>
-						<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeDelelte'">삭제</button>
+						<button type="submit" class="btn btn-primary" id="buyProBtn">생산요청</button>
 						<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeMain'">목록</button>
 					</div>
 				</form>

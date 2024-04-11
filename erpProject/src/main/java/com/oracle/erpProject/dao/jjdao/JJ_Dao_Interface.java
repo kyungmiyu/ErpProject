@@ -8,7 +8,7 @@ import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
 public interface JJ_Dao_Interface {
 
 	int 					cntMake();
-	List<JJ_Make_detail> 	makeList(JJ_Make_detail md);
+	List<JJ_Make_detail> 	makedetailList(JJ_Make_detail md);
 	List<JJ_Make_detail> 	requestMakeList();
 	int 					makeRequest1(JJ_Make m);	// make table insert
 	int 					makeRequest2(JJ_Make_detail md);	// make_detail table insert

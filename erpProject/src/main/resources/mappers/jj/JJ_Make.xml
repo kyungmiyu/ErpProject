@@ -4,12 +4,14 @@
 
 	<insert id="jjMakeRequestInsert1" parameterType="JJ_Make">
 		INSERT INTO Make (
-			m_num,   m_status,   m_type,      m_manager,
-			m_sdate, m_due_date, m_isdeleted, m_note 
+			m_num,       m_status,     m_manager,    m_sdate,
+			m_due_date,
+			m_note 
 		)
 		VALUES (
-			#{m_num},    #{m_status},   #{m_type},      #{m_manager},
-			#{m_sdate},  #{m_due_date}, #{m_isdeleted}, #{m_note}
+			#{m_num},    #{m_status},  #{m_manager}, #{m_sdate},
+			#{m_due_date, jdbcType=VARCHAR},
+			#{m_note, jdbcType=VARCHAR}
 		)
 	</insert>
 

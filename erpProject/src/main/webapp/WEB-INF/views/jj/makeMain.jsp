@@ -70,7 +70,28 @@
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_num}</a></h6> <!-- 작업지시번호 -->
 			          </td>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_status}</h6> <!-- 작업상태 -->
+			          	<h6 class="mb-0 text-xs">
+			          		<c:choose>
+			          			<c:when test="${jj_Make_detail.m_status == 0}">
+			          				0.생산요청
+			          			</c:when>
+			          			<c:when test="${jj_Make_detail.m_status == 1}">
+			          				1.영업생산요청
+			          			</c:when>
+			          			<c:when test="${jj_Make_detail.m_status == 2}">
+			          				2.생산중
+			          			</c:when>
+			          			<c:when test="${jj_Make_detail.m_status == 3}">
+			          				3.생산완료
+			          			</c:when>
+			          			<c:when test="${jj_Make_detail.m_status == 5}">
+			          				5.수불완료
+			          			</c:when>
+			          			<c:otherwise>
+			          				Unknown
+			          			</c:otherwise>
+			          		</c:choose>
+			          	</h6> <!-- 작업상태 -->
 			          </td>
 			          <td class="text-center">
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.p_name}</h6> <!-- 제품명 -->
@@ -82,7 +103,7 @@
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_sdate}</h6> <!-- 작업지시일자 -->
 			          </td>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_work_date}</h6> <!-- 작업완료일자 -->
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_due_date}</h6> <!-- 작업완료일자 -->
 			          </td>
 			        </tr>
 				  </c:forEach>

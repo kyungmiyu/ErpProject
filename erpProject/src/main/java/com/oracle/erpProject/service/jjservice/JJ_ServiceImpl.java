@@ -25,12 +25,12 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 	}
 
 	@Override
-	public List<JJ_Make_detail> makeList(JJ_Make_detail md) {
-		List<JJ_Make_detail> makeList = null;
-		System.out.println("JJ_ServiceImpl's makeList Go!");
-		makeList = jjDao.makeList(md);
-		System.out.println("JJ_ServiceImpl's makeList -> " + makeList);
-		return makeList;
+	public List<JJ_Make_detail> makedetailList(JJ_Make_detail md) {
+		List<JJ_Make_detail> makedetailList = null;
+		System.out.println("JJ_ServiceImpl's makedetailList Go!");
+		makedetailList = jjDao.makedetailList(md);
+		System.out.println("JJ_ServiceImpl's makedetailList -> " + makedetailList);
+		return makedetailList;
 	}
 
 	@Override

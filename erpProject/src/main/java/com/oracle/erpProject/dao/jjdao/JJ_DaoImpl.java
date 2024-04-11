@@ -33,16 +33,17 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 
 	// 생산게시판 List페이지 - 게시물 list
 	@Override
-	public List<JJ_Make_detail> makeList(JJ_Make_detail md) {
-		List<JJ_Make_detail> makeList = null;
-		System.out.println( "JJ_DaoImpl's makeList Go!");
+	public List<JJ_Make_detail> makedetailList(JJ_Make_detail md) {
+		List<JJ_Make_detail> makedetailList = null;
+		System.out.println("JJ_DaoImpl's makedetailList Go!");
+		System.out.println("JJ_DaoImpl's makedetailList md->"+md);
 		try {
-			makeList = session.selectList("jjMakeList", md);
-			System.out.println("JJ_DaoImpl's makeList.size() -> " + makeList.size());
+			makedetailList = session.selectList("jjMakeDetailList", md);
+			System.out.println("JJ_DaoImpl's makedetailList.size() -> " + makedetailList.size());
 		} catch (Exception e) {
-			System.out.println("JJ_DaoImpl's makeList Exception -> " + e.getMessage());
+			System.out.println("JJ_DaoImpl's makedetailList Exception -> " + e.getMessage());
 		}
-		return makeList;
+		return makedetailList;
 	}
 
 	// 생산게시판 생산 요청 페이지
@@ -63,6 +64,7 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 	public int makeRequest1(JJ_Make m) {
 		int makeRequest1 = 0;
 		System.out.println("JJ_DaoImpl's makeRequest1 Go!");
+		System.out.println("JJ_DaoImpl's makeRequest1 m->"+m);
 		try {
 			makeRequest1 = session.insert("jjMakeRequestInsert1", m);
 			System.out.println("JJ_DaoImpl's makeRequest1 -> " + makeRequest1);
@@ -77,6 +79,7 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 	public int makeRequest2(JJ_Make_detail md) {
 		int makeRequest2 = 0;
 		System.out.println("JJ_DaoImpl's makeRequest2 Go!");
+		System.out.println("JJ_DaoImpl's makeRequest2 md->"+md);
 		try {
 			makeRequest2 = session.insert("jjMakeRequestInsert2", md);
 			System.out.println("JJ_DaoImpl's makeRequest2 -> " + makeRequest2);
@@ -90,7 +93,9 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 	@Override
 	public JJ_Make_detail jjmakeDetail(int m_num) {
 		System.out.println("JJ_DaoImpl's jjmakeDetail Go!");
+		System.out.println("JJ_DaoImpl's jjmakeDetail m_num->"+m_num);
 		JJ_Make_detail jjmakeDetail = new JJ_Make_detail();
+		System.out.println("JJ_DaoImpl's jjmakeDetail jjmakeDetail->"+jjmakeDetail);
 		try {
 			jjmakeDetail = session.selectOne("jjmakeDetail", m_num);
 			System.out.println("JJ_DaoImpl's jjmakeDetail -> " + jjmakeDetail);
