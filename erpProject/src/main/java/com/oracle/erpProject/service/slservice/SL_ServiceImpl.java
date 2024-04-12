@@ -11,6 +11,7 @@ import com.oracle.erpProject.model.slmodel.SLBuying_detail;
 import com.oracle.erpProject.model.slmodel.SLMake;
 import com.oracle.erpProject.model.slmodel.SLProduct;
 import com.oracle.erpProject.model.slmodel.SLSale;
+import com.oracle.erpProject.model.slmodel.SLSale_detail;
 
 import lombok.RequiredArgsConstructor;
 @Transactional
@@ -296,6 +297,14 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 	}
 
 	
+	@Override
+	public int addSaleProduct(SLSale_detail slSales_detail) {
+		
+		int addSaleProduct = slDao.addSaleProduct(slSales_detail);
+		
+		return addSaleProduct;
+	}
+	
 	
 	@Override
 	public List<SLProduct> saleProductList() {
@@ -322,6 +331,24 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		
 		return saleApplyWrite;
 	}
+
+	@Override
+	public int saleModify(SLSale sale) {
+		
+		int saleModify = slDao.saleModify(sale);
+		
+		return saleModify;
+	}
+
+	@Override
+	public int saleStatusChange(SLSale sale) {
+		
+		int saleStatusChange = slDao.saleStatusChange(sale);
+		
+		return saleStatusChange;
+	}
+
+	
 
 	
 

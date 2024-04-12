@@ -63,8 +63,6 @@ $(document).ready(function() {
 
 	function addProduct(p_itemcode, cust_no, s_date, sd_cnt, sd_price) {
 
-		alert(sd_cnt);
-		alert(sd_price);
 
 		$.ajax({
 			type: "POST",
@@ -77,7 +75,6 @@ $(document).ready(function() {
 				sd_price: sd_price
 			},
 			success: function(productDetail) {
-				alert(sd_price);
 				console.log("productData" + productDetail);
 
 			},
@@ -99,7 +96,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "POST",
-			url: "/deleteProduct",
+			url: "/deleteSaleProduct",
 			data: {
 				p_itemcode: p_itemcode,
 				cust_no: cust_no,
@@ -139,17 +136,17 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "POST",
-			url: "/buyingModify",
+			url: "/saleModify",
 			contentType: 'application/json',
 			data: JSON.stringify(saleModifyData),
 			success: function(response) {
-				console.log("구매 등록 성공:", response);
+				console.log("판매 등록 성공:", response);
 
 				var redirectURL = "http://localhost:8587/saleDetail?cust_no=" + cust_no + "&s_date=" + s_date;
 				window.location.href = redirectURL;
 			},
 			error: function(error) {
-				console.error("구매 등록 실패:", error);
+				console.error("판매 등록 실패:", error);
 			}
 		});
 	});
@@ -174,7 +171,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "POST",
-			url: "/productCntModify",
+			url: "/productSaleCntModify",
 			data: JSON.stringify(productCntModify),
 			dataType: 'json',
 			contentType: 'application/json',
@@ -206,7 +203,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "POST",
-			url: "/buyStatusChange",
+			url: "/saleStatusChange",
 			data: JSON.stringify(saleStatusChange),
 			dataType: 'json',
 			contentType: 'application/json',
@@ -240,7 +237,7 @@ $(document).ready(function() {
 		});
 
 
-	});
+	}); 
 
 
 	// 수블 마감 체크 

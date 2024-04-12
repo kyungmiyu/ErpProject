@@ -343,4 +343,6 @@
 		where rnpc_year_month_day = #{rnpc_year_month_day}
 	</select>
 	
+	
+	
 </mapper>

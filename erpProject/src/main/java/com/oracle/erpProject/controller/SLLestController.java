@@ -13,6 +13,7 @@ import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
 import com.oracle.erpProject.model.slmodel.SLMake;
 import com.oracle.erpProject.model.slmodel.SLSale;
+import com.oracle.erpProject.model.slmodel.SLSale_detail;
 import com.oracle.erpProject.service.slservice.SL_Service_Interface;
 
 import lombok.RequiredArgsConstructor;
@@ -200,13 +201,34 @@ public class SLLestController {
 	
 
 	// 판매 상세페이지 제품 추가
-//		@PostMapping("/addSaleProduct")
-//		public int buyingDetailModify(SLSale_detail slSales_detail  ) { 
-//			
-//			System.out.println("sLBuying_detail: " + slSales_detail);
-//		
-//			int addProduct = slService.addSaleProduct(slSales_detail);
-//			return addProduct;
-//		}
-//	
+		@PostMapping("/addSaleProduct")
+		public int buyingDetailModify(SLSale_detail slSales_detail  ) { 
+			
+			System.out.println("sLBuying_detail: " + slSales_detail);
+		
+			int addProduct = slService.addSaleProduct(slSales_detail);
+			return addProduct;
+		}
+		
+		
+	// 판매 상세페이지 글 수정
+	@PostMapping("/saleModify")
+	public int saleModify(@RequestBody SLSale sale) {
+		
+		int saleModify = slService.saleModify(sale);
+		
+		return saleModify;
+	}
+	
+	// 판매 상태 변경
+	@PostMapping("/saleStatusChange")
+	
+	public int saleStatusChange(@RequestBody SLSale sale) {
+		
+		int saleStatusChange = slService.saleStatusChange(sale);
+		
+		return saleStatusChange;
+	}
+	
+	
 }

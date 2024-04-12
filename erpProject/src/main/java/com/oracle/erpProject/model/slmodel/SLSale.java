@@ -28,6 +28,11 @@ public class SLSale {
 	private int st_quantity; // 재고 수량 
 	private int p_itemcode;		// 제품코드
 	private int f_id; // 공장 코드 
+	private int p_saleprice;  // 판매 가격
+	private String p_name; // 제품 이름 
+	private int sd_price;
+	private int sd_cnt;
+	
 	
 	
 	private List<SLSale_detail> productList;

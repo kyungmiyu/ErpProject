@@ -351,6 +351,13 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	}
 	
 	
+	@Override
+	public int addSaleProduct(SLSale_detail slSales_detail) {
+		
+		int addSaleProduct = session.insert("LsladdSaleProduct", slSales_detail);
+		
+		return addSaleProduct;
+	}
 	
 	
 	@Override
@@ -403,6 +410,24 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		
 		return result;
 	}
+
+	@Override
+	public int saleModify(SLSale sale) {
+		
+		int saleModify = session.update("LslsaleModify", sale);
+		
+		return saleModify;
+	}
+
+	@Override
+	public int saleStatusChange(SLSale sale) {
+		
+		int saleStatusChange = session.update("LslsaleStatusChange", sale);
+		
+		return saleStatusChange;
+	}
+
+	
 
 	
 
