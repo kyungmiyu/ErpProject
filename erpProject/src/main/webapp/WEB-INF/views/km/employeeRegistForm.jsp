@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,12 +10,12 @@
 <%@ include file="../configHead.jsp"%>
 </head>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script defer type="text/javascript">
+<script>
 	function submitForm() {
 		$("input[name='empPhone']").val(
 			$("input[name='emp_phone1']").val()
 			+ $("input[name='emp_phone2']").val()
-			+ $("input[name='emp_phone1']").val()
+			+ $("input[name='emp_phone3']").val()
 		);
 		
 		$("form[name='registOrEditForm']").submit();
@@ -31,6 +31,7 @@
 		
 		<!-- Header 헤더 -->
 		<%@ include file="adminHeader.jsp"%>
+		
 		<c:if test="${empty employee.empEnabled or employee.empEnabled=='Y'}">
 			<c:set var="emp_enabled_edit_y" value="checked" />
 		</c:if>
@@ -39,7 +40,7 @@
 		</c:if>		
 		<c:if test="${mode=='regist'}">
 			<c:set var="formAction" value="employeeRegistProc" />
-		</c:if>0
+		</c:if>
 		<c:if test="${mode=='edit'}">
 			<c:set var="formAction" value="employeeEditProc" />
 			<c:set var="emp_status_edit" value="${employee.empStatus}" />
@@ -83,8 +84,38 @@
 					<c:set var="dept_no_106" value="selected" />
 				</c:when>
 			</c:choose>
+			<c:choose>
+				<c:when test="${employee.empJobName=='999'}">
+					<c:set var="emp_job_name_99" value="selected" />
+				</c:when>
+				<c:when test="${employee.empJobName=='10'}">
+					<c:set var="emp_job_name_10" value="selected" />
+				</c:when>
+				<c:when test="${employee.empJobName=='20'}">
+					<c:set var="emp_job_name_20" value="selected" />
+				</c:when>
+				<c:when test="${employee.empJobName=='30'}">
+					<c:set var="emp_job_name_30" value="selected" />
+				</c:when>
+				<c:when test="${employee.empJobName=='40'}">
+					<c:set var="emp_job_name_40" value="selected" />
+				</c:when>
+				<c:when test="${employee.empJobName=='50'}">
+					<c:set var="emp_job_name_50" value="selected" />
+				</c:when>
+				<c:when test="${employee.empJobName=='60'}">
+					<c:set var="emp_job_name_60" value="selected" />
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${employee.empGender=='M'}">
+					<c:set var="emp_gender_m" value="selected" />
+				</c:when>
+				<c:when test="${employee.empGender=='F'}">
+					<c:set var="emp_gender_f" value="selected" />
+				</c:when>
+			</c:choose>
 		</c:if>
-		
 		<div class="main-body container-fluid py-4"> 
 			<form name="registOrEditForm" action="/${formAction}" method="post">
 				<input type="hidden" name="empPhone" value="" />
@@ -173,47 +204,30 @@
 											</select>
 										</div>
 									</div>
-									<!-- <div class="col-md-6">
+									<div class="col-md-6">
 										<div class="form-group">
 											<label for="example-text-input" class="form-control-label">직책</label>
-											<select class="form-select" name="emp_job_name" aria-label="Default select example">
-												<option value="0" selected>미정</option>
-												<option value="10">사장</option>
-												<option value="20">부장</option>
-												<option value="30">차장</option>
-												<option value="40">과장</option>
-												<option value="50">대리</option>
-												<option value="60">사원</option>
+											<select class="form-select" name="empJobName" aria-label="Default select example">
+												<option value="99" ${emp_job_name_999}>미정</option>
+												<option value="10" ${emp_job_name_10}>사장</option>
+												<option value="20" ${emp_job_name_20}>부장</option>
+												<option value="30" ${emp_job_name_30}>차장</option>
+												<option value="40" ${emp_job_name_40}>과장</option>
+												<option value="50" ${emp_job_name_50}>대리</option>
+												<option value="60" ${emp_job_name_60}>사원</option>
 											</select>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="example-text-input" class="form-control-label">부서 전화번호</label> 
-											<input class="form-control" name="dept_phone" type="text"value="" onfocus="focused(this)" onfocusout="defocused(this)">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="example-text-input" class="form-control-label">부서 존재 여부</label> 
-											<select class="form-select" name="dept_enabled" aria-label="Default select example">
-												<option value="1" selected>Y</option>
-												<option value="2">N</option>
-											</select>
-										</div>
-									</div>
-								</div> -->
-
 								<hr class="horizontal dark">
 								<p class="text-uppercase text-sm">INFORMATION</p>
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-4">
 										<div class="form-group">
 											<label for="example-text-input" class="form-control-label">이름</label>
 											<input class="form-control" name="empName" type="text" value="${employee.empName}" onfocus="focused(this)" onfocusout="defocused(this)">
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-4">
 										<div class="form-group">
 											<label for="example-date-input" class="form-control-label">생년월일</label>
 											<c:if test="${mode=='regist'}">
@@ -222,6 +236,15 @@
 											<c:if test="${mode=='edit'}">
 												<input class="form-control" name="empBirth" type="date" value="${employee.empBirth}" id="example-date-input"> 
 											</c:if>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="example-text-input" class="form-control-label">성별</label>
+											<select class="form-select" name="empGender" aria-label="Default select example">
+												<option value="M" ${emp_job_gender_m}>남성</option>
+												<option value="F" ${emp_job_gender_f}>여성</option>
+											</select>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -273,17 +296,20 @@
 										</c:if>
 										<input type="button" onClick="submitForm()" class="btn btn-dark ms-2 mb-0 js-btn-next" value="저장" />
 									</div>
+									
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-					</div>
-			</form>
-		</div>
+			</div>
+		</form>
+	</div>
 
-		<!-- Footer 푸터 -->
-		<%@ include file="../footer.jsp"%>
+	<!-- Footer 푸터 -->
+	<%@ include file="../footer.jsp"%>
+		
+		
 	</main>
 
 	<!--   Back to Top   -->

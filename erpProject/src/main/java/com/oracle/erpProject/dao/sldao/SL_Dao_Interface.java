@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
+import com.oracle.erpProject.model.slmodel.SLMake;
 import com.oracle.erpProject.model.slmodel.SLProduct;
+import com.oracle.erpProject.model.slmodel.SLSale;
 
 public interface SL_Dao_Interface {
 
@@ -18,6 +20,8 @@ public interface SL_Dao_Interface {
 	// 날짜 검색 리스트 
 	List<SLBuying> dateSearchAllList(SLBuying buying);
 
+	// 구매 상태 검색 
+	int statusSearchtotCnt(SLBuying buying);
 	
 	// 구매 상세 페이지
 	SLBuying buyingDetail(SLBuying buying);
@@ -44,9 +48,53 @@ public interface SL_Dao_Interface {
 	SLBuying customerSearch(SLBuying buying);
 
 	int buyingApplyWrite(SLBuying buying);
-
+	
 	List<SLBuying> getManagerList(SLBuying buying);
 
-	int buyingApplyAddDetail(SLBuying buying);
+	SLBuying checkBuyData(SLBuying buying);
+
+	List<SLBuying> StatusSearchAllList(SLBuying buying);
+
+	int searchKeywordtotCnt(SLBuying buying);
+
+	List<SLBuying> keywordSearchAllList(SLBuying buying);
+
+	int closingStatu(SLBuying buying);
+	
+	
+	
+	/*------------------------------ 판매 --------------------------------------------*/
+	
+
+	int totalSaleCnt();
+
+	List<SLSale> saleAlllist(SLSale sale);
+
+	int saleDateSearchtotCnt(SLSale sale);
+
+	List<SLSale> saleDateSearchAllList(SLSale sale);
+
+	int saleStatusSearchtotCnt(SLSale sale);
+
+	List<SLSale> saleStatusSearchAllList(SLSale sale);
+
+	int saleSearchKeywordtotCnt(SLSale sale);
+
+	List<SLSale> saleKeywordSearchAllList(SLSale sale);
+
+	List<SLSale> saleProductDetail(SLSale sale);
+
+	List<SLProduct> saleProductList();
+
+
+	int saleMakeRequest(SLMake make);
+
+	int saleApplyWrite(SLSale sale);
+
+	SLSale saleDetail(SLSale sale);
+
+
+
+
 
 }

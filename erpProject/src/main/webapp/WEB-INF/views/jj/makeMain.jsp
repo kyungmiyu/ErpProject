@@ -43,7 +43,7 @@
 	 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 	 	 		
 		<!-- 생산 리스트 게시판 -->
-		<div class="card col-12 w-100 p-5 float-end">
+		<div class="card col-10 w-100 p-5 float-end">
 		  <div class="table-responsive">
 	  		<div class="form-group">
 				<h2>생산게시판</h2>
@@ -70,7 +70,28 @@
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_num}</a></h6> <!-- 작업지시번호 -->
 			          </td>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_status}</h6> <!-- 작업상태 -->
+			          	<h6 class="mb-0 text-xs">
+			          		<c:choose>
+			          			<c:when test="${jj_Make_detail.m_status == 0}">
+			          				0.생산요청
+			          			</c:when>
+			          			<c:when test="${jj_Make_detail.m_status == 1}">
+			          				1.영업생산요청
+			          			</c:when>
+			          			<c:when test="${jj_Make_detail.m_status == 2}">
+			          				2.생산중
+			          			</c:when>
+			          			<c:when test="${jj_Make_detail.m_status == 3}">
+			          				3.생산완료
+			          			</c:when>
+			          			<c:when test="${jj_Make_detail.m_status == 5}">
+			          				5.수불완료
+			          			</c:when>
+			          			<c:otherwise>
+			          				Unknown
+			          			</c:otherwise>
+			          		</c:choose>
+			          	</h6> <!-- 작업상태 -->
 			          </td>
 			          <td class="text-center">
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.p_name}</h6> <!-- 제품명 -->
@@ -79,10 +100,10 @@
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_worker}</h6> <!-- 작업자 -->
 			          </td>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_date}</h6> <!-- 작업지시일자 -->
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_sdate}</h6> <!-- 작업지시일자 -->
 			          </td>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_work_date}</h6> <!-- 작업완료일자 -->
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_due_date}</h6> <!-- 작업완료일자 -->
 			          </td>
 			        </tr>
 				  </c:forEach>
@@ -93,23 +114,26 @@
 		<!-- 페이징 -->
 		<nav aria-label="Page navigation example" class="mt-3 mb-3">
 		  <ul class="pagination justify-content-center">
-		    <li class="page-item disabled">
-		      <a class="page-link" href="jjmakeSearch?currentPage=${page.startPage-page.pageBlock}" tabindex="-1">
-		        <i class="fa fa-angle-left"></i>
-		        <span class="sr-only">이전</span>
-		      </a>
-		    </li>
+		  	<c:if test="${page.startPage > page.pageBlock}">
+			    <li class="page-item disabled">
+			      <a class="page-link" href="jjmakeSearch?currentPage=${page.startPage-page.pageBlock}" tabindex="-1">
+			        <i class="fa fa-angle-left"></i>
+			        <span class="sr-only">이전</span>
+			      </a>
+			    </li>
+		    </c:if>
     		<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-            <li class="page-item"><a class="page-link" href="#" onclick="jjmakeSearchFn(${i})">${i}</a></li>
-            <%-- <li class="page-item"><button onclick="jjmakeSearchFn(${i})"></button></li> --%>
-            
+            	<li class="page-item"><a class="page-link" href="#" onclick="jjmakeSearchFn(${i})">${i}</a></li>
+            	<%-- <li class="page-item"><button onclick="jjmakeSearchFn(${i})"></button></li> --%>
  			</c:forEach>
-		    <li class="page-item">
-		      <a class="page-link" href="jjmakeSearch?currentPage=${page.startPage+page.pageBlock}">
-		        <i class="fa fa-angle-right"></i>
-		        <span class="sr-only">다음</span>
-		      </a>
-		    </li>
+ 			<c:if test="${page.endPage < page.totalPage}">
+			    <li class="page-item">
+			      <a class="page-link" href="jjmakeSearch?currentPage=${page.startPage+page.pageBlock}">
+			        <i class="fa fa-angle-right"></i>
+			        <span class="sr-only">다음</span>
+			      </a>
+			    </li>
+		    </c:if>
 		  </ul>
 		</nav>
 		

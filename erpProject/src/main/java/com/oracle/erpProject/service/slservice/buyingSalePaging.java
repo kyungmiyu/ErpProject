@@ -3,7 +3,7 @@ package com.oracle.erpProject.service.slservice;
 import lombok.Data;
 
 @Data
-public class buyingPaging {
+public class buyingSalePaging {
 	private int currentPage = 1;	private int rowPage   = 10;
 	private int pageBlock = 5;		
 	private int start;				private int end;
@@ -11,7 +11,7 @@ public class buyingPaging {
 	private int total;				private int totalPage;
 	
 	
-	public buyingPaging(int total, String currentPage1) {
+	public buyingSalePaging(int total, String currentPage1) {
 		this.total = total;    // 23
 		if (currentPage1 != null) {
 			this.currentPage = Integer.parseInt(currentPage1);	// 2		

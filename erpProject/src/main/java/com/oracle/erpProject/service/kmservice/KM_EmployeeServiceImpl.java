@@ -3,7 +3,6 @@ package com.oracle.erpProject.service.kmservice;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.dao.kmdao.EmployeeDaoImpl;
@@ -19,17 +18,11 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 	public Employee registEmployee(Employee employee) {
 		return employeeDaoImpl.registEmployee(employee);
 	}
-
-	@Override
-	public List<Employee> listEmployee(Pageable paging) {
-		return employeeDaoImpl.listEmployee(paging).getContent();
-	}
 	
 	@Override
 	public Employee getEmployee(int emp_no) {
 		return employeeDaoImpl.getEmployee(emp_no);
 	}
-	
 	
 	@Override
 	public Employee updateEmployee(Employee employee) {
@@ -40,9 +33,23 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 	public Employee deleteEmployee(Employee employee) {
 		return null;
 	}
-
 	
-
+	@Override
+	public Employee findByEmpNo(int empNo) {
+		return employeeDaoImpl.findByEmpNo(empNo);
+	}
+	
+	@Override
+	public List<Employee> getEmployeeList(int size, int offset, String searchType, String searchValue) {
+		return employeeDaoImpl.getEmployeeList(size, offset, searchType, searchValue);
+	}
+	
+	@Override
+	public Integer countEmployeeList() {
+		return employeeDaoImpl.countEmployeeList();
+	};
+	
+	
 
 
 }

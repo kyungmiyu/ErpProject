@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
+import com.oracle.erpProject.model.slmodel.SLMake;
+import com.oracle.erpProject.model.slmodel.SLSale;
 import com.oracle.erpProject.service.slservice.SL_Service_Interface;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +22,22 @@ import lombok.RequiredArgsConstructor;
 public class SLLestController {
 	
 	private final SL_Service_Interface slService;
+	
+	// 수불 마감 여부
+	@GetMapping("/closingStatus")
+	public int closingStatu(SLBuying buying) {
+		
+		LocalDate today = LocalDate.now(); 
+		String formattedDate =today.format(DateTimeFormatter.BASIC_ISO_DATE);
+		buying.setRnpc_year_month_day(formattedDate);
+		 
+		int closingStatu = slService.closingStatu(buying);
+		
+		System.out.println("수불 마감 여부 +++++++++++" + closingStatu);
+		return closingStatu;
+	}
+	
+	
 	
 	@GetMapping("/getProductList")
 	public List<SLBuying_detail>getProductList(SLBuying_detail sLBuying_detail) {
@@ -48,7 +64,7 @@ public class SLLestController {
 	
 	// 구매 상세페이지 제품 추가
 		@PostMapping("/addProduct")
-		public int buyingDetailModify( SLBuying_detail sLBuying_detail  ) { 
+		public int buyingDetailModify(SLBuying_detail sLBuying_detail  ) { 
 			
 			System.out.println("sLBuying_detail: " + sLBuying_detail);
 		
@@ -93,6 +109,7 @@ public class SLLestController {
 	// 구매 등록 페이지 거래처 검색
 	@PostMapping("/customerSearch")
 	public SLBuying customerSearch(@RequestBody SLBuying buying) {
+	System.out.println("customerSearch buying ######" + buying);
 		SLBuying customerSearch = slService.customerSearch(buying);
 		
 		System.out.println("customerSearch>>>>>>>>>" + customerSearch);
@@ -101,36 +118,95 @@ public class SLLestController {
 	}
 	
 	// 구매 등록 페이지 매니저 옵션 
-	@GetMapping("getManagerList")
+	@PostMapping("getManagerList")
 	public List<SLBuying> getManagerList(SLBuying buying) {
+		
+		System.out.println("getManagerList buying ######" + buying);
 		List<SLBuying> getManagerList = slService.getManagerList(buying);
+		
+		System.out.println("SLLestController getManagerList>>>>>>>>>" + getManagerList.size());
 		
 		return getManagerList;
 	}
 
 	
-	@Transactional
+	/*
+	 * @GetMapping("/checkBuyData") public SLBuying
+	 * checkBuyData(@RequestParam("cust_no") int custNo) {
+	 * 
+	 * SLBuying buying = new SLBuying();
+	 * 
+	 * LocalDate today = LocalDate.now(); 
+	 * String formattedDate =today.format(DateTimeFormatter.BASIC_ISO_DATE);
+	 * buying.setBuy_date(formattedDate); buying.setCust_no(custNo);
+	 * 
+	 * 
+	 * SLBuying checkBuyData = slService.checkBuyData(buying);
+	 * System.out.println("SLLestController checkBuyData *********" + checkBuyData);
+	 * 
+	 * return checkBuyData; }
+	 */
+	
+	
+	
 	@PostMapping("/buyingApplyWrite")
-	public String buyingApplyWrite(@RequestBody SLBuying buying, Model model) {
+	public String buyingApplyWrite(@RequestBody SLBuying buying) {
 	    
-	    LocalDate today = LocalDate.now();
-	    String formattedDate = today.format(DateTimeFormatter.BASIC_ISO_DATE);
-	    buying.setBuy_date(formattedDate);
+		System.out.println("SLLestController buyingApplyWrite Start >>>>>");
+
+		
+		 System.out.println("SLLestController buyingApplyWrite SLBuing >>>>>" +buying);
+		 
+
+	    int result = slService.buyingApplyWrite(buying);
 	    
-	    // 로그 확인
-	    System.out.println("buyingApplyWrite buying *********" + buying);
-	    
-	  
-	    int buyingApplyWrite = slService.buyingApplyWrite(buying);
-	    
-//	    List<SLBuying> productList = buying.getProductList();
-//	    System.out.println("buyingApplyWrite productList *********" + productList);
-//	    
-//	    int buyingApplyAddDetail = slService.buyingApplyAddDetail(buying);
-//	    
-	    
-	    return "sl/buying";    
+	    if (result > 0) {
+	        return "redirect:/buying";
+	    } else {
+	        return "error";
+	    }
 	}
 	
 
+	   
+	/*---------------------------------- 판 매 ---------------------------------------*/
+ 
+	
+	@PostMapping("/makeRequest")
+	public int saleMakeRequest(@RequestBody SLMake make) {
+		
+	System.out.println("SLLestController makeRequest SLMake >>>" +make );
+		int result = slService.saleMakeRequest(make);
+		
+		
+		return result;
+	}
+    
+	@PostMapping("/saleApplyWrite")
+	public String saleApplyWrite(@RequestBody SLSale sale) {
+		
+	System.out.println("SLLestController makeRequest SLMake >>>" +sale );
+		
+	int result = slService.saleApplyWrite(sale);
+		
+	
+		if (result > 0) {
+	        return "redirect:/sale";
+	    } else {
+	        return "error";
+	    }
+	}
+
+	
+
+	// 판매 상세페이지 제품 추가
+//		@PostMapping("/addSaleProduct")
+//		public int buyingDetailModify(SLSale_detail slSales_detail  ) { 
+//			
+//			System.out.println("sLBuying_detail: " + slSales_detail);
+//		
+//			int addProduct = slService.addSaleProduct(slSales_detail);
+//			return addProduct;
+//		}
+//	
 }

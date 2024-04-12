@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+
+import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
+import com.oracle.erpProject.model.mkmodel.mkProduct;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,16 +34,17 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 
 	// 생산게시판 List페이지 - 게시물 list
 	@Override
-	public List<JJ_Make_detail> makeList(JJ_Make_detail md) {
-		List<JJ_Make_detail> makeList = null;
-		System.out.println( "JJ_DaoImpl's makeList Go!");
+	public List<JJ_Make_detail> makedetailList(JJ_Make_detail md) {
+		List<JJ_Make_detail> makedetailList = null;
+		System.out.println("JJ_DaoImpl's makedetailList Go!");
+		System.out.println("JJ_DaoImpl's makedetailList md->"+md);
 		try {
-			makeList = session.selectList("jjMakeList", md);
-			System.out.println("JJ_DaoImpl's makeList.size() -> " + makeList.size());
+			makedetailList = session.selectList("jjMakeDetailList", md);
+			System.out.println("JJ_DaoImpl's makedetailList.size() -> " + makedetailList.size());
 		} catch (Exception e) {
-			System.out.println("JJ_DaoImpl's makeList Exception -> " + e.getMessage());
+			System.out.println("JJ_DaoImpl's makedetailList Exception -> " + e.getMessage());
 		}
-		return makeList;
+		return makedetailList;
 	}
 
 	// 생산게시판 생산 요청 페이지
@@ -57,25 +61,42 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		return requestMakeList;
 	}
 
-	// 생산게시판 생산 요청 기능
 	@Override
-	public int makeRequest(JJ_Make_detail md) {
-		int makeRequest = 0;
-		System.out.println("JJ_DaoImpl's makeRequest Go!");
+	public int makeRequest1(JJ_Make m) {
+		int makeRequest1 = 0;
+		System.out.println("JJ_DaoImpl's makeRequest1 Go!");
+		System.out.println("JJ_DaoImpl's makeRequest1 m->"+m);
 		try {
-			makeRequest = session.insert("jjMakeRequestInsert", md);
-			System.out.println("JJ_DaoImpl's makeRequest -> " + makeRequest);
+			makeRequest1 = session.insert("jjMakeRequestInsert1", m);
+			System.out.println("JJ_DaoImpl's makeRequest1 -> " + makeRequest1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return makeRequest;
+		return makeRequest1;
+	}
+	
+	// 생산게시판 생산 요청 기능
+	@Override
+	public int makeRequest2(JJ_Make_detail md) {
+		int makeRequest2 = 0;
+		System.out.println("JJ_DaoImpl's makeRequest2 Go!");
+		System.out.println("JJ_DaoImpl's makeRequest2 md->"+md);
+		try {
+			makeRequest2 = session.insert("jjMakeRequestInsert2", md);
+			System.out.println("JJ_DaoImpl's makeRequest2 -> " + makeRequest2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return makeRequest2;
 	}
 
 	// 생산 상세 페이지
 	@Override
 	public JJ_Make_detail jjmakeDetail(int m_num) {
 		System.out.println("JJ_DaoImpl's jjmakeDetail Go!");
+		System.out.println("JJ_DaoImpl's jjmakeDetail m_num->"+m_num);
 		JJ_Make_detail jjmakeDetail = new JJ_Make_detail();
+		System.out.println("JJ_DaoImpl's jjmakeDetail jjmakeDetail->"+jjmakeDetail);
 		try {
 			jjmakeDetail = session.selectOne("jjmakeDetail", m_num);
 			System.out.println("JJ_DaoImpl's jjmakeDetail -> " + jjmakeDetail);
@@ -128,4 +149,18 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		}
 		return jjmakeDelete;
 	}
+
+	@Override
+	public List<mkProduct> jjproductList(mkProduct mp) {
+		List<mkProduct> jjproductList = null;
+		System.out.println("JJ_DaoImpl's jjproductList Go!");
+		try {
+			jjproductList = session.selectList("jjproductList", mp);
+			System.out.println("JJ_DaoImpl's jjproductList -> " + jjproductList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jjproductList;
+	}
+
 }

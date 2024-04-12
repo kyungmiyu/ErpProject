@@ -11,19 +11,19 @@ $(document).ready(function() {
 
 	fetchManagerList();
 
-	// 매니저 리스트 
 	function fetchManagerList() {
+		var dept_no = $("#dept_no").val();
+
 		$.ajax({
-			type: "GET",
+			type: "POST",
 			url: "/getManagerList",
-			contentType: "application/json",
+			data: { dept_no: dept_no },
 			success: function(managerList) {
 				managerList.forEach(function(manager) {
 					var option = $("<option>")
-						.val(manager.emp_no)
+						.val(manager.emp_name)
 						.text(manager.emp_name);
-					$("#managerName").append(option);
-					$("#buy_manager").val(manager.emp_name);
+					$("#buy_manager").append(option);
 				});
 			},
 			error: function(error) {
@@ -35,12 +35,13 @@ $(document).ready(function() {
 	// 거래처 검색 
 	$("#cusSearchBtn").click(function() {
 		var keyword = $(".cusSearchBox").val();
+		var cust_type = $("#cust_type").val();
 
 		$.ajax({
 			url: "/customerSearch",
 			type: "POST",
 			contentType: "application/json",
-			data: JSON.stringify({ keyword: keyword }),
+			data: JSON.stringify({ keyword: keyword, cust_type: cust_type }),
 			success: function(response) {
 				console.log(response);
 
@@ -87,10 +88,10 @@ $(document).ready(function() {
 		if (!isExistingProduct) {
 			var newItemHTML = `
                 <li class="buyListItem">
-                    <input type="hidden" class="p_itemcode" value="${p_itemcode}">
+                    <input type="hidden" class="p_itemcode" name="p_itemcode" value="${p_itemcode}">
                     <input value="${p_name}" disabled="disabled">
-                    <input value="${bd_price}" disabled="disabled">
-                    <input class="bdCnt" value="${bd_cnt}" >
+                    <input value="${bd_price}"name="bd_price" disabled="disabled">
+                    <input class="bdCnt" value="${bd_cnt}" name="bd_cnt">
                     <input value="${totalMoney}" disabled="disabled">
                     <button type="button" class="btn btn-primary pModifyBtn">수정</button>
                     <button type="button" class="btn btn-primary pDeleteBtn">삭제</button>
@@ -106,65 +107,70 @@ $(document).ready(function() {
 		}
 	});
 
-	// 수정 버튼 클릭 이벤트
-	$(document).on("click", ".pModifyBtn", function() {
-		var $productItem = $(this).closest(".buyListItem");
-		var p_itemcode = $productItem.find(".p_itemcode").val();
-		var p_name = $productItem.find("input:eq(1)").val();
-		var bd_cnt = $productItem.find("input:eq(3)").val();
-		var bd_price = $productItem.find("input:eq(2)").val();
-		var totalMoney = $productItem.find("input:eq(4)").val();
-
-		console.log("수정할 제품 정보:", p_itemcode, p_name, bd_cnt, bd_price, totalMoney);
-	});
 
 	// 제품 리스트 삭제 
 	$(document).on("click", ".pDeleteBtn", function() {
 		$(this).closest(".buyListItem").remove();
 	});
 
+	// 구매 등록 
 	$("#buyApplyBtn").click(function() {
-    // 필요한 데이터 수집
-    var buy_title = $("#buy_title").val();
-    var buy_note = $("#buy_note").val();
-    var cust_no = $("#cust_no").val();
-    var emp_no = $("#emp_no").val();
-    var buy_manager = $("#buy_manager").val();
-    var buy_date = new Date().toISOString().slice(0, 8);
+		var buy_title = $("#buy_title").val();
+		var buy_note = $("#buy_note").val();
+		var cust_no = $("#cust_no").val();
+		var emp_no = $("#emp_no").val();
+		var buy_manager = $("#buy_manager").val();
 
-    // 제품 목록 수집
-    var productList = [];
-    $(".product").each(function() {
-        var p_itemcode = $(this).find(".p_itemcode").val();
-        var bd_price = $(this).find(".bd_price").val();
-        var bd_cnt = $(this).find(".bd_cnt").val();
-        productList.push({
-            p_itemcode: p_itemcode,
-            bd_price: bd_price,
-            bd_cnt: bd_cnt
-        });
-    });
+		var today = new Date();
+		var formattedDate = today.toISOString().slice(0, 10).replace(/-/g, '');
+		var buy_date = formattedDate;
 
-    $.ajax({
-        type: "POST",
-        url: "/buyingApplyWrite",
-        contentType: "application/json",
-        data: JSON.stringify({
-            buy_title: buy_title,
-            buy_note: buy_note,
-            cust_no: cust_no,
-            emp_no: emp_no,
-            buy_manager: buy_manager,
-            buy_date: buy_date,
-            productList: productList
-        }),
-        success: function(response) {
-            console.log("구매 등록 성공:", response);
-        },
-        error: function(error) {
-            // 오류 발생 시 처리 방법 (예: 오류 메시지 표시)
-            console.error("구매 등록 실패:", error);
-        }
-    });
-});
+
+		// 제품 목록 수집
+		var productList = [];
+
+		$(".buyListItem").each(function() {
+			var p_itemcode = $(this).find(".p_itemcode").val();
+			var bd_price = $(this).find("[name='bd_price']").val();
+			var bd_cnt = $(this).find(".bdCnt").val();
+			var cust_no = $("#cust_no").val();
+
+			productList.push({
+				p_itemcode: p_itemcode,
+				bd_price: bd_price,
+				bd_cnt: bd_cnt,
+				cust_no: cust_no,
+				buy_date: buy_date
+
+			});
+		});
+		console.log(productList);
+
+		$.ajax({
+			type: "POST",
+			url: "/buyingApplyWrite",
+			contentType: 'application/json',
+			data: JSON.stringify({
+				buy_title: buy_title,
+				buy_note: buy_note,
+				cust_no: cust_no,
+				buy_date: buy_date,
+				emp_no: emp_no,
+				buy_manager: buy_manager,
+				productList: productList
+			}),
+			success: function(response) {
+				console.log("구매 등록 성공:", response);
+
+				var redirectURL = "http://localhost:8587/buyDetail?cust_no=" + cust_no + "&buy_date=" + buy_date;
+				window.location.href = redirectURL;
+			},
+			error: function(error) {
+
+				console.error("구매 등록 실패:", error);
+			}
+		});
+
+
+	});
 });

@@ -3,6 +3,8 @@ package com.oracle.erpProject.domain;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ public class Employee { /* KM_Employee */
 	@GeneratedValue(generator = "EMP_NO_SEQ")
 	@SequenceGenerator(name = "EMP_NO_SEQ", sequenceName = "EMP_NO_SEQ", allocationSize = 1)
 	@Column(name="emp_no")
-	private int empNo; // 사원번호
+	private Integer empNo; // 사원번호
 	@Column(name="emp_job_comm")
 	private int empJobComm; // 직책 중분류
 	@Column(name="emp_job_name")
@@ -57,6 +59,7 @@ public class Employee { /* KM_Employee */
 	private String empRole; // role_employee(사원), role_admin(관리자), role_manager (업무 담당자)
 	@Column(name="emp_enabled")
 	private String empEnabled; // 계정활성화
+	@DateTimeFormat
 	@Temporal(value = TemporalType.TIMESTAMP)
 	@Column(name="emp_wdate")
 	private Timestamp empWdate; // 입력일자 (사원 등록일자)

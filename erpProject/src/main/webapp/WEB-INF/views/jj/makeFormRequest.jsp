@@ -12,11 +12,31 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script type="text/javascript">
+<script type="text/javascript" defer>
 	function testFn(tDate) {
 		var Date = tDate;
 		alert("tDate->"+tDate);
 	}
+	
+	document.getElementById("makeRequest").addEventListener("submit", function(event) {
+		var quantityField = document.getElementById("md_pro_quantity");
+		var quantityValue = quantityField.value.trim();
+		
+		// 입력값이 비어 있는지 확인
+		if (quantityValue === "") {
+			// 비어 있다면 기본값 0으로 설정
+			quantityField.value = "0";
+		}
+		
+		var workerNumField = document.getElementById("md_worker_num");
+		var workerNumValue = workerNumField.value.trim();
+		
+		// 입력값이 비어 있는지 확인
+		if (workerNumValue === "") {
+			// 비어 있다면 기본값 0으로 설정
+			workerNumField.value = "0";
+		}
+	})
 </script>
 
 <head>
@@ -50,21 +70,21 @@ legend {
 	 	<!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 
 		<!-- 생산 요청 게시판123 -->
-		<div class="card col-6 w-75 p-5 float-end">
+		<div class="card col-9 w-75 p-5 float-end">
 			<div class="table-responsive">
 				<div class="form-group">
 					<h2>생산 요청 게시판</h2>
 				</div>
-				<form action="makeRequest" method="post">
+				<form id="makeRequest" action="makeRequest" method="post">
 				  <div class="row">
 					  <div class="col">
-						  <label for="example-text-input" class="form-control-label">작업지시번호 m_num</label>
-						  <input class="form-control" type="number" name="m_num" value="${JJ_Make_detail.m_num}" id="example-text-input">
+						  <label for="m_num" class="form-control-label">작업지시번호 m_num</label>
+						  <input class="form-control" type="number" name="m_num" value="${JJ_Make.m_num}" placeholder="yyyymmdd01형식으로 입력해주세요" id="m_num">
 					  </div>
 				      <div class="col">
 				        <div class="mb-3">
-				        	<label for="form-select" class="form-control-label">작업지시상태 md_status</label>
-						    <select class="form-select" name="md_status" required aria-label="select example" id="form-select">
+				        	<label for="form-select" class="form-control-label">작업지시상태 m_status</label>
+						    <select class="form-select" name="m_status" required aria-label="select example" id="form-select">
 						      <option value="">선택사항</option>
 						      <option value="0">0.생산요청</option>
 						      <option value="1">1.영업생산요청</option>
@@ -91,72 +111,86 @@ legend {
 					<fieldset>
     					<legend>관리자 입력란</legend>
 					    <div class="form-group">
-					        <label for="example-search-input" class="form-control-label">작업순번 md_num</label>
+					        <label for="md_num" class="form-control-label">작업순번 md_num</label>
 					        <input class="form-control" type="number" name="md_num" value="${JJ_Make_detail.md_num}"
-					        		placeholder="작업순번" id="example-search-input">
+					        		placeholder="작업순번" id="md_num">
 					    </div>
 					    <div class="form-group">
-					        <label for="example-tel-input" class="form-control-label">작업지시일자 md_date</label>
-					        <input class="form-control" type="date" name="md_date" value="${JJ_Make_detail.md_date}"
-					        		placeholder="작업지시일자을 입력" id="example-tel-input">
+					        <label for="m_sdate" class="form-control-label">작업지시일자 m_sdate</label>
+					        <input class="form-control" type="date" name="m_sdate" value="${JJ_Make_detail.m_sdate}"
+					        		placeholder="작업지시일자을 입력" id="m_sdate">
+					    </div>
+					    <div class="form-group">
+					        <label for="md_worker" class="form-control-label">작업지시담당자 m_manager</label>
+					        <input class="form-control" type="text" name="m_manager" value="${JJ_Make.m_manager}"
+					        		placeholder="담당 작업자를 입력" id="md_worker">
 					    </div>
 					    <div class="form-group">
 					        <label for="form-select" class="form-control-label">공장명 f_name</label>
 						    <select class="form-select" name="f_id" required aria-label="select example" id="form-select">
 						      <option value="">선택사항</option>
-						      <option value="10001">A동 공장</option>
+						      <option value="${JJ_Make_detail.f_id}">A동 공장</option>
 						      <option value="10002">B동 공장</option>
 						     </select>
 					    </div>
 					    <div class="form-group">
-					        <label for="example-email-input" class="form-control-label">제품코드 p_itemcode</label>
+					        <label for="p_itemcode" class="form-control-label">제품코드 p_itemcode</label>
 					        <input class="form-control" type="number" name="p_itemcode" value="${JJ_Make_detail.p_itemcode}"
-					        		placeholder="제품코드를 입력" id="example-email-input">
+					        		placeholder="제품코드를 입력" id="p_itemcode">
 					    </div>
 					    <div class="form-group">
-					        <label for="example-url-input" class="form-control-label">제품명 p_name</label>
+					        <label for="p_name" class="form-control-label">제품명 p_name</label>
 					        <input class="form-control" type="text" name="p_name" value="${JJ_Make_detail.p_name}"
-					        		placeholder="제품명을 입력" id="example-url-input">
+					        		placeholder="제품명을 입력" id="p_name">
 					    </div>
 					    <div class="form-group">
-					        <label for="example-password-input" class="form-control-label">지시수량 md_quantity</label>
+					        <label for="form-select" class="form-control-label">제품명 p_name</label>
+					        <select class="form-select" name="select_product" required aria-label="select product" id="form-select">
+					        	<option value="">선택사항</option>
+					        	<c:forEach var="product" items="${productList}">
+					        		<option value="${product.p_itemcode}">${product.p_name}</option>
+					        	</c:forEach>
+					        </select>
+					    </div>
+					    
+					    <div class="form-group">
+					        <label for="md_quantity" class="form-control-label">지시수량 md_quantity</label>
 					        <input class="form-control" type="number" name="md_quantity" value="${JJ_Make_detail.md_quantity}"
-					        		placeholder="지시수량을 입력" id="example-password-input">
+					        		placeholder="지시수량을 입력" id="md_quantity">
 					    </div>
 				    </fieldset>
 				    <fieldset>
     					<legend>작업자 입력란</legend>
 					    <div class="form-group">
-					        <label for="example-number-input" class="form-control-label">작업자 md_worker</label>
+					        <label for="md_worker" class="form-control-label">작업자 md_worker</label>
 					        <input class="form-control" type="text" name="md_worker" value="${JJ_Make_detail.md_worker}"
-					        		placeholder="담당 작업자를 입력" id="example-number-input">
+					        		placeholder="담당 작업자를 입력" id="md_worker">
 					    </div>
 					    <div class="form-group">
-					        <label for="example-datetime-local-input" class="form-control-label">작업인원 md_worker_num</label>
-					        <input class="form-control" type="text" name="md_worker_num" value="${JJ_Make_detail.md_worker_num}"
-					        		placeholder="작업인원수를 입력" id="example-datetime-local-input">
+					        <label for="md_worker_num" class="form-control-label">작업인원 md_worker_num</label>
+					        <input class="form-control" type="number" name="md_worker_num" value="${JJ_Make_detail.md_worker_num}"
+					        		placeholder="작업인원수를 입력" id="md_worker_num">
 					    </div>
 					    <div class="form-group">
-					        <label for="example-date-input" class="form-control-label">작업완료일자 md_work_date</label>
+					        <label for="md_work_date" class="form-control-label">작업완료일자 md_work_date</label>
 					        <input class="form-control" type="date" name="md_work_date" value="${JJ_Make_detail.md_work_date}"
-					        		placeholder="작업완료일자" id="example-date-input">
+					        		placeholder="작업완료일자" id="md_work_date">
 					    </div>
 					    <div class="form-group">
-					        <label for="example-month-input" class="form-control-label">생산수량 md_pro_quantity</label>
-					        <input class="form-control" type="text" name="md_pro_quantity" value="${JJ_Make_detail.md_pro_quantity}"
-					        		placeholder="생산수량을 입력" id="example-month-input">
+					        <label for="md_pro_quantity" class="form-control-label">생산수량 md_pro_quantity</label>
+					        <input class="form-control" type="number" name="md_pro_quantity" value="${JJ_Make_detail.md_pro_quantity}"
+					        		placeholder="생산수량을 입력" id="md_pro_quantity">
 					    </div>
 					    <div class="form-group">
-					        <label for="example-month-input" class="form-control-label">비고 md_note</label>
+					        <label for="md_note" class="form-control-label">비고 md_note</label>
 					        <input class="form-control" type="text" name="md_note" value="${JJ_Make_detail.md_note}"
-					        		placeholder="작업 특이사항을 입력" id="example-month-input">
+					        		placeholder="작업 특이사항을 입력" id="md_note">
 					    </div>
 				    </fieldset>
 				    
 				    <!-- 생산 요청 게시판 - 저장, 삭제, 목록 버튼 -->
 					<div class="d-flex justify-content-end">
-						<button type="submit" class="btn btn-primary" id="buyProBtn">저장</button>
-						<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeDelelte'">삭제</button>
+						<button type="submit" class="btn btn-primary" id="buyProBtn">생산요청</button>
 						<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeMain'">목록</button>
 					</div>
 				</form>

@@ -23,4 +23,9 @@ public class SLProduct {
 		private int p_isdeleted;				//취급여부 
 
 	
+		
+	// 조회용
+		private int st_quantity; // 재고 수량 
+		
+		
 }

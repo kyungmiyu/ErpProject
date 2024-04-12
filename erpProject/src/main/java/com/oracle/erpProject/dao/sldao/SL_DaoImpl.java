@@ -4,17 +4,24 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
+import com.oracle.erpProject.model.slmodel.SLMake;
 import com.oracle.erpProject.model.slmodel.SLProduct;
+import com.oracle.erpProject.model.slmodel.SLSale;
+import com.oracle.erpProject.model.slmodel.SLSale_detail;
 
 import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
 public class SL_DaoImpl implements SL_Dao_Interface{
-
+	
+	private  final PlatformTransactionManager transactionManager;
 	private final SqlSession session;
 
 	@Override
@@ -61,6 +68,22 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		return dateSearchAllList;
 	}
 
+	// 구매 상태 검색 
+	@Override
+	public int statusSearchtotCnt(SLBuying buying) {
+		int statusSearchtotCnt = session.selectOne("LslstatusSearchtotCnt",buying);
+		return statusSearchtotCnt;
+	}
+	
+	@Override
+	public List<SLBuying> StatusSearchAllList(SLBuying buying) {
+		List<SLBuying> StatusSearchAllList = session.selectList("LslStatusSearchAllList", buying);
+		return StatusSearchAllList;
+	}
+
+	
+	
+	
 	@Override
 	public SLBuying buyingDetail(SLBuying buying) {
 		System.out.println("SL_DaoImpl buyingDetail Start ->>>>>>");
@@ -109,13 +132,26 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		
 		return deleteProduct;
 	}
-
+	/*
+	 * @Override public int buyingModify(SLBuying buying) { int buyingModify =
+	 * session.update("LslbuyingModify",buying);
+	 * System.out.println("buyingModify buyingModify->"+buyingModify); return
+	 * buyingModify; }
+	 */
+	
 	@Override
 	public int buyingModify(SLBuying buying) {
-		int buyingModify = session.update("LslbuyingModify",buying);
-		System.out.println("buyingModify buyingModify->"+buyingModify);
-		return buyingModify;
+		
+		System.out.println("SL_DaoImpl buyingModify Start>>>>>>");
+		
+		int result = session.update("LslbuyingModify", buying);
+			
+		
+		
+		return result;
 	}
+	
+	
 	
 	@Override
 	public int addProduct(SLBuying_detail slBuying_detail) {
@@ -160,20 +196,216 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	@Override
 	public int buyingApplyWrite(SLBuying buying) {
 		
-		System.out.println("buyingApplyWrite SLBuying >>>>>>" + buying);
+		System.out.println("SL_DaoImpl buyingApplyWrite Start>>>>>>");
 		
-		int buyingApplyWrite = session.insert("LslbuyingApplyWrite", buying);
+		int result = 0;
 		
-		return buyingApplyWrite;
+		
+		System.out.println("DAO    buyingApplyWrite SLBuying >>>>>>" + buying);
+		List<SLBuying_detail> productList = buying.getProductList();
+		
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		
+		try {
+			result = session.insert("LslbuyingApplyWrite", buying);
+			for(SLBuying_detail  sLBuying_detail :  productList ) {
+				System.out.println("DAO sLBuying_detail->"+sLBuying_detail);
+				result = session.insert("LslbuyingApplyProductList", sLBuying_detail);
+			}
+		
+
+			 transactionManager.commit(txStatus);
+			 
+		
+		} catch (Exception e) {
+			System.out.println("EmpDaoImpl totalEmp Exception->"+e.getMessage());
+			transactionManager.rollback(txStatus);
+		}
+		
+		
+		
+		return result;
 	}
 	
 
+	
+	
+	
 	@Override
-	public int buyingApplyAddDetail(SLBuying buying) {
-		int buyingApplyAddDetail = session.insert("LslbuyingApplyAddDetail", buying);
-		return buyingApplyAddDetail;
+	public SLBuying checkBuyData(SLBuying buying) {
+		
+		SLBuying checkBuyData = session.selectOne("LslcheckBuyData", buying);
+		
+		
+		return checkBuyData;
+	}
+
+	@Override
+	public int searchKeywordtotCnt(SLBuying buying) {
+		
+		int searchKeywordtotCnt = session.selectOne("LslsearchKeywordtotCnt", buying);
+		
+		return searchKeywordtotCnt;
+	}
+
+	@Override
+	public List<SLBuying> keywordSearchAllList(SLBuying buying) {
+		
+		List<SLBuying> keywordSearchAllList = session.selectList("LslkeywordSearchAllList" , buying);
+		
+		
+		return keywordSearchAllList;
+	}
+
+	@Override
+	public int closingStatu(SLBuying buying) {
+		int closingStatu = session.selectOne("LslclosingStatu", buying);
+		return closingStatu;
+	}
+
+	
+	
+	/*------------------------------ 판매 --------------------------------------------*/
+	
+	
+	@Override
+	public int totalSaleCnt() {
+		
+		int totalSaleCnt = session.selectOne("LsltotalSaleCnt");
+		
+		return totalSaleCnt;
+	}
+
+	@Override
+	public List<SLSale> saleAlllist(SLSale sale) {
+		
+		List<SLSale> saleAlllist = session.selectList("LslsaleAlllist", sale);
+		
+		return saleAlllist;
+	}
+
+	@Override
+	public int saleDateSearchtotCnt(SLSale sale) {
+	
+		int saleDateSearchtotCnt = session.selectOne("LslsaleDateSearchtotCnt", sale);
+		
+		return saleDateSearchtotCnt;
+	}
+
+	@Override
+	public List<SLSale> saleDateSearchAllList(SLSale sale) {
+		
+		System.out.println("dateSearchAllList sale" + sale);
+		
+		List<SLSale> dateSearchAllList = session.selectList("LslsaleDateSearchAllList", sale);
+		
+		return dateSearchAllList;
+	}
+
+	@Override
+	public int saleStatusSearchtotCnt(SLSale sale) {
+		
+		int saleStatusSearchtotCnt = session.selectOne("LslsaleStatusSearchtotCnt", sale);
+		
+		return saleStatusSearchtotCnt;
+	}
+
+	@Override
+	public List<SLSale> saleStatusSearchAllList(SLSale sale) {
+		
+		List<SLSale> saleStatusSearchAllList = session.selectList("LslsaleStatusSearchAllList", sale);
+		
+		return saleStatusSearchAllList;
+	}
+
+	@Override
+	public int saleSearchKeywordtotCnt(SLSale sale) {
+		int saleSearchKeywordtotCnt = session.selectOne("LslsaleSearchKeywordtotCnt" , sale);
+		return saleSearchKeywordtotCnt;
+	}
+
+	@Override
+	public List<SLSale> saleKeywordSearchAllList(SLSale sale) {
+		List<SLSale> saleKeywordSearchAllList = session.selectList("LslsaleKeywordSearchAllList", sale);
+		
+		return saleKeywordSearchAllList;
+	}
+
+	@Override
+	public List<SLSale> saleProductDetail(SLSale sale) {
+		
+		List<SLSale> saleProductDetail = session.selectList("LslsaleProductDetail", sale);
+		
+		return saleProductDetail;
+	}
+
+	
+	// 판매 상세 페이지 정보
+	@Override
+	public SLSale saleDetail(SLSale sale) {
+		
+		SLSale saleDetail = session.selectOne("LslsaleDetail", sale);
+		
+		
+		return saleDetail;
 	}
 	
+	
+	
+	
+	@Override
+	public List<SLProduct> saleProductList() {
+		
+		List<SLProduct> saleProductList = session.selectList("LslsaleProductList");
+		
+		return saleProductList;
+	}
+
+	@Override
+	public int saleMakeRequest(SLMake make) {
+		
+		int saleMakeRequest = session.insert("LslsaleMakeRequest", make);
+		
+		return saleMakeRequest;
+	}
+
+	@Override
+	public int saleApplyWrite(SLSale sale) {
+		
+		System.out.println("SL_DaoImpl buyingApplyWrite Start>>>>>>");
+		
+		int result = 0;
+		
+		
+		System.out.println("DAO    saleApplyWrite SLSale >>>>>>" + sale);
+		List<SLSale_detail> saleProductList = sale.getProductList();
+		
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		
+		try {
+			result = session.insert("LslsaleApplyWrite", sale);
+			for(SLSale_detail  slSale_detail :  saleProductList ) {
+				System.out.println("DAO slSale_detail->"+slSale_detail);
+				
+				result = session.insert("LslsaleProductListInsert", slSale_detail);
+			}
+		
+
+			 transactionManager.commit(txStatus);
+			 
+		
+		} catch (Exception e) {
+			System.out.println("EmpDaoImpl totalEmp Exception->"+e.getMessage());
+			transactionManager.rollback(txStatus);
+		}
+		
+		
+		
+		return result;
+	}
+
+	
+
 	
 	
 }

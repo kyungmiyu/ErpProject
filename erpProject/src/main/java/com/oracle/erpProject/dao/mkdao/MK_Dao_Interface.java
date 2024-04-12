@@ -50,6 +50,10 @@ public interface MK_Dao_Interface {
 
 	int insertCustomer(mkCustomer customer);
 
+	List<mkProduct> proCategory(mkProduct mkProduct);
+
+	List<mkProduct> fList(mkProduct product);
+
 
 
 }

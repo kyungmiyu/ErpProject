@@ -103,7 +103,26 @@
 			    p_isdeleted = #{p_isdeleted}
 			    WHERE p_itemcode = #{p_itemcode}
 			</update>
+			
+		<select id="proCategory"  resultType="mkProduct">
+		
+		select comm_bcd,comm_mcd,comm_content from comm where comm_bcd=300
 
+		</select>  
+		
+		<select id="fList"  resultType="mkProduct">
+		
+		select f_id from factory 
 
+		</select>  
+
+<!-- ============================ JJ's mappers start ============================ -->
+	<!-- 제품 상세 조회  -->
+	<select id="jjproductList" parameterType="mkProduct" resultType="mkProduct">
+		SELECT a.*
+		FROM 
+			(select * from product order by p_itemcode ) a
+	</select>
+<!-- ============================ JJ's mappers 끝 ============================ -->
 
 </mapper>

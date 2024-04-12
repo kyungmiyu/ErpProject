@@ -70,7 +70,7 @@
 	text-align: center;
 }
 
-#managerName {
+#buy_manager {
 	width: 600px;
 	margin-left: 10px;
 	margin-right: 30px;
@@ -322,13 +322,16 @@
 	
 }
 
-.cusSearchBox {
+#cusSearchBox {
 	position: absolute;
 	left: 30px;
-	width: 320px;
+	width: 300px !important;
 	border-radius: 5px;
 }
-
+body #cusSearchBox {
+    width: 300px;
+    
+}
 .cusSearchName {
 	position:absolute;
 	width: 300px;

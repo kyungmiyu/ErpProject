@@ -41,7 +41,7 @@
                   <c:forEach items="${listBoard}" var="board">
 	                  <tr>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs">${board.b_name}</h6>
+			          	<h6 class="mb-0 text-xs"><a href="boardContents?b_no=${board.b_no}">${board.b_name}</a></h6>		
 			          </td>
 			         <td class="text-center">
 			          	<h6 class="mb-0 text-xs">${board.emp_no}</h6>
@@ -50,7 +50,9 @@
 			          	<h6 class="mb-0 text-xs">${board.b_no}</h6>
 			          </td>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs">${board.b_regdate}</h6>
+			          	<h6 class="mb-0 text-xs"><fmt:formatDate value="${board.b_regdate}"
+													pattern="yyyy-MM-dd" />
+						</h6>
 			          </td>
 			          <td class="text-center">
 			          	<h6 class="mb-0 text-xs">${board.b_hit}</h6>
@@ -87,9 +89,16 @@
 					        </c:if>
 					    </ul>
 					</nav>
-					
+					<div class="d-flex justify-content-end">
+			                  <a href="boardForm">
+			                    <button type="button" class="btn-msg-primary">
+			                      글작성
+			                    </button>
+			                  </a>
+			                </div>
               </div>
             </div>
+            
           </div>
         </div>
       </div>

@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.oracle.erpProject.dao.sldao.SL_Dao_Interface;
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
+import com.oracle.erpProject.model.slmodel.SLMake;
 import com.oracle.erpProject.model.slmodel.SLProduct;
+import com.oracle.erpProject.model.slmodel.SLSale;
 
 import lombok.RequiredArgsConstructor;
 @Transactional
@@ -53,6 +55,31 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		return dateSearchAllList;
 	}
 
+	// 구매 상태 검색 
+	@Override
+	public int statusSearchtotCnt(SLBuying buying) {
+		int statusSearchtotCnt = slDao.statusSearchtotCnt(buying);
+		
+		return statusSearchtotCnt;
+	}
+
+	// 구매 상태 검색 리스트 
+	@Override
+	public List<SLBuying> StatusSearchAllList(SLBuying buying) {
+		List<SLBuying> StatusSearchAllList = slDao.StatusSearchAllList(buying);
+		
+		return StatusSearchAllList;
+	}
+	
+	
+	// 수불 마감 여부
+	@Override
+	public int closingStatu(SLBuying buying) {
+		int closingStatu = slDao.closingStatu(buying);
+		return closingStatu;
+	}
+
+	
 	// 구매 상세 페이지
 	@Override
 	public SLBuying buyingDetail(SLBuying buying) {
@@ -149,19 +176,154 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 	
 	@Override
 	public int buyingApplyWrite(SLBuying buying) {
-	    // 부모 테이블에 데이터 추가
+	   
+		System.out.println("SL_ServiceImpl buyingApplyWrite Start");
+		
 	    int buyingApplyWrite = slDao.buyingApplyWrite(buying);
 	          
 	        return buyingApplyWrite;
 	   
 	}
 	
+
+	@Override
+	public SLBuying checkBuyData(SLBuying buying) {
+		SLBuying checkBuyData = slDao.checkBuyData(buying);
+		
+		return checkBuyData;
+	}
+
+	@Override
+	public int searchKeywordtotCnt(SLBuying buying) {
+		
+		int searchKeywordtotCnt = slDao.searchKeywordtotCnt(buying);
+		
+		return searchKeywordtotCnt;
+	}
+
+	@Override
+	public List<SLBuying> keywordSearchAllList(SLBuying buying) {
+		List<SLBuying> keywordSearchAllList = slDao.keywordSearchAllList(buying);
+		
+		return keywordSearchAllList;
+	}
+
+
+	
+	/*------------------------------------------ 판매 ---------------------------------------------------------*/
+
+
+	// 판매 페이지 
+	@Override
+	public int totalSaleCnt() {
+		
+		int totalSaleCnt = slDao.totalSaleCnt();
+		
+		return totalSaleCnt;
+	}
+
+	// 판매 페이지 리스트 
+	@Override
+	public List<SLSale> saleAlllist(SLSale sale) {
+		
+		List<SLSale> saleAlllist = slDao.saleAlllist(sale);
+		
+		return saleAlllist;
+	}
+
+	@Override
+	public int saleDateSearchtotCnt(SLSale sale) {
+		
+		int saleDateSearchtotCnt = slDao.saleDateSearchtotCnt(sale);
+		
+		return saleDateSearchtotCnt;
+	}
+
+	@Override
+	public List<SLSale> saleDateSearchAllList(SLSale sale) {
+		
+		List<SLSale> saleDateSearchAllList = slDao.saleDateSearchAllList(sale);
+		
+		return saleDateSearchAllList;
+	}
+
+	
 	
 	@Override
-	public int buyingApplyAddDetail(SLBuying buying) {
-		int buyingApplyAddDetail = slDao.buyingApplyAddDetail(buying);
-		return buyingApplyAddDetail;
+	public int saleStatusSearchtotCnt(SLSale sale) {
+		int saleStatusSearchtotCnt = slDao.saleStatusSearchtotCnt(sale);
+		return saleStatusSearchtotCnt;
 	}
+
+	@Override
+	public List<SLSale> saleStatusSearchAllList(SLSale sale) {
+		List<SLSale> saleStatusSearchAllList = slDao.saleStatusSearchAllList(sale);
+		return saleStatusSearchAllList;
+	}
+
+	@Override
+	public int saleSearchKeywordtotCnt(SLSale sale) {
+		
+		int saleSearchKeywordtotCnt = slDao.saleSearchKeywordtotCnt(sale);
+		
+		return saleSearchKeywordtotCnt;
+	}
+
+	@Override
+	public List<SLSale> saleKeywordSearchAllList(SLSale sale) {
+		
+		List<SLSale> saleKeywordSearchAllList = slDao.saleKeywordSearchAllList(sale);
+		
+		return saleKeywordSearchAllList;
+	}
+
+	@Override
+	public List<SLSale> saleProductDetail(SLSale sale) {
+		
+		List<SLSale> saleProductDetail = slDao.saleProductDetail(sale);
+		
+		return saleProductDetail;
+	}
+
+	
+	// 판매 상세 정보 
+	@Override
+	public SLSale saleDetail(SLSale sale) {
+		
+		SLSale saleDetail = slDao.saleDetail(sale);		
+		
+		return saleDetail;
+	}
+
+	
+	
+	@Override
+	public List<SLProduct> saleProductList() {
+		
+		List<SLProduct> saleProductList = slDao.saleProductList();
+		
+		return saleProductList;
+	}
+	
+	
+	// 생산 작업 지시 요청 
+	@Override
+	public int saleMakeRequest(SLMake make) {
+		
+		int makeRequest = slDao.saleMakeRequest(make);
+		
+		return makeRequest;
+	}
+
+	@Override
+	public int saleApplyWrite(SLSale sale) {
+		
+		int saleApplyWrite = slDao.saleApplyWrite(sale);
+		
+		return saleApplyWrite;
+	}
+
+	
 
 	
 

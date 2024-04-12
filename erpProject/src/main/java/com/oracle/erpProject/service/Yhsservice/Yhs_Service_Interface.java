@@ -2,7 +2,6 @@ package com.oracle.erpProject.service.Yhsservice;
 
 import java.util.List;
 
-import com.oracle.erpProject.model.Board;
 import com.oracle.erpProject.model.yhsmodel.YhsBoard;
 
 public interface Yhs_Service_Interface {
@@ -12,15 +11,20 @@ public interface Yhs_Service_Interface {
 	List<YhsBoard> listBoard(YhsBoard board);
 	
 	// 게시판 상세 페이지 
-//	Board boardContents(int b_no);
+	YhsBoard boardContents(int b_no);
 	
 	
 	// 게시판 글 조회수 
-//	int boardViewCnt(Board board);
+	int boardViewCnt(YhsBoard board);
 	
 	
 	// 게시판 상세 페이지 댓글 카운트
-//	int boardReplyCnt(int b_no);
+	int boardReplyCnt(int b_no);
+	
+	// 게시판 상세페이지 파일 조회
+	List<YhsBoard> boardFile(int b_no);
+	
+	int insertBoard(YhsBoard board);
 
 }
 

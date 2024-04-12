@@ -45,7 +45,7 @@ legend {
 	 	<!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 
 		<!-- 생산 요청 게시판123 -->
-		<div class="card col-6 w-75 p-5 float-end">
+		<div class="card col-9 w-75 p-5 float-end">
 			<div class="table-responsive">
 				<div class="form-group">
 					<h2>생산 상세 게시글</h2>
@@ -54,18 +54,18 @@ legend {
 				  <div class="row">
 					  <div class="col">
 						  <label for="example-text-input" class="form-control-label">작업지시번호 m_num</label>
-						  <input class="form-control" type="number" value="${jjmakeDetail.m_num}" id="example-text-input" readonly>
+						  <input class="form-control" type="number" value="${jjmakeDetail.m_num}" placeholder="yyyymmdd방식으로 기입" id="example-text-input" readonly>
 					  </div>
 				      <div class="col">
 				        <div class="mb-3">
-				        	<label for="form-select" class="form-control-label">작업지시상태 md_status</label>
+				        	<label for="form-select" class="form-control-label">작업지시상태 m_status</label>
 						    <select class="form-select" required aria-label="select example" id="form-select">
 						      <option value="">선택사항</option>
-						      <option value="${jjmakeDetail.md_status}" <c:if test="${jjmakeDetail.md_status eq '생산요청'}">selected</c:if>>0.생산요청</option>
-						      <option value="${jjmakeDetail.md_status}" <c:if test="${jjmakeDetail.md_status eq '영업생산요청'}">selected</c:if>>1.영업생산요청</option>
-						      <option value="${jjmakeDetail.md_status}" <c:if test="${jjmakeDetail.md_status eq '생산중'}">selected</c:if>>2.생산중</option>
-						      <option value="${jjmakeDetail.md_status}" <c:if test="${jjmakeDetail.md_status eq '생산완료'}">selected</c:if>>3.생산완료</option>
-						      <option value="${jjmakeDetail.md_status}" <c:if test="${jjmakeDetail.md_status eq '수불완료'}">selected</c:if>>5.수불완료</option>
+						      <option value="${jjmakeDetail.m_status}" <c:if test="${jjmakeDetail.m_status eq '0'}">selected</c:if>>0.생산요청</option>
+						      <option value="${jjmakeDetail.m_status}" <c:if test="${jjmakeDetail.m_status eq '1'}">selected</c:if>>1.영업생산요청</option>
+						      <option value="${jjmakeDetail.m_status}" <c:if test="${jjmakeDetail.m_status eq '2'}">selected</c:if>>2.생산중</option>
+						      <option value="${jjmakeDetail.m_status}" <c:if test="${jjmakeDetail.m_status eq '3'}">selected</c:if>>3.생산완료</option>
+						      <option value="${jjmakeDetail.m_status}" <c:if test="${jjmakeDetail.m_status eq '5'}">selected</c:if>>5.수불완료</option>
 						    </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 						 </div>
@@ -90,24 +90,21 @@ legend {
 					        <input class="form-control" type="number" value="${jjmakeDetail.md_num}" placeholder="작업순번" id="example-search-input">
 					    </div>
 					    <div class="form-group">
-					        <label for="example-tel-input" class="form-control-label">작업지시일자 md_date</label>
-					        <input class="form-control" type="date" value="${jjmakeDetail.md_date}" placeholder="작업지시일자을 입력" id="example-tel-input">
+					        <label for="example-tel-input" class="form-control-label">작업지시일자 m_sdate</label>
+					        <input class="form-control" type="date" value="${jjmakeDetail.m_sdate}" placeholder="날짜 선택" id="example-tel-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="form-select" class="form-control-label">공장명 f_name</label>
 						    <select class="form-select" name="select_md_status" required aria-label="select example" id="form-select" disabled>
 						      <option value="">선택사항</option>
-						      <option value="${jjmakeDetail.f_id}" <c:if test="${jjmakeDetail.f_id eq '10001'}">selected</c:if> >A동 공장</option>
+						      <option value="${jjmakeDetail.f_id}" <c:if test="${jjmakeDetail.f_id eq '10001'}">selected</c:if>>A동 공장</option>
 						      <option value="${jjmakeDetail.f_id}" <c:if test="${jjmakeDetail.f_id eq '10002'}">selected</c:if>>B동 공장</option>
 						     </select>
 					    </div>
 					    <div class="form-group">
-					        <label for="example-email-input" class="form-control-label">제품코드 p_itemcode</label>
-					        <input class="form-control" type="number" value="${jjmakeDetail.p_itemcode}" placeholder="제품코드를 입력" id="example-email-input">
-					    </div>
-					    <div class="form-group">
-					        <label for="example-url-input" class="form-control-label">제품명 p_name</label>
-					        <input class="form-control" type="text" value="${jjmakeDetail.p_name}" placeholder="제품명을 입력" id="example-url-input">
+					        <label for="p_name" class="form-control-label">제품명 p_name</label>
+					        <input class="form-control" type="text" name="p_name" value="${JJ_Make_detail.p_name}"
+					        		placeholder="제품명을 입력" id="p_name">
 					    </div>
 					    <div class="form-group">
 					        <label for="example-password-input" class="form-control-label">지시수량 md_quantity</label>
@@ -125,8 +122,8 @@ legend {
 					        <input class="form-control" type="number" value="${jjmakeDetail.md_worker_num}" placeholder="작업인원수를 입력" id="example-datetime-local-input">
 					    </div>
 					    <div class="form-group">
-					        <label for="example-date-input" class="form-control-label">작업완료일자 md_work_date</label>
-					        <input class="form-control" type="date" value="${jjmakeDetail.md_work_date}" placeholder="작업완료일자" id="example-date-input">
+					        <label for="example-date-input" class="form-control-label">작업완료일자 m_due_date</label>
+					        <input class="form-control" type="date" value="${jjmakeDetail.m_due_date}" placeholder="작업완료일자" id="example-date-input">
 					    </div>
 					    <div class="form-group">
 					        <label for="example-month-input" class="form-control-label">생산수량 md_pro_quantity</label>

@@ -12,9 +12,9 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent mt-4">
     <div class="container">
-      <h5 class="navbar-brand font-weight-bolder ms-lg-0 ms-3 text-white">
+      <span class="navbar-brand font-weight-bolder ms-lg-0 ms-3 text-white fs-5">
         ERP PROJECT
-      </h5>
+      </span>
     </div>
   </nav>
   <!-- End Navbar -->
@@ -24,8 +24,8 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-5 text-center mx-auto">
-            <h1 class="text-white mb-2 mt-5">Welcome!</h1>
-            <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p>
+            <h1 class="text-white mb-2 mt-5">Forgot Password?</h1>
+            <p class="text-lead text-white">Get a verificatoin code at Email</p>
           </div>
         </div>
       </div>
@@ -33,29 +33,51 @@
 	<div class="container">
       <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
         <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
-          <div class="card z-index-0">
-            <div class="card-header text-center pt-4 mt-2">
-              <h5>아이디 찾기</h5>
-            </div>
-            <div class="position-relative text-center p-2">
-              <p class="text-sm fw-light mb-2 text-secondary text-border d-inline z-index-2 bg-white px-3">
-                아이디와 이메일을 입력하세요
-              </p>
-            </div>
-            <div class="card-body">
-              <form role="form">
-                <div class="mb-3">
-                  <input type="email" class="form-control form-control-lg" placeholder="ID" aria-label="ID">
-                </div>
-                <div class="mb-3">
-                  <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email">
-                </div>
-                <div class="text-center">
-                  <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Find ID</button>
-                </div>
-              </form>
-            </div>
-          </div>
+          <c:choose>
+          	<c:when test="${mode eq 'findAccount'}">
+          		<div class="card z-index-0">
+		            <div class="card-header text-center pt-4 mt-2">
+		              <h5>아이디 찾기</h5>
+		            </div>
+		            <div class="position-relative text-center p-2">
+		              <p class="text-sm fw-light mb-2 text-secondary text-border d-inline z-index-2 bg-white px-3">
+		                아이디와 이메일을 입력하세요
+		              </p>
+		            </div>
+		            <div class="card-body">
+		              <form action="/findAccountProc" method="post" id="findForm" onsubmit="return validateForm();">
+		                <div class="mb-3">
+		                  <input type="text" name="empNo" class="form-control form-control-lg" placeholder="ID" aria-label="ID" required="required">
+		                </div>
+		                <div class="mb-3">
+		                  <input type="text" name="empEmail" class="form-control form-control-lg" placeholder="Email" aria-label="Email" required="required">
+		                </div>
+		                <div class="text-center">
+		                  <input type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2" value="Find ID" />
+		                </div>
+		              </form>
+		            </div>
+		          </div>
+          	</c:when>
+        	<c:when test="${mode eq 'check'}">
+	          	<div class="card z-index-0">
+				    <div class="card-header text-center pt-4 mt-2">
+				      <h5>인증번호 입력</h5>
+				    </div>
+				    <div class="card-body">
+				      <form action="/verifyCode" method="post" id="codeForm" onsubmit="return validateForm();">
+				        <div class="mb-3">
+				          <label for="verificationCode" class="form-label">인증번호</label>
+				          <input type="text" id="code" name="code" class="form-control form-control-lg" placeholder="인증번호 입력" aria-label="Verification Code" required="required">
+				        </div>
+				        <div class="text-center">
+				          <input type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2" value="확인" />
+				        </div>
+				      </form>
+				    </div>
+				  </div>
+          	</c:when>
+         </c:choose>
         </div>
       </div>
     </div>
@@ -80,15 +102,7 @@
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-  </script>
+
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
+import com.oracle.erpProject.model.mkmodel.mkProduct;
 import com.oracle.erpProject.service.jjservice.JJ_Paging;
 import com.oracle.erpProject.service.jjservice.JJ_Service_Interface;
 
@@ -29,7 +31,7 @@ public class JJController {
 	
 	// 생산 상세 - 리스트 페이지
 	@GetMapping("makeMain")
-	public String jjmakeMain(JJ_Make_detail md, Model model) {
+	public String jjmakeMain(JJ_Make m, JJ_Make_detail md, Model model) {
 		System.out.println("JJController's makeMain Go!");
 		
 		// 게시글 전체 개수 조회
@@ -42,12 +44,12 @@ public class JJController {
 		md.setEnd(page.getEnd());
 		System.out.println("JJController's page ->" + page);
 		
-		// 게시글들을의 리스트 불러오기
-		List<JJ_Make_detail> makeList = js.makeList(md);
-		System.out.println("JJController's makeList ->" + makeList);
+		// JJ_Make_detail의 리스트 불러오기
+		List<JJ_Make_detail> makedetailList = js.makedetailList(md);
+		System.out.println("JJController's makeList ->" + makedetailList);
 		
 		model.addAttribute("cntMake", cntMake);
-		model.addAttribute("makeList", makeList);
+		model.addAttribute("makeList", makedetailList);
 		model.addAttribute("page", page);
 		
 		return "jj/makeMain";
@@ -55,13 +57,18 @@ public class JJController {
 	
 	// 생산 상세 페이지
 	@GetMapping("makeDetail")
-	public String jjmakeDetail(JJ_Make_detail md, Model model) {
+	public String jjmakeDetail(mkProduct mp, JJ_Make_detail md, Model model) {
 		System.out.println("JJController's jjmakeDetail Go!");
+		System.out.println("JJController's jjmakeDetail product->"+mp);
+		System.out.println("JJController's jjmakeDetail md->"+md);
+		//제품 리스트 불러오기
+		List<mkProduct> jjproductList = js.jjproductList(mp);
 		
+		// 게시글 1개 조회하기
 		JJ_Make_detail jjmakeDetail = js.jjmakeDetail(md.getM_num());
 		System.out.println("JJController's jjmakeDetail -> " + jjmakeDetail);
 		model.addAttribute("jjmakeDetail", jjmakeDetail);
-		model.addAttribute("md", md);
+		model.addAttribute("productList", jjproductList);
 		
 		return "jj/makeDetail";
 	}
@@ -87,29 +94,28 @@ public class JJController {
 	
 	// 생산 - 생산요청 페이지 - 입력 적용
 	@RequestMapping(value = "makeRequest")
-	public String makeRequest(JJ_Make_detail md) {
+	public String makeRequest(JJ_Make m, JJ_Make_detail md, BindingResult result) {
 		System.out.println("JJController's makeRequest Go!");
-		int makeRequest=0;
 		try {
-			// 원인: 타입 변환시 int -> String, 또는 String -> Date 타입 변환간 오류 발생
-//			md.setF_id(md.getF_id());
-//			md.setMd_status(md.getMd_status());
-//			md.setRpnc_gubun(md.getRpnc_gubun());
-//			md.setMd_date(md.getMd_date());
+			int makeRequest1 = js.makeRequest1(m);
+			System.out.println("JJController's makeRequest1 -> " + makeRequest1);
 			
-			System.out.println("JJController's makeRequest md -> " + md);
-		
-			
-			makeRequest = js.makeRequest(md);
+			int makeRequest2 = js.makeRequest2(md);
+			System.out.println("JJController's makeRequest2 -> " + makeRequest2);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// 예외 처리
 			e.printStackTrace();
+			
+			result.reject("error", "요청을 처리하는 동안 문제가 발생했습니다. 나중에 다시 시도해주세요.");
 		}
-		//System.out.println("JJController's makeRequest -> " + makeRequest);
 		
 		return "foward:jj/makeMain";
 	}
-	
+// 원인: 타입 변환시 int -> String, 또는 String -> Date 타입 변환간 오류 발생
+//	md.setF_id(md.getF_id());
+//	md.setMd_status(md.getMd_status());
+//	md.setRpnc_gubun(md.getRpnc_gubun());
+//	md.setMd_date(md.getMd_date());
 	
 	
 	

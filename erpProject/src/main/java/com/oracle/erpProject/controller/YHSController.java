@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.oracle.erpProject.model.yhsmodel.YhsBoard;
 import com.oracle.erpProject.service.Yhsservice.Paging;
 import com.oracle.erpProject.service.Yhsservice.Yhs_Service_Interface;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -42,28 +44,60 @@ public class YHSController {
 		return "Yhs/board";
 	}
 	
+	// 자유 게시판 상세내용
+		@GetMapping(value = "boardContents")
+		public String boardContents(HttpServletRequest request, Model model, YhsBoard board) {
+			int b_no = Integer.parseInt(request.getParameter("b_no"));
+			
+			System.out.println("boardContents b_no : " + b_no);
+			YhsBoard boardContents = yhs_Service_Interface.boardContents(b_no);
+			System.out.println("YHSController boardContents Start..");
 
-// 자유 게시판 상세내용
-//	@GetMapping(value = "boardContents") 
-//	public String boardFreeContents(HttpServletRequest request, Model model, Board board) { 
-//		int board_no = Integer.parseInt(request.getParameter("board_no"));
-//		System.out.println("boardContents cboard_no : " + board_no); Board
-//		boardContents = yhs_ServiceImpl.boardContents(board_no);
-//		System.out.println("YHSController replyBoardList Start..");
-//		
-//		// 자유게시판 조회수 
-//		int boardViewCnt = yhs_ServiceImpl.boardViewCnt(board);
-//	  
-//		// 자유 게시판 댓글수 
-//		// int boardReplyCnt = yhs_ServiceImpl.boardReplyCnt(b_no);
-//	  
-//		// 파일 첨부 된 글 
-//		// List<LslboardFile> boardFreeFile = ls.boardFreeFile(cboard_no);
-//	  
-//		// model.addAttribute("boardFreeFile",boardFreeFile);
-//		//model.addAttribute("boardReplyCnt", boardReplyCnt);
-//		model.addAttribute("boardFreeViewCnt", boardViewCnt);
-//		model.addAttribute("boardFreeContents", boardContents); 
-//		return "Yhs/boardContents"; 	
-//	}
+			// 게시판 조회수
+			int boardViewCnt = yhs_Service_Interface.boardViewCnt(board);
+
+			// 게시판 댓글수
+			int boardReplyCnt = yhs_Service_Interface.boardReplyCnt(b_no);
+			// 파일 첨부 된 글
+//			List<YhsBoard> boardFile = yhs_Service_Interface.boardFile(b_no);
+			
+//			model.addAttribute("boardFile",boardFile);
+			model.addAttribute("boardReplyCnt", boardReplyCnt);
+			model.addAttribute("boardViewCnt", boardViewCnt);
+			model.addAttribute("boardContents", boardContents);
+			System.out.println("boardReplyCnt" + boardReplyCnt);
+			System.out.println("boardViewCnt" + boardViewCnt);
+			System.out.println("boardContents" + boardContents);
+			return "Yhs/boardContents";
+			
+		}
+		
+	
+	
+//	게시판 글쓰기	
+	@GetMapping(value = "boardForm")
+	public String boardForm(HttpServletRequest request, Model model) {
+		System.out.println("BoardController Start boardForm...");
+		
+		String bregdate = request.getParameter("b_regdate");
+	 // 세션에서 보내는 사람의 아이디 가져오기
+//        Long empNo = (Long) request.getSession().getAttribute("emp_no");
+        
+     // 모델에 데이터 추가 (세션ID, 유저리스트)
+//        model.addAttribute("empNo", empNo);
+
+		return "Yhs/boardForm";
+	}
+	
+	@PostMapping(value = "boardWrite")
+	public String boardWrite(@ModelAttribute YhsBoard board ,Model model,HttpServletRequest request ) {
+		System.out.println("YHSController Start boardWrite..." );
+//		Long empNo = (Long) request.getSession().getAttribute("emp_no");
+//		board.setEmp_no(empNo);
+		System.out.println("YHSControllesr boardWrite ask->" + board);
+		int insertResult = yhs_Service_Interface.insertBoard(board);
+		System.out.println("YHSController insertResult insertResult->"+insertResult );
+		return "redirect:/board";
+
+	}
 }

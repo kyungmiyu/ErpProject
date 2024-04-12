@@ -23,13 +23,15 @@
 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 	 <div class="buyDetail">
 	 <label class="buyDetailLabel">구매 등록</label>
+	
 	 
-	  <form id="buyingApplyWrite" method="post" action="buyingApplyWrite">
 	 	<div class="titleBox">
 	  	<button type="button" class="btn btn-primary .customerSearchBtn" id="customerSearchBtn"> 검색</button>
-		  	<input type="hidden" name="cust_no" id="cust_no" />
+		  	<input type="hidden" name="cust_type" id="cust_type" value="1">  
+			<input type="hidden" name="dept_no" id="dept_no" value="3">  	
+			<input type="hidden" name="cust_no" id="cust_no" />
 			<input type="hidden" name="emp_no" id="emp_no" />
-			<input type="hidden" name="buy_manager" id="buy_manager" />
+			<!-- <input type="hidden" name="buy_manager" id="buy_manager" /> -->
 	 	<div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel" >제목</label>
 		    <input class="form-control" id="buy_title" name="buy_title" placeholder="구매전표_YYYYMMDD_거래처명" />
@@ -38,8 +40,10 @@
 		  </div>
 		  <div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">구매 담당자</label>
-		    <select class="form-control" id="managerName">
+		    <select class="form-control " id="buy_manager">
+		     <option value="" selected>담당자 선택하세요</option>
 			</select>
+
 		  	<label for="detailManager" id="detailManagerLabel" >거래처 담당자</label>
 		    <input  class="form-control" id="emp_name" disabled="disabled" />
 		  </div>
@@ -47,7 +51,7 @@
 		<div class="colNote">비고</div>
 			 <textarea class="colNoteBox"  id="buy_note" name="buy_note" ></textarea>
 			 <button type="submit" class="btn btn-primary" id="buyApplyBtn">구매 등록</button>
-		</form>
+	
 		
 		<div class="customerSearchPopup">
             <p>거래처 검색</p>
