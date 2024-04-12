@@ -50,7 +50,9 @@
 			    sale s
 			    JOIN EMPLOYEE e ON s.EMP_NO = e.EMP_NO
 			    JOIN CUSTOMER c ON s.CUST_NO = c.CUST_NO
-			WHERE c.cust_type = 0) a
+			WHERE c.cust_type = 0
+			ORDER BY s.s_wdate desc
+			) a
 		)
 		WHERE rn >=#{start}
 		and rn <= #{end}
@@ -66,160 +68,238 @@
 		AND c.cust_type = 0
 	</select>
 
-	<select id="LslsaleDateSearchAllList" parameterType="SLSale" resultType="SLSale">
+	<select id="LslsaleDateSearchAllList" parameterType="SLSale"
+		resultType="SLSale">
 		SELECT *
-   		FROM
-    		(
-            SELECT rownum rn, a.*
-            FROM
-                ( SELECT
-					s.*,
-					e.EMP_NAME,
-					c.CUST_NAME,
-					 CASE
-				        WHEN s.s_status = 0 THEN '판매 진행중'
-				        WHEN s.s_status = 2 THEN '생산 작업 요청중'
-				        WHEN s.s_status = 3 THEN '생산 완료'
-				        WHEN s.s_status = 4 THEN '판매 완료'
-				        WHEN s.s_status = 5 THEN '수불 완료'
-			    	END AS sale_status_detail,
-				 ( 
-					SELECT COUNT(DISTINCT sd.P_ITEMCODE)
-					FROM sale_detail sd
-					WHERE s.CUST_NO = sd.cust_no
-				 ) AS productCnt,
-				 (
-					SELECT SUM(sd.sd_price*sd.sd_price)
-					FROM sale_detail sd
-					WHERE s.CUST_NO = sd.cust_no
-				 ) AS totalMoney,
-				(
-					SELECT SUM(sd.sd_cnt)
-					FROM sale_detail sd
-					WHERE s.CUST_NO = sd.cust_no
-				) AS totalCnt
+		FROM
+		(
+			SELECT rownum rn, a.*
+			FROM
+			( SELECT
+				s.*,
+				e.EMP_NAME,
+				c.CUST_NAME,
+			CASE
+				WHEN s.s_status = 0 THEN '판매 진행중'
+		        WHEN s.s_status = 2 THEN '생산 작업 요청중'
+		        WHEN s.s_status = 3 THEN '생산 완료'
+		        WHEN s.s_status = 4 THEN '판매 완료'
+		        WHEN s.s_status = 5 THEN '수불 완료'
+			END AS sale_status_detail,
+			(
+				SELECT COUNT(DISTINCT sd.P_ITEMCODE)
+				FROM sale_detail sd
+				WHERE s.CUST_NO = sd.cust_no
+			) AS productCnt,
+			(
+				SELECT SUM(sd.sd_price*sd.sd_price)
+				FROM sale_detail sd
+				WHERE s.CUST_NO = sd.cust_no
+			) AS totalMoney,
+			(
+				SELECT SUM(sd.sd_cnt)
+				FROM sale_detail sd
+				WHERE s.CUST_NO = sd.cust_no
+			) AS totalCnt
 				FROM
 					sale s
 					JOIN EMPLOYEE e ON s.EMP_NO = e.EMP_NO
 					JOIN CUSTOMER c ON s.CUST_NO = c.CUST_NO
 				WHERE s.s_date = #{s_date}) a
-   				 )
-   			  WHERE rn BETWEEN #{start} and #{end}
-	
+				
+			)
+		WHERE rn BETWEEN #{start} and #{end}
+
 	</select>
-	
-	<select id="LslsaleStatusSearchtotCnt" parameterType="SLSale" resultType="int">
-			SELECT COUNT(*)
-			FROM sale s
-			JOIN customer c ON s.cust_no = c.cust_no
-			WHERE c.cust_type = 0
-			AND (
-			    (s.s_status = #{s_status}) 
-			    OR (s.s_status =#{s_status}) 
-			    OR (s.s_status = #{s_status}) 
-			    OR (s.s_status = #{s_status})
-			    OR (s.s_status = #{s_status}) 
-			    OR (s.s_status = #{s_status})
+
+	<select id="LslsaleStatusSearchtotCnt" parameterType="SLSale"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM sale s
+		JOIN customer c ON s.cust_no = c.cust_no
+		WHERE c.cust_type = 0
+		AND (
+			(s.s_status = #{s_status})
+			OR (s.s_status =#{s_status})
+			OR (s.s_status = #{s_status})
+			OR (s.s_status = #{s_status})
+			OR (s.s_status = #{s_status})
+			OR (s.s_status = #{s_status})
 			)
 	</select>
-	
-	<select id="LslsaleStatusSearchAllList" parameterType="SLSale" resultType="SLSale">
+
+	<select id="LslsaleStatusSearchAllList" parameterType="SLSale"
+		resultType="SLSale">
 		SELECT *
-	    FROM
-	    (
-            SELECT rownum rn, a.*
-            FROM
-                ( SELECT
-			s.*,
-			e.EMP_NAME,
-			c.CUST_NAME,
+		FROM
+		(
+			SELECT rownum rn, a.*
+			FROM
+				( SELECT
+				s.*,
+				e.EMP_NAME,
+				c.CUST_NAME,
 			CASE
-		        WHEN s.s_status = 0 THEN '판매 진행중'
+				WHEN s.s_status = 0 THEN '판매 진행중'
 		        WHEN s.s_status = 2 THEN '생산 작업 요청중'
 		        WHEN s.s_status = 3 THEN '생산 완료'
 		        WHEN s.s_status = 4 THEN '판매 완료'
 		        WHEN s.s_status = 5 THEN '수불 완료'
-	    	END AS sale_status_detail,
+			END AS sale_status_detail,
 			(
 			SELECT COUNT(DISTINCT sd.P_ITEMCODE)
-				FROM sale_detail sd
-				WHERE s.CUST_NO = sd.cust_no
+			FROM sale_detail sd
+			WHERE s.CUST_NO = sd.cust_no
 			) AS productCnt,
 			(
 			SELECT SUM(sd.sd_price*sd.sd_price)
-				FROM sale_detail sd
-				WHERE s.CUST_NO = sd.cust_no
+			FROM sale_detail sd
+			WHERE s.CUST_NO = sd.cust_no
 			) AS totalMoney,
 			(
 			SELECT SUM(sd.sd_cnt)
-				FROM sale_detail sd
-				WHERE s.CUST_NO = sd.cust_no
+			FROM sale_detail sd
+			WHERE s.CUST_NO = sd.cust_no
 			) AS totalCnt
 		FROM
 			sale s
 			JOIN EMPLOYEE e ON s.EMP_NO = e.EMP_NO
 			JOIN CUSTOMER c ON s.CUST_NO = c.CUST_NO
 			AND (
-                  (s.s_status = #{s_status}) 
-			    OR (s.s_status =#{s_status}) 
-			    OR (s.s_status = #{s_status}) 
-			    OR (s.s_status = #{s_status})
-			    OR (s.s_status = #{s_status}) 
-			    OR (s.s_status = #{s_status})
-		) ) a
-		    )
-		    WHERE rn BETWEEN #{start} and #{end}
+			(	s.s_status = #{s_status})
+				OR (s.s_status = #{s_status})
+				OR (s.s_status = #{s_status})
+				OR (s.s_status = #{s_status})
+				OR (s.s_status = #{s_status})
+				OR (s.s_status = #{s_status})
+			
+			) ) a
+			)
+		WHERE rn BETWEEN #{start} and #{end}
 	</select>
 
-	<select id="LslsaleSearchKeywordtotCnt" parameterType="SLSale" resultType="int">
+	<select id="LslsaleSearchKeywordtotCnt" parameterType="SLSale"
+		resultType="int">
 		select count(*)
 		from
 		sale s,customer c
 		WHERE s.cust_no = c.cust_no
 		and c.cust_type = 1
-        and c.cust_name  like '%' || #{keyword} || '%'
+		and c.cust_name like '%' || #{keyword} || '%'
 	</select>
-	
-	<select id="LslsaleKeywordSearchAllList" parameterType="SLSale" resultType="SLSale">
-		  SELECT *
-	  FROM
-	   (
-            SELECT rownum rn, a.*
-            FROM
-                ( SELECT
-					s.*,
-					e.EMP_NAME,
-					c.CUST_NAME,
-				CASE
-			        WHEN s.s_status = 0 THEN '판매 진행중'
-			        WHEN s.s_status = 2 THEN '생산 작업 요청중'
-			        WHEN s.s_status = 3 THEN '생산 완료'
-			        WHEN s.s_status = 4 THEN '판매 완료'
-			        WHEN s.s_status = 5 THEN '수불 완료'
-		    	END AS sale_status_detail,
-				(
-					SELECT COUNT(DISTINCT sd.P_ITEMCODE)
-					FROM sale_detail sd
-					WHERE s.CUST_NO = sd.cust_no
-				) AS productCnt,
-					(
-					SELECT SUM(sd.sd_price*sd.sd_price)
-					FROM sale_detail sd
-					WHERE s.CUST_NO = sd.cust_no
-				) AS totalMoney,
-				(
-					SELECT SUM(sd.sd_cnt)
-					FROM sale_detail sd
-					WHERE s.CUST_NO = sd.cust_no
-				) AS totalCnt
+
+	<select id="LslsaleKeywordSearchAllList" parameterType="SLSale"
+		resultType="SLSale">
+		SELECT *
+		FROM
+		(
+			SELECT rownum rn, a.*
 			FROM
+		( 	SELECT
+			s.*,
+			e.EMP_NAME,
+			c.CUST_NAME,
+		CASE
+			WHEN s.s_status = 0 THEN '판매 진행중'
+	        WHEN s.s_status = 2 THEN '생산 작업 요청중'
+	        WHEN s.s_status = 3 THEN '생산 완료'
+	        WHEN s.s_status = 4 THEN '판매 완료'
+	        WHEN s.s_status = 5 THEN '수불 완료'
+		END AS sale_status_detail,
+		(
+			SELECT COUNT(DISTINCT sd.P_ITEMCODE)
+			FROM sale_detail sd
+			WHERE s.CUST_NO = sd.cust_no
+		) AS productCnt,
+		(
+			SELECT SUM(sd.sd_price*sd.sd_price)
+			FROM sale_detail sd
+			WHERE s.CUST_NO = sd.cust_no
+		) AS totalMoney,
+		(
+			SELECT SUM(sd.sd_cnt)
+			FROM sale_detail sd
+			WHERE s.CUST_NO = sd.cust_no
+		) AS totalCnt
+		FROM
 			sale s
 			JOIN EMPLOYEE e ON s.EMP_NO = e.EMP_NO
 			JOIN CUSTOMER c ON s.CUST_NO = c.CUST_NO
-			WHERE  c.cust_name  like '%' || #{keyword} || '%' ) a
-    )
-    WHERE rn BETWEEN #{start} and #{end}
+			WHERE c.cust_name like '%' || #{keyword} || '%' 
+		
+			) a
+		)
+		WHERE rn BETWEEN #{start} and #{end}
+	</select>
+		
+	<select id="LslsaleDetail" parameterType = "SLSale" resultType="SLSale">
+		SELECT 
+		    s.*,
+		    e.emp_name,
+		    c.cust_name,
+	    CASE     
+			WHEN s.s_status = 0 THEN '판매 진행중'
+	        WHEN s.s_status = 2 THEN '생산 작업 요청중'
+	        WHEN s.s_status = 3 THEN '생산 완료'
+	        WHEN s.s_status = 4 THEN '판매 완료'
+	        WHEN s.s_status = 5 THEN '수불 완료'
+		END AS sale_status_detail
+	    FROM 
+		    sale s
+		    INNER JOIN employee e ON s.emp_no = e.emp_no
+		    INNER JOIN customer c ON s.cust_no = c.cust_no
+	    WHERE 
+	        s.cust_no = #{cust_no}
+	     AND
+	     	s.s_date = #{s_date}
+	</select>
+	
+	<select id="LslsaleProductDetail" parameterType="SLSale" resultType="SLSale">
+		SELECT
+			s.s_date, sd.cust_no, sd.sd_cnt, p.p_name, p.p_itemcode, sd.sd_price,
+			SUM(sd.sd_cnt * sd.sd_price) AS totalMoney,
+			st.st_quantity, p.f_id
+		FROM
+		sale s
+			JOIN SALE_DETAIL sd ON s.s_date = sd.s_date AND s.cust_no = sd.cust_no
+			JOIN product p ON sd.p_itemcode = p.p_itemcode
+			JOIN STOCK st ON st.P_ITEMCODE = p.p_itemcode
+		WHERE
+			sd.cust_no = #{cust_no}
+		AND sd.s_date = #{s_date}
+		AND st.P_ITEMCODE = #{p_itemcode}
+		AND st.ST_BEGIN_END = 1
+		GROUP BY
+			s.s_date, sd.cust_no, sd.sd_cnt, p.p_name, p.p_itemcode, sd.sd_price,
+			st.st_quantity, p.f_id
 	</select>
 
+
+	
+	
+	<select id="LslsaleProductList" resultType="SLProduct">
+		select p.*, st.*
+		from product p, stock st
+		where p.P_ITEMCODE = st.P_ITEMCODE
+		AND st.ST_BEGIN_END = 1
+	</select>
+
+	<insert id="LslsaleMakeRequest" parameterType="SLMake">
+		INSERT INTO make (m_num, m_status, m_manager, m_sdate, m_due_date, m_isDeleted, m_note)
+		VALUES (M_NUM_SEQ.NEXTVAL, '1', #{m_manager}, #{m_sdate}, NULL, '0', #{m_note})
+	</insert>
+	
+	
+	<insert id="LslsaleApplyWrite" parameterType="SLSale">
+		INSERT INTO sale (s_date, cust_no, emp_no, s_title, s_status, s_manager, s_note, s_wdate) 
+		VALUES (#{s_date}, #{cust_no}, #{emp_no}, COALESCE(#{s_title}, ''), #{s_status}, #{s_manager}, #{s_note}, SYSDATE)	
+	</insert>
+	
+	
+	 <insert id="LslsaleProductListInsert" parameterType="SLSale_detail">
+		insert into sale_detail (s_date, cust_no, p_itemcode, sd_cnt, sd_price)
+        values (#{s_date}, #{cust_no}, #{p_itemcode}, #{sd_cnt}, #{sd_price})
+	</insert>
+	
 
 </mapper>

@@ -1,9 +1,9 @@
-package com.oracle.erpProject.model.jjmodel;
+package com.oracle.erpProject.model.slmodel;
 
 import lombok.Data;
 
 @Data
-public class JJ_Make {
+public class SLMake {
 	private int m_num;				// 작업지시번호
 	private String m_status;		// 작업지시상태	(0. 작업요청, 1. 영업생산요청, 2. 생산중, 3. 생산완료, 4. 수불완료)
 	private int m_manager;			// 작업지시담당자
@@ -13,8 +13,6 @@ public class JJ_Make {
 	private String m_note;			// 비고
 	
 	// 조회용
-	private String search;				private String keyword;					
-	private int start;					private int end;
 	private String p_name;				// Product의 제품명 조회
 	
   	// Page 정보

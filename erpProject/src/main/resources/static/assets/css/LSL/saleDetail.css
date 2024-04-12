@@ -1,6 +1,6 @@
 /* 구매 상세 뒤 박스 */
 
-.buyDetail {
+.saleDetail {
 	position:relative;
 	padding-top:130px;
 	padding-bottom:100px;
@@ -17,7 +17,7 @@
 
 
 /* Title */
-.buyDetailLabel {
+.saleDetailLabel {
 	position:absolute;
 	top: 20px;
 	left: 20px;
@@ -48,7 +48,7 @@
 }
 
 #titleBox1 {
-	margin-top: 30px;
+	margin-top: 10px;
 	display: flex;
 }
 
@@ -63,14 +63,7 @@
 	text-align: center;
 
 }
-#buy_title {
-	width: 600px;
-	margin-left: 10px;
-	margin-right: 30px;
-	text-align: center;
-}
-
-#buy_manager {
+#detailTitle {
 	width: 600px;
 	margin-left: 10px;
 	margin-right: 30px;
@@ -89,13 +82,7 @@
 
 }
 
-#cust_name {
-	width: 600px;
-	margin-left: 10px;
-	margin-right: 30px;
-	text-align: center;
-}
-#emp_name {
+#detailManager {
 	width: 600px;
 	margin-left: 10px;
 	margin-right: 30px;
@@ -109,7 +96,7 @@
 
 .colNote {
 	width: 100%;
-	margin-top: -10px;
+	margin-top: 10px;
 	margin-left: auto; 
     margin-right: auto;
     color: black; 
@@ -133,7 +120,7 @@
 
 /* 구매 아이템 select Box */
 
-.buyItemSelectBox {
+.saleItemSelectBox {
 	display: flex;
 	width: 95%;
 	height: 100px;
@@ -147,20 +134,20 @@
 	align-items: center;
 }
 
-#buyingItemSelect {
+#saleItemSelect {
 	width: 350px;
 	height: 40px;
 	margin-right: 80px;
 }
 
-.buyItemCnt {
+.saleItemCnt {
 	width: 350px;
 	height: 40px;
 	border-radius: 10px;
 	border: 1px solid #d2d6da;
 }
 
-.buyItemSelectBox p {
+.saleItemSelectBox p {
 	margin-top: 10px;
 	margin-right: 25px;
 	font-weight: bold;
@@ -173,7 +160,7 @@
 
 /* 구매 리스트  */
 
-.buyList {
+.saleList {
 	width: 95%;
 	height: 35px;
 	line-height: 35px;
@@ -189,7 +176,7 @@
 
 /*구매 리스트 Title*/
 
-.buyListTitle {
+.saleListTitle {
     display: flex;
     justify-content: space-between;
     margin-left: 60px;
@@ -201,19 +188,19 @@
 
 /*구매 리스트 Box */
 
-.buyList {
+.saleList {
     list-style-type: none;  
     padding: 0;
 }
 
 
-.buyListItem {
+.saleListItem {
     display: flex;
     justify-content: space-between;
 
 }
 
-.buyListItem  input{
+.saleListItem  input{
 	width: 25%;
 	margin-top: 15px;
 	margin-right: 135px;
@@ -226,7 +213,7 @@
 
 /* 버튼 */
 
-#buyModify {
+#saleModify {
 	position: absolute;
 	top: 65px;
 	margin-top: -10px;
@@ -234,7 +221,7 @@
 }
 
 
-#buyComple{
+#saleComple{
 	position: absolute;
 	margin-top: -10px;
 	top: 65px;
@@ -242,7 +229,7 @@
 	
 }
 
-#buyApplyBtn {
+#saleStatusSelect {
 	position: absolute;
 	font-size: 0.9rem;
 	width: 100px;
@@ -278,16 +265,8 @@
 }
 
 
-#customerSearchBtn {
-	position: absolute;
-	margin-bottom : 20px;
-	top: 110px;
-	right: 30px;
-}
-
-
 /* 구매 상태 Box */
-.buyStatusBox {
+.saleStatusBox {
 	position: absolute;
 	top: 75px;
 	left: 23px;
@@ -301,72 +280,3 @@
 	color: white;
 	background-color: #5e72e4d9;
 }
-
-
-/* 거래처 검색 팝업 창 */
-.customerSearchPopup {
-	display: none;
-	position: fixed;
-	top: 30%;
-	left: 45%;
-	background-color: #ffffff;
-	width: 500px;
-	height: 200px;
-	padding: 20px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	z-index: 9999; /* 다른 요소 위에 표시 */
-}
-.customerSearchPopup p {
-	color: black;
-	
-}
-
-#cusSearchBox {
-	position: absolute;
-	left: 30px;
-	width: 300px !important;
-	border-radius: 5px;
-}
-body #cusSearchBox {
-    width: 300px;
-    
-}
-.cusSearchName {
-	position:absolute;
-	width: 300px;
-	top: 130px;
-	left: 35px;
-	border-bottom: 1px solid #cccccc;
-	
-}
-
-#cusSearchBtn {
-	position: absolute;
-	top: 60px;
-	height: 40px;
-	right: 70px;
-	border: 1px solid #d2d6da;
-	border-radius: 10px;
-	color: white;
-}
-
-#cusChioceBtn {
-	position: absolute;
-	top: 120px;
-	right: 80px;
-}
-
-#cusSearchXBtn {
-	position:absolute;
-	right: 20px;
-	top: 10px;
-	cursor: pointer;
-	
-	
-}
-
-.cusSearchName {
-	cursor: pointer;
-}
-

@@ -161,6 +161,7 @@ public class SLController {
 		buying.setBuy_date(buy_date);
 		
 		
+		
 		// 구매 상세 페이지 정보
 		SLBuying buyingDetail = slService.buyingDetail(buying);
 		System.out.println("buyingDetail >>>>>>" + buyingDetail);
@@ -194,18 +195,12 @@ public class SLController {
         String formattedDate = today.format(DateTimeFormatter.BASIC_ISO_DATE);
         
         buying.setBuy_date(formattedDate);
-		// 구매 제품 정보 리스트
-		List<SLBuying> productDetail = slService.productDetail(buying);
-		System.out.println("productDetail >>>>>>" + productDetail.size());
-		System.out.println("productDetail @@@@@@" + productDetail);
-
 		// 제품 리스트
 		List<SLProduct> productList = slService.productList();
 		System.out.println("buying->" + buying);
 		
 		
 		model.addAttribute("productList",productList);
-		model.addAttribute("productDetail",productDetail);
 				
 		return "sl/buyingApply";
 	}
@@ -277,7 +272,7 @@ public class SLController {
 		}
 		
 		
-		//  구매 상태 검색 
+		//  판매 상태 검색 
     	@GetMapping("/salectedStatusSearch")
 		public String salectedStatus(@RequestParam("s_status") String s_status, SLSale sale, Model model) {	    
 
@@ -346,62 +341,61 @@ public class SLController {
 	
 	
 	
-	// 구매 상세 페이지
+	// 판매 상세 페이지
 		@GetMapping(value = "saleDetail")
 		public String saleDetail(HttpServletRequest request, SLSale sale, Model model) {
-//			System.out.println("buyDetail Start ->>>>>>>>>>");
-//			int cust_no = Integer.parseInt(request.getParameter("cust_no"));
-//			String buy_date = request.getParameter("buy_date");
-//			
-//			buying.setCust_no(cust_no);
-//			buying.setBuy_date(buy_date);
-//			
-//			
-//			// 구매 상세 페이지 정보
-//			SLBuying buyingDetail = slService.buyingDetail(buying);
-//			System.out.println("buyingDetail >>>>>>" + buyingDetail);
-//			
-//			
-//			// 구매 제품 정보 리스트
-//			List<SLBuying> productDetail = slService.productDetail(buying);
-//			System.out.println("productDetail >>>>>>" + productDetail.size());
-//			System.out.println("productDetail @@@@@@" + productDetail);
-//			
-//			
-//			// 제품 리스트
-//			List<SLProduct> productList = slService.productList();
-//
-//			System.out.println("buying->" + buying);
-//
-//			model.addAttribute("buyingDetail",buyingDetail);
-//			model.addAttribute("productDetail",productDetail);
-//			model.addAttribute("productList",productList);
+			System.out.println("buyDetail Start ->>>>>>>>>>");
+			int cust_no = Integer.parseInt(request.getParameter("cust_no"));
+			String s_date = request.getParameter("s_date");
+			
+			
+			sale.setCust_no(cust_no);
+			sale.setS_date(s_date);
+			
+			
+			// 판매 상세 페이지 정보
+			SLSale saleDetail = slService.saleDetail(sale);
+			System.out.println("saleDetail >>>>>>" + saleDetail);
+			
+			
+			// 판매 제품 정보 리스트
+			List<SLSale> productDetail = slService.saleProductDetail(sale);
+			System.out.println("productDetail >>>>>>" + productDetail.size());
+			System.out.println("productDetail @@@@@@" + productDetail);
+			
+			
+			List<SLProduct> productList = slService.saleProductList();
+			System.out.println("sale->" + sale);
+
+			model.addAttribute("saleDetail",saleDetail);
+			model.addAttribute("productDetail",productDetail);
+			model.addAttribute("productList",productList);
 			
 			return "sl/saleDetail";
 		}
 		
 
-		// 구매 등록 페이지
+		// 판매 등록 페이지
 		@GetMapping(value = "saleApply")
 		public String saleApply(SLSale sale, Model model) {
 			
 
-//			LocalDate today = LocalDate.now();
-//	        String formattedDate = today.format(DateTimeFormatter.BASIC_ISO_DATE);
-//	        
-//	        buying.setBuy_date(formattedDate);
-//			// 구매 제품 정보 리스트
-//			List<SLBuying> productDetail = slService.productDetail(buying);
-//			System.out.println("productDetail >>>>>>" + productDetail.size());
-//			System.out.println("productDetail @@@@@@" + productDetail);
-//
-//			// 제품 리스트
-//			List<SLProduct> productList = slService.productList();
-//			System.out.println("buying->" + buying);
-//			
-//			
-//			model.addAttribute("productList",productList);
-//			model.addAttribute("productDetail",productDetail);
+			LocalDate today = LocalDate.now();
+	        String formattedDate = today.format(DateTimeFormatter.BASIC_ISO_DATE);
+	        
+	        sale.setS_date(formattedDate);
+			// 판매 제품 정보 리스트
+			List<SLSale> productDetail = slService.saleProductDetail(sale);
+			System.out.println("productDetail >>>>>>" + productDetail.size());
+			System.out.println("productDetail @@@@@@" + productDetail);
+
+			// 제품 리스트
+			List<SLProduct> productList = slService.saleProductList();
+			System.out.println("sale->" + sale);
+			
+			
+			model.addAttribute("productList",productList);
+			model.addAttribute("productDetail",productDetail);
 					
 			return "sl/saleApply";
 		}

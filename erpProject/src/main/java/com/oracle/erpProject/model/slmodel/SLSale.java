@@ -1,6 +1,7 @@
 package com.oracle.erpProject.model.slmodel;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -8,6 +9,7 @@ import lombok.Data;
 public class SLSale {
 	private String s_date; 		//매출일자
 	private int cust_no;		//거래처코드
+	private int emp_no; 		//거래처 담당 직원 
 	private String s_title;		//판매제목
 	private int s_status;		//판매상태
 	private String s_note;		//비고
@@ -16,13 +18,19 @@ public class SLSale {
 	
 
 	// 리스트 조회용 컬럼
+	private String emp_name; // 담당자 이름 
 	private String cust_name; // 거래처명 		
 	private String sale_status_detail; // 판매 진행 상태
 	private int productCnt; // 판매 제품 수
 	private int totalMoney; // 판매 총 금액
 	private int totalCnt; // 판매 제품 총 수량
 	private String keyword; // 검색 키워드 
+	private int st_quantity; // 재고 수량 
+	private int p_itemcode;		// 제품코드
+	private int f_id; // 공장 코드 
 	
+	
+	private List<SLSale_detail> productList;
 	
 	// 조회용 수불 마감
 	private String rnpc_year_month_day;	// 년월일

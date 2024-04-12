@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
+import com.oracle.erpProject.model.slmodel.SLMake;
 import com.oracle.erpProject.model.slmodel.SLProduct;
 import com.oracle.erpProject.model.slmodel.SLSale;
 
@@ -66,7 +67,7 @@ public interface SL_Service_Interface {
 	
 	
 	
-	
+/*--------------------------  판매  ------------------------------------*/
 	
 	
 	int totalSaleCnt();
@@ -84,6 +85,17 @@ public interface SL_Service_Interface {
 	int saleSearchKeywordtotCnt(SLSale sale);
 
 	List<SLSale> saleKeywordSearchAllList(SLSale sale);
+
+	List<SLSale> saleProductDetail(SLSale sale);
+
+	List<SLProduct> saleProductList();
+
+
+	int saleMakeRequest(SLMake make);
+
+	int saleApplyWrite(SLSale sale);
+
+	SLSale saleDetail(SLSale sale);
 
 	
 

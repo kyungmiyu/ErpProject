@@ -11,4 +11,9 @@ public class SLSale_detail {
 	private int sd_price;		//판매가격
 	
 	
+	// 조회용 수불 마감
+	private String d_year_month;	// 년월일
+	private int d_cubun;					// 수불마감구분
+		
+	
 }

@@ -23,11 +23,13 @@
 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 	 <div class="buyDetail">
 	 <label class="buyDetailLabel">구매 등록</label>
-	 
+	
 	 
 	 	<div class="titleBox">
 	  	<button type="button" class="btn btn-primary .customerSearchBtn" id="customerSearchBtn"> 검색</button>
-		  	<input type="hidden" name="cust_no" id="cust_no" />
+		  	<input type="hidden" name="cust_type" id="cust_type" value="1">  
+			<input type="hidden" name="dept_no" id="dept_no" value="3">  	
+			<input type="hidden" name="cust_no" id="cust_no" />
 			<input type="hidden" name="emp_no" id="emp_no" />
 			<!-- <input type="hidden" name="buy_manager" id="buy_manager" /> -->
 	 	<div class="form-group" id="titleBox1">

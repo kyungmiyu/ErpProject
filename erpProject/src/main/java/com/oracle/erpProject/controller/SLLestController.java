@@ -2,21 +2,19 @@ package com.oracle.erpProject.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
+import com.oracle.erpProject.model.slmodel.SLMake;
+import com.oracle.erpProject.model.slmodel.SLSale;
 import com.oracle.erpProject.service.slservice.SL_Service_Interface;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -111,6 +109,7 @@ public class SLLestController {
 	// 구매 등록 페이지 거래처 검색
 	@PostMapping("/customerSearch")
 	public SLBuying customerSearch(@RequestBody SLBuying buying) {
+	System.out.println("customerSearch buying ######" + buying);
 		SLBuying customerSearch = slService.customerSearch(buying);
 		
 		System.out.println("customerSearch>>>>>>>>>" + customerSearch);
@@ -119,8 +118,10 @@ public class SLLestController {
 	}
 	
 	// 구매 등록 페이지 매니저 옵션 
-	@GetMapping("getManagerList")
+	@PostMapping("getManagerList")
 	public List<SLBuying> getManagerList(SLBuying buying) {
+		
+		System.out.println("getManagerList buying ######" + buying);
 		List<SLBuying> getManagerList = slService.getManagerList(buying);
 		
 		System.out.println("SLLestController getManagerList>>>>>>>>>" + getManagerList.size());
@@ -166,10 +167,46 @@ public class SLLestController {
 	    }
 	}
 	
+
 	   
+	/*---------------------------------- 판 매 ---------------------------------------*/
  
- 
+	
+	@PostMapping("/makeRequest")
+	public int saleMakeRequest(@RequestBody SLMake make) {
+		
+	System.out.println("SLLestController makeRequest SLMake >>>" +make );
+		int result = slService.saleMakeRequest(make);
+		
+		
+		return result;
+	}
     
+	@PostMapping("/saleApplyWrite")
+	public String saleApplyWrite(@RequestBody SLSale sale) {
+		
+	System.out.println("SLLestController makeRequest SLMake >>>" +sale );
+		
+	int result = slService.saleApplyWrite(sale);
+		
+	
+		if (result > 0) {
+	        return "redirect:/sale";
+	    } else {
+	        return "error";
+	    }
+	}
+
 	
 
+	// 판매 상세페이지 제품 추가
+//		@PostMapping("/addSaleProduct")
+//		public int buyingDetailModify(SLSale_detail slSales_detail  ) { 
+//			
+//			System.out.println("sLBuying_detail: " + slSales_detail);
+//		
+//			int addProduct = slService.addSaleProduct(slSales_detail);
+//			return addProduct;
+//		}
+//	
 }

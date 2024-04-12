@@ -23,6 +23,7 @@
 		<typeAlias alias="SLProduct"   						type="com.oracle.erpProject.model.slmodel.SLProduct"/> 
 		<typeAlias alias="SLSale_detail"   				type="com.oracle.erpProject.model.slmodel.SLSale_detail"/> 
 		<typeAlias alias="SLSale"   							type="com.oracle.erpProject.model.slmodel.SLSale"/> 
+		<typeAlias alias="SLMake"   			type="com.oracle.erpProject.model.slmodel.SLMake"/>
 		
 				
 		<!-- 재준 시작-->

@@ -50,7 +50,9 @@
 		    BUYING b
 		    JOIN EMPLOYEE e ON b.EMP_NO = e.EMP_NO
 		    JOIN CUSTOMER c ON b.CUST_NO = c.CUST_NO
-		WHERE c.cust_type = 1) a
+		WHERE c.cust_type = 1
+		ORDER BY b.buy_wdate DESC
+		) a
 		)
 		WHERE rn >=#{start}
 		and rn <= #{end}
@@ -305,7 +307,7 @@
 	SELECT c.*, e.emp_name
 	FROM customer c
 	JOIN employee e ON c.emp_no = e.emp_no
-	Where c.cust_type =1
+	Where c.cust_type = #{cust_type}
 	AND c.cust_name LIKE '%' || #{keyword} || '%'
 	</select>
 	
@@ -318,7 +320,7 @@
 	<select id="LslgetManagerList" parameterType="SLBuying" resultType="SLBuying" >
 	SELECT e.emp_name, e.emp_no
 	FROM EMPLOYEE e
-	WHERE e.dept_no = 3
+	WHERE e.dept_no = #{dept_no}
 	</select>
 
 

@@ -10,8 +10,10 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
+import com.oracle.erpProject.model.slmodel.SLMake;
 import com.oracle.erpProject.model.slmodel.SLProduct;
 import com.oracle.erpProject.model.slmodel.SLSale;
+import com.oracle.erpProject.model.slmodel.SLSale_detail;
 
 import lombok.RequiredArgsConstructor;
 
@@ -329,7 +331,80 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		return saleKeywordSearchAllList;
 	}
 
+	@Override
+	public List<SLSale> saleProductDetail(SLSale sale) {
+		
+		List<SLSale> saleProductDetail = session.selectList("LslsaleProductDetail", sale);
+		
+		return saleProductDetail;
+	}
 
+	
+	// 판매 상세 페이지 정보
+	@Override
+	public SLSale saleDetail(SLSale sale) {
+		
+		SLSale saleDetail = session.selectOne("LslsaleDetail", sale);
+		
+		
+		return saleDetail;
+	}
+	
+	
+	
+	
+	@Override
+	public List<SLProduct> saleProductList() {
+		
+		List<SLProduct> saleProductList = session.selectList("LslsaleProductList");
+		
+		return saleProductList;
+	}
+
+	@Override
+	public int saleMakeRequest(SLMake make) {
+		
+		int saleMakeRequest = session.insert("LslsaleMakeRequest", make);
+		
+		return saleMakeRequest;
+	}
+
+	@Override
+	public int saleApplyWrite(SLSale sale) {
+		
+		System.out.println("SL_DaoImpl buyingApplyWrite Start>>>>>>");
+		
+		int result = 0;
+		
+		
+		System.out.println("DAO    saleApplyWrite SLSale >>>>>>" + sale);
+		List<SLSale_detail> saleProductList = sale.getProductList();
+		
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		
+		try {
+			result = session.insert("LslsaleApplyWrite", sale);
+			for(SLSale_detail  slSale_detail :  saleProductList ) {
+				System.out.println("DAO slSale_detail->"+slSale_detail);
+				
+				result = session.insert("LslsaleProductListInsert", slSale_detail);
+			}
+		
+
+			 transactionManager.commit(txStatus);
+			 
+		
+		} catch (Exception e) {
+			System.out.println("EmpDaoImpl totalEmp Exception->"+e.getMessage());
+			transactionManager.rollback(txStatus);
+		}
+		
+		
+		
+		return result;
+	}
+
+	
 
 	
 	

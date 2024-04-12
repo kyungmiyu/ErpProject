@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.oracle.erpProject.dao.sldao.SL_Dao_Interface;
 import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.model.slmodel.SLBuying_detail;
+import com.oracle.erpProject.model.slmodel.SLMake;
 import com.oracle.erpProject.model.slmodel.SLProduct;
 import com.oracle.erpProject.model.slmodel.SLSale;
 
@@ -276,6 +277,53 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		return saleKeywordSearchAllList;
 	}
 
+	@Override
+	public List<SLSale> saleProductDetail(SLSale sale) {
+		
+		List<SLSale> saleProductDetail = slDao.saleProductDetail(sale);
+		
+		return saleProductDetail;
+	}
+
+	
+	// 판매 상세 정보 
+	@Override
+	public SLSale saleDetail(SLSale sale) {
+		
+		SLSale saleDetail = slDao.saleDetail(sale);		
+		
+		return saleDetail;
+	}
+
+	
+	
+	@Override
+	public List<SLProduct> saleProductList() {
+		
+		List<SLProduct> saleProductList = slDao.saleProductList();
+		
+		return saleProductList;
+	}
+	
+	
+	// 생산 작업 지시 요청 
+	@Override
+	public int saleMakeRequest(SLMake make) {
+		
+		int makeRequest = slDao.saleMakeRequest(make);
+		
+		return makeRequest;
+	}
+
+	@Override
+	public int saleApplyWrite(SLSale sale) {
+		
+		int saleApplyWrite = slDao.saleApplyWrite(sale);
+		
+		return saleApplyWrite;
+	}
+
+	
 
 	
 

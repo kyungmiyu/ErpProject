@@ -28,11 +28,13 @@ public class SLBuying {
 	private String buy_status_detail; //  구매 상태 이름 
 	private int productCnt; // 총 구매한 제품의 타입 수 
 	private String emp_name; // 거래처 담당자 이름
-	private int dept_no; // 부서 번
+	private int dept_no; // 부서 번호 
 	private String cust_name; // 거래처 
+	private int cust_type; // 거래처 타입 0: 판매 1:구매
 	private int p_itemcode;		// 제품코드
 	private String p_name;				// 제품 이름 
 	private int p_buyprice;
+	private String p_fac_gubun; // 생산 구매 구분 
 	private int bd_cnt;			// 구매수량
 	private int bd_price;		// 구매가격
 	private int totalMoney; // 총금액
