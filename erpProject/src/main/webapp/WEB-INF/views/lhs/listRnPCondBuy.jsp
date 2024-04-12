@@ -7,7 +7,7 @@
 
 <link href="assets/css/LSL/buying.css" rel="stylesheet">
 
-<<!-- datepicker 는 jquery 1.7.1 이상 bootstrap 2.0.4 이상 버전이 필요함 -->
+<!-- datepicker 는 jquery 1.7.1 이상 bootstrap 2.0.4 이상 버전이 필요함 -->
 <!-- jQuery가 먼저 로드 된 후 datepicker가 로드 되어야함.-->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
 <link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css">
@@ -36,10 +36,6 @@
         font-size: 0.8rem;
 		width: 100px;
 		right: 40px;
-    }
-    
-    .container-fluid {
-    	
     }
     
     .table {
@@ -82,8 +78,20 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+function redirectToPage(page) {
+    var emp_no = ${empData.emp_no};
+    
+    var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
+    var year = selectedDate.substring(0, 4); // 연도 추출
+    var month = selectedDate.substring(5, 7); // 월 추출
+    var day = selectedDate.substring(8, 10); // 일 추출
+    var year_month_day = year + month + day; // 형식 변환
+    var url = page + '?emp_no=' + emp_no + '&rnpc_year_month_day=' + year_month_day;
+    
+    location.href = url;
+}
+
 $(document).ready(function () {
-	
 	
  	$("#datePicker").change(function () {
         var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
@@ -135,7 +143,116 @@ $(document).ready(function () {
              }
          });
      });
-    
+	 
+	 $("#buyProBtn1").click(function () {
+		 
+	        var year_month_day = "${year_month_day}";
+	        var emp_no = "${empData.emp_no}";
+	        var selectedDate = ${rnpc.rnpc_year_month_day};
+
+	        $.ajax({
+	             url: "lhsClosingRnP",
+	             type: "GET",
+	             data: { 
+	            	 rnpc_year_month_day: year_month_day,
+	                 emp_no: emp_no
+	             },
+	             success: function (data) {
+	            	 
+	            	 if (data === 0) {
+	            		 alert("수불마감 처리되었습니다.")
+	            		 window.location.href = "lhsListRnPCondBuy?emp_no=" + emp_no 
+																+ "&rnpc_year_month_day=" + selectedDate; 
+	            	 }
+	            	 else if (data === 1) {
+	            		 alert("이미 마감상태입니다.")
+	            		 window.location.href = "lhsListRnPCondBuy?emp_no=" + emp_no 
+																+ "&rnpc_year_month_day=" + selectedDate; 
+	            	 }
+	            	 else if (data === -1) {
+	            		 alert("오류 발생")
+	            	 }
+	            	 	
+	             },
+	             error: function (xhr, status, error) {
+	                 // 오류 발생 시 처리할 코드 작성
+	                 console.error("Error occurred:", error);
+	             }
+	         });
+	    });
+	 
+	 $("#buyProBtn2").click(function () {
+		 
+		 	var year_month_day = "${year_month_day}";
+	        var emp_no = "${empData.emp_no}";
+	        var selectedDate = ${rnpc.rnpc_year_month_day};
+
+	        $.ajax({
+	             url: "lhsUnclosingRnP",
+	             type: "GET",
+	             data: { 
+	            	 rnpc_year_month_day: year_month_day,
+	                 emp_no: emp_no
+	             },
+	             success: function (data) {
+	            	 
+	            	 if (data === 0) {
+	            		 alert("수불마감 해제되었습니다.")
+	            		 window.location.href = "lhsListRnPCondBuy?emp_no=" + emp_no 
+																+ "&rnpc_year_month_day=" + selectedDate; 
+	            	 }
+	            	 else if (data === 1) {
+	            		 alert("수불마감 먼저 진행해주세요.")
+	            		 window.location.href = "lhsListRnPCondBuy?emp_no=" + emp_no 
+																+ "&rnpc_year_month_day=" + selectedDate; 
+	            	 }
+	            	 else if (data === -1) {
+	            		 alert("오류 발생")
+	            	 }
+	             },
+	             error: function (xhr, status, error) {
+	                 // 오류 발생 시 처리할 코드 작성
+	                 console.error("Error occurred:", error);
+	             }
+	         });
+	    });
+	 
+	 $("#buyProBtn3").click(function () {
+		 
+	 		var year_month_day = "${year_month_day}";
+	        var emp_no = "${empData.emp_no}";
+	        var selectedDate = ${rnpc.rnpc_year_month_day};
+
+	        $.ajax({
+	             url: "lhsMonthlyClosing",
+	             type: "GET",
+	             data: { 
+	            	 rnpc_year_month_day: year_month_day,
+	                 emp_no: emp_no
+	             },
+	             success: function (data) {
+	            	 
+	            	 if (data === 0) {
+	            		 alert("월말마감 처리되었습니다.")
+	            		 window.location.href = "lhsListRnPCondBuy?emp_no=" + emp_no 
+																+ "&rnpc_year_month_day=" + selectedDate; 
+	            	 }
+	            	 else if (data === 1) {
+	            		 alert("수불마감 먼저 진행해주세요.")
+	            		 window.location.href = "lhsListRnPCondBuy?emp_no=" + emp_no 
+																+ "&rnpc_year_month_day=" + selectedDate; 
+	            	 }
+	            	 else if (data === -1) {
+	            		 alert("실사 재고조사 먼저 진행해주세요.")
+	            		 window.location.href = "lhsFormRegistStockSurvey?emp_no=" + emp_no; 
+	            	 }
+	             },
+	             error: function (xhr, status, error) {
+	                 // 오류 발생 시 처리할 코드 작성
+	                 console.error("Error occurred:", error);
+	             }
+	         });
+	    });
 });
 </script>
 </head>
@@ -177,14 +294,10 @@ $(document).ready(function () {
 		</div>
 		
 		<div class="upperButtonBar">
-			<button type="button" class="btn btn-primary" 
-				onclick="location.href='lhsListRnPCondBuy?emp_no=${empData.emp_no }'">구매</button>
-			<button type="button" class="btn btn-primary" 
-				onclick="location.href='lhsListRnPCondSale?emp_no=${empData.emp_no }'">판매</button>
-			<button type="button" class="btn btn-primary" 
-				onclick="location.href='lhsListRnPCondMake?emp_no=${empData.emp_no }'">생산</button>
-			<button type="button" class="btn btn-primary" 
-				onclick="location.href='lhsListRnPCondSurvey?emp_no=${empData.emp_no }'">재고조사</button>
+			<button type="button" class="btn btn-primary" onclick="redirectToPage('lhsListRnPCondBuy')">구매</button>
+			<button type="button" class="btn btn-primary" onclick="redirectToPage('lhsListRnPCondSale')">판매</button>
+			<button type="button" class="btn btn-primary" onclick="redirectToPage('lhsListRnPCondMake')">생산</button>
+			<button type="button" class="btn btn-primary" onclick="redirectToPage('lhsListRnPCondSurvey')">재고조사</button>
 		</div>
 		
 		<c:set var="num" value="${page.total-page.start+1 }"></c:set>

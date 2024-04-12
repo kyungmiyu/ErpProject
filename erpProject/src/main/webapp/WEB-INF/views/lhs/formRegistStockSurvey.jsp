@@ -69,37 +69,31 @@
 		padding-left: 15px;
 	}
 	
-	#datePicker {
+	.input-group {
 		text-align: center;
 		width: 200px; /* 화면 폭의 절반을 차지하도록 설정 */
 	    margin-left: 15px; /* 오른쪽 여백 추가 */
 	}
 	
+	.sysdate {
+		text-align: center;
+	}
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     
-    var stockYearMonthDay = "${stock.st_year_month_day}";
-
-    // 날짜 값을 입력란에 넣어주기
-    if (stockYearMonthDay) {
-    	var year = stockYearMonthDay.substring(0, 4); // 연도 추출
-        var month = stockYearMonthDay.substring(4, 6); // 월 추출
-        var day = stockYearMonthDay.substring(6, 8); // 일 추출
-        var formattedDate = year + "-" + month + "-" + day; // "yyyy-MM-dd" 형식으로 변환
-        
-        // 날짜 값이 존재할 때만 처리
-        var datePicker = document.getElementById("datePicker");
-        datePicker.value = formattedDate; // 입력란에 날짜 값 넣기
-    }
+	var currentDate = "${stock.st_year_month_day}"; // 현재날짜 가져오기
+	var year = currentDate.substring(0, 4);
+	var month = currentDate.substring(4, 6);
+	var day = currentDate.substring(6, 8);
+	var year_month_day = year + "-" + month + "-" + day;
+	var value = year_month_day; // 설정할 값
+	document.querySelector('.sysdate').value = value;
 });
 
 $(document).ready(function () {
 	
-		var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
-        var year = selectedDate.substring(0, 4); // 연도 추출
-        var month = selectedDate.substring(5, 7); // 월 추출
-        var formattedDate = year + month; // 형식 변환
+        var year_month = "${stock.st_year_month}"; // 형식 변환
         var emp_no = ${empData.emp_no};
         var gubun = "end";
         
@@ -107,7 +101,7 @@ $(document).ready(function () {
 	        url: "lhsListItem",
 	        type: "GET",
 	        data: {
-	        	st_year_month: formattedDate,
+	        	st_year_month: year_month,
             	emp_no : emp_no,
             	gubun : gubun
 	        },
@@ -147,30 +141,6 @@ $(document).ready(function () {
 	    });
 	
 	
- 	$("#datePicker").change(function () {
-        var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
-        var year = selectedDate.substring(0, 4); // 연도 추출
-        var month = selectedDate.substring(5, 7); // 월 추출
-        var day = selectedDate.substring(8, 10); // 일 추출
-        var formattedDate = year + month + day; // 형식 변환
-        var emp_no = ${empData.emp_no};
-        
-        $.ajax({
-            url: "lhsFormRegistStockSurvey",
-            type: "GET",
-            data: { 
-            	st_year_month_day: formattedDate,
-            	emp_no : emp_no
-            },
-            success: function (data) {
-            	window.location.href = "lhsFormRegistStockSurvey?st_year_month_day=" + formattedDate +"&emp_no=" + emp_no;
-            },
-            error: function (xhr, status, error) {
-                console.error("Error occurred:", error);
-            }
-        });
-    });
- 	
     $("#selectItemCode").change(function() {
         var p_itemcode = $(this).val();
         
@@ -231,14 +201,20 @@ $(document).ready(function () {
     
     // 저장버튼 클릭 시
     $("#saveBtn").click(function () {
+    	
         // 리스트의 각 행을 읽어와서 데이터를 배열에 저장
         var dataToSend = [];
-        var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
-        var year = selectedDate.substring(0, 4); // 연도 추출
-        var month = selectedDate.substring(5, 7); // 월 추출
-        var formattedDate = year + month; // 형식 변환
+
+		var year_month = "${stock.st_year_month}"; // 형식 변환 (연도 + 월)
+        var year_month_day = "${stock.st_year_month_day}"; // 형식 변환 (연도 + 월 + 일)
+        
         var st_begin_end = 1;
 
+        if ($("#resultList").find("tr").find("td:eq(0)").text() === "") {
+        	alert("저장할 리스트가 없습니다. 제품을 등록해주세요.")
+            return;
+        }
+        
         $("#resultList").find("tr").each(function () {
             var itemCode = $(this).find("td:eq(0)").text();
             var quantityStock = $(this).find("td:eq(2)").text();
@@ -246,7 +222,7 @@ $(document).ready(function () {
             var quantityDisposal = $(this).find("td:eq(4)").text();
             
             dataToSend.push({
-            	st_year_month: formattedDate,
+            	st_year_month: year_month,
             	st_begin_end: st_begin_end,
             	p_itemcode: itemCode,
                 sts_quantity: quantityStock,
@@ -256,16 +232,24 @@ $(document).ready(function () {
         });
 
         $.ajax({
-            url: "lhsRegistStockSurvey?emp_no=" + ${empData.emp_no},
+            url: "lhsRegistStockSurvey?emp_no=" + ${empData.emp_no} + "&st_year_month_day=" + year_month_day,
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(dataToSend),
-            success: function (response) {
-            	alert("실사 재고조사에 등록되었습니다.");
-                //window.location.href = "/lhsListRnPCondBuy?emp_no=" + ${empData.emp_no};
+            success: function (data) {
+            	
+            	if (data === 0) {
+            		alert("실사 재고조사가 등록되었습니다.");
+            		window.location.href = "/lhsListRnPCondSurvey?emp_no=" + ${empData.emp_no};
+            	}
+            	
+            	else if (data === 1) {
+            		alert("수불마감을 먼저 진행해주세요.");
+            		window.location.href = "/lhsListRnPCondBuy?emp_no=" + ${empData.emp_no};
+            	}
             },
             error: function (xhr, status, error) {
-                console.error("Error occurred:", error);
+                console.log("실사 재고조사 등록 실패");
             }
         });
     });
@@ -289,28 +273,30 @@ $(document).ready(function () {
 	 <label class="buyDetailLabel">실사 재고조사 등록</label>
 	 
 	 		<div class="searchBar">
-
-			<div class="container-fluid">
-	               <div class="row">
-                      <div class="col">
-                       		<form action="lhsFormRegistStockNewItem" method="get">
-                     	  		<input type="hidden" name="emp_no" value="${empData.emp_no}">
-                           		<button type="submit" class="btn btn-primary btn-block" id="registStockBeginBtn">기초재고 등록</button>
-                           	</form>
-                       </div>
-                       <div class="col">
-                       		<form action="lhsFormRegistStockSurvey" method="get">
-                           		<input type="hidden" name="emp_no" value="${empData.emp_no}">
-                           		<button type="submit" class="btn btn-primary btn-block" id="registStockSurveyBtn">실사 재고조사 등록</button>
-                           	</form>
-                       </div>
-                    </div>
-			     <!-- datePicker -->
-			     	<div class="row">
-								<input type="date" id="datePicker" class="form-control mr-2" >
-						   		<select class="form-select mr-2" name="search" id="selectItemCode"></select>
-					</div>
-			  </div>
+	
+				<div class="container-fluid">
+		               <div class="row">
+	                      <div class="col">
+	                       		<form action="lhsFormRegistStockNewItem" method="get">
+	                     	  		<input type="hidden" name="emp_no" value="${empData.emp_no}">
+	                           		<button type="submit" class="btn btn-primary btn-block" id="registStockBeginBtn">기초재고 등록</button>
+	                           	</form>
+	                       </div>
+	                       <div class="col">
+	                       		<form action="lhsFormRegistStockSurvey" method="get">
+	                           		<input type="hidden" name="emp_no" value="${empData.emp_no}">
+	                           		<button type="submit" class="btn btn-primary btn-block" id="registStockSurveyBtn">실사 재고조사 등록</button>
+	                           	</form>
+	                       </div>
+	                    </div>
+				     	<div class="row">
+							<div class="input-group">
+		                   	  	<span class="input-group-text" ><i class="fa-solid fa-calendar-days" ></i></span>
+							    <input type="text" class="form-control sysdate" readonly>
+						  	</div>
+					   		<select class="form-select mr-2" name="search" id="selectItemCode"></select>
+						</div>
+				  </div>
 		</div>
 		
 	 <div class="titleBox">

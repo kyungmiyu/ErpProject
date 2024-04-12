@@ -13,7 +13,7 @@ public class Stock_survey {
 	private int  sts_realcnt;
 	private int  sts_disposalcnt;
 	private String sts_regdate;
-
+	
 	
 	
 }

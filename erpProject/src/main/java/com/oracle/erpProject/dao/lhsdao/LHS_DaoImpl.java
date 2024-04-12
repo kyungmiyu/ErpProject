@@ -1,6 +1,7 @@
 package com.oracle.erpProject.dao.lhsdao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import com.oracle.erpProject.model.lhsmodel.Employee;
 import com.oracle.erpProject.model.lhsmodel.Product;
 import com.oracle.erpProject.model.lhsmodel.RnP_closing;
 import com.oracle.erpProject.model.lhsmodel.Stock;
+import com.oracle.erpProject.model.lhsmodel.Stock_survey;
 
 import lombok.RequiredArgsConstructor;
  
@@ -97,18 +99,21 @@ public class LHS_DaoImpl implements LHS_Dao {
 	@Override
 	public Product checkExistenceNewItem(Product product) {
 		Product checkProduct = null;
-		Stock checkStock = null;
+		int checkStock = 0;
 		
 		try {
 			checkProduct = session.selectOne("lhsCheckExistenceNewItem", product);
 			checkStock = session.selectOne("lhsCheckExistenceStock", product);
 			
-			if (checkStock != null) {
+			if (checkProduct == null) {
+				checkProduct = new Product();
+				checkProduct.setP_name("null");
+			}
+			
+			if (checkStock != 0) {
 				checkProduct.setP_name("already");
 			}
 			
-		} catch (NullPointerException npe) {
-			System.out.println("등록되지 않은 제품입니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -128,19 +133,6 @@ public class LHS_DaoImpl implements LHS_Dao {
 		return resultRegist;
 	}
 	
-	// 신제품 수불마감 등록
-	@Override
-	public int registRnPClosingNewItem(Stock stock) {
-		int resultRegist = 0;
-		
-		try {
-			resultRegist = session.insert("lhsRegistRnPClosingNewItem", stock);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		return resultRegist;
-	}
-
 	
 	/****************************************************************************/
 		/* 실사 재고조사 등록 */
@@ -157,6 +149,68 @@ public class LHS_DaoImpl implements LHS_Dao {
 			e.printStackTrace();
 		}
 		return productData;
+	}
+	
+	// 1. 수불마감 구분 확인 (프로시져 호출)
+	@Override
+	public void checkGubunRnPClosing(Map<String, Object> params) {
+		try {
+			session.selectOne("lhsCheckGubunRnPClosing", params);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 2. 재고조사 데이터 유무 체크
+	@Override
+	public int checkExistenceStockSurvey(Stock stock) {
+		int checkStockSurvey = 0;
+		
+		try { 
+			checkStockSurvey = session.selectOne("lhsCheckExistenceStockSurvey", stock);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return checkStockSurvey;
+	}
+
+	// 3. 제품코드별 재고조사 데이터 유무 체크
+	@Override
+	public int checkExistenceStockSurveyPerItemcode(Stock_survey stock_survey) {
+		int checkItemcode = 0;
+		
+		try {
+			checkItemcode = session.selectOne("lhsCheckExistenceStockSurveyPerItemcode", stock_survey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return checkItemcode;
+	}
+
+	// 재고조사 데이터 등록
+	@Override
+	public int registStockSurvey(Stock_survey stock_survey) {
+		int registResult = 0;
+		
+		try {
+			registResult = session.insert("lhsRegistStockSurvey", stock_survey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return registResult;
+	}
+
+	// 재고조사 데이터 업데이트
+	@Override
+	public int updateStockSurvey(Stock_survey stock_survey) {
+		int updateResult = 0;
+		
+		try {
+			updateResult = session.update("lhsUpdateStockSurvey", stock_survey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return updateResult;
 	}
 
 
@@ -185,6 +239,7 @@ public class LHS_DaoImpl implements LHS_Dao {
 			
 			try {
 				listRnPClosing = session.selectList("lhsGetListRnpCondBuy", rnpc);
+				System.out.println(listRnPClosing);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -271,7 +326,42 @@ public class LHS_DaoImpl implements LHS_Dao {
 			}
 			return listRnPClosing;
 		}
+		
+		// 수불마감 버튼
+		@Override
+		public int closingRnP(RnP_closing rnpc) {
+			int resultStatus = 0;
+			try {
+				resultStatus = session.selectOne("lhsClosingRnP", rnpc);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return resultStatus;
+		}
 
+		// 마감해제 버튼
+		@Override
+		public int unclosingRnP(RnP_closing rnpc) {
+			int resultStatus = 0;
+			try {
+				resultStatus = session.selectOne("lhsUnclosingRnP", rnpc);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return resultStatus;
+		}
+
+		// 월말마감 버튼
+		@Override
+		public int monthlyClosing(RnP_closing rnpc) {
+			int resultStatus = 0;
+			try {
+				resultStatus = session.selectOne("lhsMonthlyClosing", rnpc);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return resultStatus;
+		}
 
 
 }

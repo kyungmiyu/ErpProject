@@ -1,11 +1,13 @@
 package com.oracle.erpProject.service.lhsservice;
 
 import java.util.List;
+import java.util.Map;
 
 import com.oracle.erpProject.model.lhsmodel.Employee;
 import com.oracle.erpProject.model.lhsmodel.Product;
 import com.oracle.erpProject.model.lhsmodel.RnP_closing;
 import com.oracle.erpProject.model.lhsmodel.Stock;
+import com.oracle.erpProject.model.lhsmodel.Stock_survey;
 
 
 public interface LHS_Serivce {
@@ -42,17 +44,27 @@ public interface LHS_Serivce {
 	// 신제품 기초재고 등록
 	int registStockNewItem(Stock stock);
 	
-	// 신제품 수불마감 등록
-	int registRnPClosingNewItem(Stock stock);
-	
-	// 실사 재고조사 물품 상세정보 조회
-	Product getDataProduct(Product product);
-
-
 	
 	/********************************************/
 		/* 실사 재고조사 등록 */
 
+	// 실사 재고조사 물품 상세정보 조회
+	Product getDataProduct(Product product);
+	
+	// 1. 수불마감 구분 확인 (프로시져 호출)
+	void checkGubunRnPClosing(Map<String, Object> params);
+	
+	// 2. 재고조사 데이터 유무 체크
+	int checkExistenceStockSurvey(Stock stock);
+	
+	// 3. 제품코드별 재고조사 데이터 유무 체크
+	int checkExistenceStockSurveyPerItemcode(Stock_survey stock_survey);
+
+	// 재고조사 데이터 등록
+	int registStockSurvey(Stock_survey stock_survey);
+	
+	// 재고조사 데이터 업데이트
+	int updateStockSurvey(Stock_survey stock_survey);
 	
 	
 	/********************************************/
@@ -78,5 +90,14 @@ public interface LHS_Serivce {
 	// 수불 일일내역4 리스트 조회 (재고조사)
 	List<RnP_closing> getListRnPCondSurvey(RnP_closing rnpc);
 
-	
+	// 수불마감 버튼
+	int closingRnP(RnP_closing rnpc);
+
+	// 마감해제 버튼
+	int unclosingRnP(RnP_closing rnpc);
+
+	// 월말마감 버튼
+	int monthlyClosing(RnP_closing rnpc);
+
+
 }

@@ -3,19 +3,20 @@ package com.oracle.erpProject.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.hibernate.internal.build.AllowSysOut;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oracle.erpProject.model.lhsmodel.Employee;
 import com.oracle.erpProject.model.lhsmodel.Product;
 import com.oracle.erpProject.model.lhsmodel.RnP_closing;
@@ -60,6 +61,18 @@ public class LHSController {
 
 		return "lhs/index";
 	}
+	
+	// 현재날짜 데이터 
+    public static LocalDateTime getLocalDateTime() {
+        LocalDateTime now = LocalDateTime.now();
+
+        // 시간이 오전 8시 이전인지 확인
+        if (now.getHour() < 8) {
+            // 시간이 오전 8시 이전이면 전날로 설정
+            now = now.minusDays(1);
+        }
+        return now;
+    }
 
 	
 	/****************************************************************************/
@@ -75,9 +88,12 @@ public class LHSController {
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
 		
-		// sysdate 년월만 string으로 변환
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMM");
-		String formattedDate = dateFormat.format(new Date());
+		// 현재날짜 불러오기
+		LocalDateTime now = getLocalDateTime();
+		
+		// 날짜 string으로 변환
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMM");
+        String formattedDate = now.format(formatter);
 
 		// 날짜 = null이면 sysdate 세팅
 		if (stock.getSt_year_month() == null) {
@@ -146,27 +162,20 @@ public class LHSController {
 
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
-
-		// sysdate 년월일만 string으로 변환
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		String formattedDate = dateFormat.format(new Date());
-
-		// 날짜 = null이면 sysdate 세팅
-		if (stock.getSt_year_month_day() == null) {
-			stock.setSt_year_month_day(formattedDate);
-		}
-
+		
+		// 현재날짜 불러오기
+		LocalDateTime now = getLocalDateTime();
+		
+		// 날짜 string으로 변환
+		DateTimeFormatter yyyymm = DateTimeFormatter.ofPattern("yyyyMM");
+		stock.setSt_year_month(now.format(yyyymm));
+        DateTimeFormatter yyyymmdd = DateTimeFormatter.ofPattern("yyyyMMdd");
+        stock.setSt_year_month_day(now.format(yyyymmdd));
+        
 		model.addAttribute("stock", stock);
 		model.addAttribute("empData", empData);
 
 		return "lhs/formRegistStockNewItem";
-
-		/*
-		 * formRegistStockBegin ㅡ 기초재고 등록버튼 클릭 -> href: lhsFormRegistStockBegin 실사재고조사
-		 * 등록버튼 클릭 -> href: lhsFormRegistStockSurvey 날짜선택 -> #selectMonth by ajax
-		 * (lhsFormRegistStockBegin) 등록버튼 클릭 -> #registTemporary by ajax 저장버튼 클릭 ->
-		 * #registReal by ajax (lhsRegistStockBegin)
-		 */
 	}
 
 	// 신제품 등록여부 확인
@@ -192,20 +201,13 @@ public class LHSController {
 		int resultRegistStock = 0;
 		int resultCntRegistStock = 0;
 		
-		int resultRegistRnPClosing = 0;
-		int resultCntRegistRnPClosing = 0;
-		
 		// 신제품 기초재고, 수불마감 등록 확인
 		for (Stock stock : listStock) { 
 			resultRegistStock = lhs.registStockNewItem(stock);
 			if (resultRegistStock == 1) resultCntRegistStock+=1; 
-			
-			resultRegistRnPClosing = lhs.registRnPClosingNewItem(stock);
-			if (resultRegistRnPClosing == 1) resultCntRegistRnPClosing+=1;
 		}
 		  
 		System.out.println("registStockNewItem resultCnt-> " + resultCntRegistStock);
-		System.out.println("registRnPClosingNewItem resultCnt-> " + resultCntRegistRnPClosing);
 
 		return "redirect:lhsListStock?emp_no=" + emp.getEmp_no();
 	}
@@ -224,14 +226,15 @@ public class LHSController {
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
 		
-		// sysdate 년월일만 string으로 변환
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		String formattedDate = dateFormat.format(new Date());
-
-		// 날짜 = null이면 sysdate 세팅
-		if (stock.getSt_year_month_day() == null) {
-			stock.setSt_year_month_day(formattedDate);
-		}
+		// 현재날짜 불러오기
+		LocalDateTime now = getLocalDateTime();
+		
+		// 날짜 string으로 변환
+		DateTimeFormatter yyyymm = DateTimeFormatter.ofPattern("yyyyMM");
+		stock.setSt_year_month(now.format(yyyymm));
+        DateTimeFormatter yyyymmdd = DateTimeFormatter.ofPattern("yyyyMMdd");
+        stock.setSt_year_month_day(now.format(yyyymmdd));
+        
 
 		model.addAttribute("stock", stock);
 		model.addAttribute("empData", empData);
@@ -275,9 +278,10 @@ public class LHSController {
 		
 	}
 
-	// 실사재고조사 등록	-- 미완
+	// 실사재고조사 등록
+	@ResponseBody
 	@RequestMapping(value = "lhsRegistStockSurvey")
-	public String lhsRegistStockSurvey(@RequestBody List<Stock_survey> listSurvey, Stock stock, Employee emp, Model model) {
+	public int lhsRegistStockSurvey(@RequestBody List<Stock_survey> listSurvey, Stock stock, Employee emp, Model model) {
 
 		System.out.println("lhsController lhsRegistStockSurvey start...");
 		System.out.println("check listSurvey: " + listSurvey);
@@ -285,51 +289,68 @@ public class LHSController {
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
 		
-		// 1. RnP_closing status=1 체크
-
-		// sysdate 년월일만 string으로 변환
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		String formattedDate = dateFormat.format(new Date());
-		stock.setSt_year_month_day(formattedDate);
-		stock.setSt_year_month(formattedDate.substring(0, formattedDate.length() - 2));
+		Map<String, Object> params = new HashMap<>();
+		params.put("p_yyyymmdd", stock.getSt_year_month_day());
+		params.put("p_rnpc_gubun", null);
 		
-		RnP_closing checkStatus = lhs.checkStatusRnPClosing(stock);
-		System.out.println("checkStatusRnPClosing checkStatus->" + checkStatus.getRnpc_status());
+		// 1. 수불마감 구분 확인 (프로시져 호출)
+		lhs.checkGubunRnPClosing(params);
 		
-		// 2. if select StockSurvey = null -> insertStockSurvey 
-		//    else if select StockSurvey != null -> updateStockSurvey
-
-		Stock_survey checkStockSurvey = lhs.checkExistenceStockSurvey(stock);
-		System.out.println("checkExistenceStockSurvey checkStockSurvey-> " + checkStockSurvey);
+		int checkGubun = (int) params.get("p_rnpc_gubun");
+		System.out.println("checkStatusRnPClosing checkGubun->" + checkGubun);
 		
-		// 넣는 값 일일이 넣기
-		if (checkStockSurvey == null) {
-			int registResult = lhs.registStockSurvey(listSurvey);
-			System.out.println("registStockSurvey registResult-> " + registResult);
+		// 1-1. 수불마감 구분 0인 경우
+		if (checkGubun == 0) {
+			return 1;
+		} 
+		
+		// 1-2. 수불마감 구분 0이 아닌 경우
+		else if (checkGubun > 0) {
+			
+			stock.setSt_year_month(stock.getSt_year_month_day().substring(0, 6));
+			
+			// 2. 재고조사 데이터 유무 체크
+			int checkStockSurvey = lhs.checkExistenceStockSurvey(stock);
+			System.out.println("checkExistenceStockSurvey checkStockSurvey-> " + checkStockSurvey);
+			
+				// 2-1. 재고조사 데이터가 없는 경우
+				if (checkStockSurvey == 0) {
+					for (Stock_survey stock_survey : listSurvey) {
+						// 재고조사 데이터 등록
+						int registResult = lhs.registStockSurvey(stock_survey);
+						System.out.println("registStockSurvey registResult-> " + registResult);
+					}
+				}
+				
+				// 2-2. 재고조사 데이터가 있는 경우
+				else if (checkStockSurvey != 0) {
+					
+					for (Stock_survey stock_survey : listSurvey) {
+					// 3. 제품코드별 재고조사 데이터 유무 체크
+						int checkItemcode = lhs.checkExistenceStockSurveyPerItemcode(stock_survey);
+						System.out.println("checkExistenceStockSurvey checkItemcode-> " + checkItemcode);
+						
+						// 3-1. 해당 제품코드 데이터가 없는 경우
+						if (checkItemcode == 0) {
+							// 재고조사 데이터 등록
+							int registResult = lhs.registStockSurvey(stock_survey);
+							System.out.println("registStockSurvey registResult-> " + registResult);
+						}
+						
+						// 3-2. 해당 제품코드 데이터가 있는 경우
+						else if (checkItemcode != 0) {
+							// 재고조사 데이터 업데이트
+							int updateResult = lhs.updateStockSurvey(stock_survey);
+							System.out.println("registStockSurvey updateResult-> " + updateResult);
+						}
+					}
+				}
 		}
-		else if (checkStockSurvey != null) {
-			int updateResult = lhs.updateStockSurvey(listSurvey);
-		}
-		
-		/*
-		 * 프로시져 패키시 실행? if select StockSurvey = null -> insertStockSurvey else if select
-		 * StockSurvey != null -> updateStockSurvey // 조건: 날짜 redirect:
-		 * lhsListRnpCondBuy (월말마감 누르려고)
-		 * 
-		 */
-		return "redirect:lhsListStock?emp_no=" + emp.getEmp_no();// 월말마감 버튼 누르려고
+		// 실사재고조사 등록 성공 시
+		return 0;
 	}
 	
-	/*
-	 * formRegistStockSurvey ㅡ // RnP_closing status=1 체크 -> alert로 경고 기초재고 등록버튼 클릭
-	 * -> href: lhsFormRegistStockBegin 실사재고조사 등록버튼 클릭 -> href:
-	 * lhsFormRegistStockSurvey 날짜선택 -> #selectMonth by ajax
-	 * (lhsFormRegistStockSurvey) 등록버튼 클릭 -> #registTemporary by ajax 저장버튼 클릭 ->
-	 * #registReal by ajax (lhsRegistStockSurvey) // RnP_closing status=1 아니면 ajax
-	 * fail처리
-	 */
 
-	
 	/****************************************************************************/
 		/* 수불 일일내역 조회 */
 
@@ -342,27 +363,34 @@ public class LHSController {
 
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		rnpc.setRnpc_filter("구매");
 		
-		// sysdate 년월일만 string으로 변환
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		String formattedDate = dateFormat.format(new Date());
-
+		// 현재날짜 불러오기
+		LocalDateTime now = getLocalDateTime();
+		
+		// 날짜 string으로 변환
+        DateTimeFormatter yyyymmdd = DateTimeFormatter.ofPattern("yyyyMMdd");
+		
 		// 날짜 = null이면 sysdate 세팅
 		if (rnpc.getRnpc_year_month_day() == null) {
-			rnpc.setRnpc_year_month_day(formattedDate);
+			rnpc.setRnpc_year_month_day(now.format(yyyymmdd));
 		}
 		
 		// date타입 날짜 가져오기
 		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 			rnpc.setRnpc_date(dateFormat.parse(rnpc.getRnpc_year_month_day()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
-		// 현재날짜 25일 이상인지 체크
+		// 현재날짜가 몇일인지 체크 (jsp에서 25일 이하이면 월말마감 클릭x 조건 부여)
 		LocalDate currentDate = LocalDate.now();
 		int today = currentDate.getDayOfMonth();
-	
+		
+		// 현재날짜 가져오기 (수불마감, 해제시 현재날짜로 하려고)
+		String year_month_day = now.format(yyyymmdd);
+
 		// 수불 일일내역(구매) total수 조회
 		int totalRnPClosing = lhs.getTotalRnPCondBuy(rnpc);
 		System.out.println("getTotalRnPCondBuy totalRnPClosing-> " + totalRnPClosing);
@@ -378,18 +406,13 @@ public class LHSController {
 		
 		model.addAttribute("rnpc", rnpc);
 		model.addAttribute("today", today);
+		model.addAttribute("year_month_day", year_month_day);
 		model.addAttribute("empData", empData);
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 		
 		return "lhs/listRnPCondBuy";
 
-		/*
-		 * listRnPCondBuy ㅡ 날짜선택 ->#selectMonth by ajax (lhsListRnPCondBuy) 상단버튼 클릭 ->
-		 * href: 각 버튼 폼으로 이동 (재고조사 버튼은 sysdate > 25일일때만 visible) 마감버튼 클릭 -> href:
-		 * lhsDailyClosing 해제버튼 클릭 -> href: lhsClosingCancel 월말마감버튼 클릭 -> href:
-		 * lhsMonthlyClosing
-		 */
 	}
  
 	// 수불 일일내역2 조회 (판매)
@@ -400,28 +423,33 @@ public class LHSController {
 
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		rnpc.setRnpc_filter("판매");
 		
-		// sysdate 년월일만 string으로 변환
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		String formattedDate = dateFormat.format(new Date());
-
+		// 현재날짜 불러오기
+		LocalDateTime now = getLocalDateTime();
+		
+		// 날짜 string으로 변환
+        DateTimeFormatter yyyymmdd = DateTimeFormatter.ofPattern("yyyyMMdd");
+        
 		// 날짜 = null이면 sysdate 세팅
 		if (rnpc.getRnpc_year_month_day() == null) {
-			rnpc.setRnpc_year_month_day(formattedDate);
+			rnpc.setRnpc_year_month_day(now.format(yyyymmdd));
 		}
 		
 		// date타입 날짜 가져오기
 		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 			rnpc.setRnpc_date(dateFormat.parse(rnpc.getRnpc_year_month_day()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
-		rnpc.setRnpc_filter("판매");
-		
 		// 현재날짜 25일 이상인지 체크
 		LocalDate currentDate = LocalDate.now();
 		int today = currentDate.getDayOfMonth();
+		
+		// 현재날짜 가져오기 (수불마감, 해제시 현재날짜로 하려고)
+		String year_month_day = now.format(yyyymmdd);
 		
 		// 수불 일일내역(판매) total수 조회
 		int totalRnPClosing = lhs.getTotalRnPCondSale(rnpc);
@@ -438,18 +466,13 @@ public class LHSController {
 		
 		model.addAttribute("rnpc", rnpc);
 		model.addAttribute("today", today);
+		model.addAttribute("year_month_day", year_month_day);
 		model.addAttribute("empData", empData);
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 
 		return "lhs/listRnPCondSale";
 
-		/*
-		 * listRnPCondBuy ㅡ 날짜선택 ->#selectMonth by ajax (lhsListRnPCondBuy) 상단버튼 클릭 ->
-		 * href: 각 버튼 폼으로 이동 (재고조사 버튼은 sysdate > 25일일때만 visible) 마감버튼 클릭 -> href:
-		 * lhsDailyClosing 해제버튼 클릭 -> href: lhsClosingCancel 월말마감버튼 클릭 -> href:
-		 * lhsMonthlyClosing
-		 */
 	}
 
 	// 수불 일일내역3 조회 (생산)
@@ -460,28 +483,33 @@ public class LHSController {
 
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		rnpc.setRnpc_filter("생산");
 		
-		// sysdate 년월일만 string으로 변환
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		String formattedDate = dateFormat.format(new Date());
-
+		// 현재날짜 불러오기
+		LocalDateTime now = getLocalDateTime();
+		
+		// 날짜 string으로 변환
+        DateTimeFormatter yyyymmdd = DateTimeFormatter.ofPattern("yyyyMMdd");
+		
 		// 날짜 = null이면 sysdate 세팅
 		if (rnpc.getRnpc_year_month_day() == null) {
-			rnpc.setRnpc_year_month_day(formattedDate);
+			rnpc.setRnpc_year_month_day(now.format(yyyymmdd));
 		}
 		
 		// date타입 날짜 가져오기
 		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 			rnpc.setRnpc_date(dateFormat.parse(rnpc.getRnpc_year_month_day()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
-		rnpc.setRnpc_filter("생산");
-		
-		// 현재날짜 25일 이상인지 체크
+		// 현재날짜가 몇일인지 체크 (jsp에서 25일 이하이면 월말마감 클릭x 조건 부여)
 		LocalDate currentDate = LocalDate.now();
 		int today = currentDate.getDayOfMonth();
+		
+		// 현재날짜 가져오기 (수불마감, 해제시 현재날짜로 하려고)
+		String year_month_day = now.format(yyyymmdd);
 		
 		// 수불 일일내역(생산) total수 조회
 		int totalRnPClosing = lhs.getTotalRnPCondMake(rnpc);
@@ -498,18 +526,13 @@ public class LHSController {
 		
 		model.addAttribute("rnpc", rnpc);
 		model.addAttribute("today", today);
+		model.addAttribute("year_month_day", year_month_day);
 		model.addAttribute("empData", empData);
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 
 		return "lhs/listRnPCondMake";
 
-		/*
-		 * listRnPCondBuy ㅡ 날짜선택 ->#selectMonth by ajax (lhsListRnPCondBuy) 상단버튼 클릭 ->
-		 * href: 각 버튼 폼으로 이동 (재고조사 버튼은 sysdate > 25일일때만 visible) 마감버튼 클릭 -> href:
-		 * lhsDailyClosing 해제버튼 클릭 -> href: lhsClosingCancel 월말마감버튼 클릭 -> href:
-		 * lhsMonthlyClosing
-		 */
 	}
 
 	// 수불 일일내역4 조회 (재고조사)
@@ -520,29 +543,34 @@ public class LHSController {
 
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		rnpc.setRnpc_filter("재고조사");
 		
-		// sysdate 년월일만 string으로 변환
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		String formattedDate = dateFormat.format(new Date());
-
+		// 현재날짜 불러오기
+		LocalDateTime now = getLocalDateTime();
+		
+		// 날짜 string으로 변환
+        DateTimeFormatter yyyymmdd = DateTimeFormatter.ofPattern("yyyyMMdd");
+		
 		// 날짜 = null이면 sysdate 세팅
 		if (rnpc.getRnpc_year_month_day() == null) {
-			rnpc.setRnpc_year_month_day(formattedDate);
+			rnpc.setRnpc_year_month_day(now.format(yyyymmdd));
 		}
 		
 		// date타입 날짜 가져오기
 		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 			rnpc.setRnpc_date(dateFormat.parse(rnpc.getRnpc_year_month_day()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
-		rnpc.setRnpc_filter("재고조사");
-		
-		// 현재날짜 25일 이상인지 체크
+		// 현재날짜가 몇일인지 체크 (jsp에서 25일 이하이면 월말마감 클릭x 조건 부여)
 		LocalDate currentDate = LocalDate.now();
 		int today = currentDate.getDayOfMonth();
 		
+		// 현재날짜 가져오기 (수불마감, 해제시 현재날짜로 하려고)
+		String year_month_day = now.format(yyyymmdd);
+
 		// 수불 일일내역(재고조사) total수 조회
 		int totalRnPClosing = lhs.getTotalRnPCondSurvey(rnpc);
 		System.out.println("getTotalRnPCondSurvey totalRnPClosing-> " + totalRnPClosing);
@@ -558,65 +586,90 @@ public class LHSController {
 		
 		model.addAttribute("rnpc", rnpc);
 		model.addAttribute("today", today);
+		model.addAttribute("year_month_day", year_month_day);
 		model.addAttribute("empData", empData);
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 
 		return "lhs/listRnPCondSurvey";
 
-		/*
-		 * listRnPCondBuy ㅡ 날짜선택 ->#selectMonth by ajax (lhsListRnPCondBuy) 상단버튼 클릭 ->
-		 * href: 각 버튼 폼으로 이동 (재고조사 버튼은 sysdate > 25일일때만 visible) 마감버튼 클릭 -> href:
-		 * lhsDailyClosing 해제버튼 클릭 -> href: lhsClosingCancel 월말마감버튼 클릭 -> href:
-		 * lhsMonthlyClosing
-		 */
 	}
 
-	// 일일마감 버튼
-	@RequestMapping(value = "lhsDailyClosing")
-	public String lhsDailyClosing() {
+	// 수불마감 버튼
+	@ResponseBody
+	@RequestMapping(value = "lhsClosingRnP")
+	public int lhsClosingRnP(Employee emp, RnP_closing rnpc, Model model) {
+		
+		System.out.println("lhsController lhsClosingRnP start...");
+		
+		System.out.println("empno: " + emp.getEmp_no());
+		System.out.println("date: " + rnpc.getRnpc_year_month_day());
+		
+		
+		int resultStatus = lhs.closingRnP(rnpc);
+		
+		if (resultStatus == 0) {
+			System.out.println("수불마감 성공");
+		}
+		else if (resultStatus == 1) {
+			System.out.println("이미 수불마감 상태입니다");
+		}
+		else if (resultStatus == -1 ) {
+			System.out.println("오류발생");
+		}
 
-		/*
-		 * lhs.dailyClosing (프로시져 패키지 실행) -> 1. 구매, 판매, 생산 status update (일반완료 -> 수불완료)
-		 * --- updateStatusBuy5 // 조건: 날짜, status=일반완료 2. if select 수불마감 = null ->
-		 * insert 수불마감 (구분=1) --- insertRnPClosing else if select 수불마감 != null -> update
-		 * 수불마감 (구분 0->1) --- updateStatusRnPClosing1 3. select 구매내역 -> Stock 수량 update
-		 * --- getListRnpCondBuy -> updateStockBuyQuantity select 판매내역 -> Stock 수량
-		 * update --- getListRnpCondSale -> updateStockSaleQuantity select 생산내역 -> Stock
-		 * 수량 update --- getListRnpCondMake -> updateStockMakeQuantity
-		 */
-
-		return "redirect: lhsListStock";
+		return resultStatus;
 	}
 
-	// 마감취소 버튼
-	@RequestMapping(value = "lhsClosingCancel")
-	public String lhsClosingCancel() {
-
-		/*
-		 * lhs.closingCancel (프로시져 패키시 실행) -> 1. 구매, 판매, 생산 status update (수불완료 -> 일반완료)
-		 * --- updateStatusBuy4 // 조건: 날짜, status=수불완료 2. update 수불마감 (구분 1,2->0) ---
-		 * updateStatusRnPClosing0 3. select 구매내역 -> Stock 수량 update ---
-		 * getListRnpCondBuy -> restoreStockBuyQuantity select 판매내역 -> Stock 수량 update
-		 * --- getListRnpCondSale -> restoreStockSaleQuantity select 생산내역 -> Stock 수량
-		 * update --- getListRnpCondMake -> restoreStockMakeQuantity
-		 */
-
-		return "redirect: lhsListStock";
+	// 마감해제 버튼
+	@ResponseBody
+	@RequestMapping(value = "lhsUnclosingRnP")
+	public int lhsUnclosingRnP(Employee emp, RnP_closing rnpc, Model model) {
+		
+		System.out.println("lhsController lhsUnclosingRnP start...");
+		
+		System.out.println("empno: " +emp.getEmp_no());
+		System.out.println("date: " +rnpc.getRnpc_year_month_day());
+		
+		int resultStatus = lhs.unclosingRnP(rnpc);
+		
+		if (resultStatus == 0) {
+			System.out.println("마감해제 성공");
+		}
+		else if (resultStatus == 1) {
+			System.out.println("수불마감 먼저 진행해주세요");
+		}
+		else if (resultStatus == -1 ) {
+			System.out.println("오류발생");
+		}
+		
+		return resultStatus;
 	}
 
 	// 월말마감 버튼
+	@ResponseBody
 	@RequestMapping(value = "lhsMonthlyClosing")
-	public String lhsMonthlyClosing() {
+	public int lhsMonthlyClosing(Employee emp, RnP_closing rnpc, Model model) {
 
-		/*
-		 * lhs.monthlyClosing (프로시져 패키지 실행) // 수불마감구분=1인지 체크 -> 구매, 판매, 생산 stauts=5인지 체크
-		 * 수불마감구분=1인지 체크 1. 수불마감구분 update --- updateStatusRnPClosing2 2. 재고조사 조회 ---
-		 * getListStockSurvey 3. 재고수량 update --- updateStockAllQuantity 4. 다음달 재고 insert
-		 * --- insertStockNextMonth
-		 */
+		System.out.println("lhsController lhsMonthlyClosing start...");
+		
+		System.out.println("empno: " +emp.getEmp_no());
+		System.out.println("date: " +rnpc.getRnpc_year_month_day());
+		
+		
+		int resultStatus = lhs.monthlyClosing(rnpc);
+		
+		if (resultStatus == 0) {
+			System.out.println("월말마감 성공");
+		}
+		else if (resultStatus == 1) {
+			System.out.println("수불마감 먼저 진행해주세요");
+		}
+		else if (resultStatus == -1 ) {
+			System.out.println("실사 재고조사 먼저 진행해주세요");
+		}
 
-		return "redirect: lhsListStock";
+		return resultStatus;
 	}
 
 } // class
