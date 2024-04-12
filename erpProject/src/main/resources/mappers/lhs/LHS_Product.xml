@@ -2,35 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracle.erpProject.LHS_ProductMapper">
 	
-<!-- 	<select id="lhsCheckProductBuy" parameterType="LHS_Product" resultType="LHS_Product">
-		SELECT p.*, b.buy_manager new_item_manager, bd.bd_cnt new_item_quantity
-		FROM product p, buying_detail bd, buying b
-		WHERE p.p_itemcode = bd.p_itemcode
-			AND bd.buy_date = b.buy_date
-			AND bd.cust_no = b.cust_no
-			AND p.p_itemcode = #{p_itemcode}
-			AND b.buy_status = 2
-	</select>
-	
-	<select id="lhsCheckProductMake" parameterType="LHS_Product" resultType="LHS_Product">
-		SELECT p.*, m.m_manager new_item_manager, md.md_pro_quantity new_item_quantity
-		FROM factory f, product p, make m, make_detail md
-		WHERE f.f_id = p.f_id
-			AND f.f_id = md.f_id
-			AND p.p_itemcode = md.p_itemcode
-			AND m.m_num = md.m_num
-			AND p.p_itemcode = #{p_itemcode}
-			AND md.md_status = 3
-	</select> -->
-	
 	<select id="lhsCheckExistenceNewItem" parameterType="LHS_Product" resultType="LHS_Product">
 		SELECT *
 		FROM product
 		WHERE p_itemcode = #{p_itemcode}
 	</select>
 	
-	<select id="lhsCheckExistenceStock" parameterType="LHS_Product" resultType="LHS_Stock">
-		SELECT *
+	<select id="lhsCheckExistenceStock" parameterType="LHS_Product" resultType="int">
+		SELECT count(*)
 		FROM stock
 		WHERE p_itemcode = #{p_itemcode}
 			AND st_begin_end = 0

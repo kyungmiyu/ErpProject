@@ -84,14 +84,6 @@ public class LHS_ServiceImpl implements LHS_Serivce {
 		return resultRegist;
 	}
 	
-	// 신제품 수불마감 등록
-	@Override
-	public int registRnPClosingNewItem(Stock stock) {
-		int resultRegist = 0;
-		resultRegist = lhs.registRnPClosingNewItem(stock);
-		return resultRegist;
-	}
-	
 	
 	/****************************************************************************/
 		/* 실사 재고조사 등록 */

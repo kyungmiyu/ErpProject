@@ -2,11 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracle.erpProject.LHS_RnP_closingMapper">
 
-	<insert id="lhsRegistRnPClosingNewItem" parameterType="LHS_Stock">
-		INSERT INTO RnP_closing
-		VALUES (#{st_year_month_day}, #{p_itemcode}, 0)
-	</insert>
-	
 	<select id="lhsGetTotalRnPCondBuy" parameterType="LHS_RnP_closing" resultType="int">
 		SELECT count(*)
 		FROM buying b, buying_detail bd, product p
@@ -35,7 +30,7 @@
 			(SELECT rownum rn, a.*
 			 FROM
 			 	 (SELECT p.p_name rnpc_p_name, p.p_itemcode rnpc_itemcode, 
-			 	 		 bd.bd_cnt rnpc_cnt, b.buy_manager rnpc_manager, to_char(b.buy_wdate, 'yyyy-MM-dd') rnpc_regdate,
+			 	 		 bd.bd_cnt rnpc_cnt, b.buy_manager rnpc_manager, to_char(b.buy_wdate, 'yyyy-mm-dd') rnpc_regdate,
 			 	 		 CASE WHEN b.buy_status = 0 THEN '구매진행'
 					        WHEN b.buy_status = 2 THEN '구매완료'
 					        WHEN b.buy_status = 5 THEN '수불완료'
@@ -198,7 +193,7 @@
 			(SELECT rownum rn, a.*
 			 FROM
 			 	 (SELECT p.p_name rnpc_p_name, ss.p_itemcode rnpc_itemcode, ss.sts_quantity rnpc_cnt, 
-			 	 		 ss.sts_realcnt rnpc_cnt_real, ss.sts_disposalcnt rnpc_cnt_disposal, ss.sts_regdate rnpc_regdate
+			 	 		 ss.sts_realcnt rnpc_cnt_real, ss.sts_disposalcnt rnpc_cnt_disposal, to_char(ss.sts_regdate, 'yyyy-mm-dd') rnpc_regdate
 				  FROM product p, stock s, stock_survey ss
 				  WHERE p.p_itemcode = s.p_itemcode
 				      AND p.p_itemcode = ss.p_itemcode
@@ -213,7 +208,7 @@
 	</select>
 	
 	<select id="lhsCheckGubunRnPClosing" parameterType="map" statementType="CALLABLE">
-		{ call stock_close.check_status_rnp_closing (
+		{ call stock_close.check_gubun_rnp_closing (
 	        #{p_yyyymmdd, mode=IN, jdbcType=VARCHAR},
 	        #{p_rnpc_gubun, mode=OUT, jdbcType=INTEGER}
 	    ) }

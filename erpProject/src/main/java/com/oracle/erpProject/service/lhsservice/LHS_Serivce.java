@@ -44,9 +44,6 @@ public interface LHS_Serivce {
 	// 신제품 기초재고 등록
 	int registStockNewItem(Stock stock);
 	
-	// 신제품 수불마감 등록
-	int registRnPClosingNewItem(Stock stock);
-	
 	
 	/********************************************/
 		/* 실사 재고조사 등록 */

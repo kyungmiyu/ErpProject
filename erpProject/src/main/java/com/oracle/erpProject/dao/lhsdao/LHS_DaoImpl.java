@@ -99,18 +99,21 @@ public class LHS_DaoImpl implements LHS_Dao {
 	@Override
 	public Product checkExistenceNewItem(Product product) {
 		Product checkProduct = null;
-		Stock checkStock = null;
+		int checkStock = 0;
 		
 		try {
 			checkProduct = session.selectOne("lhsCheckExistenceNewItem", product);
 			checkStock = session.selectOne("lhsCheckExistenceStock", product);
 			
-			if (checkStock != null) {
+			if (checkProduct == null) {
+				checkProduct = new Product();
+				checkProduct.setP_name("null");
+			}
+			
+			if (checkStock != 0) {
 				checkProduct.setP_name("already");
 			}
 			
-		} catch (NullPointerException npe) {
-			System.out.println("등록되지 않은 제품입니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -130,19 +133,6 @@ public class LHS_DaoImpl implements LHS_Dao {
 		return resultRegist;
 	}
 	
-	// 신제품 수불마감 등록
-	@Override
-	public int registRnPClosingNewItem(Stock stock) {
-		int resultRegist = 0;
-		
-		try {
-			resultRegist = session.insert("lhsRegistRnPClosingNewItem", stock);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		return resultRegist;
-	}
-
 	
 	/****************************************************************************/
 		/* 실사 재고조사 등록 */
@@ -249,6 +239,7 @@ public class LHS_DaoImpl implements LHS_Dao {
 			
 			try {
 				listRnPClosing = session.selectList("lhsGetListRnpCondBuy", rnpc);
+				System.out.println(listRnPClosing);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

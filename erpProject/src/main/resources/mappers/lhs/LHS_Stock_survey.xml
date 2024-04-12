@@ -17,14 +17,14 @@
 	
 	<insert id="lhsRegistStockSurvey" parameterType="LHS_Stock_survey">
 		INSERT INTO stock_survey
-		VALUES (#{st_year_month}, 1, #{p_itemcode}, #{sts_quantity}, #{sts_realcnt}, #{sts_disposalcnt}, to_char(sysdate, 'yyyymmdd'))
+		VALUES (#{st_year_month}, 1, #{p_itemcode}, #{sts_quantity}, #{sts_realcnt}, #{sts_disposalcnt}, sysdate)
 	</insert>
 	
 	<update id="lhsUpdateStockSurvey" parameterType="LHS_Stock_survey">
 		UPDATE stock_survey SET sts_quantity = #{sts_quantity},
 								sts_realcnt = #{sts_realcnt},
 								sts_disposalcnt = #{sts_disposalcnt},
-								sts_regdate = to_char(sysdate, 'yyyymmdd')
+								sts_regdate = sysdate)
 		WHERE st_year_month = #{st_year_month}
 			AND st_begin_end = 1
 			AND p_itemcode = #{p_itemcode}
