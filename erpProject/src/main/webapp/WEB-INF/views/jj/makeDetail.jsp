@@ -102,12 +102,9 @@ legend {
 						     </select>
 					    </div>
 					    <div class="form-group">
-					        <label for="example-email-input" class="form-control-label">제품코드 p_itemcode</label>
-					        <input class="form-control" type="number" value="${jjmakeDetail.p_itemcode}" placeholder="제품코드를 입력" id="example-email-input">
-					    </div>
-					    <div class="form-group">
-					        <label for="example-url-input" class="form-control-label">제품명 p_name</label>
-					        <input class="form-control" type="text" value="${jjmakeDetail.p_name}" placeholder="제품명을 입력" id="example-url-input">
+					        <label for="p_name" class="form-control-label">제품명 p_name</label>
+					        <input class="form-control" type="text" name="p_name" value="${JJ_Make_detail.p_name}"
+					        		placeholder="제품명을 입력" id="p_name">
 					    </div>
 					    <div class="form-group">
 					        <label for="example-password-input" class="form-control-label">지시수량 md_quantity</label>

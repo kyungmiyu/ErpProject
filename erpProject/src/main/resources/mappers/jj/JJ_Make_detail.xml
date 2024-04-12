@@ -55,32 +55,33 @@
 	
 	<!-- 생산게시판에서 1개의 글만 여는 쿼리 -->
 	<select id="jjmakeDetail" parameterType="int" resultType="JJ_Make_detail">
-		SELECT m.m_num,        m.md_num,          m.f_id,     mk.m_status,
-		       m.p_itemcode,   m.md_worker,       
-		       mk.m_sdate,  
-		       mk.m_due_date,
-		       m.md_quantity,   m.md_pro_quantity,             m.rpnc_gubun,
-		       m.md_worker_num, m.md_note,         m.s_date,   m.cus_no,
+		SELECT md.m_num,        md.md_num,           md.f_id,     m.m_status,
+		       md.p_itemcode,    md.md_worker,       
+		       m.m_sdate,  
+		       m.m_due_date,
+		       md.md_quantity,   md.md_pro_quantity,              md.rpnc_gubun,
+		       md.md_worker_num, md.md_note,         md.s_date,   md.cus_no,
 			   p.p_name, f.f_name
-		FROM Make_detail m
-			JOIN Product p ON m.p_itemcode = p.p_itemcode
-			JOIN Factory f ON m.f_id = f.f_id
-            JOIN Make mk ON mk.m_num = m.m_num
-		WHERE m.m_num = #{m_num}		
+		FROM Make_detail md
+			JOIN Product p ON md.p_itemcode = p.p_itemcode
+			JOIN Factory f ON md.f_id = f.f_id
+            JOIN Make m ON md.m_num = m.m_num
+		WHERE md.m_num = #{m_num}		
 	</select>
 	
 	<!-- 검색어로 조회든 글을 카운트하는 쿼리 -->
 	<select id="makeSearchCnt" parameterType="JJ_Make_detail" resultType="int">
 		SELECT Count(*)
-		FROM Make_detail m
-			JOIN Product p ON m.p_itemcode = p.p_itemcode
-			JOIN Factory f ON m.f_id = f.f_id
-		WHERE (m.m_num LIKE '%' || #{keyword} || '%'
-			OR m.md_num LIKE '%' || #{keyword} || '%'
-			OR m.md_status LIKE '%' || #{keyword} || '%' 
-			OR m.rpnc_gubun LIKE '%' || #{keyword} || '%' 
+		FROM Make_detail md
+			JOIN Product p ON md.p_itemcode = p.p_itemcode
+			JOIN Factory f ON md.f_id = f.f_id
+			JOIN Make m ON md.m_num = m.m_num
+		WHERE (md.m_num LIKE '%' || #{keyword} || '%'
+			OR md.md_num LIKE '%' || #{keyword} || '%'
+			OR m.m_status LIKE '%' || #{keyword} || '%' 
+			OR md.rpnc_gubun LIKE '%' || #{keyword} || '%' 
 			OR p.p_name LIKE '%' || #{keyword} || '%' 
-			OR m.md_worker LIKE '%' || #{keyword} || '%') 
+			OR md.md_worker LIKE '%' || #{keyword} || '%') 
 	</select>
 	
 	<!-- 검색어로 조회든 글들을 불러오는 쿼리 -->
@@ -91,17 +92,18 @@
 			SELECT ROWNUM rn, f.*
 			FROM
 			(
-				SELECT m.*, p.p_name, f.f_name
-				FROM Make_detail m
-					JOIN Product p ON m.p_itemcode = p.p_itemcode
-					JOIN Factory f ON m.f_id = f.f_id
-				WHERE m.m_num LIKE '%' || #{keyword} || '%'
-					OR m.md_num LIKE '%' || #{keyword} || '%'
-					OR m.md_status LIKE '%' || #{keyword} || '%' 
-					OR m.rpnc_gubun LIKE '%' || #{keyword} || '%' 
+				SELECT md.*, p.p_name, f.f_name, m.m_status, m.m_sdate, m.m_due_date
+				FROM Make_detail md
+					JOIN Product p ON md.p_itemcode = p.p_itemcode
+					JOIN Factory f ON md.f_id = f.f_id
+					JOIN Make m ON md.m_num = m.m_num
+				WHERE md.m_num LIKE '%' || #{keyword} || '%'
+					OR md.md_num LIKE '%' || #{keyword} || '%'
+					OR m.m_status LIKE '%' || #{keyword} || '%' 
+					OR md.rpnc_gubun LIKE '%' || #{keyword} || '%' 
 					OR p.p_name LIKE '%' || #{keyword} || '%' 
-					OR m.md_worker LIKE '%' || #{keyword} || '%'
-				ORDER BY m.m_num DESC
+					OR md.md_worker LIKE '%' || #{keyword} || '%'
+				ORDER BY md.m_num DESC
 			) f
 		)
 		WHERE rn BETWEEN #{start} AND #{end}

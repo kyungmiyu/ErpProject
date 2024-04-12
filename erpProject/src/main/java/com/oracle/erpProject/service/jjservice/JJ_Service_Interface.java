@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
+import com.oracle.erpProject.model.mkmodel.mkProduct;
 
 public interface JJ_Service_Interface {
 
@@ -16,5 +17,6 @@ public interface JJ_Service_Interface {
 	int 					makeSearchCnt(JJ_Make_detail md);	// 검색어 카운트 기능
 	List<JJ_Make_detail> 	makeSearchList(JJ_Make_detail md);	// 검색어 리스트 조회
 	int 					jjmakeDelete(int m_num);			// 생산 삭제 기능
+	List<mkProduct> 		jjproductList(mkProduct mp);		// 물품 리스트 부르기
 
 }

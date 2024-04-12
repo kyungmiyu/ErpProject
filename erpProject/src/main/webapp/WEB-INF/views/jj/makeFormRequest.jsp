@@ -144,6 +144,16 @@ legend {
 					        		placeholder="제품명을 입력" id="p_name">
 					    </div>
 					    <div class="form-group">
+					        <label for="form-select" class="form-control-label">제품명 p_name</label>
+					        <select class="form-select" name="select_product" required aria-label="select product" id="form-select">
+					        	<option value="">선택사항</option>
+					        	<c:forEach var="product" items="${productList}">
+					        		<option value="${product.p_itemcode}">${product.p_name}</option>
+					        	</c:forEach>
+					        </select>
+					    </div>
+					    
+					    <div class="form-group">
 					        <label for="md_quantity" class="form-control-label">지시수량 md_quantity</label>
 					        <input class="form-control" type="number" name="md_quantity" value="${JJ_Make_detail.md_quantity}"
 					        		placeholder="지시수량을 입력" id="md_quantity">

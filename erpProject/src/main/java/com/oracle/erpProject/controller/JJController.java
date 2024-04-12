@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
+import com.oracle.erpProject.model.mkmodel.mkProduct;
 import com.oracle.erpProject.service.jjservice.JJ_Paging;
 import com.oracle.erpProject.service.jjservice.JJ_Service_Interface;
 
@@ -56,13 +57,18 @@ public class JJController {
 	
 	// 생산 상세 페이지
 	@GetMapping("makeDetail")
-	public String jjmakeDetail(JJ_Make_detail md, Model model) {
+	public String jjmakeDetail(mkProduct mp, JJ_Make_detail md, Model model) {
 		System.out.println("JJController's jjmakeDetail Go!");
+		System.out.println("JJController's jjmakeDetail product->"+mp);
 		System.out.println("JJController's jjmakeDetail md->"+md);
+		//제품 리스트 불러오기
+		List<mkProduct> jjproductList = js.jjproductList(mp);
+		
+		// 게시글 1개 조회하기
 		JJ_Make_detail jjmakeDetail = js.jjmakeDetail(md.getM_num());
 		System.out.println("JJController's jjmakeDetail -> " + jjmakeDetail);
 		model.addAttribute("jjmakeDetail", jjmakeDetail);
-		model.addAttribute("md", md);
+		model.addAttribute("productList", jjproductList);
 		
 		return "jj/makeDetail";
 	}

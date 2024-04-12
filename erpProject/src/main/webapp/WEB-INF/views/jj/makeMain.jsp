@@ -114,23 +114,26 @@
 		<!-- 페이징 -->
 		<nav aria-label="Page navigation example" class="mt-3 mb-3">
 		  <ul class="pagination justify-content-center">
-		    <li class="page-item disabled">
-		      <a class="page-link" href="jjmakeSearch?currentPage=${page.startPage-page.pageBlock}" tabindex="-1">
-		        <i class="fa fa-angle-left"></i>
-		        <span class="sr-only">이전</span>
-		      </a>
-		    </li>
+		  	<c:if test="${page.startPage > page.pageBlock}">
+			    <li class="page-item disabled">
+			      <a class="page-link" href="jjmakeSearch?currentPage=${page.startPage-page.pageBlock}" tabindex="-1">
+			        <i class="fa fa-angle-left"></i>
+			        <span class="sr-only">이전</span>
+			      </a>
+			    </li>
+		    </c:if>
     		<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-            <li class="page-item"><a class="page-link" href="#" onclick="jjmakeSearchFn(${i})">${i}</a></li>
-            <%-- <li class="page-item"><button onclick="jjmakeSearchFn(${i})"></button></li> --%>
-            
+            	<li class="page-item"><a class="page-link" href="#" onclick="jjmakeSearchFn(${i})">${i}</a></li>
+            	<%-- <li class="page-item"><button onclick="jjmakeSearchFn(${i})"></button></li> --%>
  			</c:forEach>
-		    <li class="page-item">
-		      <a class="page-link" href="jjmakeSearch?currentPage=${page.startPage+page.pageBlock}">
-		        <i class="fa fa-angle-right"></i>
-		        <span class="sr-only">다음</span>
-		      </a>
-		    </li>
+ 			<c:if test="${page.endPage < page.totalPage}">
+			    <li class="page-item">
+			      <a class="page-link" href="jjmakeSearch?currentPage=${page.startPage+page.pageBlock}">
+			        <i class="fa fa-angle-right"></i>
+			        <span class="sr-only">다음</span>
+			      </a>
+			    </li>
+		    </c:if>
 		  </ul>
 		</nav>
 		

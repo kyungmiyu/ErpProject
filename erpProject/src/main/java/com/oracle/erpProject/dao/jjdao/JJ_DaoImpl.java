@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
+import com.oracle.erpProject.model.mkmodel.mkProduct;
 
 import lombok.RequiredArgsConstructor;
 
@@ -147,6 +148,19 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 			e.printStackTrace();
 		}
 		return jjmakeDelete;
+	}
+
+	@Override
+	public List<mkProduct> jjproductList(mkProduct mp) {
+		List<mkProduct> jjproductList = null;
+		System.out.println("JJ_DaoImpl's jjproductList Go!");
+		try {
+			jjproductList = session.selectList("jjproductList", mp);
+			System.out.println("JJ_DaoImpl's jjproductList -> " + jjproductList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jjproductList;
 	}
 
 }

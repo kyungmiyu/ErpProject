@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.oracle.erpProject.dao.jjdao.JJ_Dao_Interface;
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
+import com.oracle.erpProject.model.mkmodel.mkProduct;
 
 import lombok.RequiredArgsConstructor;
 
@@ -94,5 +95,15 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 		jjmakeDelete = jjDao.jjmakeDelete(m_num);
 		return jjmakeDelete;
 	}
+
+	@Override
+	public List<mkProduct> jjproductList(mkProduct mp) {
+		List<mkProduct> jjproductList = null;
+		System.out.println("JJ_ServiceImpl's jjproductList Go!");
+		jjproductList = jjDao.jjproductList(mp);
+		System.out.println("JJ_ServiceImpl's jjproductList.size() -> " + jjproductList.size());
+		return jjproductList;
+	}
+
 
 }
