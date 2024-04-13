@@ -33,7 +33,6 @@ public class LHS_DaoImpl implements LHS_Dao {
 		List<Employee> listEmp = null;
 		
 		try {
-			// 쿼리문 미완성 -> model dept_name 추가 + dept와 쿼리해서 dept_name까지 select하기
 			listEmp = session.selectList("lhsGetListEmp");
 		} catch (Exception e) {
 			e.printStackTrace();

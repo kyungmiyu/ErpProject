@@ -602,10 +602,6 @@ public class LHSController {
 		
 		System.out.println("lhsController lhsClosingRnP start...");
 		
-		System.out.println("empno: " + emp.getEmp_no());
-		System.out.println("date: " + rnpc.getRnpc_year_month_day());
-		
-		
 		int resultStatus = lhs.closingRnP(rnpc);
 		
 		if (resultStatus == 0) {
@@ -628,9 +624,6 @@ public class LHSController {
 		
 		System.out.println("lhsController lhsUnclosingRnP start...");
 		
-		System.out.println("empno: " +emp.getEmp_no());
-		System.out.println("date: " +rnpc.getRnpc_year_month_day());
-		
 		int resultStatus = lhs.unclosingRnP(rnpc);
 		
 		if (resultStatus == 0) {
@@ -652,10 +645,6 @@ public class LHSController {
 	public int lhsMonthlyClosing(Employee emp, RnP_closing rnpc, Model model) {
 
 		System.out.println("lhsController lhsMonthlyClosing start...");
-		
-		System.out.println("empno: " +emp.getEmp_no());
-		System.out.println("date: " +rnpc.getRnpc_year_month_day());
-		
 		
 		int resultStatus = lhs.monthlyClosing(rnpc);
 		
