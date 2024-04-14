@@ -13,7 +13,7 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 
 	@Autowired
 	private EmployeeDaoImpl employeeDaoImpl;
-		
+	
 	@Override
 	public Employee registEmployee(Employee employee) {
 		return employeeDaoImpl.registEmployee(employee);

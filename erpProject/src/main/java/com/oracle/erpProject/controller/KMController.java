@@ -32,9 +32,6 @@ public class KMController {
 	
 	@Autowired
 	private KM_EmployeeServiceImpl employeeServiceImpl;
-
-//	@Autowired
-//	private KM_DepartmentServiceImpl departmentServiceImpl;
 	
 	@Autowired
 	private final JavaMailSender mailSender;
@@ -43,9 +40,21 @@ public class KMController {
 	// 로그인
 	@GetMapping(value = "/loginForm")
 	public String loginForm() {
-		System.out.println("KMController loginPage start...*");
+		System.out.println("KMController loginForm start...*");
 		return "km/loginForm";
 	}
+	
+	/*
+	// 로그아웃
+	@GetMapping(value = "/logout")
+	public String louout(HttpServletRequest request) {
+		System.out.println("KMController louout start...*");
+		request.getSession().invalidate();
+		return "km/loginForm";
+	}
+	*/
+	
+	// error page
 	
 	// 로그인
 	@PostMapping(value="/loginProc")
@@ -206,14 +215,6 @@ public class KMController {
 	}
 	
 	
-/*
-	// 부서
-	@RequestMapping(value="departmentListProc")
-	public String departmentListProc(Model model) {
-		List<Department> listDepartment = departmentServiceImpl.listDepartment();
-		model.addAttribute("listDepartment", listDepartment);
-		return "km/departmentList";
-*/
 	
 	
 }

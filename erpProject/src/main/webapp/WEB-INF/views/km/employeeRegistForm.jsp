@@ -20,6 +20,16 @@
 		
 		$("form[name='registOrEditForm']").submit();
 	}
+	
+	function pwCheck() {
+		if ($("input[name='empPassword']").val() === $("input[name='empPassword2']").val()) {
+			$("input[name='empPassword2']").removeClass("is-invalid").addClass("is-valid").text("Password Check");
+		} else {
+			$("input[name='empPassword2']").removeClass("is-valid").addClass("is-invalid").text("Error Input")
+		}
+	}
+
+
 </script>
 <body>
 	<div class="min-height-300 position-absolute w-100" style="background-color: #172b4d;"></div>
@@ -279,13 +289,13 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="example-text-input" class="form-control-label">비밀번호</label>
-												<input type="text" name="empPassword" placeholder="Success" class="form-control is-valid" />
+												<input type="text" name="empPassword" placeholder="Success" class="form-control is-valid" oninput="pwCheck()"/>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="example-text-input" class="form-control-label">비밀번호 확인</label> 
-												<input type="text" name="empPassword2" placeholder="Error Input" class="form-control is-invalid" />
+												<input type="text" name="empPassword2" placeholder="Error Input" class="form-control is-invalid" oninput="pwCheck()"/>
 											</div>
 										</div>
 									</c:if>
