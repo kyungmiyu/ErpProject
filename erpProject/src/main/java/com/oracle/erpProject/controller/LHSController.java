@@ -22,15 +22,18 @@ import com.oracle.erpProject.model.lhsmodel.Product;
 import com.oracle.erpProject.model.lhsmodel.RnP_closing;
 import com.oracle.erpProject.model.lhsmodel.Stock;
 import com.oracle.erpProject.model.lhsmodel.Stock_survey;
+import com.oracle.erpProject.service.kmservice.KM_EmployeeService;
 import com.oracle.erpProject.service.lhsservice.LHSPaging;
 import com.oracle.erpProject.service.lhsservice.LHS_Serivce;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 public class LHSController {
 
+	private final KM_EmployeeService kmes;
 	private final LHS_Serivce lhs;
 
 	// 테스트용 사원리스트 조회
@@ -81,10 +84,14 @@ public class LHSController {
 	
 	// 월 재고조회 (기초기말)
 	@RequestMapping(value = "lhsListStock")
-	public String lhsListStock(Stock stock, Employee emp, Model model) {
+	public String lhsListStock(Stock stock, Employee emp, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsListStock start...");
 		
+		String empNo = (String) session.getAttribute("empNo");
+		com.oracle.erpProject.domain.Employee employee = kmes.findByEmpNo(Integer.parseInt(empNo));
+		//System.out.println(employee.getEmpNo());
+		//System.out.println(employee.getEmpRole());
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
 		

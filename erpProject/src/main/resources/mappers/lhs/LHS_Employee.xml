@@ -5,7 +5,7 @@
 	<select id="lhsGetListEmp" resultType="LHS_Employee">
 		SELECT *
 		FROM employee e, department d
-		WHERE e.emp_dept_comm = d.dept_no
+		WHERE e.dept_no = d.dept_no
 	</select>
 	
 	<select id="lhsGetDataEmp" parameterType="int" resultType="LHS_Employee">
