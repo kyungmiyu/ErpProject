@@ -7,6 +7,7 @@ import com.oracle.erpProject.model.slmodel.SLBuying_detail;
 import com.oracle.erpProject.model.slmodel.SLMake;
 import com.oracle.erpProject.model.slmodel.SLProduct;
 import com.oracle.erpProject.model.slmodel.SLSale;
+import com.oracle.erpProject.model.slmodel.SLSale_detail;
 
 public interface SL_Dao_Interface {
 
@@ -92,6 +93,12 @@ public interface SL_Dao_Interface {
 	int saleApplyWrite(SLSale sale);
 
 	SLSale saleDetail(SLSale sale);
+
+	int addSaleProduct(SLSale_detail slSales_detail);
+
+	int saleModify(SLSale sale);
+
+	int saleStatusChange(SLSale sale);
 
 
 

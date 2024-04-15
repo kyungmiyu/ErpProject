@@ -28,13 +28,20 @@
 	 <div class="titleBox">
 
 
-
+	<c:if test="${saleDetail.sale_status_detail eq '판매 진행중'or saleDetail.sale_status_detail eq '생산 완료'}">
 		<select class="form-control" id="saleStatusSelect">
+			<option value="0" selected="">진행 상태</option>
+		    <option value="4">판매 완료</option>
+		</select>
+	</c:if>
+	<c:if test="${saleDetail.sale_status_detail ne '판매 진행중'or saleDetail.sale_status_detail eq '생산 완료'}">
+		<select class="form-control" id="saleStatusSelect" disabled>
 			<option value="0" selected="">진행 상태</option>
 		    <option value="2">생산 작업 요청</option>
 		    <option value="4">판매 완료</option>
 		</select>
-		
+	</c:if>
+
 		<div class="saleStatusBox" id="saleStatusBox">${saleDetail.sale_status_detail}</div>
 	 
 	 	<div class="form-group" id="titleBox1">
@@ -83,6 +90,7 @@
 		                <div>제품 수량</div>
 		                <div>총 금액</div>
 		            </li>
+					
             <c:forEach var="productDetail" items="${productDetail}">
                 <li class="saleListItem">
                  	<input type="hidden" id=p_saleprice value="${productDetail.p_saleprice}">
@@ -98,11 +106,11 @@
         </ul>
     </div>
 </div>
-	
-   	<button type="button" class="btn btn-primary" id="saleModify">수정</button>
+
+<c:if test="${saleDetail.sale_status_detail eq '판매 진행중'or saleDetail.sale_status_detail eq '생산 완료'}">   	<button type="button" class="btn btn-primary" id="saleModify">수정</button>
     <button type="button" class="btn btn-primary" id="saleComple">완료</button>
     </div> 
-   
+</c:if>
     <!-- ****** 공통 : 테이블 끝 ****** -->
    	 </div>
    	<!-- Footer 푸터 -->

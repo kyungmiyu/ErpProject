@@ -22,15 +22,18 @@ import com.oracle.erpProject.model.lhsmodel.Product;
 import com.oracle.erpProject.model.lhsmodel.RnP_closing;
 import com.oracle.erpProject.model.lhsmodel.Stock;
 import com.oracle.erpProject.model.lhsmodel.Stock_survey;
+import com.oracle.erpProject.service.kmservice.KM_EmployeeService;
 import com.oracle.erpProject.service.lhsservice.LHSPaging;
 import com.oracle.erpProject.service.lhsservice.LHS_Serivce;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 public class LHSController {
 
+	private final KM_EmployeeService kmes;
 	private final LHS_Serivce lhs;
 
 	// 테스트용 사원리스트 조회
@@ -81,10 +84,14 @@ public class LHSController {
 	
 	// 월 재고조회 (기초기말)
 	@RequestMapping(value = "lhsListStock")
-	public String lhsListStock(Stock stock, Employee emp, Model model) {
+	public String lhsListStock(Stock stock, Employee emp, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsListStock start...");
 		
+		String empNo = (String) session.getAttribute("empNo");
+		com.oracle.erpProject.domain.Employee employee = kmes.findByEmpNo(Integer.parseInt(empNo));
+		//System.out.println(employee.getEmpNo());
+		//System.out.println(employee.getEmpRole());
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
 		
@@ -136,6 +143,7 @@ public class LHSController {
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
 
+		// 현재 날짜 가져오기
 		LocalDate currentDate = LocalDate.now();
 
 		// 현재 날짜가 25일보다 작은지 확인
@@ -284,7 +292,6 @@ public class LHSController {
 	public int lhsRegistStockSurvey(@RequestBody List<Stock_survey> listSurvey, Stock stock, Employee emp, Model model) {
 
 		System.out.println("lhsController lhsRegistStockSurvey start...");
-		System.out.println("check listSurvey: " + listSurvey);
 		
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
@@ -296,6 +303,7 @@ public class LHSController {
 		// 1. 수불마감 구분 확인 (프로시져 호출)
 		lhs.checkGubunRnPClosing(params);
 		
+		// 프로시져 out값 가져오기
 		int checkGubun = (int) params.get("p_rnpc_gubun");
 		System.out.println("checkStatusRnPClosing checkGubun->" + checkGubun);
 		
@@ -602,8 +610,10 @@ public class LHSController {
 		
 		System.out.println("lhsController lhsClosingRnP start...");
 		
+		// 수불마감 함수 실행
 		int resultStatus = lhs.closingRnP(rnpc);
 		
+		// 각 상태값에 대해 jsp에서 처리
 		if (resultStatus == 0) {
 			System.out.println("수불마감 성공");
 		}
@@ -624,8 +634,10 @@ public class LHSController {
 		
 		System.out.println("lhsController lhsUnclosingRnP start...");
 		
+		// 마감해제 함수 실행
 		int resultStatus = lhs.unclosingRnP(rnpc);
 		
+		// 각 상태값에 대해 jsp에서 처리
 		if (resultStatus == 0) {
 			System.out.println("마감해제 성공");
 		}
@@ -646,8 +658,10 @@ public class LHSController {
 
 		System.out.println("lhsController lhsMonthlyClosing start...");
 		
+		// 월말마감 함수 실행
 		int resultStatus = lhs.monthlyClosing(rnpc);
 		
+		// 각 상태값에 대해 jsp에서 처리
 		if (resultStatus == 0) {
 			System.out.println("월말마감 성공");
 		}

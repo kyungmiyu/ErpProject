@@ -8,7 +8,7 @@ import lombok.Data;
 public class Employee {
 	
 	private int emp_no;
-	private int emp_dept_comm;
+	private int dept_no;
 	private int emp_job_comm;
 	private int emp_job_name;
 	private String emp_name;

@@ -67,7 +67,7 @@ public class LHS_DaoImpl implements LHS_Dao {
 	@Override
 	public int getTotalStock(Stock stock) {
 		int totalStock = 0;
-		
+		System.out.println("c: " +stock.getSt_year_month());
 		try {
 			totalStock = session.selectOne("lhsGetTotalStock", stock);
 		} catch (Exception e) {
