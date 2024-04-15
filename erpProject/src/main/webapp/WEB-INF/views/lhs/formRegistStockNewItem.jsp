@@ -94,7 +94,7 @@ $(document).ready(function () {
  	// 검색버튼 클릭 시
  	$("#searchBtn").click(function() {
  		
- 	    var emp_no = ${empData.emp_no};
+ 	    var empNo = ${empData.empNo};
  	    var itemCode = $(".itemCode").val();
  	        
  	        $.ajax({
@@ -102,7 +102,7 @@ $(document).ready(function () {
  	            type: "GET",
  	            data: { 
  	                p_itemcode: itemCode,
- 	               	emp_no: emp_no
+ 	               empNo: empNo
  	            },
  	            success: function(data) {
  	            	 
@@ -210,13 +210,13 @@ $(document).ready(function () {
 
         // Ajax 요청으로 컨트롤러에 데이터 전송
         $.ajax({
-            url: "lhsRegistStockNewItem?emp_no=" + ${empData.emp_no},
+            url: "lhsRegistStockNewItem?empNo=" + ${empData.empNo},
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(dataToSend),
             success: function (response) {
             	alert("기초재고에 등록되었습니다.");
-                window.location.href = "/lhsListStock?emp_no=" + ${empData.emp_no};
+                window.location.href = "/lhsListStock?empNo=" + ${empData.empNo};
             },
             error: function (xhr, status, error) {
                 console.error("Error occurred:", error);
@@ -246,13 +246,13 @@ $(document).ready(function () {
 		               <div class="row">
 	                       <div class="col">
 	                       		<form action="lhsFormRegistStockNewItem" method="get">
-	                     	  		<input type="hidden" name="emp_no" value="${empData.emp_no}">
+	                     	  		<input type="hidden" name="empNo" value="${empData.empNo}">
 	                           		<button type="submit" class="btn btn-primary btn-block" id="registStockBeginBtn">기초재고 등록</button>
 	                           	</form>
 	                       </div>
 	                       <div class="col">
 	                       		<form action="lhsFormRegistStockSurvey" method="get">
-	                           		<input type="hidden" name="emp_no" value="${empData.emp_no}">
+	                           		<input type="hidden" name="empNo" value="${empData.empNo}">
 	                           		<button type="submit" class="btn btn-primary btn-block" id="registStockSurveyBtn">실사 재고조사 등록</button>
 	                           	</form>
 	                       </div>

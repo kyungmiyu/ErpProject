@@ -86,12 +86,9 @@ public class LHSController {
 
 		System.out.println("lhsController lhsListStock start...");
 		
-		String empNo = (String) session.getAttribute("empNo");
-		Employee employee = kmes.findByEmpNo(Integer.parseInt(empNo));
-		//System.out.println(employee.getEmpNo());
-		//System.out.println(employee.getEmpRole());
 		// 사원데이터 조회
-		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		String empNo = (String) session.getAttribute("emp_no");
+		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
 		
 		// 현재날짜 불러오기
 		LocalDateTime now = getLocalDateTime();
@@ -134,12 +131,9 @@ public class LHSController {
 	
 	// 재고등록 관리 ((폼 따로 x -> 폼 이동만 관리)
 	@RequestMapping(value = "lhsManageFormRegistStock")
-	public String lhsManageFormRegistStock(Employee emp, Model model) {
+	public String lhsManageFormRegistStock(HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsManageFormRegistStock start...");
-
-		// 사원데이터 조회
-		Employee empData = lhs.getDataEmp(emp.getEmp_no());
 
 		// 현재 날짜 가져오기
 		LocalDate currentDate = LocalDate.now();
@@ -147,10 +141,10 @@ public class LHSController {
 		// 현재 날짜가 25일보다 작은지 확인
 		if (currentDate.getDayOfMonth() < 25) {
 			// 25일 미만인 경우
-			return "redirect:lhsFormRegistStockNewItem?emp_no=" + emp.getEmp_no();
+			return "redirect:lhsFormRegistStockNewItem?emp_no=";
 		} else {
 			// 25일 이상인 경우
-			return "redirect:lhsFormRegistStockSurvey?emp_no=" + emp.getEmp_no();
+			return "redirect:lhsFormRegistStockSurvey?emp_no=";
 		}
 
 	}
@@ -162,12 +156,13 @@ public class LHSController {
 	
 	// 기초재고 등록 폼
 	@RequestMapping(value = "lhsFormRegistStockNewItem")
-	public String lhsResgistStockBegin(Stock stock, Employee emp, Model model) {
+	public String lhsResgistStockBegin(Stock stock, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsFormRegistStockNewItem start...");
 
 		// 사원데이터 조회
-		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		String empNo = (String) session.getAttribute("emp_no");
+		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
 		
 		// 현재날짜 불러오기
 		LocalDateTime now = getLocalDateTime();
@@ -187,7 +182,7 @@ public class LHSController {
 	// 신제품 등록여부 확인
 	@ResponseBody
 	@RequestMapping(value = "lhsCheckExistenceNewItem")
-	public Product lhsCheckNewItem(Product product, Employee emp, Model model) {
+	public Product lhsCheckNewItem(Product product, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsCheckExistenceNewItem start...");
 
@@ -200,7 +195,7 @@ public class LHSController {
 
 	// 신제품 기초재고 등록
 	@RequestMapping(value = "lhsRegistStockNewItem")
-	public String lhsRegistStockNewItem(@RequestBody List<Stock> listStock, Employee emp, Model model) {
+	public String lhsRegistStockNewItem(@RequestBody List<Stock> listStock, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsRegistStockNewItem start...");
 
@@ -215,7 +210,7 @@ public class LHSController {
 		  
 		System.out.println("registStockNewItem resultCnt-> " + resultCntRegistStock);
 
-		return "redirect:lhsListStock?emp_no=" + emp.getEmp_no();
+		return "redirect:lhsListStock?emp_no=";
 	}
 	
 	
@@ -225,12 +220,13 @@ public class LHSController {
 	
 	// 실사재고조사 등록 폼
 	@RequestMapping(value = "lhsFormRegistStockSurvey")
-	public String lhsFormRegistStockSurvey(Stock stock, Employee emp, Model model) {
+	public String lhsFormRegistStockSurvey(Stock stock, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsFormRegistStockSurvey start...");
 
 		// 사원데이터 조회
-		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		String empNo = (String) session.getAttribute("emp_no");
+		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
 		
 		// 현재날짜 불러오기
 		LocalDateTime now = getLocalDateTime();
@@ -251,7 +247,7 @@ public class LHSController {
 	// 실사재고조사용 물품리스트 조회
 	@ResponseBody
 	@RequestMapping(value = "lhsListItem")
-	public List<Stock> lhsListItem(Stock stock, Employee emp, Model model) {
+	public List<Stock> lhsListItem(Stock stock, HttpSession session, Model model) {
 		
 		System.out.println("lhsController lhsListItem start...");
 		
@@ -287,12 +283,13 @@ public class LHSController {
 	// 실사재고조사 등록
 	@ResponseBody
 	@RequestMapping(value = "lhsRegistStockSurvey")
-	public int lhsRegistStockSurvey(@RequestBody List<Stock_survey> listSurvey, Stock stock, Employee emp, Model model) {
+	public int lhsRegistStockSurvey(@RequestBody List<Stock_survey> listSurvey, Stock stock, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsRegistStockSurvey start...");
 		
 		// 사원데이터 조회
-		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		String empNo = (String) session.getAttribute("emp_no");
+		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("p_yyyymmdd", stock.getSt_year_month_day());
@@ -363,12 +360,14 @@ public class LHSController {
 	
 	// 수불 일일내역1 조회 (구매)
 	@RequestMapping(value = "lhsListRnPCondBuy")
-	public String lhsListRnPCondBuy(RnP_closing rnpc, Employee emp, Model model) {
+	public String lhsListRnPCondBuy(RnP_closing rnpc, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsListRnPCondBuy start...");
 
 		// 사원데이터 조회
-		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		String empNo = (String) session.getAttribute("emp_no");
+		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		
 		rnpc.setRnpc_filter("구매");
 		
 		// 현재날짜 불러오기
@@ -423,12 +422,13 @@ public class LHSController {
  
 	// 수불 일일내역2 조회 (판매)
 	@RequestMapping(value = "lhsListRnPCondSale")
-	public String lhsListRnPCondSale(RnP_closing rnpc, Employee emp, Model model) {
+	public String lhsListRnPCondSale(RnP_closing rnpc, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsListRnPCondSale start...");
 
 		// 사원데이터 조회
-		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		String empNo = (String) session.getAttribute("emp_no");
+		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
 		rnpc.setRnpc_filter("판매");
 		
 		// 현재날짜 불러오기
@@ -483,12 +483,13 @@ public class LHSController {
 
 	// 수불 일일내역3 조회 (생산)
 	@RequestMapping(value = "lhsListRnPCondMake")
-	public String lhsListRnPCondMake(RnP_closing rnpc, Employee emp, Model model) {
+	public String lhsListRnPCondMake(RnP_closing rnpc, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsListRnPCondMake start...");
 
 		// 사원데이터 조회
-		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		String empNo = (String) session.getAttribute("emp_no");
+		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
 		rnpc.setRnpc_filter("생산");
 		
 		// 현재날짜 불러오기
@@ -543,12 +544,13 @@ public class LHSController {
 
 	// 수불 일일내역4 조회 (재고조사)
 	@RequestMapping(value = "lhsListRnPCondSurvey")
-	public String lhsListRnPCondSurvey(RnP_closing rnpc, Employee emp, Model model) {
+	public String lhsListRnPCondSurvey(RnP_closing rnpc, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsListRnPCondSurvey start...");
 
 		// 사원데이터 조회
-		Employee empData = lhs.getDataEmp(emp.getEmp_no());
+		String empNo = (String) session.getAttribute("emp_no");
+		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
 		rnpc.setRnpc_filter("재고조사");
 		
 		// 현재날짜 불러오기
