@@ -27,7 +27,7 @@ public class SLController {
 	
 	
 	
-	// 구매 페이지
+	// 구매 페이지//
 	@GetMapping(value = "buying")
 	public String buying(SLBuying buying, Model model) {
 		System.out.println("SlController buying Start >>>>>>");
