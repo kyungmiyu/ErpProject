@@ -128,7 +128,7 @@ public class KMController {
 	// 마이페이지 화면
 	@GetMapping(value = "/myPageForm")
 	public String myPageForm(HttpSession session, Model model) {
-		String empNo = (String) session.getAttribute("empNo");
+		String empNo = (String) session.getAttribute("emp_no");
 		Employee employee = employeeServiceImpl.findByEmpNo(Integer.parseInt(empNo));
 		model.addAttribute("employee", employee);
 		model.addAttribute("mode", "view");
@@ -138,7 +138,7 @@ public class KMController {
 	// 마이페이지 사원 정보 수정
 	@PostMapping(value="/myPageEditProc")
 	public String myPageEditProc(Model model, HttpSession session, Employee employee) {
-		String empNo = (String) session.getAttribute("empNo");
+		String empNo = (String) session.getAttribute("emp_no");
 		employee.setEmpNo(Integer.parseInt(empNo));
 		employeeServiceImpl.updateEmployee(employee);
 		model.addAttribute("mode", "edit");
