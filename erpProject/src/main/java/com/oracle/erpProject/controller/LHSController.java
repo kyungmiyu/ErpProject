@@ -87,7 +87,7 @@ public class LHSController {
 		System.out.println("lhsController lhsListStock start...");
 		
 		String empNo = (String) session.getAttribute("empNo");
-		com.oracle.erpProject.domain.Employee employee = kmes.findByEmpNo(Integer.parseInt(empNo));
+		//com.oracle.erpProject.domain.Employee employee = kmes.findByEmpNo(Integer.parseInt(empNo));
 		//System.out.println(employee.getEmpNo());
 		//System.out.println(employee.getEmpRole());
 		// 사원데이터 조회
