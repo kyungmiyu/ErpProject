@@ -136,6 +136,7 @@ public class LHSController {
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
 
+		// 현재 날짜 가져오기
 		LocalDate currentDate = LocalDate.now();
 
 		// 현재 날짜가 25일보다 작은지 확인
@@ -284,7 +285,6 @@ public class LHSController {
 	public int lhsRegistStockSurvey(@RequestBody List<Stock_survey> listSurvey, Stock stock, Employee emp, Model model) {
 
 		System.out.println("lhsController lhsRegistStockSurvey start...");
-		System.out.println("check listSurvey: " + listSurvey);
 		
 		// 사원데이터 조회
 		Employee empData = lhs.getDataEmp(emp.getEmp_no());
@@ -296,6 +296,7 @@ public class LHSController {
 		// 1. 수불마감 구분 확인 (프로시져 호출)
 		lhs.checkGubunRnPClosing(params);
 		
+		// 프로시져 out값 가져오기
 		int checkGubun = (int) params.get("p_rnpc_gubun");
 		System.out.println("checkStatusRnPClosing checkGubun->" + checkGubun);
 		
@@ -602,12 +603,10 @@ public class LHSController {
 		
 		System.out.println("lhsController lhsClosingRnP start...");
 		
-		System.out.println("empno: " + emp.getEmp_no());
-		System.out.println("date: " + rnpc.getRnpc_year_month_day());
-		
-		
+		// 수불마감 함수 실행
 		int resultStatus = lhs.closingRnP(rnpc);
 		
+		// 각 상태값에 대해 jsp에서 처리
 		if (resultStatus == 0) {
 			System.out.println("수불마감 성공");
 		}
@@ -628,11 +627,10 @@ public class LHSController {
 		
 		System.out.println("lhsController lhsUnclosingRnP start...");
 		
-		System.out.println("empno: " +emp.getEmp_no());
-		System.out.println("date: " +rnpc.getRnpc_year_month_day());
-		
+		// 마감해제 함수 실행
 		int resultStatus = lhs.unclosingRnP(rnpc);
 		
+		// 각 상태값에 대해 jsp에서 처리
 		if (resultStatus == 0) {
 			System.out.println("마감해제 성공");
 		}
@@ -653,12 +651,10 @@ public class LHSController {
 
 		System.out.println("lhsController lhsMonthlyClosing start...");
 		
-		System.out.println("empno: " +emp.getEmp_no());
-		System.out.println("date: " +rnpc.getRnpc_year_month_day());
-		
-		
+		// 월말마감 함수 실행
 		int resultStatus = lhs.monthlyClosing(rnpc);
 		
+		// 각 상태값에 대해 jsp에서 처리
 		if (resultStatus == 0) {
 			System.out.println("월말마감 성공");
 		}
