@@ -37,5 +37,11 @@
 				sysdate
 				)
 	</insert>	
+	
+	<delete id="yhsDeleteBoard" parameterType="int">
+	    delete from BOARD where b_no= #{b_no}
+   </delete>
+   
+   
 
 </mapper>

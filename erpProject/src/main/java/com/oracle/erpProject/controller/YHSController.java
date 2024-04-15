@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.oracle.erpProject.model.yhsmodel.YhsBoard;
 import com.oracle.erpProject.service.Yhsservice.Paging;
@@ -37,8 +38,9 @@ public class YHSController {
 		List<YhsBoard> listBoard = yhs_Service_Interface.listBoard(board);
 		System.out.println("YHSController  listBoard.size()=>" + listBoard.size());
 		 
-		model.addAttribute("listBoard" , listBoard); model.addAttribute("page",
-		page); model.addAttribute("totalBoard",totalBoard);
+		model.addAttribute("listBoard" , listBoard); 
+		model.addAttribute("page",page); 
+		model.addAttribute("totalBoard",totalBoard);
 		 
 		
 		return "Yhs/board";
@@ -57,15 +59,15 @@ public class YHSController {
 			int boardViewCnt = yhs_Service_Interface.boardViewCnt(board);
 
 			// 게시판 댓글수
-			int boardReplyCnt = yhs_Service_Interface.boardReplyCnt(b_no);
+//			int boardReplyCnt = yhs_Service_Interface.boardReplyCnt(b_no);
 			// 파일 첨부 된 글
 //			List<YhsBoard> boardFile = yhs_Service_Interface.boardFile(b_no);
 			
 //			model.addAttribute("boardFile",boardFile);
-			model.addAttribute("boardReplyCnt", boardReplyCnt);
+//			model.addAttribute("boardReplyCnt", boardReplyCnt);
 			model.addAttribute("boardViewCnt", boardViewCnt);
 			model.addAttribute("boardContents", boardContents);
-			System.out.println("boardReplyCnt" + boardReplyCnt);
+//			System.out.println("boardReplyCnt" + boardReplyCnt);
 			System.out.println("boardViewCnt" + boardViewCnt);
 			System.out.println("boardContents" + boardContents);
 			return "Yhs/boardContents";
@@ -100,4 +102,25 @@ public class YHSController {
 		return "redirect:/board";
 
 	}
+	
+	@RequestMapping(value="deleteBoard")
+	public String deleteBoard(YhsBoard board, Model model) {
+		System.out.println("YHSController Start delete..." );
+		// name -> Service, dao , mapper
+		int result = yhs_Service_Interface.deleteBoard(board.getB_no());
+		return "redirect:/board";
+	}
+	
+//	// 자유 게시판 글 삭제
+//	@RequestMapping(value="deleteBoard")
+//	public String deleteBoard(HttpServletRequest request, YhsBoard board) {
+//		System.out.println("YHSController deleteBoard Start...");
+//		int b_no = Integer.parseInt(request.getParameter("b_no"));
+//		board.setB_no(b_no);
+//		int deleteBoard = yhs_Service_Interface.deleteBoard(board);
+//
+//		System.out.println("YHSController deleteBoard ->" + deleteBoard);
+//
+//		return "redirect:/board";
+//	}
 }
