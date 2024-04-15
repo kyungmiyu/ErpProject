@@ -26,7 +26,7 @@
 
 .btn-primary {
     --bs-btn-color: #0d6efd;
-    --bs-btn-bg: transparent;
+/*     --bs-btn-bg: transparent; */
     --bs-btn-border: 1px solid #0D6DFD;
     --bs-btn-hover-color: #ffffff;
     --bs-btn-hover-bg: #B52BFC;

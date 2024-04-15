@@ -13,18 +13,14 @@ public interface Yhs_Service_Interface {
 	// 게시판 상세 페이지 
 	YhsBoard boardContents(int b_no);
 	
-	
 	// 게시판 글 조회수 
 	int boardViewCnt(YhsBoard board);
 	
-	
-	// 게시판 상세 페이지 댓글 카운트
-	int boardReplyCnt(int b_no);
-	
-	// 게시판 상세페이지 파일 조회
-	List<YhsBoard> boardFile(int b_no);
-	
 	int insertBoard(YhsBoard board);
+
+//	int deleteBoard(YhsBoard board);
+
+	int deleteBoard(int b_no);
 
 }
 

@@ -262,7 +262,7 @@
   position: absolute;
   margin-top: 10px;
   width: 100px;
-  right: 260px;
+  right: 150px;
   bottom: 10px;
 }
 
@@ -338,6 +338,9 @@
 
 				<button type="button" class="btn bacList" onclick="goBack()">
 					목록</button>
+					
+				<button type="button" class="btn bacDelete" onclick="location.href='deleteBoard?empno=${boardContents.emp_no}'">
+					삭제</button>
 
 				<script>
 					function goBack() {
