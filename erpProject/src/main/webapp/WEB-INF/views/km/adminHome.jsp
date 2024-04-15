@@ -11,7 +11,9 @@
 <%@ include file="../configHead.jsp"%>
 </head>
 <body>
-	<div class="min-height-300 position-absolute w-100" style="background-color: #172b4d;"></div>
+	<div class="min-height-300  position-absolute w-100" style="background-color: black;"></div>
+	<!-- style="background-color: #bbdefb #172b4d;" -->
+	
 	<!-- Sidebar 사이드바 -->
 	<%@ include file="adminSidebar.jsp"%>
 	<main class="main-content position-relative border-radius-lg ">
@@ -32,23 +34,14 @@
 								<p class="mb-0 font-weight-bold text-sm">인사관리팀</p>
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-							<div class="nav-wrapper position-relative end-0">
-								<ul class="nav nav-pills nav-fill p-1" role="tablist">
-									<li class="nav-item" role="presentation">
-										<a class="nav-link mb-0 px-0 py-1 active d-flex align-items-center justify-content-center"
-											data-bs-toggle="comm-tab" href="/" role="tab" aria-selected="false">
-											<i class="ni ni-folder-17"></i><span class="ms-2 fw-semibold">일반</span>
-										</a>
-									</li>
-									<li class="nav-item" role="presentation">
-										<a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center"
-											href="../adminHome" aria-selected="true" data-bs-toggle="admin-tab" role="tab" tabindex="-1"> 
-											<i class="ni ni-key-25"></i><span class="ms-2 fw-semibold">관리자</span>
-										</a>
-									</li>
-								</ul>
-							</div>
+						<div class="col-lg-4 align-items-center my-auto ms-auto justify-content-end d-flex">
+							<button type="button" class="btn btn-lg" onclick="location.href='/'" style="margin: 12px; backgroud-color: #f6f9fc">
+								<i class="ni ni-folder-17"></i><span class="ms-2 fw-semibold">일반</span>
+							</button>
+							<button type="button" class="btn btn-lg btn-primary" onclick="location.href='/adminHome'" 
+									style="margin: 12px; background-color: transparent; background-image: linear-gradient(310deg, #141727, #3A416E);">
+								<i class="ni ni-key-25"></i><span class="ms-2 fw-semibold">관리자</span>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -75,7 +68,7 @@
 					<div class="card card-carousel overflow-hidden h-100 p-0">
 						<div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
 							<div class="carousel-inner border-radius-lg h-100">
-								<div class="carousel-item h-100 active" style="background-image: url('./assets/img/member/member1.jpg'); background-size: cover;">
+								<div class="carousel-item h-100 active" data-bs-interval="2000" style="background-image: url('./assets/img/member/member1.jpg'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
 										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
 											<i class="ni ni-single-02 text-dark opacity-10"></i>
@@ -85,7 +78,7 @@
 											wasn’t able to get good at.</p>
 									</div>
 								</div>
-								<div class="carousel-item h-100" style="background-image: url('./assets/img/member/member2.png'); background-size: cover;">
+								<div class="carousel-item h-100" data-bs-interval="2000" style="background-image: url('./assets/img/member/member2.png'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
 										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
 											<i class="ni ni-single-02 text-dark opacity-10"></i>
@@ -95,7 +88,7 @@
 											at anything except for the ability to learn.</p>
 									</div>
 								</div>
-								<div class="carousel-item h-100" style="background-image: url('./assets/img/member/member3.png'); background-size: cover;">
+								<div class="carousel-item h-100" data-bs-interval="2000" style="background-image: url('./assets/img/member/member3.png'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
 										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
 											<i class="ni ni-single-02 text-dark opacity-10"></i>
@@ -105,7 +98,7 @@
 											anything from a compliment.</p>
 									</div>
 								</div>
-								<div class="carousel-item h-100 active" style="background-image: url('./assets/img/member/member4.png'); background-size: cover;">
+								<div class="carousel-item h-100" data-bs-interval="2000" style="background-image: url('./assets/img/member/member4.png'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
 										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
 											<i class="ni ni-single-02 text-dark opacity-10"></i>
@@ -115,7 +108,7 @@
 											wasn’t able to get good at.</p>
 									</div>
 								</div>
-								<div class="carousel-item h-100 active" style="background-image: url('./assets/img/member/member5.png'); background-size: cover;">
+								<div class="carousel-item h-100" data-bs-interval="2000" style="background-image: url('./assets/img/member/member5.png'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
 										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
 											<i class="ni ni-single-02 text-dark opacity-10"></i>
@@ -125,7 +118,7 @@
 											wasn’t able to get good at.</p>
 									</div>
 								</div>
-								<div class="carousel-item h-100 active" style="background-image: url('./assets/img/member/member6.png'); background-size: cover;">
+								<div class="carousel-item h-100" data-bs-interval="2000" style="background-image: url('./assets/img/member/member6.png'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
 										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
 											<i class="ni ni-single-02 text-dark opacity-10"></i>
@@ -135,7 +128,7 @@
 											wasn’t able to get good at.</p>
 									</div>
 								</div>
-								<div class="carousel-item h-100 active" style="background-image: url('./assets/img/member/member7.png'); background-size: cover;">
+								<div class="carousel-item h-100" data-bs-interval="2000" style="background-image: url('./assets/img/member/member7.png'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
 										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
 											<i class="ni ni-single-02 text-dark opacity-10"></i>

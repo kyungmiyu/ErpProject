@@ -40,7 +40,7 @@
 -->
 </head>
 <body>
-	<div class="min-height-300 bg-primary position-absolute w-100"></div>
+	<div class="min-height-300 position-absolute w-100" style="background-color: #1a237e;"></div>
 	<!-- Sidebar -->
 	<%@ include file="./sidebar.jsp"%>
 	<main class="main-content position-relative border-radius-lg ">
@@ -61,11 +61,13 @@
 								<p class="mb-0 font-weight-bold text-sm">인사관리팀</p>
 							</div>
 						</div>
-						<div class="col-lg-4 align-items-center my-auto ms-auto">
-							<button type="button" class="btn btn-lg btn-primary" onclick="setTime()" style="margin: 12px">
+						<div class="col-lg-4 align-items-center my-auto ms-auto justify-content-end d-flex">
+							<button type="button" class="btn btn-lg" onclick="location.href='/'" style="margin: 12px; backgroud-color: #f6f9fc">
 								<i class="ni ni-folder-17"></i><span class="ms-2 fw-semibold">일반</span>
 							</button>
-							<button type="button" class="btn btn-lg btn-primary" onclick="setTime()" style="margin: 12px">
+							<button type="button" class="btn btn-lg btn-primary btn-tooltip" onclick="location.href='/adminHome'"
+									data-bs-toggle="tooltip" data-bs-placement="bottom" title="관리자만 접근 가능한 페이지입니다." data-container="body"
+									data-animation="true" style="max-width: 300px; white-space: nowrap; margin: 12px; background-color: transparent; background-image: linear-gradient(310deg, #141727, #3A416E);">
 								<i class="ni ni-key-25"></i><span class="ms-2 fw-semibold">관리자</span>
 							</button>
 						</div>
