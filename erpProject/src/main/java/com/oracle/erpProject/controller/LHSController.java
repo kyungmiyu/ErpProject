@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,7 +87,7 @@ public class LHSController {
 		System.out.println("lhsController lhsListStock start...");
 		
 		String empNo = (String) session.getAttribute("empNo");
-		com.oracle.erpProject.domain.Employee employee = kmes.findByEmpNo(Integer.parseInt(empNo));
+		//com.oracle.erpProject.domain.Employee employee = kmes.findByEmpNo(Integer.parseInt(empNo));
 		//System.out.println(employee.getEmpNo());
 		//System.out.println(employee.getEmpRole());
 		// 사원데이터 조회

@@ -56,6 +56,7 @@ public class Yhs_DaoImpl implements Yhs_Dao_Interface {
 	@Override
 	public int boardViewCnt(YhsBoard board) {
 		int boardViewCnt = session.update("yhsboardViewCnt", board);
+		System.out.println("Yhs_DaoImpl boardViewCnt -> " + boardViewCnt);
 		return boardViewCnt;
 	}
 	
@@ -65,11 +66,31 @@ public class Yhs_DaoImpl implements Yhs_Dao_Interface {
 		System.out.println("Yhs_DaoImpl insert Start..." );
 		try {
 			result = session.insert("yhsInsertBoard",board);
-			System.out.println("Yhs_DaoImpl insert ask->" + board);
+			System.out.println("Yhs_DaoImpl insert board->" + board);
 		} catch (Exception e) {
 			System.out.println("Yhs_DaoImpl insert Exception->"+e.getMessage());
 		}
 		return result;
 	}
 
+
+	@Override
+	public int deleteBoard(int b_no) {
+		System.out.println("Yhs_DaoImpl delete start..");
+		int result = 0;
+		System.out.println("Yhs_DaoImpl delete bno->"+b_no);
+		try {
+			result  = session.delete("yhsDeleteBoard",b_no);
+			System.out.println("Yhs_DaoImpl delete result->"+result);
+		} catch (Exception e) {
+			System.out.println("Yhs_DaoImpl delete Exception->"+e.getMessage());
+		}
+		return result;
+	}
+	
+//	@Override
+//	public int deleteBoard(YhsBoard board) {
+//		int deleteBoard = session.update("yhsdeleteBoard", board);
+//		return deleteBoard;
+//	}
 }

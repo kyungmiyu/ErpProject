@@ -51,7 +51,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return employeeRepository.findAll().size();
 	}
 
-	// list
+	// paging and search
 	@Override
 	public List<Employee> getEmployeeList(int size, int offset, String searchType, String searchValue) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

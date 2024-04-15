@@ -41,17 +41,11 @@ public class Yhs_ServiceImpl implements Yhs_Service_Interface{
 		return boardList;
 	}
 	
-//	// 게시판 글 상세 페이지 댓글 카운트 
-//	@Override
-//	public int boardReplyCnt(int b_no) {
-//		int boardReplyCnt = yhs_Dao_Interface.boardReplyCnt(b_no);
-//		return boardReplyCnt;
-//	}
-//	
 	// 자유 게시판 리스트 조회수 
 	@Override
 	public int boardViewCnt(YhsBoard board) {
 		int boardViewCnt = yhs_Dao_Interface.boardViewCnt(board);
+		System.out.println("Yhs_ServiceImpl boardViewCnt Start...");
 		return boardViewCnt;
 	}
 
@@ -62,32 +56,29 @@ public class Yhs_ServiceImpl implements Yhs_Service_Interface{
 		System.out.println("Yhs_ServiceImpl boardContents -> " + boardContents);
 		return boardContents;
 	}
-
-	@Override
-	public List<YhsBoard> boardFile(int b_no) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int boardReplyCnt(int b_no) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-//	// 질문 게시판 파일 상세 내역 
-//	@Override
-//	public List<LslboardFile> boardFile(int cboard_no) {
-//		List<LslboardFile> boardFreeFile = ld.boardFreeFile(cboard_no);
-//		return boardFreeFile;
-//	}
 	
 	public int insertBoard(YhsBoard board) {
 		int result = 0;
 		System.out.println("Yhs_ServiceImpl insertBoard start...");
 		result = yhs_Dao_Interface.insertBoard(board);
+		System.out.println("Yhs_ServiceImpl insertBoard -> " + result);
 		return result;
 	}
+
+	@Override
+	public int deleteBoard(int b_no) {
+		int result = 0;
+		System.out.println("Yhs_ServiceImpl deleteBoard start...");
+		result = yhs_Dao_Interface.deleteBoard(b_no);
+		return result;
+	}
+	
+//	// 자유 게시판 글 삭제
+//	@Override
+//	public int deleteBoard(YhsBoard board) {
+//		int deleteBoard = yhs_Dao_Interface.deleteBoard(board);
+//		return deleteBoard;
+//	}
 
 
 
