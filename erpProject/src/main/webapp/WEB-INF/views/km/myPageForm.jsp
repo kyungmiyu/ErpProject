@@ -47,7 +47,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">사원번호</label>
-                    <input class="form-control" type="text" value="${employee.empNo}" onfocus="focused(this)" onfocusout="defocused(this)" disabled>
+                    <input class="form-control" type="text" value="${employee.emp_no}" onfocus="focused(this)" onfocusout="defocused(this)" disabled>
                   </div>
                 </div>
                 <div class="col-md-6">
