@@ -147,8 +147,9 @@ public class KMController {
 		
 	/* 관리자 페이지 */
 	// 관리자페이지 화면
-	@GetMapping(value = "adminHome")
+	@GetMapping(value = "/adminHome")
 	public String adminHome() {
+		System.out.println("adminHome...");
 		return "km/adminHome";
 	}
 	
