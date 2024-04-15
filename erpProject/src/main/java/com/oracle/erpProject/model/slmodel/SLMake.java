@@ -17,5 +17,15 @@ public class SLMake {
 	
   	// Page 정보
     private String currentPage;    
-	
+    
+    
+    // make_detail
+    
+    private int md_num; // 순번
+    private int p_itemcode; // 제품 코드 
+	private int f_id; // 공장코드 
+	private int md_quantity; // 지시수량
+	private int d_gubun; // 수불마감 구분 
+	private int cust_no; // 거래처 번호 
+	private int s_date; // 판매 날짜
 }

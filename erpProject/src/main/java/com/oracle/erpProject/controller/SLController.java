@@ -27,10 +27,11 @@ public class SLController {
 	
 	
 	
-	// 구매 페이지//
+	// 구매 페이지
 	@GetMapping(value = "buying")
-	public String buying(SLBuying buying, Model model) {
+	public String buying(HttpServletRequest request,SLBuying buying, Model model) {
 		System.out.println("SlController buying Start >>>>>>");
+		
 		int totalbuyingCnt = slService.totalbuyingCnt();
 		
 		// paging 처리
@@ -208,8 +209,7 @@ public class SLController {
 	
 	/*---------------------------- 판매 -------------------------*/
 	
-	// 판매 페이지
-	
+	// 판매 페이지	
 	@GetMapping(value = "sale")
 	String sale(SLSale sale, Model model) {
 		System.out.println("SlController sale Start >>>>>>");
@@ -304,8 +304,7 @@ public class SLController {
 		}
     	
     	
-		// 키워드 검색 
-		
+		// 키워드 검색 	
     	@GetMapping("/saleSearchKeyword")
 		public String saleSearchKeyword(@RequestParam("keyword") String keyword, SLSale sale, Model model) {
 		

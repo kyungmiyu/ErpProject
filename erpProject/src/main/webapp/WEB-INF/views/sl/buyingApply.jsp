@@ -7,8 +7,30 @@
 <link href="assets/css/LSL/buyingApply.css" rel="stylesheet">
  
 <head>
-<%@ include file="../configHead.jsp"%>
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<title>ERP PROJECT</title>
+
+<!--     Fonts and icons     -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+<!-- Nucleo Icons -->
+<link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+<link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+
+<!-- Font Awesome Icons -->
+<script defer src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+<link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+<!-- CSS Files -->
+<link id="pagestyle" href="assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+<!-- Github buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+<script defer src="assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+
+<!-- Google Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
  	<div class="min-height-300 bg-primary position-absolute w-100"></div>
  	<!-- Sidebar 사이드바 -->
@@ -53,13 +75,23 @@
 			 <button type="submit" class="btn btn-primary" id="buyApplyBtn">구매 등록</button>
 	
 		
-		<div class="customerSearchPopup">
-            <p>거래처 검색</p>
-            <input type="text" class="cusSearchBox" name="keyword" placeholder="거래처명을 입력하세요."/>
-            <div class="cusSearchName"></div>
-            <p id="cusSearchXBtn">X</p>
-            <button type="button" class="btn btn-primary" id="cusSearchBtn">검색</button>
-        </div>
+		<div class="modal fade" id="customerSearchModal" tabindex="-1" role="dialog" aria-labelledby="customerSearchModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="customerSearchModalLabel">거래처 검색</h5>
+					</div>
+					<div class="modalbody">
+						<input type="text" class="cusSearchBox" id="cusSearchBox" name="keyword" placeholder="거래처명을 입력하세요."/>
+						<div class="cusSearchName"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">닫기</button>
+						<button type="button" class="btn btn-primary" id="cusSearchBtn">검색</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 			
 			<div class="buyItemSelectBox">
@@ -99,6 +131,12 @@
   </main>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="assets/js/LSL/buyingApply.js"></script>
-  
+    <!--   Core JS Files   -->
+  <script src="./assets/js/core/popper.min.js"></script>
+  <script src="./assets/js/core/bootstrap.min.js"></script>
+  <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="./assets/js/plugins/chartjs.min.js"></script>
+  <script src="assets/js/plugins/chartjs.min.js"></script>
 </body>
 </html>

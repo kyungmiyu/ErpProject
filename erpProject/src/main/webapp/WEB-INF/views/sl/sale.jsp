@@ -42,7 +42,7 @@
 				<input type="date" id="datePicker"  value="${sale.s_date}"     class="form-control" >
 				
 			     <form action="saleSearchKeyword">
-			      <input class="form-control me-2" id="search" name="keyword" type="search" placeholder="Search" aria-label="Search">
+			      <input class="form-control me-2" id="search" name="keyword" type="search" placeholder="거래처명을 입력하세요." aria-label="Search">
 			     <button class="btn btn-primary" id ="searchBtn"  type="submit">검색</button>
 			  </form>
 			  <select class="form-control" id="optionBox" name="choices-button" id="choices-button">
@@ -100,9 +100,11 @@
 								</c:if>
 							</ul>
 						</nav>
+		<c:if test="${sessionScope.dept_no == 4}"> 
 			<a href="saleApply">			
 		<button type="button" class="btn btn-primary" id="saleProBtn">판매 등록</button>
 		</a>
+		</c:if>
     </div> 
    
     <!-- ****** 공통 : 테이블 끝 ****** -->

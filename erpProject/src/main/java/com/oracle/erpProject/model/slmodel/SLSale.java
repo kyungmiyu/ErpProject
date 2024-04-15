@@ -19,6 +19,7 @@ public class SLSale {
 
 	// 리스트 조회용 컬럼
 	private String emp_name; // 담당자 이름 
+	private int dept_no; // 부서번호
 	private String cust_name; // 거래처명 		
 	private String sale_status_detail; // 판매 진행 상태
 	private int productCnt; // 판매 제품 수

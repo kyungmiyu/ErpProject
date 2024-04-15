@@ -278,12 +278,6 @@
 }
 
 
-#customerSearchBtn {
-	position: absolute;
-	margin-bottom : 20px;
-	top: 110px;
-	right: 30px;
-}
 
 
 /* 구매 상태 Box */
@@ -303,47 +297,40 @@
 }
 
 
-/* 거래처 검색 팝업 창 */
-.customerSearchPopup {
-	display: none;
-	position: fixed;
-	top: 30%;
-	left: 45%;
-	background-color: #ffffff;
-	width: 500px;
-	height: 200px;
-	padding: 20px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	z-index: 9999; /* 다른 요소 위에 표시 */
-}
-.customerSearchPopup p {
-	color: black;
-	
+#customerSearchBtn {
+	position: absolute;
+	margin-bottom : 20px;
+	top: 110px;
+	right: 30px;
 }
 
-#cusSearchBox {
+
+/* 거래처 검색 팝업 창 */
+
+
+.modal-footer {
+	height: 120px;
+}
+.cusSearchBox {
 	position: absolute;
+	margin-top: 10px;
 	left: 30px;
-	width: 300px !important;
+	width: 320px;
+	height: 40px;
 	border-radius: 5px;
 }
-body #cusSearchBox {
-    width: 300px;
-    
-}
+
 .cusSearchName {
 	position:absolute;
 	width: 300px;
 	top: 130px;
 	left: 35px;
-	border-bottom: 1px solid #cccccc;
 	
 }
 
 #cusSearchBtn {
 	position: absolute;
-	top: 60px;
+	top: 70px;
 	height: 40px;
 	right: 70px;
 	border: 1px solid #d2d6da;
@@ -351,19 +338,14 @@ body #cusSearchBox {
 	color: white;
 }
 
+#close {
+	position: absolute;
+	top: 130px;
+}
 #cusChioceBtn {
 	position: absolute;
 	top: 120px;
 	right: 80px;
-}
-
-#cusSearchXBtn {
-	position:absolute;
-	right: 20px;
-	top: 10px;
-	cursor: pointer;
-	
-	
 }
 
 .cusSearchName {

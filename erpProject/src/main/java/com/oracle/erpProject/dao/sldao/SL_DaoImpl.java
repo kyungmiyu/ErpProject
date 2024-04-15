@@ -132,12 +132,9 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		
 		return deleteProduct;
 	}
-	/*
-	 * @Override public int buyingModify(SLBuying buying) { int buyingModify =
-	 * session.update("LslbuyingModify",buying);
-	 * System.out.println("buyingModify buyingModify->"+buyingModify); return
-	 * buyingModify; }
-	 */
+
+	
+	
 	
 	@Override
 	public int buyingModify(SLBuying buying) {
@@ -264,6 +261,16 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	}
 
 	
+
+	@Override
+	public int checkTransaction(SLBuying buying) {
+		
+		int checkTransaction = session.selectOne("LslcheckTransaction", buying);
+		
+		return checkTransaction;
+	}
+
+	
 	
 	/*------------------------------ 판매 --------------------------------------------*/
 	
@@ -371,9 +378,28 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	@Override
 	public int saleMakeRequest(SLMake make) {
 		
-		int saleMakeRequest = session.insert("LslsaleMakeRequest", make);
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
 		
-		return saleMakeRequest;
+		int result = 0;
+		
+		try {
+			result = session.insert("LslsaleMakeRequest", make);
+			
+				
+			result = session.insert("LslsaleMakeDetailRequest", make);
+			
+		
+
+			 transactionManager.commit(txStatus);
+			 
+		
+		} catch (Exception e) {
+			System.out.println("EmpDaoImpl totalEmp Exception->"+e.getMessage());
+			transactionManager.rollback(txStatus);
+		}
+		
+		
+		return result;
 	}
 
 	@Override
@@ -427,7 +453,25 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		return saleStatusChange;
 	}
 
-	
+
+	// 생산 요청 제품 코드
+	@Override
+	public SLMake getMakeItemCode(SLMake make) {
+		
+		SLMake getMakeItemCode = session.selectOne("LslgetMakeItemCode", make);
+		
+		System.out.println("getMakeItemCode >>>>>>>>>>>>" +getMakeItemCode);
+		
+		return getMakeItemCode;
+	}
+
+	@Override
+	public int checkSaleTransaction(SLSale sale) {
+		
+		int checkSaleTransaction = session.selectOne("LslcheckSaleTransaction", sale);
+		
+		return checkSaleTransaction;
+	}
 
 	
 

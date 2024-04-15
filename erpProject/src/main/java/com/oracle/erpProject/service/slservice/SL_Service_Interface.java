@@ -104,6 +104,12 @@ public interface SL_Service_Interface {
 
 	int saleStatusChange(SLSale sale);
 
+	SLMake getMakeItemCode(SLMake make);
+
+	int checkTransaction(SLBuying buying);
+
+	int checkSaleTransaction(SLSale sale);
+
 	
 
 

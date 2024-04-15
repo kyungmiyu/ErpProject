@@ -100,6 +100,12 @@ public interface SL_Dao_Interface {
 
 	int saleStatusChange(SLSale sale);
 
+	SLMake getMakeItemCode(SLMake make);
+
+	int checkTransaction(SLBuying buying);
+
+	int checkSaleTransaction(SLSale sale);
+
 
 
 
