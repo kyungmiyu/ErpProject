@@ -63,8 +63,9 @@ public class KMController {
 		HttpSession session = request.getSession();
 		Employee employee = employeeServiceImpl.findByEmpNo(Integer.parseInt(empNo));
 		if (employee !=null && employee.getEmpPassword().equals(empPassword)) {
-			session.setAttribute("empNo", empNo);
-			session.setAttribute("empRole", employee.getEmpRole());
+			session.setAttribute("emp_no", empNo);
+			session.setAttribute("emp_role", employee.getEmpRole());
+			session.setAttribute("dept_no", employee.getDeptNo());
 			return "main";
 		} else {
 			model.addAttribute("mode", "error");

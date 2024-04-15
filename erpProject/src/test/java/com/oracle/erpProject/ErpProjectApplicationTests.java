@@ -43,7 +43,7 @@ class ErpProjectApplicationTests {
 	
 	@Test
 	public void testInsertDept() {
-		
+		/*
 		/* Departemt test */
 		/*
 		Department dept = new Department();
