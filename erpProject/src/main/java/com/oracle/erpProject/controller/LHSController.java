@@ -417,7 +417,6 @@ public class LHSController {
 		model.addAttribute("page", page);
 		
 		return "lhs/listRnPCondBuy";
-
 	}
  
 	// 수불 일일내역2 조회 (판매)
