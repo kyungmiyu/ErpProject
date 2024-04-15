@@ -78,7 +78,7 @@ public class Yhs_DaoImpl implements Yhs_Dao_Interface {
 	public int deleteBoard(int b_no) {
 		System.out.println("Yhs_DaoImpl delete start..");
 		int result = 0;
-		System.out.println("Yhs_DaoImpl delete empno->"+b_no);
+		System.out.println("Yhs_DaoImpl delete bno->"+b_no);
 		try {
 			result  = session.delete("yhsDeleteBoard",b_no);
 			System.out.println("Yhs_DaoImpl delete result->"+result);

@@ -6,9 +6,18 @@
 		SELECT count(*) FROM BOARD b
    </select>
 
-   <select id="yhsBoardListAll" parameterType="YhsBoard" resultType="YhsBoard">
-   
-	select * from board		
+	<select id="yhsBoardListAll" parameterType="YhsBoard" resultType="YhsBoard">
+		<![CDATA[
+		select * 
+		from 
+		( 
+			SELECT rownum rn , a.*
+			FROM 
+						(select * from board order by b_no desc) a
+		)
+		WHERE  rn  >= #{start} 
+ 		and    rn  <= #{end}    
+ 	 ]]>
    </select>
    
 <select id="yhsboardContents" parameterType="int"

@@ -61,6 +61,7 @@ public class Yhs_ServiceImpl implements Yhs_Service_Interface{
 		int result = 0;
 		System.out.println("Yhs_ServiceImpl insertBoard start...");
 		result = yhs_Dao_Interface.insertBoard(board);
+		System.out.println("Yhs_ServiceImpl insertBoard -> " + result);
 		return result;
 	}
 

@@ -41,8 +41,6 @@ public class YHSController {
 		model.addAttribute("listBoard" , listBoard); 
 		model.addAttribute("page",page); 
 		model.addAttribute("totalBoard",totalBoard);
-		 
-		
 		return "Yhs/board";
 	}
 	
