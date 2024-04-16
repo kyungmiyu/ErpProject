@@ -15,10 +15,10 @@ public interface Yhs_Dao_Interface {
 	
 	int boardViewCnt(YhsBoard board);
 	
-	int insertBoard(YhsBoard board);
+	int boardWriteInsert(YhsBoard board);
 
-	int deleteBoard(int b_no);
+//	int deleteBoard(int b_no);
 	
-//	int deleteBoard(YhsBoard board);
+	int deleteBoard(YhsBoard board);
 
 }

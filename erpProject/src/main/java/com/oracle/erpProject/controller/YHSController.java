@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.oracle.erpProject.model.yhsmodel.YhsBoard;
 import com.oracle.erpProject.service.Yhsservice.Paging;
 import com.oracle.erpProject.service.Yhsservice.Yhs_Service_Interface;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -71,54 +75,53 @@ public class YHSController {
 			return "Yhs/boardContents";
 			
 		}
-		
-	
-	
-//	게시판 글쓰기	
-	@GetMapping(value = "boardForm")
-	public String boardForm(HttpServletRequest request, Model model) {
-		System.out.println("BoardController Start boardForm...");
-		
-		String bregdate = request.getParameter("b_regdate");
-	 // 세션에서 보내는 사람의 아이디 가져오기
-//        Long empNo = (Long) request.getSession().getAttribute("emp_no");
-        
-     // 모델에 데이터 추가 (세션ID, 유저리스트)
-//        model.addAttribute("empNo", empNo);
+			
+	// 자유 게시판 글 작성 페이지
+		@GetMapping(value = "boardForm")
+		public String boardWrite() {
+			System.out.println("YHSController boardForm Start...");
+			return "Yhs/boardForm";
+		}
 
-		return "Yhs/boardForm";
-	}
-	
+	// 자유 게시판 글쓰기
 	@PostMapping(value = "boardWrite")
-	public String boardWrite(@ModelAttribute YhsBoard board ,Model model,HttpServletRequest request ) {
-		System.out.println("YHSController Start boardWrite..." );
-//		Long empNo = (Long) request.getSession().getAttribute("emp_no");
-//		board.setEmp_no(empNo);
-		System.out.println("YHSControllesr boardWrite ask->" + board);
-		int insertResult = yhs_Service_Interface.insertBoard(board);
-		System.out.println("YHSController insertResult insertResult->"+insertResult );
+	public String boardWrite(HttpServletRequest request, YhsBoard board, Model model,HttpSession session ) {
+		System.out.println("YHSController boardWrite Start...");
+			
+		try {
+			String empNo = (String) session.getAttribute("emp_no");
+			board.setEmp_no(Integer.parseInt(empNo));   
+			System.out.println("emp_no"+ empNo); 	
+			yhs_Service_Interface.boardWriteInsert(board);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("YHSController boardWrite Exception ->" + e.getMessage());
+		}
 		return "redirect:/board";
-
-	}
+		}
 	
-	@RequestMapping(value="deleteBoard")
-	public String deleteBoard(YhsBoard board, Model model) {
+	@RequestMapping("/deleteBoard")
+	public String deleteBoard(@RequestParam("b_no") int b_no, YhsBoard board, Model model) {
 		System.out.println("YHSController Start delete..." );
+		System.out.println("YHSController b_no >>>>>>>>>>>"  + b_no);
+		
+		board.setB_no(b_no);
 		// name -> Service, dao , mapper
-		int result = yhs_Service_Interface.deleteBoard(board.getB_no());
+		int result = yhs_Service_Interface.deleteBoard(board);
+		
 		return "redirect:/board";
 	}
 	
-//	// 자유 게시판 글 삭제
+//	// 공지사항 글 삭제
 //	@RequestMapping(value="deleteBoard")
 //	public String deleteBoard(HttpServletRequest request, YhsBoard board) {
 //		System.out.println("YHSController deleteBoard Start...");
 //		int b_no = Integer.parseInt(request.getParameter("b_no"));
 //		board.setB_no(b_no);
-//		int deleteBoard = yhs_Service_Interface.deleteBoard(board);
+//		int deleteFreeBoard = yhs_Service_Interface.deleteBoard(board);
 //
-//		System.out.println("YHSController deleteBoard ->" + deleteBoard);
+//		System.out.println("YHSController deleteBoard ->" + deleteFreeBoard);
 //
-//		return "redirect:/board";
+//		return "forward:board";
 //	}
 }

@@ -60,37 +60,44 @@ public class Yhs_DaoImpl implements Yhs_Dao_Interface {
 		return boardViewCnt;
 	}
 	
-	@Override
-	public int insertBoard(YhsBoard board) {
-		int result = 0;
-		System.out.println("Yhs_DaoImpl insert Start..." );
-		try {
-			result = session.insert("yhsInsertBoard",board);
-			System.out.println("Yhs_DaoImpl insert board->" + board);
-		} catch (Exception e) {
-			System.out.println("Yhs_DaoImpl insert Exception->"+e.getMessage());
-		}
-		return result;
-	}
-
-
-	@Override
-	public int deleteBoard(int b_no) {
-		System.out.println("Yhs_DaoImpl delete start..");
-		int result = 0;
-		System.out.println("Yhs_DaoImpl delete bno->"+b_no);
-		try {
-			result  = session.delete("yhsDeleteBoard",b_no);
-			System.out.println("Yhs_DaoImpl delete result->"+result);
-		} catch (Exception e) {
-			System.out.println("Yhs_DaoImpl delete Exception->"+e.getMessage());
-		}
-		return result;
-	}
-	
 //	@Override
-//	public int deleteBoard(YhsBoard board) {
-//		int deleteBoard = session.update("yhsdeleteBoard", board);
-//		return deleteBoard;
+//	public int insertBoard(YhsBoard board) {
+//		int result = 0;
+//		System.out.println("Yhs_DaoImpl insert Start..." );
+//		try {
+//			result = session.insert("yhsInsertBoard",board);
+//			System.out.println("Yhs_DaoImpl insert board->" + board);
+//		} catch (Exception e) {
+//			System.out.println("Yhs_DaoImpl insert Exception->"+e.getMessage());
+//		}
+//		return result;
 //	}
+	
+	// 게시판 글쓰기 
+	@Override
+	public int boardWriteInsert(YhsBoard board) {
+		int boardFreeWriteInsert = session.insert("yhsInsertBoard",board);
+		return boardFreeWriteInsert;
+	}
+
+
+//	@Override
+//	public int deleteBoard(int b_no) {
+//		System.out.println("Yhs_DaoImpl delete start..");
+//		int result = 0;
+//		System.out.println("Yhs_DaoImpl delete bno->"+b_no);
+//		try {
+//			result  = session.delete("yhsDeleteBoard",b_no);
+//			System.out.println("Yhs_DaoImpl delete result->"+result);
+//		} catch (Exception e) {
+//			System.out.println("Yhs_DaoImpl delete Exception->"+e.getMessage());
+//		}
+//		return result;
+//	}
+	
+	@Override
+	public int deleteBoard(YhsBoard board) {
+		int deleteBoard = session.update("yhsdeleteBoard", board);
+		return deleteBoard;
+	}
 }

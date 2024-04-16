@@ -57,28 +57,34 @@ public class Yhs_ServiceImpl implements Yhs_Service_Interface{
 		return boardContents;
 	}
 	
-	public int insertBoard(YhsBoard board) {
-		int result = 0;
-		System.out.println("Yhs_ServiceImpl insertBoard start...");
-		result = yhs_Dao_Interface.insertBoard(board);
-		System.out.println("Yhs_ServiceImpl insertBoard -> " + result);
-		return result;
+//	public int insertBoard(YhsBoard board) {
+//		int result = 0;
+//		System.out.println("Yhs_ServiceImpl insertBoard start...");
+//		result = yhs_Dao_Interface.insertBoard(board);
+//		System.out.println("Yhs_ServiceImpl insertBoard -> " + result);
+//		return result;
+//	}
+	
+	// 질문 게시판 글쓰기 
+	@Override
+	public void boardWriteInsert(YhsBoard board) {
+		yhs_Dao_Interface.boardWriteInsert(board);
 	}
 
-	@Override
-	public int deleteBoard(int b_no) {
-		int result = 0;
-		System.out.println("Yhs_ServiceImpl deleteBoard start...");
-		result = yhs_Dao_Interface.deleteBoard(b_no);
-		return result;
-	}
-	
-//	// 자유 게시판 글 삭제
 //	@Override
-//	public int deleteBoard(YhsBoard board) {
-//		int deleteBoard = yhs_Dao_Interface.deleteBoard(board);
-//		return deleteBoard;
+//	public int deleteBoard(int b_no) {
+//		int result = 0;
+//		System.out.println("Yhs_ServiceImpl deleteBoard start...");
+//		result = yhs_Dao_Interface.deleteBoard(b_no);
+//		return result;
 //	}
+	
+	// 자유 게시판 글 삭제
+	@Override
+	public int deleteBoard(YhsBoard board) {
+		int deleteBoard = yhs_Dao_Interface.deleteBoard(board);
+		return deleteBoard;
+	}
 
 
 

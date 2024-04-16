@@ -339,9 +339,10 @@
 				<button type="button" class="btn bacList" onclick="goBack()">
 					목록</button>
 					
-				<button type="button" class="btn bacDelete" onclick="location.href='deleteBoard?empno=${boardContents.emp_no}'">
-					삭제</button>
-
+					<form action="/deleteBoard" method="post">
+						<input type="hidden" name="b_no" value="${boardContents.b_no}">
+					<button type="submit" class="btn bacDelete">삭제</button>
+					</form>
 				<script>
 					function goBack() {
 						window.history.back();

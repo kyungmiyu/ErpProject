@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class YhsBoard {
 	private int b_no;
-	private long emp_no;
+	private int emp_no;
 	private int b_category;
 	private int board_mid;
 	private String b_name; 
