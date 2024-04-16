@@ -90,12 +90,12 @@ public class LHS_ServiceImpl implements LHS_Serivce {
 		return productData;
 	}
 	
-	// 신제품 등록여부 확인 
+	// 신제품 재고등록 여부 확인 
 	@Override
-	public Product checkExistenceNewItem(Product product) {
-		Product checkProduct = null;
-		checkProduct = lhs.checkExistenceNewItem(product);
-		return checkProduct;
+	public int checkExistenceNewItem(Product product) {
+		int checkStock = 0;
+		checkStock = lhs.checkExistenceNewItem(product);
+		return checkStock;
 	}
 	
 

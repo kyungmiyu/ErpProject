@@ -128,29 +128,18 @@ public class LHS_DaoImpl implements LHS_Dao {
 		return productData;
 	}
 	
-	// 신제품 등록여부 확인
+	// 신제품 재고등록 여부 확인
 	@Override
-	public Product checkExistenceNewItem(Product product) {
-		Product checkProduct = null;
+	public int checkExistenceNewItem(Product product) {
 		int checkStock = 0;
 		
 		try {
-			checkProduct = session.selectOne("lhsCheckExistenceNewItem", product);
 			checkStock = session.selectOne("lhsCheckExistenceStock", product);
-			
-			if (checkProduct == null) {
-				checkProduct = new Product();
-				checkProduct.setP_name("null");
-			}
-			
-			if (checkStock != 0) {
-				checkProduct.setP_name("already");
-			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return checkProduct;
+		return checkStock;
 	}
 
 	// 신제품 기초재고 등록

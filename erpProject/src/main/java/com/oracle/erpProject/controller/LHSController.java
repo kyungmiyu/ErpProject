@@ -227,18 +227,18 @@ public class LHSController {
 		
 	}
 
-	// 신제품 등록여부 확인
+	// 신제품 재고등록 여부 확인
 	@ResponseBody
 	@RequestMapping(value = "lhsCheckExistenceNewItem")
-	public Product lhsCheckNewItem(Product product, HttpSession session, Model model) {
+	public int lhsCheckNewItem(Product product, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsCheckExistenceNewItem start...");
-
-		// 신제품 등록여부 조회
-		Product checkProduct = lhs.checkExistenceNewItem(product);
-		System.out.println("checkExistenceNewItem p_name-> " + checkProduct.getP_name());
 		
-		return checkProduct;
+		// 신제품 등록여부 조회
+		int checkStock = lhs.checkExistenceNewItem(product);
+		System.out.println("checkExistenceNewItem checkStock-> " + checkStock);
+		
+		return checkStock;
 	}
 
 	// 신제품 기초재고 등록
