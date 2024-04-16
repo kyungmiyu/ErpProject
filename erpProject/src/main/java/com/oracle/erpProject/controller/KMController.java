@@ -164,6 +164,7 @@ public class KMController {
 	// 사원 등록
 	@PostMapping(value = "/employeeRegistProc")
 	public String employeeRegistProc(Model model, Employee employee) {
+		System.out.println("param : "+employee);
 		employeeServiceImpl.registEmployee(employee);
 		return "km/employeeList";
 	}
@@ -176,7 +177,8 @@ public class KMController {
 			@RequestParam(value = "searchType", required = false, defaultValue = "A") String searchType,
 			@RequestParam(value = "searchValue", required = false) String searchValue) {
 		
-		List<Employee> listEmployee = employeeServiceImpl.getEmployeeList(10, (pageNo-1)*10, searchType, searchValue);
+		//List<Employee> listEmployee = employeeServiceImpl.getEmployeeList(10, (pageNo-1)*10, searchType, searchValue);
+		List<Employee> listEmp = employeeServiceImpl.getEmpList(searchType, searchValue);		
 		
 		int totalPageCount = employeeServiceImpl.countEmployeeList();
 		int pageCountPerBlock = 5;
@@ -189,7 +191,7 @@ public class KMController {
 		System.out.println("startPageNo ===> " + startPageNo);
 		System.out.println("endPageNo ===> " + endPageNo);
 		
-		model.addAttribute("listEmployee", listEmployee);
+		model.addAttribute("listEmployee", listEmp);
 		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("totalPageCount", totalPageCount);
 		model.addAttribute("pageCountPerBlock", pageCountPerBlock);

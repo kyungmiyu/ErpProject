@@ -3,6 +3,7 @@ package com.oracle.erpProject.service.kmservice;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.dao.kmdao.EmployeeDaoImpl;
@@ -38,16 +39,21 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 	public Employee findByEmpNo(int empNo) {
 		return employeeDaoImpl.findByEmpNo(empNo);
 	}
-	
+	/*
 	@Override
 	public List<Employee> getEmployeeList(int size, int offset, String searchType, String searchValue) {
 		return employeeDaoImpl.getEmployeeList(size, offset, searchType, searchValue);
 	}
-	
+	*/
 	@Override
 	public Integer countEmployeeList() {
 		return employeeDaoImpl.countEmployeeList();
+	}
+
+	public List<Employee> getEmpList(String searchType, String searchValue) {
+		return employeeDaoImpl.getEmpList(searchType, searchValue);
 	};
+	
 	
 	
 
