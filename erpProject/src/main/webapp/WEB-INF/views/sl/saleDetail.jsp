@@ -43,7 +43,6 @@
 	</c:if>
 
 		<div class="saleStatusBox" id="saleStatusBox">${saleDetail.sale_status_detail}</div>
-	 
 	 	<div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">제목</label>
 		    <div type="text" class="form-control" id="detailTitle">${saleDetail.s_title}</div>
@@ -107,10 +106,12 @@
     </div>
 </div>
 
-<c:if test="${saleDetail.sale_status_detail eq '판매 진행중'or saleDetail.sale_status_detail eq '생산 완료'}">   	<button type="button" class="btn btn-primary" id="saleModify">수정</button>
+<c:if test="${sessionScope.dept_no == 4 and saleDetail.sale_status_detail eq '판매 진행중'or saleDetail.sale_status_detail eq '생산 완료'}">   	
+	<button type="button" class="btn btn-primary" id="saleModify">수정</button>
     <button type="button" class="btn btn-primary" id="saleComple">완료</button>
+    </c:if>
     </div> 
-</c:if>
+
     <!-- ****** 공통 : 테이블 끝 ****** -->
    	 </div>
    	<!-- Footer 푸터 -->

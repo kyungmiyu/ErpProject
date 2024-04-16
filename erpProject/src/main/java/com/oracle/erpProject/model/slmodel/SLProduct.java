@@ -22,10 +22,12 @@ public class SLProduct {
 		private String p_fac_gubun;		//공장구분
 		private int p_isdeleted;				//취급여부 
 
-	
+
 		
-	// 조회용
-		private int st_quantity; // 재고 수량 
+	//조회용 stock
+	private String st_year_month; 
+	private int st_quantity; // 재고 수량 
+	private int st_begin_end;
 		
 		
 }

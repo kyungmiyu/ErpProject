@@ -208,6 +208,15 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		
 		return keywordSearchAllList;
 	}
+	
+
+	@Override
+	public int checkTransaction(SLBuying buying) {
+		
+		int checkTransaction = slDao.checkTransaction(buying);
+		
+		return checkTransaction;
+	}
 
 
 	
@@ -307,9 +316,9 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 	
 	
 	@Override
-	public List<SLProduct> saleProductList() {
+	public List<SLProduct> saleProductList(SLSale sale) {
 		
-		List<SLProduct> saleProductList = slDao.saleProductList();
+		List<SLProduct> saleProductList = slDao.saleProductList(sale);
 		
 		return saleProductList;
 	}
@@ -347,6 +356,24 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		
 		return saleStatusChange;
 	}
+
+	// 생상 요청 제품 코드 
+	@Override
+	public SLMake getMakeItemCode(SLMake make) {
+		
+		SLMake getMakeItemCode = slDao.getMakeItemCode(make);
+		
+		return getMakeItemCode;
+	}
+
+	@Override
+	public int checkSaleTransaction(SLSale sale) {
+		
+		int checkSaleTransaction =slDao.checkSaleTransaction(sale);
+		
+		return checkSaleTransaction;
+	}
+
 
 	
 
