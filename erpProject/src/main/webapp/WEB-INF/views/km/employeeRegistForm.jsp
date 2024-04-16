@@ -26,8 +26,7 @@
 			$("input[name='empPassword2']").removeClass("is-valid").addClass("is-invalid").text("Error Input")
 		}
 	}
-
-
+	
 </script>
 <body>
 	<div class="min-height-300 position-absolute w-100" style="background-color: #172b4d;"></div>
@@ -164,7 +163,15 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="example-date-input" class="form-control-label">퇴사일자</label>
+											<%-- 
 											<input class="form-control" name="empRetiredDate" type="date" value="${employee.empRetiredDate}" id="example-date-input">
+											 --%>
+											<c:if test="${mode=='regist'}">
+												<input class="form-control" name="empRD" type="date" value="" id="example-date-input">
+											</c:if>
+											<c:if test="${mode=='edit'}">
+												<input class="form-control" name="empRetiredDate" type="date" value="${employee.empRetiredDate}" id="example-date-input">
+											</c:if>
 										</div>
 									</div>
 									<div class="col-md-6">

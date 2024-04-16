@@ -50,7 +50,7 @@
 	 	<div class="titleBox">
 	  	<button type="button" class="btn btn-primary .customerSearchBtn" id="customerSearchBtn"> 검색</button>
 		  	<input type="hidden" name="cust_type" id="cust_type" value="1">  
-			<input type="hidden" name="dept_no" id="dept_no" value="3">  	
+			<input type="hidden" name="dept_no" id="dept_no" value="103">  	
 			<input type="hidden" name="cust_no" id="cust_no" />
 			<input type="hidden" name="emp_no" id="emp_no" />
 			<!-- <input type="hidden" name="buy_manager" id="buy_manager" /> -->

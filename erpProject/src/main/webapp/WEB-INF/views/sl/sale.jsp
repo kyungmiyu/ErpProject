@@ -99,12 +99,13 @@
 								<li class="page-item"><a class="page-link" href="#">▷</a></li>
 								</c:if>
 							</ul>
-						</nav>
-		<c:if test="${sessionScope.dept_no == 4}"> 
-			<a href="saleApply">			
-		<button type="button" class="btn btn-primary" id="saleProBtn">판매 등록</button>
-		</a>
-		</c:if>
+						</nav>	
+					<c:if test="${sessionScope.dept_no == 104}"> 
+						<a href="saleApply">			
+							<button type="button" class="btn btn-primary" id="saleProBtn">판매 등록</button>
+						</a>
+					</c:if> 
+
     </div> 
    
     <!-- ****** 공통 : 테이블 끝 ****** -->

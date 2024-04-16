@@ -316,9 +316,9 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 	
 	
 	@Override
-	public List<SLProduct> saleProductList() {
+	public List<SLProduct> saleProductList(SLSale sale) {
 		
-		List<SLProduct> saleProductList = slDao.saleProductList();
+		List<SLProduct> saleProductList = slDao.saleProductList(sale);
 		
 		return saleProductList;
 	}

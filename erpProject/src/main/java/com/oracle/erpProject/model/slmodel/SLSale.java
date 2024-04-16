@@ -26,7 +26,7 @@ public class SLSale {
 	private int totalMoney; // 판매 총 금액
 	private int totalCnt; // 판매 제품 총 수량
 	private String keyword; // 검색 키워드 
-	private int st_quantity; // 재고 수량 
+	
 	private int p_itemcode;		// 제품코드
 	private int f_id; // 공장 코드 
 	private int p_saleprice;  // 판매 가격
@@ -42,6 +42,9 @@ public class SLSale {
 	private String rnpc_year_month_day;	// 년월일
 	private int rnpc_gubun;					// 수불마감구분
 	
+	//조회용 stock
+	private String st_year_month; 
+	private int st_quantity; // 재고 수량 
 	
 	// 페이징
 	private int start;

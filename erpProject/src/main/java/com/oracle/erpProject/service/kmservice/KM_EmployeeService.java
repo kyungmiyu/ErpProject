@@ -2,6 +2,7 @@ package com.oracle.erpProject.service.kmservice;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.domain.Employee;
@@ -21,5 +22,7 @@ public interface KM_EmployeeService {
 	
 	Integer countEmployeeList();	
 
-	List<Employee> getEmployeeList(int size, int offset, String searchType, String searchValue);
+	//List<Employee> getEmployeeList(int size, int offset, String searchType, String searchValue);
+	
+	List<Employee> getEmpList(String searchType, String searchValue);
 }

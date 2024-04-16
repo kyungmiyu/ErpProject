@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,12 +14,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString
 public class Employee { /* KM_Employee */
 
 	@Id
@@ -51,7 +55,7 @@ public class Employee { /* KM_Employee */
 	@Column(name="emp_hiredate")
 	private Date empHireDate; // 입사일자
 	@Temporal(value = TemporalType.DATE)
-	@Column(name="emp_retired_date")
+	@Column(name = "emp_retired_date", nullable = true)
 	private Date empRetiredDate; // 퇴사일자
 	@Column(name="emp_status")
 	private String empStatus; // 상태 (0: 재직 - 1: 휴직 - 9: 퇴사)
@@ -66,5 +70,8 @@ public class Employee { /* KM_Employee */
 	
 	@JoinColumn(name="dept_no")
 	private int deptNo; // 부서번호
+	// 전송용
+	@Transient
+	private String empRD;
 
 }
