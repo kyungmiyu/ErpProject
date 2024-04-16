@@ -162,9 +162,9 @@ $(document).ready(function() {
 
 		var f_name_input = $("#f_name");
 
-		if (f_id == "10001") {
+		if (f_id == "100") {
 			f_name_input.val("A동 공장");
-		} else if (f_id == "10002") {
+		} else if (f_id == "101") {
 			f_name_input.val("B동 공장");
 		}
 

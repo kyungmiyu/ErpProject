@@ -100,11 +100,16 @@
 								</c:if>
 							</ul>
 						</nav>
-		<c:if test="${sessionScope.dept_no == 4}"> 
+		<%-- <c:if test="${sessionScope.dept_no == 104}"> 
 			<a href="saleApply">			
 		<button type="button" class="btn btn-primary" id="saleProBtn">판매 등록</button>
 		</a>
-		</c:if>
+		</c:if> --%>
+		
+		<a href="saleApply">			
+		<button type="button" class="btn btn-primary" id="saleProBtn">판매 등록</button>
+		</a>
+		
     </div> 
    
     <!-- ****** 공통 : 테이블 끝 ****** -->

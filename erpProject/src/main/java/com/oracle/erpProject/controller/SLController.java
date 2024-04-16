@@ -362,9 +362,13 @@ public class SLController {
 			System.out.println("productDetail >>>>>>" + productDetail.size());
 			System.out.println("productDetail @@@@@@" + productDetail);
 			
+			LocalDate today = LocalDate.now();
+			String formattedMonth = today.format(DateTimeFormatter.ofPattern("yyyyMM"));
+			sale.setSt_year_month(formattedMonth);
 			
-			List<SLProduct> productList = slService.saleProductList();
-			System.out.println("sale->" + sale);
+		
+			List<SLProduct> productList = slService.saleProductList(sale);
+			
 
 			model.addAttribute("saleDetail",saleDetail);
 			model.addAttribute("productDetail",productDetail);
@@ -388,9 +392,13 @@ public class SLController {
 			System.out.println("productDetail >>>>>>" + productDetail.size());
 			System.out.println("productDetail @@@@@@" + productDetail);
 
+			
+			String formattedMonth = today.format(DateTimeFormatter.ofPattern("yyyyMM"));
+			sale.setSt_year_month(formattedMonth);
+			
 			// 제품 리스트
-			List<SLProduct> productList = slService.saleProductList();
-			System.out.println("sale->" + sale);
+			List<SLProduct> productList = slService.saleProductList(sale);
+	
 			
 			
 			model.addAttribute("productList",productList);

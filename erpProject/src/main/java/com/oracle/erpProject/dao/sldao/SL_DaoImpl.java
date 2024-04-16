@@ -368,9 +368,9 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	
 	
 	@Override
-	public List<SLProduct> saleProductList() {
+	public List<SLProduct> saleProductList(SLSale sale) {
 		
-		List<SLProduct> saleProductList = session.selectList("LslsaleProductList");
+		List<SLProduct> saleProductList = session.selectList("LslsaleProductList", sale);
 		
 		return saleProductList;
 	}
