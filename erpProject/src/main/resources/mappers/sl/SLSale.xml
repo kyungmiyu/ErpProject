@@ -23,7 +23,7 @@
 			    c.CUST_NAME,
 			    CASE
 			        WHEN s.s_status = 0 THEN '판매 진행중'
-			        WHEN s.s_status = 2 THEN '생산 작업 요청중'
+			        WHEN s.s_status = 2 THEN '생산 작업 요청'
 			        WHEN s.s_status = 3 THEN '생산 완료'
 			        WHEN s.s_status = 4 THEN '판매 완료'
 			        WHEN s.s_status = 5 THEN '수불 완료'
@@ -81,7 +81,7 @@
 				c.CUST_NAME,
 			CASE
 				WHEN s.s_status = 0 THEN '판매 진행중'
-		        WHEN s.s_status = 2 THEN '생산 작업 요청중'
+		        WHEN s.s_status = 2 THEN '생산 작업 요청'
 		        WHEN s.s_status = 3 THEN '생산 완료'
 		        WHEN s.s_status = 4 THEN '판매 완료'
 		        WHEN s.s_status = 5 THEN '수불 완료'
@@ -92,7 +92,7 @@
 				WHERE s.CUST_NO = sd.cust_no
 			) AS productCnt,
 			(
-				SELECT SUM(sd.sd_price*sd.sd_price)
+				SELECT SUM(sd.sd_price*sd.sd_cnt)
 				FROM sale_detail sd
 				WHERE s.CUST_NO = sd.cust_no
 			) AS totalMoney,
@@ -141,7 +141,7 @@
 				c.CUST_NAME,
 			CASE
 				WHEN s.s_status = 0 THEN '판매 진행중'
-		        WHEN s.s_status = 2 THEN '생산 작업 요청중'
+		        WHEN s.s_status = 2 THEN '생산 작업 요청'
 		        WHEN s.s_status = 3 THEN '생산 완료'
 		        WHEN s.s_status = 4 THEN '판매 완료'
 		        WHEN s.s_status = 5 THEN '수불 완료'
@@ -152,7 +152,7 @@
 			WHERE s.CUST_NO = sd.cust_no
 			) AS productCnt,
 			(
-			SELECT SUM(sd.sd_price*sd.sd_price)
+			SELECT SUM(sd.sd_price*sd.sd_cnt)
 			FROM sale_detail sd
 			WHERE s.CUST_NO = sd.cust_no
 			) AS totalMoney,
@@ -201,7 +201,7 @@
 			c.CUST_NAME,
 		CASE
 			WHEN s.s_status = 0 THEN '판매 진행중'
-	        WHEN s.s_status = 2 THEN '생산 작업 요청중'
+	        WHEN s.s_status = 2 THEN '생산 작업 요청'
 	        WHEN s.s_status = 3 THEN '생산 완료'
 	        WHEN s.s_status = 4 THEN '판매 완료'
 	        WHEN s.s_status = 5 THEN '수불 완료'
@@ -239,7 +239,7 @@
 		    c.cust_name,
 	    CASE     
 			WHEN s.s_status = 0 THEN '판매 진행중'
-	        WHEN s.s_status = 2 THEN '생산 작업 요청중'
+	        WHEN s.s_status = 2 THEN '생산 작업 요청'
 	        WHEN s.s_status = 3 THEN '생산 완료'
 	        WHEN s.s_status = 4 THEN '판매 완료'
 	        WHEN s.s_status = 5 THEN '수불 완료'
@@ -279,18 +279,28 @@
 	</insert>
 	
 	
-	<select id="LslsaleProductList" resultType="SLProduct">
+	<select id="LslsaleProductList" resultType="SLProduct" parameterType="SLSale">
 		select p.*, st.*
 		from product p, stock st
 		where p.P_ITEMCODE = st.P_ITEMCODE
+		AND st.st_year_month = #{st_year_month}
 		AND st.ST_BEGIN_END = 1
 	</select>
 
 	<insert id="LslsaleMakeRequest" parameterType="SLMake">
-		INSERT INTO make (m_num, m_status, m_manager, m_sdate, m_due_date, m_isDeleted, m_note)
-		VALUES (M_NUM_SEQ.NEXTVAL, '1', #{m_manager}, #{m_sdate}, NULL, '0', #{m_note})
+		<selectKey keyProperty="m_num" resultType="int" order="BEFORE">
+        	select M_NUM_SEQ.NEXTVAL as m_num from dual
+    	</selectKey>
+    	INSERT INTO make (m_num, m_status, m_manager, m_sdate, m_due_date, m_isDeleted, m_note)
+    	VALUES (#{m_num}, '1', NULL, #{m_sdate}, NULL, '0', #{m_note})
 	</insert>
 	
+	<insert id="LslsaleMakeDetailRequest" parameterType="SLMake" >
+	
+		INSERT INTO make_detail (m_num, md_num, f_id, p_itemcode, md_worker, md_quantity, md_pro_quantity, RNPC_GUBUN, md_worker_num, md_note, s_date, cust_no)
+		VALUES (#{m_num},MD_NUM_SEQ.NEXTVAL, #{f_id}, #{p_itemcode}, NULL, #{md_quantity}, 0, 0, NULL, NULL, #{s_date}, #{cust_no})
+		
+	</insert>
 	
 	<insert id="LslsaleApplyWrite" parameterType="SLSale">
 		INSERT INTO sale (s_date, cust_no, emp_no, s_title, s_status, s_manager, s_note, s_wdate) 
@@ -320,7 +330,18 @@
 	
 	</update>
 	
+	<select id="LslgetMakeItemCode" parameterType="SLMake" resultType="SLMake">
+		select p_itemcode
+		from	make_detail
+		where s_date = #{s_date} 
+		and cust_no = #{cust_no}		
+	</select>
 	
+		<select id="LslcheckSaleTransaction" parameterType="SLSale" resultType="int">
+			select count(*)
+			from sale
+			where s_date = #{s_date}
+			and cust_no = #{cust_no}
+		</select>
 	
-
 </mapper>

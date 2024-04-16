@@ -43,7 +43,7 @@ class ErpProjectApplicationTests {
 	
 	@Test
 	public void testInsertDept() {
-		
+		/*
 		/* Departemt test */
 		/*
 		Department dept = new Department();
@@ -194,8 +194,7 @@ class ErpProjectApplicationTests {
 		empRepo.save(emp);
 		*/
 		
-		/*
-		// 테스트용
+	/*
 		for (int i=0; i<5; i++) {
 			Department dept = new Department();
 			dept.setDept_name("인사"+i);
@@ -224,8 +223,8 @@ class ErpProjectApplicationTests {
 			emp.setDepartment(dept);
 			empRepo.save(emp);
 		}
-		
-		*/
+	*/	
+	
 		
 		
 

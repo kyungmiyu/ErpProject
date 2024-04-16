@@ -63,8 +63,9 @@ public class KMController {
 		HttpSession session = request.getSession();
 		Employee employee = employeeServiceImpl.findByEmpNo(Integer.parseInt(empNo));
 		if (employee !=null && employee.getEmpPassword().equals(empPassword)) {
-			session.setAttribute("empNo", empNo);
-			session.setAttribute("empRole", employee.getEmpRole());
+			session.setAttribute("emp_no", empNo);
+			session.setAttribute("emp_role", employee.getEmpRole());
+			session.setAttribute("dept_no", employee.getDeptNo());
 			return "main";
 		} else {
 			model.addAttribute("mode", "error");
@@ -127,7 +128,7 @@ public class KMController {
 	// 마이페이지 화면
 	@GetMapping(value = "/myPageForm")
 	public String myPageForm(HttpSession session, Model model) {
-		String empNo = (String) session.getAttribute("empNo");
+		String empNo = (String) session.getAttribute("emp_no");
 		Employee employee = employeeServiceImpl.findByEmpNo(Integer.parseInt(empNo));
 		model.addAttribute("employee", employee);
 		model.addAttribute("mode", "view");
@@ -137,7 +138,7 @@ public class KMController {
 	// 마이페이지 사원 정보 수정
 	@PostMapping(value="/myPageEditProc")
 	public String myPageEditProc(Model model, HttpSession session, Employee employee) {
-		String empNo = (String) session.getAttribute("empNo");
+		String empNo = (String) session.getAttribute("emp_no");
 		employee.setEmpNo(Integer.parseInt(empNo));
 		employeeServiceImpl.updateEmployee(employee);
 		model.addAttribute("mode", "edit");
@@ -163,6 +164,7 @@ public class KMController {
 	// 사원 등록
 	@PostMapping(value = "/employeeRegistProc")
 	public String employeeRegistProc(Model model, Employee employee) {
+		System.out.println("param : "+employee);
 		employeeServiceImpl.registEmployee(employee);
 		return "km/employeeList";
 	}
@@ -175,7 +177,8 @@ public class KMController {
 			@RequestParam(value = "searchType", required = false, defaultValue = "A") String searchType,
 			@RequestParam(value = "searchValue", required = false) String searchValue) {
 		
-		List<Employee> listEmployee = employeeServiceImpl.getEmployeeList(10, (pageNo-1)*10, searchType, searchValue);
+		//List<Employee> listEmployee = employeeServiceImpl.getEmployeeList(10, (pageNo-1)*10, searchType, searchValue);
+		List<Employee> listEmp = employeeServiceImpl.getEmpList(searchType, searchValue);		
 		
 		int totalPageCount = employeeServiceImpl.countEmployeeList();
 		int pageCountPerBlock = 5;
@@ -188,7 +191,7 @@ public class KMController {
 		System.out.println("startPageNo ===> " + startPageNo);
 		System.out.println("endPageNo ===> " + endPageNo);
 		
-		model.addAttribute("listEmployee", listEmployee);
+		model.addAttribute("listEmployee", listEmp);
 		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("totalPageCount", totalPageCount);
 		model.addAttribute("pageCountPerBlock", pageCountPerBlock);

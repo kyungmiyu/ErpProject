@@ -22,6 +22,12 @@ public class Product {
 		private String p_fac_gubun;		//공장구분
 		private int p_isdeleted;				//취급여부 
 
+		// Paging
+	    private String 	pageNum;  			private String 	currentPage;		
+	    private int 	start;              private int 	end;
+	  	private int 	prevPage;		  	private int 	nextPage;
+		private String gubun;
+		
 		// 0402 현승 - 신제품체크 파라미터 (lhsCheckNewItem)
 		private String new_item_manager;
 		private String new_item_quantity;

@@ -47,9 +47,14 @@
 
 	</select>
 	
-	<insert id="lhsRegistStockNewItem" parameterType="LHS_Stock">
+	<insert id="lhsRegistStockNewItemBegin" parameterType="LHS_Stock">
 		INSERT INTO stock
 		VALUES (#{st_year_month}, 0, #{p_itemcode}, #{st_quantity}, sysdate)
+	</insert>
+	
+	<insert id="lhsRegistStockNewItemEnd" parameterType="LHS_Stock">
+		INSERT INTO stock
+		VALUES (#{st_year_month}, 1, #{p_itemcode}, #{st_quantity}, sysdate)
 	</insert>
 	
 	<select id="lhsClosingRnP" parameterType="LHS_RnP_closing" resultType="int">

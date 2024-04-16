@@ -42,7 +42,7 @@
 				<input type="date" id="datePicker"  value="${buying.buy_date}"     class="form-control" >
 				
 			     <form action="searchKeyword">
-			      <input class="form-control me-2" id="search" name="keyword" type="search" placeholder="Search" aria-label="Search">
+			      <input class="form-control me-2" id="search" name="keyword" type="search" placeholder="거래처명을 입력하세요." aria-label="Search">
 			     <button class="btn btn-primary" id ="searchBtn"  type="submit">검색</button>
 			  </form>
 			  <select class="form-control" id="optionBox" name="choices-button" id="choices-button">
@@ -89,19 +89,23 @@
 		<nav aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
 							<c:if test="${buypage.startPage > buypage.pageBlock}">
-								<li class="page-item"><a class="page-link" href="#">◁</a></li>
+									<li class="page-item"><a class="page-link" href="buying?currentPage=${buypage.startPage - buypage.pageBlock}">◁</a></li>
 								</c:if>
 								<c:forEach var="i" begin="${buypage.startPage}" end="${buypage.endPage}">
-								<li class="page-item"><a class="page-link" href="selectedDateSearch?buy_date=${buy_date}">${i}</a></li>
+									<li class="page-item"><a class="page-link" href="buying?currentPage=${i}">${i}</a></li>
 								</c:forEach>
 								<c:if test="${buypage.startPage < buypage.pageBlock}">
-								<li class="page-item"><a class="page-link" href="#">▷</a></li>
+									<li class="page-item"><a class="page-link" href="buying?currentPage=${buypage.startPage + buypage.pageBlock}">▷</a></li>
 								</c:if>
 							</ul>
 						</nav>
+						
+	 <c:if test="${sessionScope.dept_no == 103}"> 
 			<a href="buyingApply">			
 		<button type="button" class="btn btn-primary" id="buyProBtn">구매 신청</button>
 		</a>
+	</c:if>
+	
     </div> 
    
     <!-- ****** 공통 : 테이블 끝 ****** -->
