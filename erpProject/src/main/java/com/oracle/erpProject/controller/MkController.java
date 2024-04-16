@@ -128,6 +128,7 @@ public class MkController {
 			List<mkProduct> fList = null;
 			proCategory = mk_Service_interface.proCategory(product);
 			fList=mk_Service_interface.fList(product);
+			System.out.println("fList->"+fList);
 			model.addAttribute("proCategory", proCategory);
 			model.addAttribute("fList",fList);
 		  return "mk/productC";
