@@ -77,7 +77,7 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 		int makeSearchCnt = jjDao.makeSearchCnt(md);
 		return makeSearchCnt;
 	}
-
+	
 	@Override
 	public List<JJ_Make_detail> makeSearchList(JJ_Make_detail md) {
 		List<JJ_Make_detail> makeSearchList = null;
@@ -87,13 +87,24 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 		return makeSearchList;
 	}
 
-	// 삭제 기능
+	// make detail 삭제
 	@Override
 	public int jjmakeDelete(int m_num) {
 		int jjmakeDelete = 0;
 		System.out.println("JJ_ServiceImpl's jjmakeDelete Go!");
 		jjmakeDelete = jjDao.jjmakeDelete(m_num);
+		System.out.println("JJ_ServiceImpl's jjmakeDelete ->" + jjmakeDelete);
 		return jjmakeDelete;
+	}
+	
+	// make 삭제
+	@Override
+	public int jjmakeDelete2(int m_num) {
+		int jjmakeDelete2 = 0;
+		System.out.println("JJ_ServiceImpl's jjmakeDelete2 Go!");
+		jjmakeDelete2 = jjDao.jjmakeDelete2(m_num);
+		System.out.println("JJ_ServiceImpl's jjmakeDelete2 ->" + jjmakeDelete2);
+		return jjmakeDelete2;
 	}
 
 	@Override
@@ -104,6 +115,22 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 		System.out.println("JJ_ServiceImpl's jjproductList.size() -> " + jjproductList.size());
 		return jjproductList;
 	}
+
+	// make 업데이트
+	@Override
+	public int jjmakeUpdate(JJ_Make m) {
+		int jjmakeUpdate = 0;
+		jjmakeUpdate = jjDao.jjmakeUpdate(m);
+		return jjmakeUpdate;
+	}
+
+	@Override
+	public int jjmakeDetailUpdate(JJ_Make_detail md) {
+		int jjmakeDetailUpdate = 0;
+		jjmakeDetailUpdate = jjDao.jjmakeDetailUpdate(md);
+		return jjmakeDetailUpdate;
+	}
+
 
 
 }

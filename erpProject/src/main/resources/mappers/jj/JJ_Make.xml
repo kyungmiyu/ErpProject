@@ -15,4 +15,17 @@
 		)
 	</insert>
 
+	<delete id="jjmakeDelete2" parameterType="int">
+		DELETE FROM Make
+		WHERE m_num = #{m_num}
+	</delete>
+	
+	<update id="jjmakeUpdate" parameterType="JJ_Make">
+		UPDATE make SET m_status 	= #{m_status},
+						m_manager 	= #{m_manager,      jdbcType=VARCHAR},
+						m_sdate 	= #{m_sdate},
+						m_due_date 	= #{m_due_date,     jdbcType=VARCHAR}
+		WHERE m_num = #{m_num}
+	</update>
+
 </mapper>

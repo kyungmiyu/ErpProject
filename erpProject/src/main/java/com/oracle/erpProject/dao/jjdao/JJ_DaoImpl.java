@@ -31,8 +31,8 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		}
 		return cntMake;
 	}
-
-	// 생산게시판 List페이지 - 게시물 list
+	
+	// 생산게시판 MakeDetail List페이지
 	@Override
 	public List<JJ_Make_detail> makedetailList(JJ_Make_detail md) {
 		List<JJ_Make_detail> makedetailList = null;
@@ -135,7 +135,7 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		return makeSearchList;
 	}
 
-	// 생산 삭제 기능
+	// make_detail 삭제
 	@Override
 	public int jjmakeDelete(int m_num) {
 		System.out.println("JJ_DaoImpl's jjmakeDelete Go!");
@@ -150,6 +150,21 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		return jjmakeDelete;
 	}
 
+	// make 삭제
+	@Override
+	public int jjmakeDelete2(int m_num) {
+		System.out.println("JJ_DaoImpl's jjmakeDelete2 Go!");
+		int jjmakeDelete2 = 0;
+		System.out.println("JJ_DaoImpl's jjmakeDelete2 ->" + m_num);
+		try {
+			jjmakeDelete2 = session.delete("jjmakeDelete2", m_num);
+			System.out.println("JJ_DaoImpl's jjmakeDelete2 ->" + jjmakeDelete2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jjmakeDelete2;
+	}
+
 	@Override
 	public List<mkProduct> jjproductList(mkProduct mp) {
 		List<mkProduct> jjproductList = null;
@@ -162,5 +177,36 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		}
 		return jjproductList;
 	}
+
+	// make 업데이트
+	@Override
+	public int jjmakeUpdate(JJ_Make m) {
+		System.out.println("JJ_DaoImpl's jjmakeUpdate Go!");
+		int jjmakeUpdate = 0;
+		try {
+			jjmakeUpdate = session.update("jjmakeUpdate", m);
+			System.out.println("JJ_DaoImpl's jjmakeUpdate ->" + jjmakeUpdate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jjmakeUpdate;
+	}
+
+	// make_detail 업데이트
+	@Override
+	public int jjmakeDetailUpdate(JJ_Make_detail md) {
+		System.out.println("JJ_DaoImpl's jjmakeDetailUpdate Go!");
+		int jjmakeDetailUpdate = 0;
+		try {
+			jjmakeDetailUpdate = session.update("jjmakeDetailUpdate", md);
+			System.out.println("JJ_DaoImpl's jjmakeDetailUpdate ->" + jjmakeDetailUpdate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jjmakeDetailUpdate;
+	}
+
+
+
 
 }

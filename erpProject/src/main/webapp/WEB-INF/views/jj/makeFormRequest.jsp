@@ -18,7 +18,8 @@
 		alert("tDate->"+tDate);
 	}
 	
-	document.getElementById("makeRequest").addEventListener("submit", function(event) {
+	/* document.getElementById("makeRequest").addEventListener("submit", function(event) {
+		event.preventDefault();
 		var quantityField = document.getElementById("md_pro_quantity");
 		var quantityValue = quantityField.value.trim();
 		
@@ -36,7 +37,7 @@
 			// 비어 있다면 기본값 0으로 설정
 			workerNumField.value = "0";
 		}
-	})
+	})  */
 </script>
 
 <head>
@@ -75,7 +76,7 @@ legend {
 				<div class="form-group">
 					<h2>생산 요청 게시판</h2>
 				</div>
-				<form id="makeRequest" action="makeRequest" method="post">
+				<form id="makeRequest" action="<%=request.getContextPath()%>/JJmakeRequest" method="post">
 				  <div class="row">
 					  <div class="col">
 						  <label for="m_num" class="form-control-label">작업지시번호 m_num</label>
@@ -97,8 +98,8 @@ legend {
 				      </div>
 				      <div class="col">
 				      	<div class="mb-3">
-				        	<label for="form-select" class="form-control-label">수불마감구분 rpnc_gubun</label>
-						    <select class="form-select" name="rpnc_gubun" required aria-label="select example" id="form-select">
+				        	<label for="form-select" class="form-control-label">수불마감구분 rnpc_gubun</label>
+						    <select class="form-select" name="rnpc_gubun" required aria-label="select example" id="form-select">
 						      <option value="">선택사항</option>
 						      <option value="0">0.마감전</option>
 						      <option value="1">1.가마감</option>
@@ -129,23 +130,13 @@ legend {
 					        <label for="form-select" class="form-control-label">공장명 f_name</label>
 						    <select class="form-select" name="f_id" required aria-label="select example" id="form-select">
 						      <option value="">선택사항</option>
-						      <option value="${JJ_Make_detail.f_id}">A동 공장</option>
-						      <option value="10002">B동 공장</option>
+						      <option value="100">A동 공장</option>
+						      <option value="101">B동 공장</option>
 						     </select>
 					    </div>
 					    <div class="form-group">
-					        <label for="p_itemcode" class="form-control-label">제품코드 p_itemcode</label>
-					        <input class="form-control" type="number" name="p_itemcode" value="${JJ_Make_detail.p_itemcode}"
-					        		placeholder="제품코드를 입력" id="p_itemcode">
-					    </div>
-					    <div class="form-group">
-					        <label for="p_name" class="form-control-label">제품명 p_name</label>
-					        <input class="form-control" type="text" name="p_name" value="${JJ_Make_detail.p_name}"
-					        		placeholder="제품명을 입력" id="p_name">
-					    </div>
-					    <div class="form-group">
 					        <label for="form-select" class="form-control-label">제품명 p_name</label>
-					        <select class="form-select" name="select_product" required aria-label="select product" id="form-select">
+					        <select class="form-select" name="p_itemcode" required aria-label="select product" id="form-select">
 					        	<option value="">선택사항</option>
 					        	<c:forEach var="product" items="${productList}">
 					        		<option value="${product.p_itemcode}">${product.p_name}</option>
@@ -168,7 +159,17 @@ legend {
 					    </div>
 					    <div class="form-group">
 					        <label for="md_worker_num" class="form-control-label">작업인원 md_worker_num</label>
-					        <input class="form-control" type="number" name="md_worker_num" value="${JJ_Make_detail.md_worker_num}"
+					        <input class="form-control" type="number" name="md_worker_num" 
+					        	
+					                <c:choose>
+									    <c:when test="${empty JJ_Make_detail.md_worker_num}">
+									          value="0"
+									    </c:when>
+									    <c:otherwise>
+									          value="${JJ_Make_detail.md_worker_num}"
+									    </c:otherwise>
+									</c:choose>
+					        
 					        		placeholder="작업인원수를 입력" id="md_worker_num">
 					    </div>
 					    <div class="form-group">
@@ -178,7 +179,16 @@ legend {
 					    </div>
 					    <div class="form-group">
 					        <label for="md_pro_quantity" class="form-control-label">생산수량 md_pro_quantity</label>
-					        <input class="form-control" type="number" name="md_pro_quantity" value="${JJ_Make_detail.md_pro_quantity}"
+					        <input class="form-control" type="number" name="md_pro_quantity" 
+					               
+					                <c:choose>
+									    <c:when test="${empty JJ_Make_detail.md_pro_quantity}">
+									          value="0"
+									    </c:when>
+									    <c:otherwise>
+									          value="${JJ_Make_detail.md_pro_quantity}"
+									    </c:otherwise>
+									</c:choose>
 					        		placeholder="생산수량을 입력" id="md_pro_quantity">
 					    </div>
 					    <div class="form-group">
