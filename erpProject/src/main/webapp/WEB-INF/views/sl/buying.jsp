@@ -100,7 +100,7 @@
 							</ul>
 						</nav>
 						
-	 <c:if test="${sessionScope.dept_no == 3}"> 
+	 <c:if test="${sessionScope.dept_no == 103}"> 
 			<a href="buyingApply">			
 		<button type="button" class="btn btn-primary" id="buyProBtn">구매 신청</button>
 		</a>
