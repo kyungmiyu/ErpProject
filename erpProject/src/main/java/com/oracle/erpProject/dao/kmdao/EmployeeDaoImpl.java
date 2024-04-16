@@ -3,6 +3,9 @@ package com.oracle.erpProject.dao.kmdao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import com.oracle.erpProject.domain.Employee;
@@ -14,6 +17,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 
 @Component
 public class EmployeeDaoImpl implements EmployeeDao {
@@ -51,6 +55,26 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return employeeRepository.findAll().size();
 	}
 
+	@Override
+	public List<Employee> getEmpList(String searchType, String searchValue) {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+
+		Root<Employee> employee = criteriaQuery.from(Employee.class);
+		
+		Predicate searchPredicate = null;
+		searchType = searchType==null ? "" : searchType;
+		if (searchType.equals("E")) {
+			searchPredicate = criteriaBuilder.equal(employee.get("empName"), searchValue);
+		} else if (searchType.equals("D")) {
+			searchPredicate = criteriaBuilder.equal(employee.get("deptNo"), searchValue);
+		}
+		criteriaQuery.where(searchPredicate, searchPredicate);
+		criteriaQuery.orderBy(criteriaBuilder.desc(employee.get("empNo")));
+		return entityManager.createQuery(criteriaQuery).getResultList();
+	}
+
+/*
 	// paging and search
 	@Override
 	public List<Employee> getEmployeeList(int size, int offset, String searchType, String searchValue) {
@@ -58,6 +82,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
 
 		Root<Employee> employee = criteriaQuery.from(Employee.class);
+		
 		Predicate searchPredicate = null;
 		searchType = searchType==null ? "" : searchType;
 		if (searchType.equals("E")) {
@@ -68,9 +93,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		criteriaQuery.where(searchPredicate, searchPredicate);
 		criteriaQuery.orderBy(criteriaBuilder.desc(employee.get("empNo")));
 		
+	    
 		TypedQuery<Employee> typedQuery = entityManager.createQuery(criteriaQuery).setFirstResult(offset)
 				.setMaxResults(size);
-        return typedQuery.getResultList();
+		 return typedQuery.getResultList();
 	}
+*/
+	
+
 	
 }

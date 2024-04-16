@@ -21,6 +21,7 @@
 		SELECT
 		    b.*,
 		    e.EMP_NAME,
+		    e.dept_no,
 		    c.CUST_NAME,
 		    CASE
 		        WHEN b.buy_status = 0 THEN '구매 진행중'
@@ -86,11 +87,12 @@
 					END AS buy_status_detail,
 				 ( 
 					SELECT COUNT(DISTINCT bd.P_ITEMCODE)
-					FROM buying_detail bd
-					WHERE B.CUST_NO = bd.cust_no
+			        FROM buying_detail bd
+			        WHERE BD.CUST_NO = B.CUST_NO
+			        AND BD.buy_date = b.buy_date
 				 ) AS productCnt,
 				 (
-					SELECT SUM(bd.bd_price*bd.bd_price)
+					SELECT SUM(bd.bd_price * bd.bd_cnt)
 					FROM buying_detail bd
 					WHERE B.CUST_NO = bd.cust_no
 				 ) AS totalMoney,
@@ -140,17 +142,18 @@
 				WHEN b.buy_status = 5 THEN '수불 완료'
 			END AS buy_status_detail,
 			(
-			SELECT COUNT(DISTINCT bd.P_ITEMCODE)
-				FROM buying_detail bd
-				WHERE B.CUST_NO = bd.cust_no
+				SELECT COUNT(DISTINCT bd.P_ITEMCODE)
+		        FROM buying_detail bd
+		        WHERE BD.CUST_NO = B.CUST_NO
+		        AND BD.buy_date = b.buy_date
 			) AS productCnt,
 			(
-			SELECT SUM(bd.bd_price*bd.bd_price)
+				SELECT SUM(bd.bd_price * bd.bd_cnt)
 				FROM buying_detail bd
 				WHERE B.CUST_NO = bd.cust_no
 			) AS totalMoney,
 			(
-			SELECT SUM(bd.bd_cnt)
+				SELECT SUM(bd.bd_cnt)
 				FROM buying_detail bd
 				WHERE B.CUST_NO = bd.cust_no
 			) AS totalCnt
@@ -195,17 +198,18 @@
 				WHEN b.buy_status = 5 THEN '수불 완료'
 			END AS buy_status_detail,
 			(
-			SELECT COUNT(DISTINCT bd.P_ITEMCODE)
-				FROM buying_detail bd
-				WHERE B.CUST_NO = bd.cust_no
+				SELECT COUNT(DISTINCT bd.P_ITEMCODE)
+		        FROM buying_detail bd
+		        WHERE BD.CUST_NO = B.CUST_NO
+		        AND BD.buy_date = b.buy_date
 			) AS productCnt,
 			(
-			SELECT SUM(bd.bd_price*bd.bd_price)
+				SELECT SUM(bd.bd_price * bd.bd_cnt)
 				FROM buying_detail bd
 				WHERE B.CUST_NO = bd.cust_no
 			) AS totalMoney,
 			(
-			SELECT SUM(bd.bd_cnt)
+				SELECT SUM(bd.bd_cnt)
 				FROM buying_detail bd
 				WHERE B.CUST_NO = bd.cust_no
 			) AS totalCnt
@@ -343,6 +347,11 @@
 		where rnpc_year_month_day = #{rnpc_year_month_day}
 	</select>
 	
-	
+	<select id="LslcheckTransaction" parameterType="SLBuying" resultType="int">
+		select count(*)
+		from buying 
+		where buy_date = #{buy_date}
+		and cust_no = #{cust_no}
+	</select>
 	
 </mapper>

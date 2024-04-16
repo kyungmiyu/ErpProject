@@ -29,8 +29,9 @@ public class SLController {
 	
 	// 구매 페이지
 	@GetMapping(value = "buying")
-	public String buying(SLBuying buying, Model model) {
+	public String buying(HttpServletRequest request,SLBuying buying, Model model) {
 		System.out.println("SlController buying Start >>>>>>");
+		
 		int totalbuyingCnt = slService.totalbuyingCnt();
 		
 		// paging 처리
@@ -208,8 +209,7 @@ public class SLController {
 	
 	/*---------------------------- 판매 -------------------------*/
 	
-	// 판매 페이지
-	
+	// 판매 페이지	
 	@GetMapping(value = "sale")
 	String sale(SLSale sale, Model model) {
 		System.out.println("SlController sale Start >>>>>>");
@@ -304,8 +304,7 @@ public class SLController {
 		}
     	
     	
-		// 키워드 검색 
-		
+		// 키워드 검색 	
     	@GetMapping("/saleSearchKeyword")
 		public String saleSearchKeyword(@RequestParam("keyword") String keyword, SLSale sale, Model model) {
 		
@@ -363,9 +362,13 @@ public class SLController {
 			System.out.println("productDetail >>>>>>" + productDetail.size());
 			System.out.println("productDetail @@@@@@" + productDetail);
 			
+			LocalDate today = LocalDate.now();
+			String formattedMonth = today.format(DateTimeFormatter.ofPattern("yyyyMM"));
+			sale.setSt_year_month(formattedMonth);
 			
-			List<SLProduct> productList = slService.saleProductList();
-			System.out.println("sale->" + sale);
+		
+			List<SLProduct> productList = slService.saleProductList(sale);
+			
 
 			model.addAttribute("saleDetail",saleDetail);
 			model.addAttribute("productDetail",productDetail);
@@ -389,9 +392,13 @@ public class SLController {
 			System.out.println("productDetail >>>>>>" + productDetail.size());
 			System.out.println("productDetail @@@@@@" + productDetail);
 
+			
+			String formattedMonth = today.format(DateTimeFormatter.ofPattern("yyyyMM"));
+			sale.setSt_year_month(formattedMonth);
+			
 			// 제품 리스트
-			List<SLProduct> productList = slService.saleProductList();
-			System.out.println("sale->" + sale);
+			List<SLProduct> productList = slService.saleProductList(sale);
+	
 			
 			
 			model.addAttribute("productList",productList);

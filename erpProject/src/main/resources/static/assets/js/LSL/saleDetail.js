@@ -212,7 +212,7 @@ $(document).ready(function() {
 					$("#saleStatusBox").text("판매 진행중");
 
 				} else if (response == "1") {
-					$("#saleStatusBox").text("생산 작업 요청중");
+					$("#saleStatusBox").text("생산 작업 요청");
 
 				} else if (response == "2") {
 					$("#saleStatusBox").text("생산 진행중");
@@ -237,7 +237,44 @@ $(document).ready(function() {
 		});
 
 
-	}); 
+	});
+
+
+	// 생산 요청 제품 표시
+
+	var cust_no = $("#cust_no").val();
+	var s_date = $("#s_date").val();
+
+	console.log(cust_no);
+	console.log(s_date);
+
+
+	$.ajax({
+		type: "GET",
+		url: "getMakeItemCode",
+		data: {
+			cust_no: cust_no,
+			s_date: s_date
+		},
+		success: function(response) {
+			console.log(response);
+			var makeItemCode = response.p_itemcode;
+
+			$(".saleListItem").each(function() {
+				var listItem = $(this);
+				var itemCode = listItem.find(".p_itemcode").val();
+
+				if (itemCode == makeItemCode) {
+					listItem.append('<div class="makeItem">생산 요청 완료</div>');
+				}
+			});
+		},
+		error: function(error) {
+			console.error("실패", error);
+		}
+	});
+
+
 
 
 	// 수블 마감 체크 

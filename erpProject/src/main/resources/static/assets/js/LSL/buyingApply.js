@@ -1,16 +1,39 @@
 $(document).ready(function() {
+	// 거래처 모달 처리 
+	$("#close").click(function() {
+		$("#customerSearchModal").modal("hide");
+	});
+
 	$("#customerSearchBtn").click(function() {
-		$(".customerSearchPopup").css("display", "block");
+		$('#customerSearchModal').modal('show');
 	});
 
-	$("#cusSearchXBtn").click(function() {
-		$(".customerSearchPopup").css("display", "none");
-		$(".cusSearchName").val("");
+	$(".cusSearchName").click(function() {
+		$('#customerSearchModal').modal('hide');
+	});
+
+	$('#customerSearchModal').on('shown.bs.modal', function() {
+		$('#cusSearchBox').focus();
+	});
+
+	$('#customerSearchModal').on('hidden.bs.modal', function() {
 		$(".cusSearchBox").val("");
+		$(".cusSearchName").val("");
 	});
 
-	fetchManagerList();
 
+
+	$('#cusSearchBox').keypress(function(e) {
+		if (e.which == 13) {
+			$('#cusSearchBtn').click();
+		}
+	});
+
+
+	
+	fetchManagerList();
+	
+	// 매니저 리스트 
 	function fetchManagerList() {
 		var dept_no = $("#dept_no").val();
 
@@ -48,9 +71,7 @@ $(document).ready(function() {
 				$(".cusSearchName").text(response.cust_name);
 
 				$(".cusSearchName").click(function() {
-
 					var selectedCustomer = $(this).text();
-
 					console.log(selectedCustomer);
 					$(".customerSearchPopup").css("display", "none");
 
@@ -69,6 +90,8 @@ $(document).ready(function() {
 		});
 	});
 
+
+	// 제품 등록 
 	$("#addBtn").click(function() {
 		var p_itemcode = $("#buyingItemSelect").val();
 		var p_name = $("#buyingItemSelect option:selected").text();
@@ -90,7 +113,7 @@ $(document).ready(function() {
                 <li class="buyListItem">
                     <input type="hidden" class="p_itemcode" name="p_itemcode" value="${p_itemcode}">
                     <input value="${p_name}" disabled="disabled">
-                    <input value="${bd_price}"name="bd_price" disabled="disabled">
+                    <input value="${bd_price}" name="bd_price" disabled="disabled">
                     <input class="bdCnt" value="${bd_cnt}" name="bd_cnt">
                     <input value="${totalMoney}" disabled="disabled">
                     <button type="button" class="btn btn-primary pModifyBtn">수정</button>
@@ -106,7 +129,6 @@ $(document).ready(function() {
 			$(".buyItemCnt").val("");
 		}
 	});
-
 
 	// 제품 리스트 삭제 
 	$(document).on("click", ".pDeleteBtn", function() {
@@ -125,6 +147,32 @@ $(document).ready(function() {
 		var formattedDate = today.toISOString().slice(0, 10).replace(/-/g, '');
 		var buy_date = formattedDate;
 
+		console.log(cust_no);
+		console.log(buy_date);
+
+	// 금일 거래 조회 
+		$.ajax({
+
+			type: "POST",
+			url: "/checkBuyTransaction",
+			contentType: 'application/json',
+			data: JSON.stringify({
+				cust_no: cust_no,
+				buy_date: buy_date
+
+
+			}),
+			success: function(response) {
+				if (response == 0) {
+					registerPurchase();
+				} else {
+					alert("해당 거래처의 금일 등록된 거래가 있습니다.");
+				}
+			},
+			error: function(error) {
+				console.error("이전 거래 이력 확인 실패:", error);
+			}
+		});
 
 		// 제품 목록 수집
 		var productList = [];
@@ -141,36 +189,34 @@ $(document).ready(function() {
 				bd_cnt: bd_cnt,
 				cust_no: cust_no,
 				buy_date: buy_date
-
 			});
 		});
 		console.log(productList);
 
-		$.ajax({
-			type: "POST",
-			url: "/buyingApplyWrite",
-			contentType: 'application/json',
-			data: JSON.stringify({
-				buy_title: buy_title,
-				buy_note: buy_note,
-				cust_no: cust_no,
-				buy_date: buy_date,
-				emp_no: emp_no,
-				buy_manager: buy_manager,
-				productList: productList
-			}),
-			success: function(response) {
-				console.log("구매 등록 성공:", response);
+		function registerPurchase() {
+			$.ajax({
+				type: "POST",
+				url: "/buyingApplyWrite",
+				contentType: 'application/json',
+				data: JSON.stringify({
+					buy_title: buy_title,
+					buy_note: buy_note,
+					cust_no: cust_no,
+					buy_date: buy_date,
+					emp_no: emp_no,
+					buy_manager: buy_manager,
+					productList: productList
+				}),
+				success: function(response) {
+					console.log("구매 등록 성공:", response);
 
-				var redirectURL = "http://localhost:8587/buyDetail?cust_no=" + cust_no + "&buy_date=" + buy_date;
-				window.location.href = redirectURL;
-			},
-			error: function(error) {
-
-				console.error("구매 등록 실패:", error);
-			}
-		});
-
-
+					var redirectURL = "http://localhost:8587/buyDetail?cust_no=" + cust_no + "&buy_date=" + buy_date;
+					window.location.href = redirectURL;
+				},
+				error: function(error) {
+					console.error("구매 등록 실패:", error);
+				}
+			});
+		}
 	});
 });

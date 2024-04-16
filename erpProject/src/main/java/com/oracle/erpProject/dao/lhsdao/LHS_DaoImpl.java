@@ -4,11 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.oracle.erpProject.model.lhsmodel.Employee;
 import com.oracle.erpProject.model.lhsmodel.Product;
@@ -24,9 +21,6 @@ public class LHS_DaoImpl implements LHS_Dao {
 	
 	private final SqlSession session;
 	
-	@Autowired
-	private PlatformTransactionManager transactionManager;
- 
 	// 테스트용 사원리스트 조회
 	@Override
 	public List<Employee> getListEmp() {
@@ -68,7 +62,7 @@ public class LHS_DaoImpl implements LHS_Dao {
 	@Override
 	public int getTotalStock(Stock stock) {
 		int totalStock = 0;
-		
+		System.out.println("c: " +stock.getSt_year_month());
 		try {
 			totalStock = session.selectOne("lhsGetTotalStock", stock);
 		} catch (Exception e) {
@@ -94,43 +88,77 @@ public class LHS_DaoImpl implements LHS_Dao {
 	/****************************************************************************/
 		/* 기초재고조사 등록 */
 	
-	
-	// 신제품 등록여부 확인
+	// 제품 total수 조회
 	@Override
-	public Product checkExistenceNewItem(Product product) {
-		Product checkProduct = null;
+	public int getTotalProduct(Product product) {
+		int totalProduct = 0;
+		
+		try {
+			totalProduct = session.selectOne("lhsGetTotalProduct", product);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return totalProduct;
+	}
+
+	// 제품 리스트 조회
+	@Override
+	public List<Product> getListProduct(Product product) {
+		List<Product> listProduct = null;
+
+		try {
+			listProduct = session.selectList("lhsGetListProduct", product);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return listProduct;
+	}
+	
+	// 제품 상세정보 조회
+	@Override
+	public Product getDataProduct(Product product) {
+		Product productData = null;
+		
+		try {
+			productData = session.selectOne("lhsGetDataProduct", product);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return productData;
+	}
+	
+	// 신제품 재고등록 여부 확인
+	@Override
+	public int checkExistenceNewItem(Product product) {
 		int checkStock = 0;
 		
 		try {
-			checkProduct = session.selectOne("lhsCheckExistenceNewItem", product);
 			checkStock = session.selectOne("lhsCheckExistenceStock", product);
-			
-			if (checkProduct == null) {
-				checkProduct = new Product();
-				checkProduct.setP_name("null");
-			}
-			
-			if (checkStock != 0) {
-				checkProduct.setP_name("already");
-			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return checkProduct;
+		return checkStock;
 	}
 
 	// 신제품 기초재고 등록
 	@Override
+	@Transactional
 	public int registStockNewItem(Stock stock) {
-		int resultRegist = 0;
+		int resultRegistBegin = 0;
+		int resultRegistEnd = 0;
 		
 		try {
-			resultRegist = session.insert("lhsRegistStockNewItem", stock);
+			resultRegistBegin = session.insert("lhsRegistStockNewItemBegin", stock);
+			resultRegistEnd = session.insert("lhsRegistStockNewItemEnd", stock);
 		} catch (Exception e) {
 			e.printStackTrace();
+			// 예외 발생 시 롤백을 위해 런타임 예외를 던짐
+			throw new RuntimeException("transaction 예외발생: ", e); 
 		}
-		return resultRegist;
+		return resultRegistBegin+resultRegistEnd;
 	}
 	
 	
@@ -140,11 +168,11 @@ public class LHS_DaoImpl implements LHS_Dao {
 	
 	// 실사 재고조사 물품 상세정보 조회
 	@Override
-	public Product getDataProduct(Product product) {
+	public Product getDataStockProduct(Product product) {
 		Product productData = null;
 		
 		try {
-			productData = session.selectOne("lhsGetDataProduct", product);
+			productData = session.selectOne("lhsGetDataStockProduct", product);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

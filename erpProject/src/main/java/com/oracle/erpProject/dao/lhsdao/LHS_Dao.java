@@ -38,9 +38,16 @@ public interface LHS_Dao {
 	/********************************************/
 		/* 기초재고조사 등록 */
 	
+	// 제품 total수 조회
+	int getTotalProduct(Product product);
+	// 제품 리스트 조회
+	List<Product> getListProduct (Product product);
 	
-	// 신제품 등록여부 확인
-	Product checkExistenceNewItem(Product product);
+	// 제품 상세정보 조회
+	Product getDataProduct(Product product);
+	
+	// 신제품 재고등록 여부 확인
+	int checkExistenceNewItem(Product product);
 
 	// 신제품 기초재고 등록
 	int registStockNewItem(Stock stock);
@@ -51,7 +58,7 @@ public interface LHS_Dao {
 
 	
 	// 실사 재고조사 물품 상세정보 조회
-	Product getDataProduct(Product product);
+	Product getDataStockProduct(Product product);
 	
 	// 1. 수불마감 구분 확인 (프로시져 호출)
 	void checkGubunRnPClosing(Map<String, Object> params);
@@ -102,6 +109,8 @@ public interface LHS_Dao {
 
 	// 월말마감 버튼
 	int monthlyClosing(RnP_closing rnpc);
+
+
 
 
 }

@@ -24,7 +24,7 @@
 		UPDATE stock_survey SET sts_quantity = #{sts_quantity},
 								sts_realcnt = #{sts_realcnt},
 								sts_disposalcnt = #{sts_disposalcnt},
-								sts_regdate = sysdate)
+								sts_regdate = sysdate
 		WHERE st_year_month = #{st_year_month}
 			AND st_begin_end = 1
 			AND p_itemcode = #{p_itemcode}

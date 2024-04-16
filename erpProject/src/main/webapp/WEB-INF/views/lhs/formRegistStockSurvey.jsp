@@ -94,15 +94,15 @@ document.addEventListener("DOMContentLoaded", function() {
 $(document).ready(function () {
 	
         var year_month = "${stock.st_year_month}"; // 형식 변환
-        var emp_no = ${empData.emp_no};
+        var empNo = ${empData.empNo};
         var gubun = "end";
         
 	    $.ajax({
-	        url: "lhsListItem",
+	        url: "lhsListStockEnd",
 	        type: "GET",
 	        data: {
 	        	st_year_month: year_month,
-            	emp_no : emp_no,
+	        	empNo : empNo,
             	gubun : gubun
 	        },
 	        dataType: "json",
@@ -120,7 +120,7 @@ $(document).ready(function () {
                 
                 $.ajax({
                     type: "GET",
-                    url: "lhsGetDataProduct",
+                    url: "lhsGetDataStockProduct",
                     data: {p_itemcode: p_itemcode},
                     dataType: "json",
                     success: function(data) {
@@ -146,7 +146,7 @@ $(document).ready(function () {
         
         $.ajax({
             type: "GET",
-            url: "lhsGetDataProduct",
+            url: "lhsGetDataStockProduct",
             data: {p_itemcode: p_itemcode},
             dataType: "json",
             success: function(data) {
@@ -232,7 +232,7 @@ $(document).ready(function () {
         });
 
         $.ajax({
-            url: "lhsRegistStockSurvey?emp_no=" + ${empData.emp_no} + "&st_year_month_day=" + year_month_day,
+            url: "lhsRegistStockSurvey?empNo=" + ${empData.empNo} + "&st_year_month_day=" + year_month_day,
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(dataToSend),
@@ -240,12 +240,12 @@ $(document).ready(function () {
             	
             	if (data === 0) {
             		alert("실사 재고조사가 등록되었습니다.");
-            		window.location.href = "/lhsListRnPCondSurvey?emp_no=" + ${empData.emp_no};
+            		window.location.href = "lhsListRnPCondSurvey?empNo=" + ${empData.empNo};
             	}
             	
             	else if (data === 1) {
             		alert("수불마감을 먼저 진행해주세요.");
-            		window.location.href = "/lhsListRnPCondBuy?emp_no=" + ${empData.emp_no};
+            		window.location.href = "lhsListRnPCondBuy?empNo=" + ${empData.empNo};
             	}
             },
             error: function (xhr, status, error) {
@@ -278,13 +278,13 @@ $(document).ready(function () {
 		               <div class="row">
 	                      <div class="col">
 	                       		<form action="lhsFormRegistStockNewItem" method="get">
-	                     	  		<input type="hidden" name="emp_no" value="${empData.emp_no}">
+	                     	  		<input type="hidden" name="empNo" value="${empData.empNo}">
 	                           		<button type="submit" class="btn btn-primary btn-block" id="registStockBeginBtn">기초재고 등록</button>
 	                           	</form>
 	                       </div>
 	                       <div class="col">
 	                       		<form action="lhsFormRegistStockSurvey" method="get">
-	                           		<input type="hidden" name="emp_no" value="${empData.emp_no}">
+	                           		<input type="hidden" name="empNo" value="${empData.empNo}">
 	                           		<button type="submit" class="btn btn-primary btn-block" id="registStockSurveyBtn">실사 재고조사 등록</button>
 	                           	</form>
 	                       </div>

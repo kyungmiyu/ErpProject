@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	// 거래처 모달 처리 
+	// 거래처 검색 모달 처리 
 	$("#close").click(function() {
 		$("#customerSearchModal").modal("hide");
 	});
@@ -9,12 +9,23 @@ $(document).ready(function() {
 		$('#customerSearchModal').modal('show');
 	});
 
+	$(".cusSearchName").click(function() {
+		$('#customerSearchModal').modal('hide');
+	});
+
+
+	$('#customerSearchModal').on('shown.bs.modal', function() {
+		$('#cusSearchBox').focus();
+	});
+
 	$('#customerSearchModal').on('hidden.bs.modal', function() {
 		$(".cusSearchBox").val("");
 		$(".cusSearchName").val("");
 	});
 
 
+
+	// 생산 요청 모달 처리 
 	$("#makeClose").click(function() {
 		$("#orderModal").modal("hide");
 
@@ -23,10 +34,14 @@ $(document).ready(function() {
 		$("#md_worker").val("");
 	});
 
+	$('#cusSearchBox').keypress(function(e) {
+		if (e.which == 13) {
+			$('#cusSearchBtn').click();
+		}
+	});
+
+
 	fetchManagerList();
-
-
-
 
 	// 매니저 리스트 
 	function fetchManagerList() {
@@ -43,8 +58,8 @@ $(document).ready(function() {
 						.text(manager.emp_name);
 					$("#s_manager").append(option);
 					var m_option = $("<option>")
-						.val(manager.emp_no) 
-						.text(manager.emp_name); 
+						.val(manager.emp_no)
+						.text(manager.emp_name);
 					$("#m_manager").append(m_option);
 				});
 			},
@@ -136,6 +151,8 @@ $(document).ready(function() {
 		}
 	});
 
+
+	// 생산 요청 모달 처리 
 	$(document).on('click', '#pOrderBtn', function() {
 		var listItem = $(this).closest('.saleListItem');
 
@@ -145,15 +162,19 @@ $(document).ready(function() {
 
 		var f_name_input = $("#f_name");
 
-		if (f_id == "10001") {
+		if (f_id == "100") {
 			f_name_input.val("A동 공장");
-		} else if (f_id == "10002") {
+		} else if (f_id == "101") {
 			f_name_input.val("B동 공장");
 		}
 
 		$('#p_itemcode').val(p_itemcode);
 		$('#p_name').val(p_name);
 		$('#f_id').val(f_id);
+
+
+		$('#orderModal').data('f_id', f_id);
+		$('#orderModal').data('p_itemcode', p_itemcode);
 
 
 		$('#orderModal').modal('show');
@@ -164,7 +185,7 @@ $(document).ready(function() {
 	$(document).on("click", ".pDeleteBtn", function() {
 		$(this).closest(".saleListItem").remove();
 	});
-	
+
 
 	// 모달 저장 버튼 클릭 이벤트
 	$("#orderModal").on("click", ".btn-primary", function() {
@@ -174,6 +195,13 @@ $(document).ready(function() {
 		var m_sdate = formattedDate;
 		var m_manager = $("#m_manager").val();
 		var m_note = $("#m_note").val();
+		var md_quantity = $("#md_quantity").val();
+		var s_date = formattedDate;
+		var cust_no = $("#cust_no").val();
+
+
+		var f_id = $('#orderModal').data('f_id');
+		var p_itemcode = $('#orderModal').data('p_itemcode');
 
 
 		$.ajax({
@@ -183,12 +211,19 @@ $(document).ready(function() {
 			data: JSON.stringify({
 				m_sdate: m_sdate,
 				m_manager: m_manager,
-				m_note: m_note
+				m_note: m_note,
+				f_id: f_id,
+				p_itemcode: p_itemcode,
+				md_quantity: md_quantity,
+				cust_no: cust_no,
+				s_date: s_date
 			}),
 			success: function(response) {
 				console.log("데이터 삽입 성공:", response);
+
 				$('#orderModal').modal('hide');
 				$("#pOrderBtn").addClass("btn-danger").prop("disabled", true);
+
 			},
 			error: function(error) {
 				console.error("데이터 삽입 실패:", error);
@@ -196,15 +231,15 @@ $(document).ready(function() {
 		});
 	});
 
-	// 구매 등록 
+	// 판매 등록 
 	$("#saleApplyBtn").click(function() {
 		var s_title = $("#s_title").val();
 		var s_note = $("#s_note").val();
 		var cust_no = $("#cust_no").val();
 		var emp_no = $("#emp_no").val();
 		var s_manager = $("#s_manager").val();
-		
-		
+
+
 
 		var today = new Date();
 		var formattedDate = today.toISOString().slice(0, 10).replace(/-/g, '');
@@ -212,6 +247,32 @@ $(document).ready(function() {
 
 		// 발주 버튼 상태에 따라 판매 상태 변경
 		var s_status = $("#pOrderBtn").hasClass("btn-danger") ? 2 : 0;
+
+
+		// 금일 거래 조회 
+		$.ajax({
+
+			type: "POST",
+			url: "/checkSaleTransaction",
+			contentType: 'application/json',
+			data: JSON.stringify({
+				cust_no: cust_no,
+				s_date: s_date
+
+			}),
+			success: function(response) {
+
+				if (response == 0) {
+					registerPurchase();
+				} else {
+					alert("해당 거래처의 금일 등록된 거래가 있습니다.");
+				}
+			},
+			error: function(error) {
+				console.error("이전 거래 이력 확인 실패:", error);
+			}
+		});
+
 
 		// 제품 목록 수집
 		var productList = [];
@@ -229,33 +290,37 @@ $(document).ready(function() {
 				cust_no: cust_no,
 				s_date: s_date
 			});
-		console.log(productList);
+			console.log(productList);
 		});
 
-		$.ajax({
-			type: "POST",
-			url: "/saleApplyWrite",
-			contentType: 'application/json',
-			data: JSON.stringify({
-				s_title: s_title,
-				s_note: s_note,
-				cust_no: cust_no,
-				s_date: s_date,
-				emp_no: emp_no,
-				s_manager: s_manager,
-				s_status: s_status, 
-				productList: productList
-			}),
-			success: function(response) {
-				console.log("판매 등록 성공:", response);
 
-				var redirectURL = "http://localhost:8587/saleDetail?cust_no=" + cust_no + "&s_date=" + s_date;
-				window.location.href = redirectURL;
-			},
-			error: function(error) {
-				console.error("판매 등록 실패:", error);
-			}
-		});
+		function registerPurchase() {
+			$.ajax({
+				type: "POST",
+				url: "/saleApplyWrite",
+				contentType: 'application/json',
+				data: JSON.stringify({
+					s_title: s_title,
+					s_note: s_note,
+					cust_no: cust_no,
+					s_date: s_date,
+					emp_no: emp_no,
+					s_manager: s_manager,
+					s_status: s_status,
+					productList: productList
+				}),
+				success: function(response) {
+					console.log("판매 등록 성공:", response);
+
+					var redirectURL = "http://localhost:8587/saleDetail?cust_no=" + cust_no + "&s_date=" + s_date;
+					window.location.href = redirectURL;
+				},
+				error: function(error) {
+					console.error("판매 등록 실패:", error);
+				}
+			});
+
+		}
 	});
 
 });

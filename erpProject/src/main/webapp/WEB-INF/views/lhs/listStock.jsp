@@ -70,18 +70,15 @@ $(document).ready(function () {
         var year = selectedDate.substring(0, 4); // 연도 추출
         var month = selectedDate.substring(5, 7); // 월 추출
         var formattedDate = year + month; // 형식 변환
-        var emp_no = ${empData.emp_no}; 
         
         $.ajax({
             url: "lhsListStock", // 컨트롤러 URL 설정
             type: "GET", // GET 또는 POST
             data: { 
-            	st_year_month: formattedDate,
-            	emp_no: emp_no
+            	st_year_month: formattedDate
             },
             success: function (data) {
-            	window.location.href = "lhsListStock?st_year_month=" + formattedDate
-            										+ "&emp_no=" + emp_no;
+            	window.location.href = "lhsListStock?st_year_month=" + formattedDate;
             },
             error: function (xhr, status, error) {
                 // 오류 발생 시 처리할 코드 작성
@@ -95,20 +92,17 @@ $(document).ready(function () {
          // 선택된 날짜와 구분 값 가져오기
          var selectedDate = ${stock.st_year_month}; // 변경된 날짜 가져오기
          var selectedOption = $("#filterOptions").val(); // 변경된 구분 가져오기
-         var emp_no = ${empData.emp_no};
 
          $.ajax({
              url: "lhsListStock", // 컨트롤러 URL 설정
              type: "GET", // GET 또는 POST
              data: { 
                  st_year_month: selectedDate,
-                 gubun: selectedOption,
-                 emp_no: emp_no
+                 gubun: selectedOption
              },
              success: function (data) {
             	 window.location.href = "lhsListStock?st_year_month=" + selectedDate 
-            			 								+ "&gubun=" + selectedOption
-            			 								+ "&emp_no=" + emp_no;
+            			 								+ "&gubun=" + selectedOption;
              },
              error: function (xhr, status, error) {
                  // 오류 발생 시 처리할 코드 작성
@@ -201,22 +195,22 @@ $(document).ready(function () {
 				<c:if test="${page.startPage > page.pageBlock }">
 					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${page.startPage-page.pageBlock}
 																						&st_year_month=${stock.st_year_month }
-																						&gubun=${param.gubun }&emp_no=${empData.emp_no}">◁</a>
+																						&gubun=${param.gubun }">◁</a>
 				</c:if>
 				<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
 					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${i}&st_year_month=${stock.st_year_month }
-																						&gubun=${param.gubun }&emp_no=${empData.emp_no}">${i}</a>
+																						&gubun=${param.gubun }">${i}</a>
 				</c:forEach>
 				<c:if test="${page.endPage < page.totalPage }">
 					<li class="page-item"><a class="page-link" href="lhsListStock?currentPage=${page.startPage+page.pageBlock}
 																						&st_year_month=${stock.st_year_month }
-																						&gubun=${param.gubun }&emp_no=${empData.emp_no}">▷</a>
+																						&gubun=${param.gubun }">▷</a>
 				</c:if>	
 			</ul>
 		</nav>
-		<c:if test="${empData.emp_role == 'role_admin'}">
+		<c:if test="${empData.empRole == 'role_admin'}">
 				<button type="button" class="btn btn-primary" id="buyProBtn"
-					onclick="location.href='lhsManageFormRegistStock?emp_no=${empData.emp_no}'">관리</button>
+					onclick="location.href='lhsManageFormRegistStock'">관리</button>
 		</c:if>
     </div> 
    

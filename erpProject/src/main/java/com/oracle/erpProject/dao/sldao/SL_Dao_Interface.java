@@ -85,7 +85,7 @@ public interface SL_Dao_Interface {
 
 	List<SLSale> saleProductDetail(SLSale sale);
 
-	List<SLProduct> saleProductList();
+	List<SLProduct> saleProductList(SLSale sale);
 
 
 	int saleMakeRequest(SLMake make);
@@ -99,6 +99,12 @@ public interface SL_Dao_Interface {
 	int saleModify(SLSale sale);
 
 	int saleStatusChange(SLSale sale);
+
+	SLMake getMakeItemCode(SLMake make);
+
+	int checkTransaction(SLBuying buying);
+
+	int checkSaleTransaction(SLSale sale);
 
 
 
