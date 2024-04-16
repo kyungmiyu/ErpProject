@@ -171,28 +171,49 @@ $(document).ready(function () {
           var quantity = $(".quantity").val();
           var regdate = $(".regdate").val();
           
-          if ($("#resultList").find("td:first-child").filter(function() {
-              return $(this).text() === itemCode;
-          }).length > 0) {
-              alert("이미 리스트에 있는 제품코드입니다.");
-              
-              $(".itemCode").val("");
-              $(".itemName").val("");
-              $(".quantity").val("");
-              $(".regdate").val("");
-              return;
-          }
           
-          // 리스트에 추가
-          var listItem = "<tr><td>" + itemCode + "</td><td>" + itemName + "</td>"+
-         					"<td>" + quantity + "</td><td>" + regdate + "</td>"+
-          					"<td><button type='button' class='btn btn-danger deleteBtn'>삭제</button></td></tr>";
-          $("#resultList").append(listItem);
+          $.ajax({
+              url: "lhsCheckExistenceNewItem",
+              type: "GET",
+              data: {
+                  p_itemcode: itemCode
+              },
+              success: function(response) {
+                  if (response > 0) {
+                      alert("이미 등록된 제품입니다.");
+                      return;
+                  } else {
+                	  
+                      if ($("#resultList").find("td:first-child").filter(function() {
+                          return $(this).text() === itemCode;
+                      }).length > 0) {
+                          alert("이미 리스트에 있는 제품코드입니다.");
+                          
+                          $(".itemCode").val("");
+                          $(".itemName").val("");
+                          $(".quantity").val("");
+                          $(".regdate").val("");
+                          return;
+                      }
+                      
+                      // 리스트에 추가
+                      var listItem = "<tr><td>" + itemCode + "</td><td>" + itemName + "</td>"+
+                     					"<td>" + quantity + "</td><td>" + regdate + "</td>"+
+                      					"<td><button type='button' class='btn btn-danger deleteBtn'>삭제</button></td></tr>";
+                      $("#resultList").append(listItem);
+                      
+                      $(".itemCode").val("");
+                      $(".itemName").val("");
+                      $(".quantity").val("");
+                      $(".regdate").val("");
+                  }
+              },
+              error: function(xhr, status, error) {
+                  console.error("Error occurred:", error);
+              }
+          });
           
-          $(".itemCode").val("");
-          $(".itemName").val("");
-          $(".quantity").val("");
-          $(".regdate").val("");
+
       });
  	
     // 삭제버튼 클릭 시
@@ -303,7 +324,6 @@ $(document).ready(function () {
 		</div>
 
 	<div class="temporayBtn">
-   	<button type="button" class="btn btn-primary" id="searchBtn">검색</button>
    	<button type="button" class="btn btn-primary" id="registBtn">등록</button>
   	</div>
    	</div>

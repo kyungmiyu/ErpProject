@@ -285,6 +285,9 @@ $(document).ready(function () {
 						<option value="ing" 
 							<c:if test ="${param.gubun == 'ing'}">
 								selected</c:if>>${rnpc.rnpc_filter }진행</option>
+						<option value="cancel" 
+							<c:if test ="${param.gubun == 'cancel'}">
+								selected</c:if>>${rnpc.rnpc_filter }취소</option>
 						<option value="complete" 
 							<c:if test ="${param.gubun == 'complete'}">
 								selected</c:if>>${rnpc.rnpc_filter }완료</option>

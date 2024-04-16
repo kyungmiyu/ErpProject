@@ -46,8 +46,8 @@ public interface LHS_Dao {
 	// 제품 상세정보 조회
 	Product getDataProduct(Product product);
 	
-	// 신제품 등록여부 확인
-	Product checkExistenceNewItem(Product product);
+	// 신제품 재고등록 여부 확인
+	int checkExistenceNewItem(Product product);
 
 	// 신제품 기초재고 등록
 	int registStockNewItem(Stock stock);

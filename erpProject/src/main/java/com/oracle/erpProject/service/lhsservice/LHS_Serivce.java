@@ -46,7 +46,7 @@ public interface LHS_Serivce {
 	Product getDataProduct(Product product);
 	
 	// 신제품 등록여부 확인
-	Product checkExistenceNewItem(Product product);
+	int checkExistenceNewItem(Product product);
 	
 	// 신제품 기초재고 등록
 	int registStockNewItem(Stock stock);
