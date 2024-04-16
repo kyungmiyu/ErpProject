@@ -270,7 +270,7 @@
 	position: absolute;
 	top: 75px;
 	left: 23px;
-	width: 100px;
+	width: 120px;
 	height: 40px;
 	text-align: center;
 	font-weight: bold;
@@ -279,4 +279,15 @@
 	border-radius: 10px;
 	color: white;
 	background-color: #5e72e4d9;
+}
+
+/* 생산 요청한 아이템 표시 */
+.makeItem {
+	position:absolute;
+	margin-top: 15px;
+	border-radius: 10px;
+	right: 50px;
+    background-color: #5e72e4d9; 
+    font-weight: bord;
+    color: white;
 }

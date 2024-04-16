@@ -98,7 +98,7 @@
 	                    <input value="${productDetail.p_name}" disabled="disabled">
 	                    <input value="${productDetail.bd_price}" disabled="disabled">
 	                    <input class="bdCnt" value="${productDetail.bd_cnt}" disabled="disabled">
-	                    <input value="${productDetail.totalMoney}" disabled="disabled">
+	                    <input value="${productDetail.totalMoney}" disabled="disabled"> 
 	                    <button type="button" class="btn btn-primary pModifyBtn" id="pModifyBtn"> 수정</button>
 	                    <button type="button" class="btn btn-primary pDeleteBtn" id="pDeleteBtn"> 삭제</button>
 	                </li>
@@ -106,12 +106,14 @@
         </ul>
     </div>
 </div>
+ <c:if test="${sessionScope.dept_no == 3}"> 
 	<c:choose>
     <c:when test="${buyingDetail.buy_status_detail eq '구매 진행중'}">
         <button type="button" class="btn btn-primary" id="buyModify">수정</button>
         <button type="button" class="btn btn-primary" id="buyComple">완료</button>
     </c:when>
 </c:choose>
+</c:if>
     </div> 
    
     <!-- ****** 공통 : 테이블 끝 ****** -->
