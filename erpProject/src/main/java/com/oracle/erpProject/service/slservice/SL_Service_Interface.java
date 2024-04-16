@@ -110,6 +110,8 @@ public interface SL_Service_Interface {
 
 	int checkSaleTransaction(SLSale sale);
 
+	int productSaleCntModify(SLSale sale);
+
 	
 
 

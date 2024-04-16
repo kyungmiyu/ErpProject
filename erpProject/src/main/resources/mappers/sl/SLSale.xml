@@ -23,6 +23,7 @@
 			    c.CUST_NAME,
 			    CASE
 			        WHEN s.s_status = 0 THEN '판매 진행중'
+			        WHEN s.s_status = 1 THEN '판매 취소'
 			        WHEN s.s_status = 2 THEN '생산 작업 요청'
 			        WHEN s.s_status = 3 THEN '생산 완료'
 			        WHEN s.s_status = 4 THEN '판매 완료'
@@ -81,6 +82,7 @@
 				c.CUST_NAME,
 			CASE
 				WHEN s.s_status = 0 THEN '판매 진행중'
+				WHEN s.s_status = 1 THEN '판매 취소'
 		        WHEN s.s_status = 2 THEN '생산 작업 요청'
 		        WHEN s.s_status = 3 THEN '생산 완료'
 		        WHEN s.s_status = 4 THEN '판매 완료'
@@ -141,6 +143,7 @@
 				c.CUST_NAME,
 			CASE
 				WHEN s.s_status = 0 THEN '판매 진행중'
+				WHEN s.s_status = 1 THEN '판매 취소'
 		        WHEN s.s_status = 2 THEN '생산 작업 요청'
 		        WHEN s.s_status = 3 THEN '생산 완료'
 		        WHEN s.s_status = 4 THEN '판매 완료'
@@ -201,6 +204,7 @@
 			c.CUST_NAME,
 		CASE
 			WHEN s.s_status = 0 THEN '판매 진행중'
+			WHEN s.s_status = 1 THEN '판매 취소'
 	        WHEN s.s_status = 2 THEN '생산 작업 요청'
 	        WHEN s.s_status = 3 THEN '생산 완료'
 	        WHEN s.s_status = 4 THEN '판매 완료'
@@ -239,6 +243,7 @@
 		    c.cust_name,
 	    CASE     
 			WHEN s.s_status = 0 THEN '판매 진행중'
+			WHEN s.s_status = 1 THEN '판매 취소'
 	        WHEN s.s_status = 2 THEN '생산 작업 요청'
 	        WHEN s.s_status = 3 THEN '생산 완료'
 	        WHEN s.s_status = 4 THEN '판매 완료'
@@ -337,11 +342,21 @@
 		and cust_no = #{cust_no}		
 	</select>
 	
-		<select id="LslcheckSaleTransaction" parameterType="SLSale" resultType="int">
-			select count(*)
-			from sale
-			where s_date = #{s_date}
-			and cust_no = #{cust_no}
-		</select>
+	<select id="LslcheckSaleTransaction" parameterType="SLSale" resultType="int">
+		select count(*)
+		from sale
+		where s_date = #{s_date}
+		and cust_no = #{cust_no}
+	</select>
+	
+	<update id="LslproductSaleCntModify" parameterType="SLSale">
+	   UPDATE sale_detail
+       SET sd_cnt = #{sd_cnt}
+       WHERE s_date = #{s_date}
+       AND cust_no = #{cust_no}
+       AND p_itemcode = #{p_itemcode}
+	
+	
+	</update>
 	
 </mapper>

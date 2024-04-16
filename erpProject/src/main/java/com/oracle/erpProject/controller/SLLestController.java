@@ -225,5 +225,17 @@ public class SLLestController {
 
 		return result;
 	}
+	
+	
+	// 판매 상세페이지 제품 수정
+	@PostMapping("/productSaleCntModify")
+	public int productSaleCntModify(@RequestBody SLSale sale) {
+		System.out.println("productSaleCntModify >>>>>" + sale);
+		int productCntModify = slService.productSaleCntModify(sale);
+		System.out.println("productSaleCntModify >>>>>" + productCntModify);
+
+		return productCntModify;
+	}
+	
 
 }

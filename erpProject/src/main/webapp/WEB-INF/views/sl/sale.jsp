@@ -48,6 +48,7 @@
 			  <select class="form-control" id="optionBox" name="choices-button" id="choices-button">
 				  <option value="" selected="">진행 상태</option>
 				  <option value="0">판매 진행중</option>
+				  <option value="1">판매 취소</option>
 				  <option value="2">생산 작업 요청</option>
 				  <option value="3">생산 완료</option>
 				  <option value="4">판매 완료</option>

@@ -374,6 +374,14 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		return checkSaleTransaction;
 	}
 
+	@Override
+	public int productSaleCntModify(SLSale sale) {
+	
+		int productSaleCntModify = slDao.productSaleCntModify(sale);
+		
+		return productSaleCntModify;
+	}
+
 
 	
 

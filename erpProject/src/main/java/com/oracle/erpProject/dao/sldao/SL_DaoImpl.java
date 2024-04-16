@@ -473,6 +473,14 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		return checkSaleTransaction;
 	}
 
+	@Override
+	public int productSaleCntModify(SLSale sale) {
+		
+		int productSaleCntModify = session.update("LslproductSaleCntModify", sale);
+		
+		return productSaleCntModify;
+	}
+
 	
 
 	
