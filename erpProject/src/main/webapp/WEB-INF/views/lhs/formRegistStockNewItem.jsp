@@ -38,7 +38,7 @@
 	
 	.form-control {
 		width: 250px;
-		margin-left: 70px;
+		margin-left: 0px;
 	}
 	
 	.temporayBtn {
@@ -61,6 +61,12 @@
 	    background-color: #d3d3d3; /* 클릭 시 회색 계열로 변경 */
 	    border-color: #d3d3d3; /* 테두리 색상도 함께 변경 */
 	    color: #fff; /* 텍스트 색상을 흰색으로 변경 */
+	}
+	
+	#selectItemCode {
+		width: 300px; /* 화면 폭의 절반을 차지하도록 설정 */
+		height: 35px;
+		padding-left: 15px;
 	}
 	
 	.input-group {
@@ -91,51 +97,71 @@ document.addEventListener("DOMContentLoaded", function() {
 
 $(document).ready(function () {
 	
- 	// 검색버튼 클릭 시
- 	$("#searchBtn").click(function() {
- 		
- 	    var empNo = ${empData.empNo};
- 	    var itemCode = $(".itemCode").val();
- 	        
- 	        $.ajax({
- 	            url: "lhsCheckExistenceNewItem",
- 	            type: "GET",
- 	            data: { 
- 	                p_itemcode: itemCode,
- 	               empNo: empNo
- 	            },
- 	            success: function(data) {
- 	            	 
-            	    if (data.p_name === 'null') {
-            	        alert("등록되지 않은 제품입니다. 다시 입력해주세요");
-            	        $(".itemCode").val("");
-                	    $(".itemName").val("");
-                        $(".quantity").val("");
-                        $(".regdate").val("");
-                	    return;
-            	    }
-            	    
-            	    if (data.p_name === 'already') {
-            	        alert("이미 기초재고 등록된 제품입니다.");
-            	        $(".itemCode").val("");
-                	    $(".itemName").val("");
-                        $(".quantity").val("");
-                        $(".regdate").val("");
-                	    return;
-            	    }
-	            	
- 	               // 가져온 데이터를 각 입력란에 채워 넣기
- 	               $(".itemName").val(data.p_name);
- 	               $(".quantity").val(0);
- 	               $(".regdate").val(data.p_regdate.substring(0, 10));
- 	                
- 	            },
- 	            error: function(xhr, status, error) {
- 	                // 오류 발생 시 처리할 코드 작성
- 	            	alert("제품코드를 입력 후 검색버튼을 눌러주세요.");
- 	            }
- 	        });
- 	});
+    var empNo = ${empData.empNo};
+    
+    $.ajax({
+        url: "lhsListProduct",
+        type: "GET",
+        data: {
+        	empNo : empNo
+        },
+        dataType: "json",
+        success: function (data) {
+        	
+            var options = "";
+            for (var i=0; i< data.length; i++) {
+            options += "<option value='" + data[i].p_itemcode + "'>" + data[i].p_name + "</option>";
+            }
+            
+            $("#selectItemCode").html(options);
+            
+            // 처음 드롭다운 메뉴 구성 후 data[0] 상세정보 제공
+            var p_itemcode = data[0].p_itemcode;
+            
+            $.ajax({
+                type: "GET",
+                url: "lhsGetDataProduct",
+                data: {p_itemcode: p_itemcode},
+                dataType: "json",
+                success: function(data) {
+                	
+               	   $(".itemCode").val(data.p_itemcode);
+               	   $(".itemName").val(data.p_name);
+                   $(".quantity").val(0);
+                   $(".regdate").val(data.p_regdate);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("Error: " + textStatus + " - " + errorThrown);
+                }
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error("Error occurred:", error);
+        }
+    });
+
+
+	$("#selectItemCode").change(function() {
+	    var p_itemcode = $(this).val();
+	    
+	    $.ajax({
+	        type: "GET",
+	        url: "lhsGetDataProduct",
+	        data: {p_itemcode: p_itemcode},
+	        dataType: "json",
+	        success: function(data) {
+	        	
+	       	   $(".itemCode").val(data.p_itemcode);
+	       	   $(".itemName").val(data.p_name);
+	           $(".quantity").val(0);
+	           $(".regdate").val(data.p_regdate);
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            console.log("Error: " + textStatus + " - " + errorThrown);
+	        }
+	    });
+	});
+ 
  	
  	// 등록버튼 클릭 시
      $("#registBtn").click(function() {
@@ -144,16 +170,6 @@ $(document).ready(function () {
           var itemName = $(".itemName").val();
           var quantity = $(".quantity").val();
           var regdate = $(".regdate").val();
-          
-          if (itemCode === "" || itemName === "" || quantity === "" || regdate === "") {
-        	    alert("제품코드를 입력 후 검색버튼을 눌러주세요.");
-        	    
-        	    $(".itemCode").val("");
-                $(".itemName").val("");
-                $(".quantity").val("");
-                $(".regdate").val("");
-        	    return;
-        	}
           
           if ($("#resultList").find("td:first-child").filter(function() {
               return $(this).text() === itemCode;
@@ -259,10 +275,11 @@ $(document).ready(function () {
 	                    </div>
 	                    
 	                    <div class="row">
-	                    	  <div class="input-group">
+                    	  <div class="input-group">
 	                    	  	<span class="input-group-text" ><i class="fa-solid fa-calendar-days" ></i></span>
 							    <input type="text" class="form-control sysdate" readonly>
-							  </div>
+						  </div>
+						  <select class="form-select mr-2" name="search" id="selectItemCode"></select>
 				  		</div>
 				  </div>
 			</div>
@@ -271,7 +288,7 @@ $(document).ready(function () {
 	 
 	 	<div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel">제품코드</label>
-		    <input type="text" class="form-control itemCode" id="detailTitle" placeholder="">
+		    <input type="text" class="form-control itemCode" id="detailTitle" placeholder="" readonly>
 		  	<label for="detailManager" id="detailManagerLabel">제품명</label>
 		    <input type="text" class="form-control itemName" id="detailManager" placeholder="" readonly>
 		  </div>

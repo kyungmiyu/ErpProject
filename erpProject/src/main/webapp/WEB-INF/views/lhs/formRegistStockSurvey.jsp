@@ -98,7 +98,7 @@ $(document).ready(function () {
         var gubun = "end";
         
 	    $.ajax({
-	        url: "lhsListItem",
+	        url: "lhsListStockEnd",
 	        type: "GET",
 	        data: {
 	        	st_year_month: year_month,
@@ -120,7 +120,7 @@ $(document).ready(function () {
                 
                 $.ajax({
                     type: "GET",
-                    url: "lhsGetDataProduct",
+                    url: "lhsGetDataStockProduct",
                     data: {p_itemcode: p_itemcode},
                     dataType: "json",
                     success: function(data) {
@@ -146,7 +146,7 @@ $(document).ready(function () {
         
         $.ajax({
             type: "GET",
-            url: "lhsGetDataProduct",
+            url: "lhsGetDataStockProduct",
             data: {p_itemcode: p_itemcode},
             dataType: "json",
             success: function(data) {

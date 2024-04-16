@@ -37,6 +37,13 @@ public interface LHS_Serivce {
 	/********************************************/
 		/* 기초재고조사 등록 */
 	
+	// 제품 total수 조회
+	int getTotalProduct(Product product);
+	// 제품 리스트 조회
+	List<Product> getListProduct (Product product);
+	
+	// 제품 상세정보 조회
+	Product getDataProduct(Product product);
 	
 	// 신제품 등록여부 확인
 	Product checkExistenceNewItem(Product product);
@@ -49,7 +56,7 @@ public interface LHS_Serivce {
 		/* 실사 재고조사 등록 */
 
 	// 실사 재고조사 물품 상세정보 조회
-	Product getDataProduct(Product product);
+	Product getDataStockProduct(Product product);
 	
 	// 1. 수불마감 구분 확인 (프로시져 호출)
 	void checkGubunRnPClosing(Map<String, Object> params);

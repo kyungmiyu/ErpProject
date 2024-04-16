@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -178,6 +179,53 @@ public class LHSController {
 
 		return "lhs/formRegistStockNewItem";
 	}
+	
+	// 제품 리스트 조회
+	@ResponseBody
+	@RequestMapping(value = "lhsListProduct")
+	public List<Product> lhsListProduct (Product product, HttpSession session, Model model) {
+		
+		System.out.println("lhsController lhsListProduct start...");
+		
+		// 제품 total수 조회
+		int totalProduct = lhs.getTotalProduct(product);
+		System.out.println("getTotalProduct totalProduct-> " + totalProduct);
+		
+		// paging
+		product.setStart(1);
+		product.setEnd(totalProduct);
+
+		// 제품 리스트 조회
+		List<Product> listProduct = lhs.getListProduct(product);
+		System.out.println("getListProduct listSize-> " + listProduct.size());
+		return listProduct;
+	}
+	
+	// 제품 상세정보 조회
+	@ResponseBody
+	@RequestMapping(value = "lhsGetDataProduct")
+	public Product lhsGetDataProduct(Product product, Model model) {
+		System.out.println("lhsController lhsGetDataProduct start...");
+		
+		// 제품정보 조회
+		Product productData = lhs.getDataProduct(product);
+		
+		String dateString = productData.getP_regdate();
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date date = inputFormat.parse(dateString);
+            productData.setP_regdate(outputFormat.format(date)); 
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+		
+		System.out.println("getDataProduct p_itemcode-> " + productData.getP_itemcode());
+		
+		return productData; 
+		
+	}
 
 	// 신제품 등록여부 확인
 	@ResponseBody
@@ -205,7 +253,7 @@ public class LHSController {
 		// 신제품 기초재고, 수불마감 등록 확인
 		for (Stock stock : listStock) { 
 			resultRegistStock = lhs.registStockNewItem(stock);
-			if (resultRegistStock == 1) resultCntRegistStock+=1; 
+			if (resultRegistStock == 2) resultCntRegistStock+=2; 
 		}
 		  
 		System.out.println("registStockNewItem resultCnt-> " + resultCntRegistStock);
@@ -246,8 +294,8 @@ public class LHSController {
 	
 	// 실사재고조사용 물품리스트 조회
 	@ResponseBody
-	@RequestMapping(value = "lhsListItem")
-	public List<Stock> lhsListItem(Stock stock, HttpSession session, Model model) {
+	@RequestMapping(value = "lhsListStockEnd")
+	public List<Stock> lhsListStockEnd(Stock stock, HttpSession session, Model model) {
 		
 		System.out.println("lhsController lhsListItem start...");
 		
@@ -268,15 +316,15 @@ public class LHSController {
 	
 	// 실사재고조사용 물품 상세정보 조회
 	@ResponseBody
-	@RequestMapping(value = "lhsGetDataProduct")
-	public Product lhsGetDataProduct(Product product, Model model) {
-		System.out.println("lhsController lhsGetDataProduct start...");
+	@RequestMapping(value = "lhsGetDataStockProduct")
+	public Product lhsGetDataStockProduct(Product product, Model model) {
+		System.out.println("lhsController lhsGetDataStockProduct start...");
 		
 		// 제품정보 조회
-		Product productData = lhs.getDataProduct(product);
-		System.out.println("getDataProduct p_itemcode-> " + productData.getP_itemcode());
+		Product stockProductData = lhs.getDataStockProduct(product);
+		System.out.println("getDataStockProduct p_itemcode-> " + stockProductData.getP_itemcode());
 		
-		return productData; 
+		return stockProductData; 
 		
 	}
 

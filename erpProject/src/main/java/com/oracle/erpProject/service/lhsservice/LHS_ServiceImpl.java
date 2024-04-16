@@ -66,6 +66,29 @@ public class LHS_ServiceImpl implements LHS_Serivce {
 	/****************************************************************************/
 		/* 기초재고조사 등록 */
 	
+	// 제품 total수 조회
+	@Override
+	public int getTotalProduct(Product product) {
+		int totalProduct = 0;
+		totalProduct = lhs.getTotalProduct(product);
+		return totalProduct;
+	}
+
+	// 제품 리스트 조회
+	@Override
+	public List<Product> getListProduct(Product product) {
+		List<Product> listProduct = null;
+		listProduct = lhs.getListProduct(product);
+		return listProduct;
+	}
+	
+	// 제품 상세정보 조회
+	@Override
+	public Product getDataProduct(Product product) {
+		Product productData = null;
+		productData = lhs.getDataProduct(product);
+		return productData;
+	}
 	
 	// 신제품 등록여부 확인 
 	@Override
@@ -91,9 +114,9 @@ public class LHS_ServiceImpl implements LHS_Serivce {
 	
 	// 실사 재고조사 물품 상세정보 조회
 	@Override
-	public Product getDataProduct(Product product) {
+	public Product getDataStockProduct(Product product) {
 		Product productData = null;
-		productData = lhs.getDataProduct(product);
+		productData = lhs.getDataStockProduct(product);
 		return productData;
 	}
 	
@@ -231,6 +254,7 @@ public class LHS_ServiceImpl implements LHS_Serivce {
 		resultStatus = lhs.monthlyClosing(rnpc);
 		return resultStatus;
 	}
+
 
 
 }
