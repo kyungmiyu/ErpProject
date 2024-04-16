@@ -5,7 +5,7 @@
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="/adminHome" target="_blank">
+      <a class="navbar-brand m-0" href="/adminHome">
         <img src="./assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold">ERP PROJECT</span>
       </a>
@@ -60,7 +60,7 @@
           </a>
         </li>
         <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">관리</h6>
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">재고</h6>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="./pages/billing.html">
@@ -76,6 +76,33 @@
               <i class="ni ni-chart-pie-35 text-sm opacity-10" style="color:#3d8bfd"></i>
             </div>
             <span class="nav-link-text ms-1">수불마감관리</span>
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">관리</h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="./pages/tables.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-chart-bar-32 text-sm opacity-10" style="color:#bf360c"></i>
+            </div>
+            <span class="nav-link-text ms-1">제품</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="./pages/tables.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-chart-bar-32 text-sm opacity-10" style="color:#bf360c"></i>
+            </div>
+            <span class="nav-link-text ms-1">공장</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="./pages/tables.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-chart-bar-32 text-sm opacity-10" style="color:#bf360c"></i>
+            </div>
+            <span class="nav-link-text ms-1">거래처</span>
           </a>
         </li>
       </ul>

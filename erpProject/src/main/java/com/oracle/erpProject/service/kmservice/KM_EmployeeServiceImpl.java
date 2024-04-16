@@ -1,9 +1,10 @@
 package com.oracle.erpProject.service.kmservice;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.dao.kmdao.EmployeeDaoImpl;
@@ -17,6 +18,9 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 	
 	@Override
 	public Employee registEmployee(Employee employee) {
+		if (employee.getEmpRetiredDate() == null) {
+			employee.setEmpWdate(Timestamp.valueOf(LocalDateTime.now()));
+	    }
 		return employeeDaoImpl.registEmployee(employee);
 	}
 	
@@ -27,6 +31,9 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 	
 	@Override
 	public Employee updateEmployee(Employee employee) {
+		if (employee.getEmpRetiredDate() == null) {
+			employee.setEmpWdate(Timestamp.valueOf(LocalDateTime.now()));
+	    }
 		return employeeDaoImpl.updateEmployee(employee);
 	}
 
@@ -34,11 +41,7 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 	public Employee deleteEmployee(Employee employee) {
 		return null;
 	}
-	
-	@Override
-	public Employee findByEmpNo(int empNo) {
-		return employeeDaoImpl.findByEmpNo(empNo);
-	}
+
 	/*
 	@Override
 	public List<Employee> getEmployeeList(int size, int offset, String searchType, String searchValue) {
@@ -52,10 +55,12 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 
 	public List<Employee> getEmpList(String searchType, String searchValue) {
 		return employeeDaoImpl.getEmpList(searchType, searchValue);
-	};
-	
-	
-	
+	}
 
+	@Override
+	public Employee findByEmpNo(int empNo) {
+		return employeeDaoImpl.findByEmpNo(empNo);
+	}
+	
 
 }

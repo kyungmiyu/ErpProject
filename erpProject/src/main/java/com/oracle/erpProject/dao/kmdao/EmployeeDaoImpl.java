@@ -12,6 +12,7 @@ import com.oracle.erpProject.domain.Employee;
 import com.oracle.erpProject.repository.EmployeeRepository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -40,8 +41,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public Employee updateEmployee(Employee employee) {
-		employeeRepository.findById(employee.getEmpNo()).get();
-		return employeeRepository.save(employee);
+		Employee originEmployee = employeeRepository.findById(employee.getEmpNo()).get();
+		entityManager.merge(employee); 
+		// originEmployee.setEmpWdate(employee.getEmpWdate());
+		// originEmployee.setEmpPassword(employee.getEmpPassword());
+		return employeeRepository.save(originEmployee);
 	}
 
 	@Override
@@ -55,6 +59,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return employeeRepository.findAll().size();
 	}
 
+	// list
 	@Override
 	public List<Employee> getEmpList(String searchType, String searchValue) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -69,13 +74,44 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		} else if (searchType.equals("D")) {
 			searchPredicate = criteriaBuilder.equal(employee.get("deptNo"), searchValue);
 		}
-		criteriaQuery.where(searchPredicate, searchPredicate);
+		if (searchPredicate != null) {
+	        criteriaQuery.where(searchPredicate);
+	    }
+		//criteriaQuery.where(searchPredicate, searchPredicate);
 		criteriaQuery.orderBy(criteriaBuilder.desc(employee.get("empNo")));
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
 /*
-	// paging and search
+	@Override
+	public List<Employee> getEmpList(String searchType, String searchValue) {
+	    System.out.println("Search Type: " + searchType + ", Search Value: " + searchValue);
+		
+	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	    CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+
+	    Root<Employee> employee = criteriaQuery.from(Employee.class);
+
+	    Predicate searchPredicate = null;
+	    searchType = (searchType == null) ? "" : searchType;
+	    if (searchType.equals("E")) {
+	        searchPredicate = criteriaBuilder.equal(employee.get("empName"), searchValue);
+	    } else if (searchType.equals("D")) {
+	        searchPredicate = criteriaBuilder.equal(employee.get("deptNo"), searchValue);
+	    }
+
+	    if (searchPredicate != null) {
+	        criteriaQuery.where(searchPredicate);
+	    }
+	    
+	    criteriaQuery.orderBy(criteriaBuilder.desc(employee.get("empNo")));
+	    return entityManager.createQuery(criteriaQuery).getResultList();
+	}
+
+*/
+	
+/*
+	// paging and search 버전 문제로 실행 불가 (oracle 12이하 실행 안 됨)
 	@Override
 	public List<Employee> getEmployeeList(int size, int offset, String searchType, String searchValue) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -99,7 +135,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		 return typedQuery.getResultList();
 	}
 */
-	
 
 	
 }

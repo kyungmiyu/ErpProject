@@ -60,7 +60,7 @@ public class KMController {
 	@PostMapping(value="/loginProc")
 	public String loginProc(HttpServletRequest request, @RequestParam("empNo") String empNo, @RequestParam("empPassword") String empPassword, Model model) {
 		System.out.println("KMController loginPage start...*");
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
 		Employee employee = employeeServiceImpl.findByEmpNo(Integer.parseInt(empNo));
 		if (employee !=null && employee.getEmpPassword().equals(empPassword)) {
 			session.setAttribute("emp_no", empNo);
@@ -129,7 +129,8 @@ public class KMController {
 	@GetMapping(value = "/myPageForm")
 	public String myPageForm(HttpSession session, Model model) {
 		String empNo = (String) session.getAttribute("emp_no");
-		Employee employee = employeeServiceImpl.findByEmpNo(Integer.parseInt(empNo));
+		System.out.println("myPageForm empNo ->"+empNo);
+		Employee employee = employeeServiceImpl.getEmployee(Integer.parseInt(empNo));
 		model.addAttribute("employee", employee);
 		model.addAttribute("mode", "view");
 		return "km/myPageForm";
@@ -139,6 +140,8 @@ public class KMController {
 	@PostMapping(value="/myPageEditProc")
 	public String myPageEditProc(Model model, HttpSession session, Employee employee) {
 		String empNo = (String) session.getAttribute("emp_no");
+		System.out.println("myPageEditProc empNo -> "+employee);
+		System.out.println("myPageEditProc empNo ->"+empNo);
 		employee.setEmpNo(Integer.parseInt(empNo));
 		employeeServiceImpl.updateEmployee(employee);
 		model.addAttribute("mode", "edit");
@@ -185,6 +188,8 @@ public class KMController {
 		int startPageNo = pageNo - (pageNo-1) % pageCountPerBlock;
 		int endPageNo = startPageNo + pageCountPerBlock-1;
 		
+		System.out.println("searchType : " + searchType);
+		System.out.println("searchValue : " + searchValue);
 		System.out.println("totalEmployeeCount ==> " + totalPageCount);
 		System.out.println("pageNo ===> " + pageNo);
 		System.out.println("totalPageCount ===> " + totalPageCount);
@@ -208,7 +213,7 @@ public class KMController {
 		return "km/employeeRegistForm";
 	}
 	
-	// 사원 조회 및 수정
+	// 사원 조회 및 수정 --> 관리자 수정은 이거요! ㅇㅇ
 	@PostMapping(value = "/employeeEditProc")
 	public String employeeEditProc(Model model, @RequestParam("empNo") String empNo, Employee employee) {
 		model.addAttribute("mode", "edit");

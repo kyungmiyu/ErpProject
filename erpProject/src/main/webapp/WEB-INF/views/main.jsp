@@ -57,7 +57,7 @@
 						</div>
 						<div class="col-4 my-auto">
 							<div class="h-100">
-								<h5 class="mb-1">유경미</h5>
+								<h5 class="mb-1">${sessionScope.user_no}</h5>
 								<p class="mb-0 font-weight-bold text-sm">인사관리팀</p>
 							</div>
 						</div>

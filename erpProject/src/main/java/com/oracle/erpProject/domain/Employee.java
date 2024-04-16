@@ -3,6 +3,7 @@ package com.oracle.erpProject.domain;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.annotation.Nullable;
@@ -23,6 +24,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@DynamicUpdate // https://velog.io/@rudwnd33/TIL-11%EC%9B%94-28%EC%9D%BC
 public class Employee { /* KM_Employee */
 
 	@Id
@@ -54,9 +56,8 @@ public class Employee { /* KM_Employee */
 	@Temporal(value = TemporalType.DATE)
 	@Column(name="emp_hiredate")
 	private Date empHireDate; // 입사일자
-	@Temporal(value = TemporalType.DATE)
-	@Column(name = "emp_retired_date", nullable = true)
-	private Date empRetiredDate; // 퇴사일자
+	@Column(name = "emp_retired_date")
+	private String empRetiredDate; // 퇴사일자
 	@Column(name="emp_status")
 	private String empStatus; // 상태 (0: 재직 - 1: 휴직 - 9: 퇴사)
 	@Column(name="emp_role")
@@ -70,8 +71,5 @@ public class Employee { /* KM_Employee */
 	
 	@JoinColumn(name="dept_no")
 	private int deptNo; // 부서번호
-	// 전송용
-	@Transient
-	private String empRD;
 
 }
