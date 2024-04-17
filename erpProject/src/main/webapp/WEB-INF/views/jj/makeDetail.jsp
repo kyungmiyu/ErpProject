@@ -30,6 +30,8 @@ const save = function() {
     const m_due_date = encodeURIComponent(document.getElementById('m_due_date').value || '');
     const md_pro_quantity = encodeURIComponent(document.getElementById('md_pro_quantity').value || '');
     const md_note = encodeURIComponent(document.getElementById('md_note').value || '');
+    const s_date = encodeURIComponent(document.getElementById('s_date').value || '');
+    const cust_no = encodeURIComponent(document.getElementById('cust_no').value || '');
 
     const url = 'jjmakeUpdate?m_num=' + m_num +
     '&m_status=' + m_status +
@@ -44,13 +46,36 @@ const save = function() {
     '&md_worker_num=' + md_worker_num +
     '&m_due_date=' + m_due_date +
     '&md_pro_quantity=' + md_pro_quantity +
-    '&md_note=' + md_note;
+    '&md_note=' + md_note +
+    '&s_date=' + s_date +
+    '&cust_no=' + cust_no;
 
 
     location.href = url;
 }
 
 
+$(document).ready(function() {
+    $("#p_itemcode").change(function() {
+        var selectedProductCode = $(this).val();
+
+        // 제품 리스트에서 해당 공장 코드 찾기
+        var factoryCode = null;
+        for (var productWithFactory : productFactoryList) {
+            if (productWithFactory.getProductCode() === selectedProductCode) {
+                factoryCode = productWithFactory.getFactoryCode();
+                break;
+            }
+        }
+
+        // 공장 선택 상자 업데이트
+        if (factoryCode) {
+            $("#f_id").val(factoryCode);
+        } else {
+            $("#f_id").val("");
+        }
+    });
+});
 
 </script>
 
@@ -102,11 +127,10 @@ legend {
 				        	<label for="m_status" class="form-control-label">작업지시상태 m_status</label>
 						    <select class="form-select" required aria-label="select example" id="m_status">
 						      <option value="">선택사항</option>
-						      <option value="${jjmakeDetail.m_status}" <c:if test="${jjmakeDetail.m_status eq '0'}">selected</c:if>>0.생산요청</option>
-						      <option value="${jjmakeDetail.m_status}" <c:if test="${jjmakeDetail.m_status eq '1'}">selected</c:if>>1.영업생산요청</option>
-						      <option value="${jjmakeDetail.m_status}" <c:if test="${jjmakeDetail.m_status eq '2'}">selected</c:if>>2.생산중</option>
-						      <option value="${jjmakeDetail.m_status}" <c:if test="${jjmakeDetail.m_status eq '3'}">selected</c:if>>3.생산완료</option>
-						      <option value="${jjmakeDetail.m_status}" <c:if test="${jjmakeDetail.m_status eq '5'}">selected</c:if>>5.수불완료</option>
+						      <option value="0" <c:if test="${jjmakeDetail.m_status eq '0'}">selected</c:if>>0.생산요청</option>
+						      <option value="1" <c:if test="${jjmakeDetail.m_status eq '1'}">selected</c:if>>1.영업생산요청</option>
+						      <option value="2" <c:if test="${jjmakeDetail.m_status eq '2'}">selected</c:if>>2.생산중</option>
+						      <option value="3" <c:if test="${jjmakeDetail.m_status eq '3'}">selected</c:if>>3.생산완료</option>
 						    </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 						 </div>
@@ -116,9 +140,9 @@ legend {
 				        	<label for="rnpc_gubun" class="form-control-label">수불마감구분 rnpc_gubun</label>
 						    <select class="form-select" name="md_status" required aria-label="select example" id="rnpc_gubun">
 						      <option value="">선택사항</option>
-						      <option value="${jjmakeDetail.rnpc_gubun}" <c:if test="${jjmakeDetail.rnpc_gubun eq '0'}">selected</c:if>>0.마감전</option>
-						      <option value="${jjmakeDetail.rnpc_gubun}" <c:if test="${jjmakeDetail.rnpc_gubun eq '1'}">selected</c:if>>1.가마감</option>
-						      <option value="${jjmakeDetail.rnpc_gubun}" <c:if test="${jjmakeDetail.rnpc_gubun eq '2'}">selected</c:if>>2.마감</option>
+						      <option value="0" <c:if test="${jjmakeDetail.rnpc_gubun eq '0'}">selected</c:if>>0.마감전</option>
+						      <option value="1" <c:if test="${jjmakeDetail.rnpc_gubun eq '1'}">selected</c:if>>1.가마감</option>
+						      <option value="2" <c:if test="${jjmakeDetail.rnpc_gubun eq '2'}">selected</c:if>>2.마감</option>
 						     </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 				      	</div>
@@ -141,10 +165,10 @@ legend {
 					    </div>
 					    <div class="form-group">
 					        <label for="f_id" class="form-control-label">공장명 f_name</label>
-						    <select class="form-select" name="select_md_status" required aria-label="select example" id="f_id" disabled>
+						    <select class="form-select" name="select_md_status" required aria-label="f_id" id="f_id" disabled>
 						      <option value="">선택사항</option>
-						      <option value="${jjmakeDetail.f_id}" <c:if test="${jjmakeDetail.f_id eq '100'}">selected</c:if>>A동 공장</option>
-						      <option value="${jjmakeDetail.f_id}" <c:if test="${jjmakeDetail.f_id eq '101'}">selected</c:if>>B동 공장</option>
+						      <option value="100" <c:if test="${jjmakeDetail.f_id eq '100'}">selected</c:if>>A동 공장</option>
+						      <option value="101" <c:if test="${jjmakeDetail.f_id eq '101'}">selected</c:if>>B동 공장</option>
 						     </select>
 					    </div>
 					    <div class="form-group">
@@ -183,6 +207,8 @@ legend {
 					        <label for="md_note" class="form-control-label">비고 md_note</label>
 					        <input class="form-control" type="text" value="${jjmakeDetail.md_note}" placeholder="작업 특이사항을 입력" id="md_note">
 					    </div>
+					    <input type="hidden" name="s_date" value="${jjmakeDetail.s_date}" id="s_date">
+					    <input type="hidden" name="cust_no" value="${jjmakeDetail.cust_no}" id="cust_no">
 				    </fieldset>
 				    
 				    <!-- 생산 요청 게시판 - 저장, 삭제, 목록 버튼 -->

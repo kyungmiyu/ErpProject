@@ -124,7 +124,6 @@
 		    </c:if>
     		<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
             	<li class="page-item"><a class="page-link" href="#" onclick="jjmakeSearchFn(${i})">${i}</a></li>
-            	<%-- <li class="page-item"><button onclick="jjmakeSearchFn(${i})"></button></li> --%>
  			</c:forEach>
  			<c:if test="${page.endPage < page.totalPage}">
 			    <li class="page-item">

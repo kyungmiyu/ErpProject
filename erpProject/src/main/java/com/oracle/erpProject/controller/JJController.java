@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
+import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 import com.oracle.erpProject.service.jjservice.JJ_Paging;
 import com.oracle.erpProject.service.jjservice.JJ_Service_Interface;
@@ -76,7 +79,6 @@ public class JJController {
 		JJ_Make_detail jjmakeDetail = js.jjmakeDetail(md.getM_num());
 		System.out.println("JJController's jjmakeDetail -> " + jjmakeDetail);
 		
-		
 		model.addAttribute("jjmakeDetail", jjmakeDetail);
 		model.addAttribute("productList", jjproductList);
 		
@@ -109,14 +111,11 @@ public class JJController {
 	
 	// 생산 - 생산요청 페이지 - 입력 적용
 	@PostMapping("JJmakeRequest")
-	public String makeRequest3(JJ_Make m, JJ_Make_detail md) {
+	public String makeRequest(JJ_Make m) {
 		System.out.println("JJController's makeRequest Go!");
-			int makeRequest1 = js.makeRequest1(m);
-			System.out.println("JJController's makeRequest1 -> " + makeRequest1);
-			
-			int makeRequest2 = js.makeRequest2(md);
-			System.out.println("JJController's makeRequest2 -> " + makeRequest2);
-		
+			int makeRequest = js.makeRequest(m);
+			System.out.println("JJController's makeRequest -> " + makeRequest);
+					
 		return "redirect:makeMain";
 	}
 // 원인: 타입 변환시 int -> String, 또는 String -> Date 타입 변환간 오류 발생
@@ -183,9 +182,6 @@ public class JJController {
 		int jjmakeUpdate = js.jjmakeUpdate(m);
 		System.out.println("JJController's jjmakeUpdate jjmakeUpdate->" + jjmakeUpdate);
 		
-		// make_detail 업데이트
-		int jjmakeDetailUpdate = js.jjmakeDetailUpdate(md);
-		System.out.println("JJController's jjmakeUpdate jjmakeDetailUpdate->" + jjmakeDetailUpdate);
 		
 		return "redirect:makeMain";
 	}

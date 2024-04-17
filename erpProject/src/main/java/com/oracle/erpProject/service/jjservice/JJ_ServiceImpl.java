@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.oracle.erpProject.dao.jjdao.JJ_Dao_Interface;
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
+import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 
 import lombok.RequiredArgsConstructor;
@@ -44,21 +45,12 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 	}
 
 	@Override
-	public int makeRequest1(JJ_Make m) {
-		int makeRequest1 = 0;
-		System.out.println("JJ_ServiceImpl's makeRequest1 Go!");
-		makeRequest1 = jjDao.makeRequest1(m);
-		System.out.println("JJ_ServiceImpl's makeRequest1 -> " + makeRequest1);
-		return makeRequest1;
-	}
-	
-	@Override
-	public int makeRequest2(JJ_Make_detail md) {
-		int makeRequest2 = 0;
-		System.out.println("JJ_ServiceImpl's makeRequest2 Go!");
-		makeRequest2 = jjDao.makeRequest2(md);
-		System.out.println("JJ_ServiceImpl's makeRequest2 -> " + makeRequest2);
-		return makeRequest2;
+	public int makeRequest(JJ_Make m) {
+		int makeRequest = 0;
+		System.out.println("JJ_ServiceImpl's makeRequest Go!");
+		makeRequest = jjDao.makeRequest(m);
+		System.out.println("JJ_ServiceImpl's makeRequest -> " + makeRequest);
+		return makeRequest;
 	}
 
 	// 생산 상세 페이지
@@ -120,17 +112,10 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 	@Override
 	public int jjmakeUpdate(JJ_Make m) {
 		int jjmakeUpdate = 0;
+		System.out.println("JJ_ServiceImpl's jjmakeUpdate Go!");
 		jjmakeUpdate = jjDao.jjmakeUpdate(m);
+		System.out.println("JJ_ServiceImpl's jjmakeUpdate->"+jjmakeUpdate);
 		return jjmakeUpdate;
 	}
-
-	@Override
-	public int jjmakeDetailUpdate(JJ_Make_detail md) {
-		int jjmakeDetailUpdate = 0;
-		jjmakeDetailUpdate = jjDao.jjmakeDetailUpdate(md);
-		return jjmakeDetailUpdate;
-	}
-
-
 
 }

@@ -78,10 +78,10 @@ legend {
 				</div>
 				<form id="makeRequest" action="<%=request.getContextPath()%>/JJmakeRequest" method="post">
 				  <div class="row">
-					  <div class="col">
+					  <%-- <div class="col">
 						  <label for="m_num" class="form-control-label">작업지시번호 m_num</label>
 						  <input class="form-control" type="number" name="m_num" value="${JJ_Make.m_num}" placeholder="yyyymmdd01형식으로 입력해주세요" id="m_num">
-					  </div>
+					  </div> --%>
 				      <div class="col">
 				        <div class="mb-3">
 				        	<label for="form-select" class="form-control-label">작업지시상태 m_status</label>
@@ -91,7 +91,6 @@ legend {
 						      <option value="1">1.영업생산요청</option>
 						      <option value="2">2.생산중</option>
 						      <option value="3">3.생산완료</option>
-						      <option value="5">5.수불완료</option>
 						    </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 						 </div>
@@ -111,11 +110,11 @@ legend {
 				  </div>
 					<fieldset>
     					<legend>관리자 입력란</legend>
-					    <div class="form-group">
+					    <%-- <div class="form-group">
 					        <label for="md_num" class="form-control-label">작업순번 md_num</label>
 					        <input class="form-control" type="number" name="md_num" value="${JJ_Make_detail.md_num}"
 					        		placeholder="작업순번" id="md_num">
-					    </div>
+					    </div> --%>
 					    <div class="form-group">
 					        <label for="m_sdate" class="form-control-label">작업지시일자 m_sdate</label>
 					        <input class="form-control" type="date" name="m_sdate" value="${JJ_Make_detail.m_sdate}"
