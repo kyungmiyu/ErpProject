@@ -252,7 +252,7 @@ $(document).ready(function() {
 					<div class="card mb-4">
 						<div class="card-header pb-0">
 							<!--content name  -->
-							<h6>공장 상세</h6>
+							<h6>거래처 상세</h6>
 						</div>
 						<div class="card-body px-0 pt-0 pb-2">
 
