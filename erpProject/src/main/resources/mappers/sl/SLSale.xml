@@ -107,7 +107,10 @@
 					sale s
 					JOIN EMPLOYEE e ON s.EMP_NO = e.EMP_NO
 					JOIN CUSTOMER c ON s.CUST_NO = c.CUST_NO
-				WHERE s.s_date = #{s_date}) a
+				WHERE s.s_date = #{s_date}
+				ORDER BY s.s_wdate desc
+				) a
+				
 				
 			)
 		WHERE rn BETWEEN #{start} and #{end}
@@ -176,7 +179,9 @@
 				OR (s.s_status = #{s_status})
 				OR (s.s_status = #{s_status})
 			
-			) ) a
+			) 
+			ORDER BY s.s_wdate desc
+			) a
 			)
 		WHERE rn BETWEEN #{start} and #{end}
 	</select>
@@ -230,7 +235,7 @@
 			JOIN EMPLOYEE e ON s.EMP_NO = e.EMP_NO
 			JOIN CUSTOMER c ON s.CUST_NO = c.CUST_NO
 			WHERE c.cust_name like '%' || #{keyword} || '%' 
-		
+			ORDER BY s.s_wdate desc
 			) a
 		)
 		WHERE rn BETWEEN #{start} and #{end}

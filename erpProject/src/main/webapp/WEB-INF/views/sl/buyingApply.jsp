@@ -53,7 +53,7 @@
 			<input type="hidden" name="dept_no" id="dept_no" value="103">  	
 			<input type="hidden" name="cust_no" id="cust_no" />
 			<input type="hidden" name="emp_no" id="emp_no" />
-			<!-- <input type="hidden" name="buy_manager" id="buy_manager" /> -->
+		
 	 	<div class="form-group" id="titleBox1">
 		    <label for="detailTitle" id="detailTitleLabel" >제목</label>
 		    <input class="form-control" id="buy_title" name="buy_title" placeholder="구매전표_YYYYMMDD_거래처명" />

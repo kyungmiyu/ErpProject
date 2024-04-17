@@ -375,33 +375,25 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		return saleProductList;
 	}
 
+	// 영업 생산 지시 요청 
 	@Override
 	public int saleMakeRequest(SLMake make) {
-		
-		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
-		
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());		
 		int result = 0;
-		
 		try {
+			
 			result = session.insert("LslsaleMakeRequest", make);
-			
-				
 			result = session.insert("LslsaleMakeDetailRequest", make);
-			
-		
-
 			 transactionManager.commit(txStatus);
 			 
-		
 		} catch (Exception e) {
 			System.out.println("EmpDaoImpl totalEmp Exception->"+e.getMessage());
 			transactionManager.rollback(txStatus);
 		}
-		
-		
 		return result;
 	}
 
+	
 	@Override
 	public int saleApplyWrite(SLSale sale) {
 		
