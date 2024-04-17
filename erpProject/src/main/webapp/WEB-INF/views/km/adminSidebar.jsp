@@ -82,27 +82,27 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">관리</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/tables.html">
+          <a class="nav-link " href="productU">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-chart-bar-32 text-sm opacity-10" style="color:#bf360c"></i>
             </div>
-            <span class="nav-link-text ms-1">제품</span>
+            <span class="nav-link-text ms-1">제품관리</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/tables.html">
+          <a class="nav-link " href="factoryU">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-chart-bar-32 text-sm opacity-10" style="color:#bf360c"></i>
             </div>
-            <span class="nav-link-text ms-1">공장</span>
+            <span class="nav-link-text ms-1">공장관리</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/tables.html">
+          <a class="nav-link " href="customerU">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-chart-bar-32 text-sm opacity-10" style="color:#bf360c"></i>
             </div>
-            <span class="nav-link-text ms-1">거래처</span>
+            <span class="nav-link-text ms-1">거래처 관리</span>
           </a>
         </li>
       </ul>

@@ -10,22 +10,48 @@
 
 <head>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <script>
-function previewImage(input) {
-    // 파일이 선택되었는지 확인
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        
-        reader.onload = function(e) {
-            // 읽기 성공 시 이미지 미리보기 업데이트
-            $('#imagePreview').attr('src', e.target.result);
-            $('#imagePreviewContainer').show();
+$(document).ready(function() {
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                $('#imagePreview').attr('src', e.target.result);
+                $('#imagePreviewContainer').show();
+            };
+            
+            reader.readAsDataURL(input.files[0]);
         }
-        
-        // 선택된 파일 읽기
-        reader.readAsDataURL(input.files[0]);
     }
-}
+
+    // 이미지 프리뷰 함수 바인딩
+    $('#uploadFile').change(function() {
+        previewImage(this);
+    });
+
+    // 드롭다운에서 항목 선택시 이벤트 핸들러
+    $('.category-item').click(function() {
+        var selectedCategory = $(this).text();
+       	var sendCategory = $(this).data('category'); 
+        $('#pro_midcategory').val(selectedCategory); // 사용자에게 선택된 카테고리 보여주기
+        $('#selectedCategory').val(sendCategory); // 실제 서버로 전송될 값 설정
+    });
+    
+    $('.category-item2').click(function() {
+        var selectedCategory2 = $(this).text();
+    	var sendCategory2 = $(this).data('category2'); 
+        $('#f_id').val(selectedCategory2); // 사용자에게 선택된 카테고리 보여주기
+        $('#selectedCategory2').val(sendCategory2); // 실제 서버로 전송될 값 설정
+    });
+    
+    
+    
+});
+
+
 </script>
 
 
@@ -69,162 +95,209 @@ function previewImage(input) {
 </style>
 
 <body>
-	<div class="min-height-300 bg-primary position-absolute w-100"></div>
-	<!-- Sidebar 사이드바 -->
-	<%@ include file="../sidebar.jsp"%>
-	<main class="main-content position-relative border-radius-lg ">
-		<!-- Header 헤더 -->
-		<%@ include file="../header.jsp"%>
-		<div class="comm-body container-fluid py-4">
-			<!-- 메인 바디 -->
-			<!-- ****** 공통 : 테이블 시작 ****** -->
-			<!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
-			
-			<div class="row">
+   <div class="min-height-300 bg-primary position-absolute w-100"></div>
+   <!-- Sidebar 사이드바 -->
+   <%@ include file="../km/adminSidebar.jsp"%>
+   <main class="main-content position-relative border-radius-lg ">
+      <!-- Header 헤더 -->
+      	<%@ include file="../km/adminHeader.jsp"%>
+      <div class="comm-body container-fluid py-4">
+         <!-- 메인 바디 -->
+         <!-- ****** 공통 : 테이블 시작 ****** -->
+         <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
+         
+         <div class="row">
 
 
-				<!--===========제품 등록 ===============-->
-			
-				<div class="col-10">
-					<div class="card mb-4">
-						<div class="card-header pb-0">
-							<!--content name  -->
-							<h6>제품 등록</h6>
-						</div>
-						<div class="card-body px-0 pt-0 pb-2">
 
-							<!--table-->
-							<div class="table-responsive p-4">
-								<!-- img-->
-						<!-- 이미지 업로드 필드 -->
-						<form action="writeProduct" method="post" name="product" enctype="multipart/form-data">
-							<div class="form-group">
+
+
+
+
+            <!--===========제품 등록 ===============-->
+         
+            <div class="col-10">
+               <div class="card mb-4">
+                  <div class="card-header pb-0">
+                  
+          <ul class="nav nav-tabs">
+			  <li class="nav-item">
+			    <a class="nav-link active" aria-current="page" href="#">제품관리</a>
+			  </li>
+			  
+			  <li class="nav-item">
+			    <a class="nav-link" href="productC">제품 등록</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="productU">제품 수정</a>
+			  </li>
+			  
+			</ul>
+            
+                     <!--content name  -->
+                     <h6 class="px-2 pt-4 ">제품 등록</h6>
+                  </div>
+                  <div class="card-body px-0 pt-0 pb-2">
+
+                     <!--table-->
+                     <div class="table-responsive p-4">
+                        <!-- img-->
+                  <!-- 이미지 업로드 필드 -->
+                  <form action="writeProduct" method="post" name="product" enctype="multipart/form-data">
+                     <div class="form-group">
+                     
+                     <!-- 이미지 미리보기를 위한 컨테이너 -->
+                     <div id="imagePreviewContainer" style="display:none;">
+                         <img id="imagePreview" style="width: 200px; height: 200px;" alt="Image Preview"/>
+                     </div>
+                     
+                     <!-- 이미지 업로드 -->
+                         <label for="uploadFile">이미지 업로드</label>
+                         <input type="file" class="form-control" name="uploadFile" id="uploadFile" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="previewImage(this);">
+                     </div>
+                     
+                     
+
+                     
+                     
+
+                     <!-- 이미지등록 끝 -->
+                        
+
+                        
+                     
+                        
+                           <div class="row">
+                              <div class="col-md-6">
+                              <!-- 제품 코드 -->
+                                 <div class="form-group">
+                                    <label for="p_name">제품명</label> 
+                                    <input
+                                       type="text" class="form-control"
+                                       name ="p_name">
+                                 </div>
+                                <!-- 드롭다운 -->
+							        <div class="dropdown">
+							            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							                제품 분류 선택
+							            </button>
+							            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							                <c:forEach var="comm" items="${proCategory}">
+							                    <li class="dropdown-item category-item" data-category="${comm.comm_mcd}">${comm.comm_content}</li>
+							                </c:forEach>
+							            </ul>
+							        </div>
+							        
+							        
+							        <!-- 드롭다운ex -->
+							        
 							
-							<!-- 이미지 미리보기를 위한 컨테이너 -->
-							<div id="imagePreviewContainer" style="display:none;">
-							    <img id="imagePreview" style="width: 200px; height: 200px;" alt="Image Preview"/>
-							</div>
+							        <!-- 제품 분류 표시를 위한 입력 필드 -->
+							        <div class="form-group">
+							            <label for="pro_midcategory">제품 분류</label> 
+							          <input type="text" class="form-control" id="pro_midcategory"  readonly>
+										</div> 
+										<!-- 선택한 제품 분류를 보낼 hidden 필드 -->
+										<input type="hidden" id="selectedCategory" name="pro_midcategory">
+
+
+                                 
+                              
+                                 <!-- 매출가격  -->
+                                 <div class="form-group">
+                                    <label for="p_saleprice">매출 가격</label> 
+                                    <input
+                                       type="text" class="form-control"
+                                       id="p_saleprice"
+                                       name="p_saleprice">
+                                 </div>
+                                 
+                                 
+                                 <!-- 공장구분 -> 공장생산 제품 0 , 구매제품1 -->
+                                 <!-- <div class="form-group">
+                                    <label for="p_fac_gubun">공장구분</label> 
+                                    <input
+                                       type="text" class="form-control"
+                                       id="p_fac_gubun"
+                                       name="p_fac_gubun">
+                                 </div> -->
+                           
+
+                              </div>
+                              <div class="col-md-6">
+                           
+                              
+                              <!-- 제품 공장 : 공장 리스트 검색해서 뿌려주기 -->
+                                 
+                                   <!-- 드롭다운 -->
+							        <div class="dropdown">
+							            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+							               제품공장
+							            </button>
+							            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+							                <c:forEach var="f" items="${fList}">
+							                    <li class="dropdown-item category-item2" data-category2="${f.f_id}">${f.f_name}</li>
+							                </c:forEach>
+							            </ul>
+							        </div>
 							
-							<!-- 이미지 업로드 -->
-							    <label for="uploadFile">이미지 업로드</label>
-							    <input type="file" class="form-control" name="uploadFile" id="uploadFile" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="previewImage(this);">
-							</div>
-							
-							
+							        <!-- 제품 분류 표시를 위한 입력 필드 -->
+							        <div class="form-group">
+							            <label for="f_id">제품 공장</label> 
+							          <input type="text" class="form-control" id="f_id" readonly>
+										</div> 
+                                 							<!-- 선택한 제품 분류를 보낼 hidden 필드 -->
+										<input type="hidden" id="selectedCategory2" name="f_id">
 
-							
-							
+                                 
+                                 
+                                 
+                              
+                       
+                                 
+                                 <!-- 매입가격 -->
+                                 <div class="form-group">
+                                    <label for="p_buyprice">매입가격</label> 
+                                    <input
+                                       type="text" class="form-control"
+                                       id="p_buyprice" name="p_buyprice">
+                                 </div>
+                                 
+                                 
+                                 <!-- 제품상세  -->
+                                 <div class="p_content">
+                                    <label for="p_content">제품상세</label> 
+                                    <input
+                                       type="text" class="form-control"
+                                       id="p_content"
+                                       name="p_content">
+                                 </div>
+                                 
+                                 
+               
+                              </div>
 
-							<!-- 이미지등록 끝 -->
-								
+                           </div>
 
-								
-							
-								
-									<div class="row">
-										<div class="col-md-6">
-										<!-- 제품 코드 -->
-											<div class="form-group">
-												<label for="p_name">제품명</label> 
-												<input
-													type="text" class="form-control"
-													name ="p_name">
-											</div>
-											<!-- 제품 대분류  -->
-											<div class="form-group">
-												<label for="pro_category">제품 대분류</label> 
-												<input
-													type="text" class="form-control"
-													name="pro_category"
-													id="pro_category">
-											</div>
-											
-										
-											<!-- 매출가격  -->
-											<div class="form-group">
-												<label for="p_saleprice">매출 가격</label> 
-												<input
-													type="text" class="form-control"
-													id="p_saleprice"
-													name="p_saleprice">
-											</div>
-											
-											
-											<!-- 공장구분 -> 공장생산 제품 0 , 구매제품1 -->
-											<div class="form-group">
-												<label for="p_fac_gubun">공장구분</label> 
-												<input
-													type="text" class="form-control"
-													id="p_fac_gubun"
-													name="p_fac_gubun">
-											</div>
-									
-
-										</div>
-										<div class="col-md-6">
-									
-										
-										<!-- 제품 공장 : 공장 리스트 검색해서 뿌려주기 -->
-											
-											<div class="form-group">
-												<label for="f_id">제품공장</label>
-												 <input
-													type="text" class="form-control"
-													name="f_id"
-													id="f_id">
-											</div>
-											<!-- 제품 중분류  -->
-											<div class="form-group">
-												<label for="pro_midcategory">제품 중분류</label>
-												 <input
-													type="text" class="form-control"
-													id="pro_midcategory"
-													name="pro_midcategory">
-											</div>
-											
-											<!-- 매입가격 -->
-											<div class="form-group">
-												<label for="p_buyprice">매입가격</label> 
-												<input
-													type="text" class="form-control"
-													id="p_buyprice">
-											</div>
-											
-											
-											<!-- 제품상세  -->
-											<div class="p_content">
-												<label for="p_content">제품상세</label> 
-												<input
-													type="text" class="form-control"
-													id="p_content"
-													name="p_content">
-											</div>
-											
-											
-					
-										</div>
-
-									</div>
-
-									<!-- 버튼 -->
-									<div class="text-right">
-										<button class="btn btn-primary" type="submit">저장</button>
-									</div>
+                           <!-- 버튼 -->
+                           <div class="text-right">
+                              <button class="btn btn-primary" type="submit">저장</button>
+                           </div>
 
 
 
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
 
-		</div>
-		<!-- ****** 공통 : 테이블 끝 ****** -->
+      </div>
+      <!-- ****** 공통 : 테이블 끝 ****** -->
 
-		<!-- Footer 푸터 -->
-		<%@ include file="../footer.jsp"%>
-	</main>
+      <!-- Footer 푸터 -->
+      <%@ include file="../footer.jsp"%>
+   </main>
 </body>
 </html>

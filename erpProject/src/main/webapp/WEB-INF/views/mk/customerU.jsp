@@ -83,10 +83,10 @@ $(document).ready(function() {
 <body>
 	<div class="min-height-300 bg-primary position-absolute w-100"></div>
 	<!-- Sidebar 사이드바 -->
-	<%@ include file="../sidebar.jsp"%>
+	<%@ include file="../km/adminSidebar.jsp"%>
 	<main class="main-content position-relative border-radius-lg ">
 		<!-- Header 헤더 -->
-		<%@ include file="../header.jsp"%>
+			<%@ include file="../km/adminHeader.jsp"%>
 		<div class="comm-body container-fluid py-4">
 			<!-- 메인 바디 -->
 			<!-- ****** 공통 : 테이블 시작 ****** -->
@@ -97,8 +97,23 @@ $(document).ready(function() {
 					<div class="card mb-4">
 						<div class="card-header pb-0">
 
+ <ul class="nav nav-tabs">
+			  <li class="nav-item">
+			    <a class="nav-link active" aria-current="page" href="#">거래처 관리</a>
+			  </li>
+			  
+			  <li class="nav-item">
+			    <a class="nav-link" href="customerC">거래처 등록</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="customerU">거래처 수정</a>
+			  </li>
+			  
+			</ul>
+
+
 							<!--content name  -->
-							<h6 class="mb-4">거래처 조회</h6>
+							<h6 class="px-2 pt-4 pb-4 ">거래처 조회</h6>
 
 
 			

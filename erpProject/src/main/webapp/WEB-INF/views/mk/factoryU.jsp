@@ -80,10 +80,10 @@ $(document).ready(function() {
 <body>
 	<div class="min-height-300 bg-primary position-absolute w-100"></div>
 	<!-- Sidebar 사이드바 -->
-	<%@ include file="../sidebar.jsp"%>
+	<%@ include file="../km/adminSidebar.jsp"%>
 	<main class="main-content position-relative border-radius-lg ">
 		<!-- Header 헤더 -->
-		<%@ include file="../header.jsp"%>
+			<%@ include file="../km/adminHeader.jsp"%>
 		<div class="comm-body container-fluid py-4">
 			<!-- 메인 바디 -->
 			<!-- ****** 공통 : 테이블 시작 ****** -->
@@ -93,9 +93,23 @@ $(document).ready(function() {
 				<div class="col-4">
 					<div class="card mb-4">
 						<div class="card-header pb-0">
+						
+							<ul class="nav nav-tabs">
+			  <li class="nav-item">
+			    <a class="nav-link active" aria-current="page" href="#">공장 관리</a>
+			  </li>
+			  
+			  <li class="nav-item">
+			    <a class="nav-link" href="factoryC">공장 등록</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="factoryU">공장 수정</a>
+			  </li>
+			  
+			</ul>
 
 							<!--content name  -->
-							<h6 class="mb-4">공장 조회</h6>
+							<h6 class="px-2 pt-4 pb-2">공장 조회</h6>
 
 
 							
@@ -250,7 +264,7 @@ $(document).ready(function() {
 					<div class="card mb-4">
 						<div class="card-header pb-0">
 							<!--content name  -->
-							<h6>공장 상세</h6>
+							<h6>공장 수정</h6>
 						</div>
 						<div class="card-body px-0 pt-0 pb-2">
 

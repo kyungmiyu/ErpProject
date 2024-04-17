@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.oracle.erpProject.model.Product;
+
 import com.oracle.erpProject.model.mkmodel.mkCustomer;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
@@ -201,7 +201,13 @@ public class MkController {
 			
 			  List<mkProduct> listProduct = mk_Service_interface.listProduct(product);
 			  System.out.println("MKController listProduct.size->"+listProduct.size());
-			  
+				List<mkProduct> proCategory =null;
+				List<mkProduct> fList = null;
+				proCategory = mk_Service_interface.proCategory(product);
+				fList=mk_Service_interface.fList(product);
+				System.out.println("fList->"+fList);
+				model.addAttribute("proCategory", proCategory);
+				model.addAttribute("fList",fList);
 			  model.addAttribute("listProduct",listProduct); 
 			  model.addAttribute("page", page);
 			  model.addAttribute("totalProduct",totalProduct);
@@ -211,10 +217,13 @@ public class MkController {
 	 
 		// 제품 수정 로직 
 		
-		@PostMapping("updateProduct")
+		@PostMapping("/updateProduct")
 	//	public String updateProduct(@ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
-		public String updateProduct(@ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
-	
+		public String updateProduct(@RequestParam("p_isdeleted") String pIsDeletedString, @ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
+				System.out.println("product"+product);
+				int pIsDeleted = Integer.parseInt(pIsDeletedString);
+				product.setP_isdeleted(pIsDeleted);
+				
 				System.out.println("MK_Controller UpdateProductProduct start...");
 				System.out.println("product Update data->"+product);
 				
@@ -232,6 +241,7 @@ public class MkController {
 					try {
 						file.transferTo(saveFile); // 파일 저장 
 						product.setP_image(savedFilename); 
+						
 					} catch (Exception e) {
 						e.printStackTrace();
 						redirectAttributes.addFlashAttribute("message","파일 업로드 실패");
@@ -294,6 +304,7 @@ public class MkController {
 	@GetMapping("/factoryC")
 	public String factoryC() {
 		System.out.println("MK Controller factoryC start");
+		
 		return "mk/factoryC";
 	}
 	
