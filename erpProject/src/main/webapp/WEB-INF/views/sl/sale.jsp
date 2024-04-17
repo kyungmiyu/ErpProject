@@ -78,7 +78,7 @@
 		      <th scope="row">${loop.index + 1}</th>
 		      <td><a href="saleDetail?cust_no=${saleAlllist.cust_no}&&s_date=${saleAlllist.s_date}">${saleAlllist.s_title}</a></td>
 		      <td>${saleAlllist.cust_name}</td>
-		      <td>${saleAlllist.s_date}</td>
+		      <td><fmt:formatDate value="${saleAlllist.s_wdate}" pattern="yyyy-MM-dd" /></td>
 		      <td>${saleAlllist.s_manager}</td>
 		      <td>${saleAlllist.productCnt}</td>
 		      <td>${saleAlllist.totalCnt}</td>

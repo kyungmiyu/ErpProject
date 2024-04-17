@@ -27,5 +27,5 @@ public class SLMake {
 	private int md_quantity; // 지시수량
 	private int d_gubun; // 수불마감 구분 
 	private int cust_no; // 거래처 번호 
-	private int s_date; // 판매 날짜
+	private String s_date; // 판매 날짜
 }
