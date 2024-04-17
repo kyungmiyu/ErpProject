@@ -146,7 +146,7 @@
 				<div class="modal-body">
 					<div class="col">
 					  <div class="mb-3">
-						  <label for="form-select" class="form-control-label">작업지시상태 m_status</label>
+						  <label for="form-select" class="form-control-label">작업지시상태</label>
 						  <select class="form-select" name="m_status" required aria-label="select example" disabled="disabled" >
 							<option value="1">1.영업생산요청</option>
 						  </select>
@@ -155,7 +155,7 @@
 					</div>
 					<div class="col">
 						<div class="mb-3">
-						  <label for="form-select" class="form-control-label">수불마감구분 rpnc_gubun</label>
+						  <label for="form-select" class="form-control-label">수불마감구분</label>
 						  <select class="form-select" name="rpnc_gubun" required aria-label="select example" id="form-select" disabled="disabled">
 							<option value="0">0.마감전</option>
 						   </select>
@@ -163,27 +163,27 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="m_sdate" class="form-control-label">작업지시일자 m_sdate</label>
+						<label for="m_sdate" class="form-control-label">작업지시일자</label>
 						<input class="form-control" type="date" name="m_sdate" placeholder="작업지시일자을 입력" id="m_sdate">
 					</div>
 					<div class="form-group">
-						<label for="f_name" class="form-control-label">공장명 f_name</label>
+						<label for="f_name" class="form-control-label">공장명</label>
 						<input class="form-control" type="text" name="f_name" id="f_name" readonly>
 					</div>
 					<div class="form-group">
-						<label for="p_itemcode" class="form-control-label">제품코드 p_itemcode</label>
+						<label for="p_itemcode" class="form-control-label">제품코드</label>
 						<input class="form-control" type="number" name="p_itemcode" id="p_itemcode" disabled="disabled">
 					</div>
 					<div class="form-group">
-						<label for="p_name" class="form-control-label">제품명 p_name</label>
+						<label for="p_name" class="form-control-label">제품명</label>
 						<input class="form-control" type="text" name="p_name" id="p_name" disabled="disabled">
 					</div>
 					<div class="form-group">
-						<label for="md_quantity" class="form-control-label">지시수량 md_quantity</label>
+						<label for="md_quantity" class="form-control-label">지시수량</label>
 						<input class="form-control" type="number" name="md_quantity" placeholder="지시수량을 입력" id="md_quantity">
 					</div>
 					<div class="form-group">
-						<label for="md_quantity" class="form-control-label">비고 m_note</label>
+						<label for="md_quantity" class="form-control-label">비고</label>
 						<input class="form-control" type="text" name="m_note" placeholder="비고" id="m_note">
 					</div>
 				</div>

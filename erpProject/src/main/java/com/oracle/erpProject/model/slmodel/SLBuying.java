@@ -17,7 +17,7 @@ public class SLBuying {
 	private String buy_manager;			// 구매 담당자
 	private String buy_note;				// 비고
 	private Date buy_wdate;				//구매입력날짜
-									// 데이트는 sql. date 아니고, utill.date 로 입력 
+									
 	
 
 	// 조회용 수불 마감
@@ -42,6 +42,7 @@ public class SLBuying {
 	private String managerName; // 구매 담당자
 	private String buyProduct; // 구매 제품
 	private String keyword; // 거래처 검색 키워드
+	private String buyDate; 
 	
 	private List<SLBuying_detail> productList;
 	

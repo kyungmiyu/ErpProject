@@ -32,6 +32,8 @@ public class SLController {
 	public String buying(HttpServletRequest request,SLBuying buying, Model model) {
 		System.out.println("SlController buying Start >>>>>>");
 		
+		
+		
 		int totalbuyingCnt = slService.totalbuyingCnt();
 		
 		// paging 처리
@@ -41,9 +43,10 @@ public class SLController {
 	
 		System.out.println("buyingPaging >>>>>>>" + buying);
 		
+		
 		List<SLBuying> buyAlllist = slService.buyAlllist(buying);
 		System.out.println("SlController buying buyAlllist@@@@ >>>>" + buyAlllist);
-				
+
 		
 		model.addAttribute("buying",buying);
 		model.addAttribute("buyAlllist",buyAlllist);
