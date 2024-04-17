@@ -20,6 +20,12 @@ public interface Yhs_Service_Interface {
 	
 	int deleteBoard(YhsBoard board);
 
+	YhsBoard boardModify(int b_no);
+
+	int boardUpdate(YhsBoard board);
+
+	List<YhsBoard> listSearch(YhsBoard board);
+
 //	int deleteBoard(int b_no);
 
 	

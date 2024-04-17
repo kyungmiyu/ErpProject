@@ -17,14 +17,17 @@
 	font-weight: bold;
 }
 
+/*--------------------------------------------------------------
+# Search Bar
+--------------------------------------------------------------*/
 .search-bar {
 	min-width: 360px;
 	padding-top: 10px;
 	font-family: 'NanumSquare', sans-serif;
-	position: absolute; /* 절대 위치로 설정 */
-	top: 30px; /* 상단에 배치 */
-	right: -40px; /* 우측 여백 설정 */
-	margin-bottom: 40px; /* 서치바 아래 여백 설정 */
+	position: absolute; 
+	top: 40px;
+	right: -45px;
+	margin-bottom: 20px; 
 }
 
 @media ( max-width : 1199px) {
@@ -80,6 +83,15 @@
 .search-form button i {
 	color: #012970;
 }
+
+#searchSelect {
+	position: absolute;
+	height: 36px;
+	margin-bottom:83px;
+	right: 360px;
+	width: 140px;
+}
+
 
 /*--------------------------------------------------------------
 # Search Bar
@@ -140,8 +152,45 @@
           <div class="card mb-4">
             <div class="card-header pb-0">
               <h6>공지사항</h6>
+              						<!-- Search Bar -->
+						
+					<!-- 검색끝 -->
+
+					<!-- 검색끝 -->
             </div>
             <div class="card-body px-0 pt-0 pb-2">
+            	<!--검색 및 필터  -->
+			<form action="boardSearch">
+							<div class="container">
+								<!-- 필터 행 -->
+								
+									<!--검색 -->
+									<div class="col-2">
+										<div class="form-floating">
+												<div class="row">
+									<div class="col">
+										<div class="input-group">
+											<input type="text" name="keyword" class="form-control" placeholder="입력..."
+												aria-label="Search" aria-describedby="button-addon2">
+											<button class="btn btn-outline-secondary" type="submit"
+												id="button-addon2">
+												<i class="fas fa-search"></i>
+												<!-- FontAwesome 돋보기 아이콘 -->
+											</button>
+											
+											
+											
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							</div>
+								
+							</div>
+						</form>
+
+					<!-- 검색끝 -->
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">
                   <thead>
@@ -178,30 +227,6 @@
 		        </c:forEach>
                   </tbody>
                 </table>
-                               <%--  <nav aria-label="Page navigation example">
-					    <ul class="pagination justify-content-center">
-					        <c:if test="${page.startPage > page.pageBlock}">
-					            <!-- "이전" 페이지 링크 -->
-					            <li class="page-item">
-					                <a class="page-link" href="board?currentPage=${page.startPage - page.pageBlock}">이전</a>
-					            </li>
-					        </c:if>
-					        
-					        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-					            <!-- 페이지 번호 링크 -->
-					            <li class="page-item ${param.currentPage == i ? 'active' : ''}">
-					                <a class="page-link" href="board?currentPage=${i}">${i}</a>
-					            </li>
-					        </c:forEach>
-					        
-					        <c:if test="${page.endPage < page.totalPage}">
-					            <!-- "다음" 페이지 링크 -->
-					            <li class="page-item">
-					                <a class="page-link" href="board?currentPage=${page.startPage + page.pageBlock}">다음</a>
-					            </li>
-					        </c:if>
-					    </ul>
-					</nav> --%>
                 	<div class="d-flex justify-content-center">
 			         	<ul class="pagination">
 							<c:if test="${page.startPage>paging.pageBlock }">
@@ -229,7 +254,7 @@
 			                      글작성
 			                    </button>
 			                  </a>
-			                </div>
+			        </div>
               </div>
             </div>
             

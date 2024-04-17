@@ -21,4 +21,10 @@ public interface Yhs_Dao_Interface {
 	
 	int deleteBoard(YhsBoard board);
 
+	YhsBoard boardModify(int b_no);
+
+	int boardUpdate(YhsBoard board);
+
+	List<YhsBoard> listSearchBoard(YhsBoard board);
+
 }

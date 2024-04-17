@@ -53,9 +53,47 @@
 	</insert>	
 	
 	<delete id="yhsdeleteBoard" parameterType="YhsBoard">
-	    delete from BOARD where b_no= #{b_no}
+	    delete 
+	    from 
+	    BOARD 
+	  	where b_no= #{b_no}
    </delete>
    
+   	<select id="yhsboardModify" parameterType="int"
+		resultType="YhsBoard">
+		select *
+		from board
+		where b_no = #{b_no}
+	</select>
    
+   <update id="yhsboardUpdate" parameterType="YhsBoard">
+   		update board
+		set b_name=#{b_name},
+			b_content=#{b_content}
+		where b_no=#{b_no}
+   </update>
+   
+
+<select id="yhsSearchboard" parameterType="Yhsboard" resultType="Yhsboard">
+    SELECT *
+    FROM
+    (
+        SELECT rownum rn, a.*
+        FROM
+        (
+            SELECT * FROM board
+            WHERE b_name LIKE '%' || #{keyword} || '%'
+            ORDER BY b_name
+        ) a
+    )
+    WHERE rn BETWEEN #{start} and #{end}
+</select>
+
+
+
+
+
+
+
 
 </mapper>

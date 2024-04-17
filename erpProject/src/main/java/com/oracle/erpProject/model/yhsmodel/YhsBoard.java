@@ -32,5 +32,8 @@ public class YhsBoard {
 	//Page 정보
 	private String currentPage;
 	
+	// 보드 타입
+	private String boardType;
+	
 
 }

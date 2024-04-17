@@ -57,27 +57,11 @@ public class Yhs_ServiceImpl implements Yhs_Service_Interface{
 		return boardContents;
 	}
 	
-//	public int insertBoard(YhsBoard board) {
-//		int result = 0;
-//		System.out.println("Yhs_ServiceImpl insertBoard start...");
-//		result = yhs_Dao_Interface.insertBoard(board);
-//		System.out.println("Yhs_ServiceImpl insertBoard -> " + result);
-//		return result;
-//	}
-	
 	// 질문 게시판 글쓰기 
 	@Override
 	public void boardWriteInsert(YhsBoard board) {
 		yhs_Dao_Interface.boardWriteInsert(board);
 	}
-
-//	@Override
-//	public int deleteBoard(int b_no) {
-//		int result = 0;
-//		System.out.println("Yhs_ServiceImpl deleteBoard start...");
-//		result = yhs_Dao_Interface.deleteBoard(b_no);
-//		return result;
-//	}
 	
 	// 자유 게시판 글 삭제
 	@Override
@@ -86,6 +70,25 @@ public class Yhs_ServiceImpl implements Yhs_Service_Interface{
 		return deleteBoard;
 	}
 
+	@Override
+	public YhsBoard boardModify(int b_no) {
+		System.out.println("1시작");
+		YhsBoard boardModify = yhs_Dao_Interface.boardModify(b_no);
+		return boardModify;
+	}
 
+	@Override
+	public int boardUpdate(YhsBoard board) {
+		int boardUpdate = yhs_Dao_Interface.boardUpdate(board);
+		return boardUpdate;
+	}
+
+	@Override
+	public List<YhsBoard> listSearch(YhsBoard board) {
+		System.out.println("YHSServiceImpl listSearch Start");
+		List<YhsBoard> listSearchBoard=null;
+		listSearchBoard =yhs_Dao_Interface.listSearchBoard(board);
+		return listSearchBoard;
+	}
 
 }
