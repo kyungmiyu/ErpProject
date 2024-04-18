@@ -44,7 +44,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">등록</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/billing.html">
+          <a class="nav-link " href="lhsFormRegistStockNewItem">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-box-2 text-sm opacity-10" style="color: #75b798;"></i>
             </div>
@@ -52,7 +52,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/tables.html">
+          <a class="nav-link " href="lhsFormRegistStockSurvey">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-box-2 text-sm opacity-10" style="color: #75b798;"></i>
             </div>
@@ -63,21 +63,21 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">재고</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/billing.html">
+          <a class="nav-link " href="lhsListRnPCondBuy">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-chart-pie-35 text-sm opacity-10" style="color:#3d8bfd"></i>
             </div>
-            <span class="nav-link-text ms-1">재고조정/마감</span>
+            <span class="nav-link-text ms-1">수불마감/해제</span>
           </a>
         </li>
-        <li class="nav-item">
+<!--         <li class="nav-item">
           <a class="nav-link " href="./pages/tables.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-chart-pie-35 text-sm opacity-10" style="color:#3d8bfd"></i>
             </div>
             <span class="nav-link-text ms-1">수불마감관리</span>
           </a>
-        </li>
+        </li> -->
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">관리</h6>
         </li>

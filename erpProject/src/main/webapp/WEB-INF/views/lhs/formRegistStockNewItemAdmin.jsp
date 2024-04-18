@@ -265,16 +265,15 @@ $(document).ready(function () {
 </head>
 <body>
 
+<%-- <c:if test="${empData.empRole == 'role_admin'}"> --%>
+	<div class="min-height-300 bg-primary position-absolute w-100" style="background-color: #172b4d;"></div>
+		<%@ include file="../km/adminSidebar.jsp"%>
+		
+		<main class="main-content position-relative border-radius-lg ">
+		<%@ include file="../km/adminHeader.jsp"%>
 
 	
- 	<div class="min-height-300 bg-primary position-absolute w-100"></div>
- 	<!-- Sidebar 사이드바 -->
- 	
-  	 <%@ include file="../sidebar.jsp"%>
-  	
-	<main class="main-content position-relative border-radius-lg ">
- 	<!-- Header 헤더 -->
-  	<%@ include file="../header.jsp"%> 
+
   	
   	
   	
