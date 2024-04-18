@@ -149,6 +149,7 @@ legend {
 						      <option value="101" <c:if test="${jjmakeDetail.f_id eq '101'}">selected</c:if>>B동 공장</option>
 						     </select>
 					    </div>
+					    
 					    <div class="form-group">
 					        <label for="p_itemcode" class="form-control-label">제품명 p_name</label>
 					        <select class="form-select" name="p_itemcode" required aria-label="select product" id="p_itemcode" disabled>

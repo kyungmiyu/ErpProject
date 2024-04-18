@@ -57,7 +57,9 @@
 		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">제품명</th>
 		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업자</th>
 		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업지시일자</th>
+		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">지시수량</th>
 		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업완료일자</th>
+		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">생산수량</th>
 		        </tr>
 		      </thead>
 		      <tbody>
@@ -103,8 +105,14 @@
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_sdate}</h6> <!-- 작업지시일자 -->
 			          </td>
 			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_quantity}</h6> <!-- 지시수량 -->
+			          </td>
+			          <td class="text-center">
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_due_date}</h6> <!-- 작업완료일자 -->
 			          </td>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_pro_quantity}</h6> <!-- 생산수량 -->
+			          </td>			          
 			        </tr>
 				  </c:forEach>
 		      </tbody>

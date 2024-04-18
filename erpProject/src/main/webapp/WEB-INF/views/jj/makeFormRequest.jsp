@@ -106,7 +106,7 @@ legend {
 					    </div> --%>
 					    <div class="form-group">
 					        <label for="m_sdate" class="form-control-label">작업지시일자 m_sdate</label>
-					        <input class="form-control" type="date" name="m_sdate" value="${JJ_Make_detail.m_sdate}"
+					        <input class="form-control" type="date" name="m_sdate" value="${JJ_Make.m_sdate}"
 					        		placeholder="작업지시일자을 입력" id="m_sdate">
 					    </div>
 					    <div class="form-group">
@@ -119,7 +119,7 @@ legend {
 					    <div class="form-group">
 					        <label for="f_name" class="form-control-label">공장명 f_name</label>
 						    <input class="form-control" type="hidden" name="f_id" id="f_id">
-						    <input class="form-control" type="text" name="f_name" id="f_name" readonly>
+						    <input class="form-control" type="text" name="f_name" id="f_name" placeholder="제품을 선택하면 공장이 선택됨." readonly>
 					    </div>
 					    <div class="form-group">
 					        <label for="form-select" class="form-control-label">제품명 p_name</label>
@@ -133,7 +133,7 @@ legend {
 					    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 					    <div class="form-group">
 					        <label for="md_quantity" class="form-control-label">지시수량 md_quantity</label>
-					        <input class="form-control" type="number" name="md_quantity" value="${JJ_Make_detail.md_quantity}"
+					        <input class="form-control" type="number" name="md_quantity" value="${JJ_Make.md_quantity}"
 					        		placeholder="지시수량을 입력" id="md_quantity">
 					    </div>
 				    </fieldset>
@@ -142,7 +142,7 @@ legend {
     					<legend>작업자 입력란</legend>
 					    <div class="form-group">
 					        <label for="md_worker" class="form-control-label">작업자 md_worker</label>
-					        <input class="form-control" type="text" name="md_worker" value="${JJ_Make_detail.md_worker}"
+					        <input class="form-control" type="text" name="md_worker" value="${JJ_Make.md_worker}"
 					        		placeholder="담당 작업자를 입력" id="md_worker">
 					    </div>
 					    <div class="form-group">
@@ -150,38 +150,38 @@ legend {
 					        <input class="form-control" type="number" name="md_worker_num" 
 					        	
 					                <c:choose>
-									    <c:when test="${empty JJ_Make_detail.md_worker_num}">
+									    <c:when test="${empty JJ_Make.md_worker_num}">
 									          value="0"
 									    </c:when>
 									    <c:otherwise>
-									          value="${JJ_Make_detail.md_worker_num}"
+									          value="${JJ_Make.md_worker_num}"
 									    </c:otherwise>
 									</c:choose>
 					        
 					        		placeholder="작업인원수를 입력" id="md_worker_num">
 					    </div>
 					    <div class="form-group">
-					        <label for="md_work_date" class="form-control-label">작업완료일자 md_work_date</label>
-					        <input class="form-control" type="date" name="md_work_date" value="${JJ_Make_detail.md_work_date}"
-					        		placeholder="작업완료일자" id="md_work_date">
+					        <label for="m_due_date" class="form-control-label">작업완료일자 m_due_date</label>
+					        <input class="form-control" type="date" name="m_due_date" value="${JJ_Make.m_due_date}"
+					        		placeholder="작업완료일자" id="m_due_date">
 					    </div>
 					    <div class="form-group">
 					        <label for="md_pro_quantity" class="form-control-label">생산수량 md_pro_quantity</label>
 					        <input class="form-control" type="number" name="md_pro_quantity" 
 					               
 					                <c:choose>
-									    <c:when test="${empty JJ_Make_detail.md_pro_quantity}">
+									    <c:when test="${empty JJ_Make.md_pro_quantity}">
 									          value="0"
 									    </c:when>
 									    <c:otherwise>
-									          value="${JJ_Make_detail.md_pro_quantity}"
+									          value="${JJ_Make.md_pro_quantity}"
 									    </c:otherwise>
 									</c:choose>
 					        		placeholder="생산수량을 입력" id="md_pro_quantity">
 					    </div>
 					    <div class="form-group">
 					        <label for="md_note" class="form-control-label">비고 md_note</label>
-					        <input class="form-control" type="text" name="md_note" value="${JJ_Make_detail.md_note}"
+					        <input class="form-control" type="text" name="md_note" value="${JJ_Make.md_note}"
 					        		placeholder="작업 특이사항을 입력" id="md_note">
 					    </div>
 				    </fieldset>
