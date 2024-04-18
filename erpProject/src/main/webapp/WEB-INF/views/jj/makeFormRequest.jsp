@@ -115,7 +115,7 @@ legend {
 					        		placeholder="담당 작업자를 입력" id="md_worker">
 					    </div>
 					    
-					    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+					    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@ Ajax로 값 이동 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 					    <div class="form-group">
 					        <label for="f_name" class="form-control-label">공장명 f_name</label>
 						    <input class="form-control" type="hidden" name="f_id" id="f_id">

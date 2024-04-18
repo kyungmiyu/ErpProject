@@ -150,7 +150,9 @@
 		
 		<!-- 생산 등록 버튼 -->
 		<div class="d-flex justify-content-end">
-			<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeFormRequest'">생산 요청</button>
+			<c:if test="${sessionScope.dept_no == 104 }"> 
+				<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeFormRequest'">생산 요청</button>
+			</c:if>
 		</div>
 		  
 		  
