@@ -42,7 +42,6 @@ public class JJController {
 		System.out.println("session-->"+session.getAttribute("emp_no"));
 		System.out.println("session-->"+session.getAttribute("dept_no"));
 		System.out.println("session-->"+session.getAttribute("emp_role"));
-		
 		// 게시글 전체 개수 조회
 		int cntMake = js.cntMake();
 		System.out.println("JJController's cntMake -> " + cntMake);
@@ -62,6 +61,7 @@ public class JJController {
 		model.addAttribute("page", page);
 		
 		return "jj/makeMain";
+
 	}
 	
 	// 생산 상세 페이지
@@ -78,6 +78,7 @@ public class JJController {
 		// 게시글 1개 조회하기
 		JJ_Make_detail jjmakeDetail = js.jjmakeDetail(md.getM_num());
 		System.out.println("JJController's jjmakeDetail -> " + jjmakeDetail);
+		System.out.println("ccc: " + jjmakeDetail.getM_sdate());
 		
 		model.addAttribute("jjmakeDetail", jjmakeDetail);
 		model.addAttribute("productList", jjproductList);
@@ -113,17 +114,16 @@ public class JJController {
 	@PostMapping("JJmakeRequest")
 	public String makeRequest(JJ_Make m) {
 		System.out.println("JJController's makeRequest Go!");
-			int makeRequest = js.makeRequest(m);
-			System.out.println("JJController's makeRequest -> " + makeRequest);
+		System.out.println("JJController's makeRequest m--->"+m);
+		System.out.println(m.getM_due_date());
+		System.out.println(m.getS_date());
+		
+		int makeRequest = js.makeRequest(m);
+		System.out.println("JJController's makeRequest -> " + makeRequest);
 					
 		return "redirect:makeMain";
 	}
-// 원인: 타입 변환시 int -> String, 또는 String -> Date 타입 변환간 오류 발생
-//	md.setF_id(md.getF_id());
-//	md.setMd_status(md.getMd_status());
-//	md.setRpnc_gubun(md.getRpnc_gubun());
-//	md.setMd_date(md.getMd_date());
-	
+
 	
 	
 	// 생산 - 메인 리스트 페이지 - 검색어로 게시글을 조회
