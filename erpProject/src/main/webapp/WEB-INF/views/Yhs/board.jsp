@@ -17,85 +17,6 @@
 	font-weight: bold;
 }
 
-/*--------------------------------------------------------------
-# Search Bar
---------------------------------------------------------------*/
-.search-bar {
-	min-width: 360px;
-	padding-top: 10px;
-	font-family: 'NanumSquare', sans-serif;
-	position: absolute; 
-	top: 40px;
-	right: -45px;
-	margin-bottom: 20px; 
-}
-
-@media ( max-width : 1199px) {
-	.search-bar {
-		position: fixed;
-		top: 50px;
-		left: 0;
-		right: 0;
-		padding-top: 20px;
-		padding-bottom: 20px;
-		box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
-		background: white;
-		z-index: 9999;
-		transition: 0.3s;
-		visibility: hidden;
-		opacity: 0;
-	}
-	.search-bar-show {
-		top: 60px;
-		visibility: visible;
-		opacity: 1;
-	}
-}
-
-.search-form {
-	width: 100%;
-}
-
-.search-form input {
-	border: 0;
-	font-size: 14px;
-	color: #012970;
-	border: 1px solid rgba(1, 41, 112, 0.2);
-	padding: 7px 38px 7px 8px;
-	border-radius: 3px;
-	transition: 0.3s;
-	width: 300px;
-}
-
-.search-form input:focus, .search-form input:hover {
-	outline: none;
-	box-shadow: 0 0 10px 0 rgba(1, 41, 112, 0.15);
-	border: 1px solid rgba(1, 41, 112, 0.3);
-}
-
-.search-form button {
-	border: 0;
-	padding: 0;
-	margin-left: -30px;
-	background: none;
-}
-
-.search-form button i {
-	color: #012970;
-}
-
-#searchSelect {
-	position: absolute;
-	height: 36px;
-	margin-bottom:83px;
-	right: 360px;
-	width: 140px;
-}
-
-
-/*--------------------------------------------------------------
-# Search Bar
---------------------------------------------------------------*/
 .section {
 	font-family: 'NanumSquare', sans-serif;
 }
@@ -163,24 +84,19 @@
 			<form action="boardSearch">
 							<div class="container">
 								<!-- 필터 행 -->
-								
 									<!--검색 -->
-									<div class="col-2">
+									<div class="col-3">
 										<div class="form-floating">
-												<div class="row">
+									<div class="row">
 									<div class="col">
 										<div class="input-group">
 											<input type="text" name="keyword" class="form-control" placeholder="입력..."
-												aria-label="Search" aria-describedby="button-addon2">
+												aria-label="Search" aria-describedby="button-addon2" style="height: 43px">
 											<button class="btn btn-outline-secondary" type="submit"
 												id="button-addon2">
 												<i class="fas fa-search"></i>
 												<!-- FontAwesome 돋보기 아이콘 -->
 											</button>
-											
-											
-											
-											
 										</div>
 									</div>
 								</div>
