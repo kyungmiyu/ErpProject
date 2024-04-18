@@ -28,20 +28,21 @@
 	 <div class="titleBox">
 
 
-	<c:if test="${saleDetail.sale_status_detail eq '판매 진행중'or saleDetail.sale_status_detail eq '생산 완료'}">
-		<select class="form-control" id="saleStatusSelect">
-			<option value="0" selected="">진행 상태</option>
-			<option value="1">판매 취소</option>
-		    <option value="4">판매 완료</option>
-		</select>
-	</c:if>
-	<c:if test="${saleDetail.sale_status_detail ne '판매 진행중'or saleDetail.sale_status_detail eq '생산 완료'}">
-		<select class="form-control" id="saleStatusSelect" disabled>
-			<option value="0" selected="">진행 상태</option>
-		    <option value="2">생산 작업 요청</option>
-		    <option value="4">판매 완료</option>
-		</select>
-	</c:if>
+		<c:choose>
+		    <c:when test="${saleDetail.sale_status_detail eq '판매 진행중'}">
+		        <select class="form-control" id="saleStatusSelect">
+		            <option value="0" selected="">진행 상태</option>
+		            <option value="1">판매 취소</option>
+		            <option value="4">판매 완료</option>
+		        </select>
+		    </c:when>
+		    <c:when test="${saleDetail.sale_status_detail eq '생산 완료'}">
+		        <select class="form-control" id="saleStatusSelect">
+		            <option value="0" selected="">진행 상태</option>
+		            <option value="4">판매 완료</option>
+		        </select>
+		    </c:when>
+		</c:choose>
 
 		<div class="saleStatusBox" id="saleStatusBox">${saleDetail.sale_status_detail}</div>
 	 	<div class="form-group" id="titleBox1">

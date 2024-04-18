@@ -89,18 +89,23 @@
 											<c:choose>
 												<c:when test="${employee.empRole eq 'role_employee'}">
 													<c:set var="emp_role" value="일반 사원" />
+													<c:set var="emp_job_color" value="bg-gradient-secondary" />
 												</c:when>
 												<c:when test="${employee.empRole eq 'role_manager_buy'}">
 													<c:set var="emp_role" value="구매 관리자" />
+													<c:set var="emp_job_color" value="bg-gradient-danger" />
 												</c:when>
 												<c:when test="${employee.empRole eq 'role_manager_sale'}">
 													<c:set var="emp_role" value="생산 관리자" />
+													<c:set var="emp_job_color" value="bg-gradient-info" />
 												</c:when>
 												<c:when test="${employee.empRole eq 'role_manager_make'}">
 													<c:set var="emp_role" value="판매 관리자" />
+													<c:set var="emp_job_color" value="bg-gradient-success" />
 												</c:when>
 												<c:when test="${employee.empRole eq 'role_admin'}">
 													<c:set var="emp_role" value="ERP 관리자" />
+													<c:set var="emp_job_color" value="bg-gradient-primary" />
 												</c:when>
 											</c:choose>
 											<tr>
@@ -120,7 +125,7 @@
 													<p class="text-xs text-secondary mb-0">부서명</p>
 												</td>
 												<td class="align-middle text-center text-sm">
-													<span class="badge badge-sm bg-success">${emp_role}</span>
+													<span class="badge badge-sm ${emp_job_color}">${emp_role}</span>
 												</td>
 												<td class="align-middle text-center">
 													<span class="text-secondary text-xs font-weight-bold">${employee.empHireDate}</span>

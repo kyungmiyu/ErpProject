@@ -2,6 +2,7 @@ package com.oracle.erpProject.service.jjservice;
 
 import java.util.List;
 
+import com.oracle.erpProject.model.Factory;
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
@@ -20,5 +21,6 @@ public interface JJ_Service_Interface {
 	int 					jjmakeDelete2(int m_num);				// make 삭제
 	List<mkProduct> 		jjproductList(mkProduct mp);			// 물품 리스트 부르기
 	int 					jjmakeUpdate(JJ_Make m);				// make 업데이트
+	Factory getFactoryName(String p_itemcode);
 
 }

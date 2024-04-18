@@ -43,7 +43,7 @@
 	 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 	 	 		
 		<!-- 생산 리스트 게시판 -->
-		<div class="card col-10 w-100 p-5 float-end">
+		<div class="card col-12 w-100" style="padding: 24px;">
 		  <div class="table-responsive">
 	  		<div class="form-group">
 				<h2>생산게시판</h2>
@@ -150,7 +150,9 @@
 		
 		<!-- 생산 등록 버튼 -->
 		<div class="d-flex justify-content-end">
-			<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeFormRequest'">생산 요청</button>
+			<c:if test="${sessionScope.dept_no == 104 }"> 
+				<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeFormRequest'">생산 요청</button>
+			</c:if>
 		</div>
 		  
 		  

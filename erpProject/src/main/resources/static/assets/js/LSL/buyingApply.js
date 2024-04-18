@@ -158,7 +158,8 @@ $(document).ready(function() {
 			contentType: 'application/json',
 			data: JSON.stringify({
 				cust_no: cust_no,
-				buy_date: buy_date
+				buy_date: buy_date,
+				
 
 
 			}),

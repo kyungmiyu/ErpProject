@@ -284,7 +284,8 @@ $(document).ready(function() {
 			url: '/closingStatus',
 			type: 'GET',
 			success: function(closingStatus) {
-				if (closingStatus !== 0) {
+				
+				if (closingStatus !== 0 ) {
 
 					$("#saleModify").hide();
 					$("#saleComple").hide();

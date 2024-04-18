@@ -8,7 +8,7 @@
 <!-- datepicker 는 jquery 1.7.1 이상 bootstrap 2.0.4 이상 버전이 필요함 -->
 <!-- jQuery가 먼저 로드 된 후 datepicker가 로드 되어야함.-->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
-<link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css">
+<!-- <link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css"> -->
 
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -18,7 +18,7 @@
 const save = function() {
     const m_num = encodeURIComponent(document.getElementById('m_num').value || '');
     const m_status = encodeURIComponent(document.getElementById('m_status').value || '');
-    const rnpc_gubun = encodeURIComponent(document.getElementById('rnpc_gubun').value || '');
+    //const rnpc_gubun = encodeURIComponent(document.getElementById('rnpc_gubun').value || '');
     const md_num = encodeURIComponent(document.getElementById('md_num').value || '');
     const m_sdate = encodeURIComponent(document.getElementById('m_sdate').value || '');
     const m_manager = encodeURIComponent(document.getElementById('m_manager').value || '');
@@ -35,7 +35,7 @@ const save = function() {
 
     const url = 'jjmakeUpdate?m_num=' + m_num +
     '&m_status=' + m_status +
-    '&rnpc_gubun=' + rnpc_gubun +
+    //'&rnpc_gubun=' + rnpc_gubun +
     '&md_num=' + md_num +
     '&m_sdate=' + m_sdate +
     '&m_manager=' + m_manager +
@@ -50,34 +50,11 @@ const save = function() {
     '&s_date=' + s_date +
     '&cust_no=' + cust_no;
 
-
     location.href = url;
 }
 
-
-$(document).ready(function() {
-    $("#p_itemcode").change(function() {
-        var selectedProductCode = $(this).val();
-
-        // 제품 리스트에서 해당 공장 코드 찾기
-        var factoryCode = null;
-        for (var productWithFactory : productFactoryList) {
-            if (productWithFactory.getProductCode() === selectedProductCode) {
-                factoryCode = productWithFactory.getFactoryCode();
-                break;
-            }
-        }
-
-        // 공장 선택 상자 업데이트
-        if (factoryCode) {
-            $("#f_id").val(factoryCode);
-        } else {
-            $("#f_id").val("");
-        }
-    });
-});
-
 </script>
+
 
 <head>
 <%@ include file="../configHead.jsp"%>
@@ -111,7 +88,7 @@ legend {
 	 	<!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 
 		<!-- 생산 요청 게시판123 -->
-		<div class="card col-9 w-75 p-5 float-end">
+		<div class="card col-12 w-100" style="padding: 24px;">
 			<div class="table-responsive">
 				<div class="form-group">
 					<h2>생산 상세 게시글</h2>
@@ -131,11 +108,12 @@ legend {
 						      <option value="1" <c:if test="${jjmakeDetail.m_status eq '1'}">selected</c:if>>1.영업생산요청</option>
 						      <option value="2" <c:if test="${jjmakeDetail.m_status eq '2'}">selected</c:if>>2.생산중</option>
 						      <option value="3" <c:if test="${jjmakeDetail.m_status eq '3'}">selected</c:if>>3.생산완료</option>
+						      <option value="5" <c:if test="${jjmakeDetail.m_status eq '5'}">selected</c:if>>5.수불완료</option>
 						    </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 						 </div>
 				      </div>
-				      <div class="col">
+				      <%-- <div class="col">
 				      	<div class="mb-3">
 				        	<label for="rnpc_gubun" class="form-control-label">수불마감구분 rnpc_gubun</label>
 						    <select class="form-select" name="md_status" required aria-label="select example" id="rnpc_gubun">
@@ -146,17 +124,17 @@ legend {
 						     </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 				      	</div>
-				      </div>
+				      </div> --%>
 				  </div>
 					<fieldset>
     					<legend>관리자 입력란</legend>
 					    <div class="form-group">
 					        <label for="md_num" class="form-control-label">작업순번 md_num</label>
-					        <input class="form-control" type="number" value="${jjmakeDetail.md_num}" placeholder="작업순번" id="md_num">
+					        <input class="form-control" type="number" value="${jjmakeDetail.md_num}" placeholder="작업순번" id="md_num" readonly>
 					    </div>
 					    <div class="form-group">
 					        <label for="m_sdate" class="form-control-label">작업지시일자 m_sdate</label>
-					        <input class="form-control" type="date" value="${jjmakeDetail.m_sdate}" placeholder="날짜 선택" id="m_sdate">
+					        <input class="form-control" type="date" value="${jjmakeDetail.m_sdate}" placeholder="날짜 선택" id="m_sdate" readonly>
 					    </div>
 					    <div class="form-group">
 					        <label for="m_manager" class="form-control-label">작업지시담당자 m_manager</label>
@@ -173,7 +151,7 @@ legend {
 					    </div>
 					    <div class="form-group">
 					        <label for="p_itemcode" class="form-control-label">제품명 p_name</label>
-					        <select class="form-select" name="p_itemcode" required aria-label="select product" id="p_itemcode">
+					        <select class="form-select" name="p_itemcode" required aria-label="select product" id="p_itemcode" disabled>
 					        	<option value="">선택사항</option>
 					        	<c:forEach var="product" items="${productList}">
 					        		<option value="${product.p_itemcode}" ${product.p_itemcode == jjmakeDetail.p_itemcode?'selected':''}>${product.p_name}</option>
@@ -182,7 +160,7 @@ legend {
 					    </div>
 					    <div class="form-group">
 					        <label for="md_quantity" class="form-control-label">지시수량 md_quantity</label>
-					        <input class="form-control" type="number" value="${jjmakeDetail.md_quantity}" placeholder="지시수량을 입력" id="md_quantity">
+					        <input class="form-control" type="number" value="${jjmakeDetail.md_quantity}" placeholder="지시수량을 입력" id="md_quantity" readonly>
 					    </div>
 				    </fieldset>
 				    <fieldset>
