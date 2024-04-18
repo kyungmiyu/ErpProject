@@ -18,9 +18,6 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 	
 	@Override
 	public Employee registEmployee(Employee employee) {
-		if (employee.getEmpRetiredDate() == null) {
-			employee.setEmpWdate(Timestamp.valueOf(LocalDateTime.now()));
-	    }
 		return employeeDaoImpl.registEmployee(employee);
 	}
 	

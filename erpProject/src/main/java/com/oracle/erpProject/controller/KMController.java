@@ -167,7 +167,7 @@ public class KMController {
 	// 사원 등록
 	@PostMapping(value = "/employeeRegistProc")
 	public String employeeRegistProc(Model model, Employee employee) {
-		System.out.println("param : "+employee);
+		model.addAttribute("mode", "regist");
 		employeeServiceImpl.registEmployee(employee);
 		return "km/employeeList";
 	}
@@ -213,7 +213,7 @@ public class KMController {
 		return "km/employeeRegistForm";
 	}
 	
-	// 사원 조회 및 수정 --> 관리자 수정은 이거요! ㅇㅇ
+	// 사원 조회 및 수정
 	@PostMapping(value = "/employeeEditProc")
 	public String employeeEditProc(Model model, @RequestParam("empNo") String empNo, Employee employee) {
 		model.addAttribute("mode", "edit");
