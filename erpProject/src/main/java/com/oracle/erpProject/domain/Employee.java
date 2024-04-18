@@ -24,7 +24,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@DynamicUpdate // https://velog.io/@rudwnd33/TIL-11%EC%9B%94-28%EC%9D%BC
 public class Employee { /* KM_Employee */
 
 	@Id

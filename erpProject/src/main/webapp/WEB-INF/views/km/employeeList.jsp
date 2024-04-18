@@ -96,11 +96,11 @@
 													<c:set var="emp_job_color" value="bg-gradient-danger" />
 												</c:when>
 												<c:when test="${employee.empRole eq 'role_manager_sale'}">
-													<c:set var="emp_role" value="생산 관리자" />
+													<c:set var="emp_role" value="판매 관리자" />
 													<c:set var="emp_job_color" value="bg-gradient-info" />
 												</c:when>
 												<c:when test="${employee.empRole eq 'role_manager_make'}">
-													<c:set var="emp_role" value="판매 관리자" />
+													<c:set var="emp_role" value="생산 관리자" />
 													<c:set var="emp_job_color" value="bg-gradient-success" />
 												</c:when>
 												<c:when test="${employee.empRole eq 'role_admin'}">
