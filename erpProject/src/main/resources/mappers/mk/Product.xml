@@ -121,7 +121,7 @@
 	<select id="jjproductList" parameterType="mkProduct" resultType="mkProduct">
 		SELECT a.*
 		FROM 
-			(select * from product order by p_itemcode ) a
+			(select * from product where p_fac_gubun=0 order by p_itemcode ) a
 	</select>
 <!-- ============================ JJ's mappers 끝 ============================ -->
 
