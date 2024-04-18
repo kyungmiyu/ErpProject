@@ -7,7 +7,7 @@
 
 <link href="assets/css/LSL/buyDetail.css" rel="stylesheet">
 
-<<!-- datepicker 는 jquery 1.7.1 이상 bootstrap 2.0.4 이상 버전이 필요함 -->
+<!-- datepicker 는 jquery 1.7.1 이상 bootstrap 2.0.4 이상 버전이 필요함 -->
 <!-- jQuery가 먼저 로드 된 후 datepicker가 로드 되어야함.-->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
 <link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css">
