@@ -55,28 +55,6 @@ const save = function() {
 }
 
 
-$(document).ready(function() {
-    $("#p_itemcode").change(function() {
-        var selectedProductCode = $(this).val();
-
-        // 제품 리스트에서 해당 공장 코드 찾기
-        var factoryCode = null;
-        for (var productWithFactory : productFactoryList) {
-            if (productWithFactory.getProductCode() === selectedProductCode) {
-                factoryCode = productWithFactory.getFactoryCode();
-                break;
-            }
-        }
-
-        // 공장 선택 상자 업데이트
-        if (factoryCode) {
-            $("#f_id").val(factoryCode);
-        } else {
-            $("#f_id").val("");
-        }
-    });
-});
-
 </script>
 
 <head>
@@ -111,7 +89,7 @@ legend {
 	 	<!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 
 		<!-- 생산 요청 게시판123 -->
-		<div class="card col-9 w-75 p-5 float-end">
+		<div class="card col-12 w-100">
 			<div class="table-responsive">
 				<div class="form-group">
 					<h2>생산 상세 게시글</h2>
