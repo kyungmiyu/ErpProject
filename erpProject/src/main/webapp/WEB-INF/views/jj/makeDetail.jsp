@@ -88,7 +88,7 @@ legend {
 	 	<!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 
 		<!-- 생산 요청 게시판123 -->
-		<div class="card col-12 w-100">
+		<div class="card col-12 w-100" style="padding: 24px;">
 			<div class="table-responsive">
 				<div class="form-group">
 					<h2>생산 상세 게시글</h2>
