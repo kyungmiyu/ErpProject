@@ -8,6 +8,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.oracle.erpProject.model.Factory;
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
@@ -207,6 +208,18 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		}
 		
 		return jjmakeUpdate;
+	}
+
+	@Override
+	public Factory getFactoryName(String p_itemcode) {
+		Factory factory = null;
+		try {
+			factory = session.selectOne("jjGetFactoryName",p_itemcode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return factory;
 	}
 
 

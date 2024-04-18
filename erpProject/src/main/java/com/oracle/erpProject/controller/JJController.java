@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oracle.erpProject.model.Factory;
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
@@ -108,7 +109,15 @@ public class JJController {
 //			return "/";
 //		}
 	}
-
+	
+	@ResponseBody
+	@GetMapping("getFactoryName")
+	public Factory getFactoryName(@RequestParam("p_itemcode") String p_itemcode) {
+		System.out.println("getFactoryName");
+		Factory factory = js.getFactoryName(p_itemcode);
+		System.out.println(factory);
+		return factory;
+	}
 	
 	// 생산 - 생산요청 페이지 - 입력 적용
 	@PostMapping("JJmakeRequest")

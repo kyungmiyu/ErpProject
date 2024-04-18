@@ -68,6 +68,11 @@
 		AND   cust_no  = #{cust_no}
 	</update>
 	
-	
+	<select id="jjGetFactoryName" parameterType="String" resultType="Factory">
+		SELECT f.*
+		FROM PRODUCT p, FACTORY f
+		WHERE p.f_id = f.f_id
+		AND p.p_itemcode = #{p_itemcode}
+	</select>
 
 </mapper>

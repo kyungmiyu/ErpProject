@@ -8,36 +8,25 @@
 <!-- datepicker 는 jquery 1.7.1 이상 bootstrap 2.0.4 이상 버전이 필요함 -->
 <!-- jQuery가 먼저 로드 된 후 datepicker가 로드 되어야함.-->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
-<link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css">
+<!-- <link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css"> -->
 
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" defer>
-	function testFn(tDate) {
-		var Date = tDate;
-		alert("tDate->"+tDate);
-	}
+
+const changeFName = (item) => {
 	
-	/* document.getElementById("makeRequest").addEventListener("submit", function(event) {
-		event.preventDefault();
-		var quantityField = document.getElementById("md_pro_quantity");
-		var quantityValue = quantityField.value.trim();
-		
-		// 입력값이 비어 있는지 확인
-		if (quantityValue === "") {
-			// 비어 있다면 기본값 0으로 설정
-			quantityField.value = "0";
+	$.ajax({
+		url:'getFactoryName',
+		type:'GET',
+		data:{p_itemcode:item.value},
+		success:(resp)=>{
+			$('#f_name').val(resp.f_name);
+			$('#f_id').val(resp.f_id);
 		}
-		
-		var workerNumField = document.getElementById("md_worker_num");
-		var workerNumValue = workerNumField.value.trim();
-		
-		// 입력값이 비어 있는지 확인
-		if (workerNumValue === "") {
-			// 비어 있다면 기본값 0으로 설정
-			workerNumField.value = "0";
-		}
-	})  */
+	})
+}
+
 </script>
 
 <head>
@@ -125,24 +114,23 @@ legend {
 					        <input class="form-control" type="text" name="m_manager" value="${JJ_Make.m_manager}"
 					        		placeholder="담당 작업자를 입력" id="md_worker">
 					    </div>
+					    
+					    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 					    <div class="form-group">
-					        <label for="form-select" class="form-control-label">공장명 f_name</label>
-						    <select class="form-select" name="f_id" required aria-label="select example" id="form-select">
-						      <option value="">선택사항</option>
-						      <option value="100">A동 공장</option>
-						      <option value="101">B동 공장</option>
-						     </select>
+					        <label for="f_name" class="form-control-label">공장명 f_name</label>
+						    <input class="form-control" type="hidden" name="f_id" id="f_id">
+						    <input class="form-control" type="text" name="f_name" id="f_name" readonly>
 					    </div>
 					    <div class="form-group">
 					        <label for="form-select" class="form-control-label">제품명 p_name</label>
-					        <select class="form-select" name="p_itemcode" required aria-label="select product" id="form-select">
+					        <select onchange="changeFName(this)" class="form-select" name="p_itemcode" required aria-label="select product" id="p_itemcode">
 					        	<option value="">선택사항</option>
 					        	<c:forEach var="product" items="${productList}">
 					        		<option value="${product.p_itemcode}">${product.p_name}</option>
 					        	</c:forEach>
 					        </select>
 					    </div>
-					    
+					    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 					    <div class="form-group">
 					        <label for="md_quantity" class="form-control-label">지시수량 md_quantity</label>
 					        <input class="form-control" type="number" name="md_quantity" value="${JJ_Make_detail.md_quantity}"

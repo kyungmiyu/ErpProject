@@ -8,7 +8,7 @@
 <!-- datepicker 는 jquery 1.7.1 이상 bootstrap 2.0.4 이상 버전이 필요함 -->
 <!-- jQuery가 먼저 로드 된 후 datepicker가 로드 되어야함.-->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
-<link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css">
+<!-- <link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css"> -->
 
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -18,7 +18,7 @@
 const save = function() {
     const m_num = encodeURIComponent(document.getElementById('m_num').value || '');
     const m_status = encodeURIComponent(document.getElementById('m_status').value || '');
-    const rnpc_gubun = encodeURIComponent(document.getElementById('rnpc_gubun').value || '');
+    //const rnpc_gubun = encodeURIComponent(document.getElementById('rnpc_gubun').value || '');
     const md_num = encodeURIComponent(document.getElementById('md_num').value || '');
     const m_sdate = encodeURIComponent(document.getElementById('m_sdate').value || '');
     const m_manager = encodeURIComponent(document.getElementById('m_manager').value || '');
@@ -35,7 +35,7 @@ const save = function() {
 
     const url = 'jjmakeUpdate?m_num=' + m_num +
     '&m_status=' + m_status +
-    '&rnpc_gubun=' + rnpc_gubun +
+    //'&rnpc_gubun=' + rnpc_gubun +
     '&md_num=' + md_num +
     '&m_sdate=' + m_sdate +
     '&m_manager=' + m_manager +
@@ -50,12 +50,11 @@ const save = function() {
     '&s_date=' + s_date +
     '&cust_no=' + cust_no;
 
-
     location.href = url;
 }
 
-
 </script>
+
 
 <head>
 <%@ include file="../configHead.jsp"%>
@@ -109,6 +108,7 @@ legend {
 						      <option value="1" <c:if test="${jjmakeDetail.m_status eq '1'}">selected</c:if>>1.영업생산요청</option>
 						      <option value="2" <c:if test="${jjmakeDetail.m_status eq '2'}">selected</c:if>>2.생산중</option>
 						      <option value="3" <c:if test="${jjmakeDetail.m_status eq '3'}">selected</c:if>>3.생산완료</option>
+						      <option value="5" <c:if test="${jjmakeDetail.m_status eq '5'}">selected</c:if>>5.수불완료</option>
 						    </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 						 </div>

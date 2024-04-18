@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.dao.jjdao.JJ_Dao_Interface;
+import com.oracle.erpProject.model.Factory;
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
@@ -116,6 +117,11 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 		jjmakeUpdate = jjDao.jjmakeUpdate(m);
 		System.out.println("JJ_ServiceImpl's jjmakeUpdate->"+jjmakeUpdate);
 		return jjmakeUpdate;
+	}
+
+	@Override
+	public Factory getFactoryName(String p_itemcode) {
+		return jjDao.getFactoryName(p_itemcode);
 	}
 
 }
