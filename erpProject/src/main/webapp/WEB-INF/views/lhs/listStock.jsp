@@ -31,6 +31,10 @@
 
 	}
 	
+	.container-fluid {
+    	position: relative;
+	}
+	
     .table {
     	text-align: center;
     }
@@ -38,6 +42,14 @@
 	.form-select {
 		height: 36px;
 		padding-left: 30px;
+	}
+	
+	#selectItemCode {
+		position: absolute;
+		width: 300px;
+		padding-left: 15px;
+		margin-left: 370px;
+		margin-top: -40px;
 	}
 	
 	#datePicker {
@@ -64,6 +76,48 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 $(document).ready(function () {
+	$("#selectItemCode").val($("#selectItemCode option:first").val());
+    $.ajax({
+        url: "lhsListStockEnd",
+        type: "GET",
+        data: {
+        	st_year_month: "${stock.st_year_month}",
+        	gubun : "end"
+        },
+        dataType: "json",
+        success: function (data) {
+        	
+            var options = "";
+            for (var i=0; i< data.length; i++) {
+            options += "<option value='" + data[i].p_itemcode + "'>" + data[i].p_name + "</option>";
+            }
+            
+            $("#selectItemCode").html(options);
+            
+        },
+        error: function (xhr, status, error) {
+            console.error("Error occurred:", error);
+        }
+    });
+    
+    $("#selectItemCode").change(function() {
+    	var selectedDate = ${stock.st_year_month};
+        var p_itemcode = $(this).val();
+        
+        $.ajax({
+            type: "GET",
+            url: "lhsGetDataStockProduct",
+            data: {p_itemcode: p_itemcode},
+            dataType: "json",
+            success: function(data) {
+            	window.location.href = "lhsListStock?st_year_month=" + selectedDate 
+														+ "&p_itemcode=" + p_itemcode;
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("Error: " + textStatus + " - " + errorThrown);
+            }
+        });
+    });
     	
  	$("#datePicker").change(function () {
         var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
@@ -132,19 +186,19 @@ $(document).ready(function () {
 		<div class="searchBar">
 
 			<div class="container-fluid">
-			     <!-- datePicker -->
-					<input type="month" id="datePicker" class="form-control" value="${stock.st_year_month}">
-			   		<select class="form-select mr-2" name="gubun" id="filterOptions">
-						<option value="all" 
-							<c:if test ="${param.gubun == 'all'}">
-								selected</c:if>>전체</option>
-						<option value="begin" 
-							<c:if test ="${param.gubun == 'begin'}">
-								selected</c:if>>기초</option>
-						<option value="end" 
-							<c:if test ="${param.gubun == 'end'}">
-								selected</c:if>>기말</option>
-					</select>
+				<input type="month" id="datePicker" class="form-control" value="${stock.st_year_month}">
+		   		<select class="form-select mr-2" name="gubun" id="filterOptions">
+					<option value="all" 
+						<c:if test ="${param.gubun == 'all'}">
+							selected</c:if>>전체</option>
+					<option value="begin" 
+						<c:if test ="${param.gubun == 'begin'}">
+							selected</c:if>>기초</option>
+					<option value="end" 
+						<c:if test ="${param.gubun == 'end'}">
+							selected</c:if>>기말</option>
+				</select>
+				<select class="form-select mr-2" name="search" id="selectItemCode"></select>
 	
 			  </div>
 		</div>

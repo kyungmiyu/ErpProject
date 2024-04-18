@@ -102,6 +102,7 @@ public class LHSController {
 		if (stock.getSt_year_month() == null) {
 			stock.setSt_year_month(formattedDate);
 		}
+		System.out.println("cc:" + stock.getP_itemcode());
 
 		// 월 재고 total수 조회
 		int totalStock = lhs.getTotalStock(stock);
@@ -142,10 +143,10 @@ public class LHSController {
 		// 현재 날짜가 25일보다 작은지 확인
 		if (currentDate.getDayOfMonth() < 25) {
 			// 25일 미만인 경우
-			return "redirect:lhsFormRegistStockNewItem?emp_no=";
+			return "redirect:lhsFormRegistStockNewItem";
 		} else {
 			// 25일 이상인 경우
-			return "redirect:lhsFormRegistStockSurvey?emp_no=";
+			return "redirect:lhsFormRegistStockSurvey";
 		}
 
 	}
@@ -178,9 +179,9 @@ public class LHSController {
 		model.addAttribute("stock", stock);
 		model.addAttribute("empData", empData);
 
-		if (empData.getEmpRole() == "role_admin") {
+		if (empData.getEmpRole().equals("role_admin")) {
 			return "lhs/formRegistStockNewItemAdmin";
-	}
+		}
 		return "lhs/formRegistStockNewItem";
 	}
 	
@@ -293,6 +294,9 @@ public class LHSController {
 		model.addAttribute("stock", stock);
 		model.addAttribute("empData", empData);
 
+		if (empData.getEmpRole().equals("role_admin")) {
+			return "lhs/formRegistStockSurveyAdmin";
+		}
 		return "lhs/formRegistStockSurvey";
 	}
 	
@@ -468,8 +472,8 @@ public class LHSController {
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 		
-		if (empData.getEmpRole() == "role_admin") {
-				return "lhs/listRnPCondBuyAdmin";
+		if (empData.getEmpRole().equals("role_admin")) {
+			return "lhs/listRnPCondBuyAdmin";
 		}
 		return "lhs/listRnPCondBuy";
 	}
@@ -531,6 +535,9 @@ public class LHSController {
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 
+		if (empData.getEmpRole().equals("role_admin")) {
+			return "lhs/listRnPCondSaleAdmin";
+		}
 		return "lhs/listRnPCondSale";
 
 	}
@@ -592,6 +599,9 @@ public class LHSController {
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 
+		if (empData.getEmpRole().equals("role_admin")) {
+			return "lhs/listRnPCondMakeAdmin";
+		}
 		return "lhs/listRnPCondMake";
 
 	}
@@ -653,6 +663,9 @@ public class LHSController {
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 
+		if (empData.getEmpRole().equals("role_admin")) {
+			return "lhs/listRnPCondSurveyAdmin";
+		}
 		return "lhs/listRnPCondSurvey";
 
 	}

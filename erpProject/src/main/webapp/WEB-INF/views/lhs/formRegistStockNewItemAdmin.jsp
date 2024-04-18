@@ -264,18 +264,11 @@ $(document).ready(function () {
 </script>
 </head>
 <body>
-
-<%-- <c:if test="${empData.empRole == 'role_admin'}"> --%>
-	<div class="min-height-300 bg-primary position-absolute w-100" style="background-color: #172b4d;"></div>
-		<%@ include file="../km/adminSidebar.jsp"%>
-		
-		<main class="main-content position-relative border-radius-lg ">
-		<%@ include file="../km/adminHeader.jsp"%>
-
+	<div class="min-height-300  position-absolute w-100" style="background-color: black;"></div>
+	<%@ include file="../km/adminSidebar.jsp"%>
 	
-
-  	
-  	
+	<main class="main-content position-relative border-radius-lg ">
+	<%@ include file="../km/adminHeader.jsp"%>
   	
     <div class="comm-body container-fluid py-4"> <!-- 메인 바디 -->
     

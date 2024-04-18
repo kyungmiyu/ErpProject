@@ -6,6 +6,7 @@
 		SELECT count(*) FROM stock WHERE st_year_month = #{st_year_month}
 			<choose>
 				<when test="gubun == 'all'">
+     
 				</when>
 				<when test="gubun == 'begin'">
 					AND st_begin_end = 0
@@ -14,6 +15,9 @@
 					AND st_begin_end = 1
 				</when>
 			</choose>
+          	<if test="p_itemcode != 0">
+       			AND p_itemcode = #{p_itemcode}
+       		</if>
 	</select>
 	
 	<!-- 순번pg 구분s 제품코드s 제품명p 수량s 등록날짜s -> product, stock 조인 -->
@@ -40,6 +44,9 @@
 							AND st_begin_end = 1
 						</when>
 					</choose>
+		           	<if test="p_itemcode != 0">
+                    	AND s.p_itemcode = #{p_itemcode}
+               		</if>
 		        ORDER BY st_begin_end DESC, s.p_itemcode 
 		        ) a
 			) b
