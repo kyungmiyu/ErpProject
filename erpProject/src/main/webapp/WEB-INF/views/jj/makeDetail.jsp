@@ -102,7 +102,7 @@ legend {
 				      <div class="col">
 				        <div class="mb-3">
 				        	<label for="m_status" class="form-control-label">작업지시상태 m_status</label>
-						    <select class="form-select" required aria-label="select example" id="m_status" disabled>
+						    <select class="form-select" required aria-label="select example" id="m_status">
 						      <option value="">선택사항</option>
 						      <option value="0" <c:if test="${jjmakeDetail.m_status eq '0'}">selected</c:if>>0.생산요청</option>
 						      <option value="1" <c:if test="${jjmakeDetail.m_status eq '1'}">selected</c:if>>1.영업생산요청</option>
