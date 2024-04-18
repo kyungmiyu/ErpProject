@@ -293,6 +293,7 @@
 		select p.*, st.*
 		from product p, stock st
 		where p.P_ITEMCODE = st.P_ITEMCODE
+		and P_ISDELETED = 0
 		AND st.st_year_month = #{st_year_month}
 		AND st.ST_BEGIN_END = 1
 	</select>

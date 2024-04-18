@@ -164,7 +164,8 @@ public class LHSController {
 		// 사원데이터 조회
 		String empNo = (String) session.getAttribute("emp_no");
 		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
-		
+
+		System.out.println(empData.getEmpRole());
 		// 현재날짜 불러오기
 		LocalDateTime now = getLocalDateTime();
 		
@@ -177,6 +178,9 @@ public class LHSController {
 		model.addAttribute("stock", stock);
 		model.addAttribute("empData", empData);
 
+		if (empData.getEmpRole() == "role_admin") {
+			return "lhs/formRegistStockNewItemAdmin";
+	}
 		return "lhs/formRegistStockNewItem";
 	}
 	
@@ -464,6 +468,9 @@ public class LHSController {
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 		
+		if (empData.getEmpRole() == "role_admin") {
+				return "lhs/listRnPCondBuyAdmin";
+		}
 		return "lhs/listRnPCondBuy";
 	}
  
