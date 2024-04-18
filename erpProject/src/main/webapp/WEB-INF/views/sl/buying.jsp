@@ -94,7 +94,7 @@
 								<c:forEach var="i" begin="${buypage.startPage}" end="${buypage.endPage}">
 									<li class="page-item"><a class="page-link" href="buying?currentPage=${i}">${i}</a></li>
 								</c:forEach>
-								<c:if test="${buypage.startPage < buypage.pageBlock}">
+								<c:if test="${buypage.endPage < buypage.totalPage}">
 									<li class="page-item"><a class="page-link" href="buying?currentPage=${buypage.startPage + buypage.pageBlock}">▷</a></li>
 								</c:if>
 							</ul>

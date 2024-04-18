@@ -16,7 +16,7 @@ $(document).ready(function() {
 		$("#addBtn").show();
 	});
 
-
+		
 
 	$("#addBtn").click(function() {
 		var p_itemcode = $("#buyingItemSelect").val();

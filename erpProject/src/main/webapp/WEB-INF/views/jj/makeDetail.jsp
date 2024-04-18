@@ -103,7 +103,7 @@ legend {
 				      <div class="col">
 				        <div class="mb-3">
 				        	<label for="m_status" class="form-control-label">작업지시상태 m_status</label>
-						    <select class="form-select" required aria-label="select example" id="m_status">
+						    <select class="form-select" required aria-label="select example" id="m_status" disabled>
 						      <option value="">선택사항</option>
 						      <option value="0" <c:if test="${jjmakeDetail.m_status eq '0'}">selected</c:if>>0.생산요청</option>
 						      <option value="1" <c:if test="${jjmakeDetail.m_status eq '1'}">selected</c:if>>1.영업생산요청</option>
@@ -113,7 +113,7 @@ legend {
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 						 </div>
 				      </div>
-				      <div class="col">
+				      <%-- <div class="col">
 				      	<div class="mb-3">
 				        	<label for="rnpc_gubun" class="form-control-label">수불마감구분 rnpc_gubun</label>
 						    <select class="form-select" name="md_status" required aria-label="select example" id="rnpc_gubun">
@@ -124,17 +124,17 @@ legend {
 						     </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 				      	</div>
-				      </div>
+				      </div> --%>
 				  </div>
 					<fieldset>
     					<legend>관리자 입력란</legend>
 					    <div class="form-group">
 					        <label for="md_num" class="form-control-label">작업순번 md_num</label>
-					        <input class="form-control" type="number" value="${jjmakeDetail.md_num}" placeholder="작업순번" id="md_num">
+					        <input class="form-control" type="number" value="${jjmakeDetail.md_num}" placeholder="작업순번" id="md_num" readonly>
 					    </div>
 					    <div class="form-group">
 					        <label for="m_sdate" class="form-control-label">작업지시일자 m_sdate</label>
-					        <input class="form-control" type="date" value="${jjmakeDetail.m_sdate}" placeholder="날짜 선택" id="m_sdate">
+					        <input class="form-control" type="date" value="${jjmakeDetail.m_sdate}" placeholder="날짜 선택" id="m_sdate" readonly>
 					    </div>
 					    <div class="form-group">
 					        <label for="m_manager" class="form-control-label">작업지시담당자 m_manager</label>
@@ -151,7 +151,7 @@ legend {
 					    </div>
 					    <div class="form-group">
 					        <label for="p_itemcode" class="form-control-label">제품명 p_name</label>
-					        <select class="form-select" name="p_itemcode" required aria-label="select product" id="p_itemcode">
+					        <select class="form-select" name="p_itemcode" required aria-label="select product" id="p_itemcode" disabled>
 					        	<option value="">선택사항</option>
 					        	<c:forEach var="product" items="${productList}">
 					        		<option value="${product.p_itemcode}" ${product.p_itemcode == jjmakeDetail.p_itemcode?'selected':''}>${product.p_name}</option>
@@ -160,7 +160,7 @@ legend {
 					    </div>
 					    <div class="form-group">
 					        <label for="md_quantity" class="form-control-label">지시수량 md_quantity</label>
-					        <input class="form-control" type="number" value="${jjmakeDetail.md_quantity}" placeholder="지시수량을 입력" id="md_quantity">
+					        <input class="form-control" type="number" value="${jjmakeDetail.md_quantity}" placeholder="지시수량을 입력" id="md_quantity" readonly>
 					    </div>
 				    </fieldset>
 				    <fieldset>

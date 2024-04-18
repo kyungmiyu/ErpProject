@@ -95,7 +95,7 @@ legend {
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 						 </div>
 				      </div>
-				      <div class="col">
+				      <!-- <div class="col">
 				      	<div class="mb-3">
 				        	<label for="form-select" class="form-control-label">수불마감구분 rnpc_gubun</label>
 						    <select class="form-select" name="rnpc_gubun" required aria-label="select example" id="form-select">
@@ -106,7 +106,7 @@ legend {
 						     </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 				      	</div>
-				      </div>
+				      </div> -->
 				  </div>
 					<fieldset>
     					<legend>관리자 입력란</legend>
@@ -149,6 +149,7 @@ legend {
 					        		placeholder="지시수량을 입력" id="md_quantity">
 					    </div>
 				    </fieldset>
+				<c:if test="${sessionScope.dept_no == 104 }"> 
 				    <fieldset>
     					<legend>작업자 입력란</legend>
 					    <div class="form-group">
@@ -196,7 +197,7 @@ legend {
 					        		placeholder="작업 특이사항을 입력" id="md_note">
 					    </div>
 				    </fieldset>
-				    
+				</c:if>    
 				    <!-- 생산 요청 게시판 - 저장, 삭제, 목록 버튼 -->
 					<div class="d-flex justify-content-end">
 						<button type="submit" class="btn btn-primary" id="buyProBtn">생산요청</button>
