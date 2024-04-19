@@ -144,7 +144,7 @@ $(document).ready(function() {
                      <div class="table-responsive p-4">
                         <!-- img-->
                   <!-- 이미지 업로드 필드 -->
-                  <form action="productU" method="post" name="product" enctype="multipart/form-data">
+                  <form action="writeProduct" method="post" name="product" enctype="multipart/form-data">
                      <div class="form-group">
                      
                      <!-- 이미지 미리보기를 위한 컨테이너 -->

@@ -117,16 +117,16 @@ public class MkController {
 		
 	 }
 
-	
+	 
 	
 	// 제품등록 화면
 		  
-		  @RequestMapping("/productC") 
+		  @GetMapping("/productC") 
 		  public String productC(Model model, mkProduct product) {
 		  System.out.println("MK Controller productC start");
 			List<mkProduct> proCategory =null;
 			List<mkProduct> fList = null;
-	
+	 
 			proCategory = mk_Service_interface.proCategory(product);
 			fList=mk_Service_interface.fList(product);
 			System.out.println("fList->"+fList);
@@ -180,7 +180,7 @@ public class MkController {
 			//제품 정보 저장 로직 구현 
 			int insertResult = mk_Service_interface.insertProduct(product);
 			if(insertResult>0)
-				return"redirect:productR";
+				return"redirect:productU";
 			else {
 			
 				return "forward:productC";
