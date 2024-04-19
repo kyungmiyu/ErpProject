@@ -126,7 +126,7 @@ public class MkController {
 		  System.out.println("MK Controller productC start");
 			List<mkProduct> proCategory =null;
 			List<mkProduct> fList = null;
-	
+	 
 			proCategory = mk_Service_interface.proCategory(product);
 			fList=mk_Service_interface.fList(product);
 			System.out.println("fList->"+fList);
