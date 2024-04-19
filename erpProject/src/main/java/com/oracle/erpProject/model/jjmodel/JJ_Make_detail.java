@@ -18,6 +18,7 @@ public class JJ_Make_detail {
 	private String md_note;				// 비고
 	private String s_date;				// 매출일자
 	private int cust_no;				// 거래처 코드
+	private String f_name;
 
 	// 조회용
 	private String search;				private String keyword;					

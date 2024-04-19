@@ -222,6 +222,19 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		return factory;
 	}
 
+	@Override
+	public List<mkFactory> jjFacotryList() {
+		List<mkFactory> factoryList = null;
+		System.out.println("JJ_DaoImpl's jjFactoryList Go!");
+		try {
+			factoryList = session.selectList("jjFactoryList");
+			System.out.println("JJ_DaoImpl's jjFacotryList -> " + factoryList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return factoryList;
+	}
+
 
 
 }

@@ -127,7 +127,7 @@
 	<select id="jjproductList" parameterType="mkProduct" resultType="mkProduct">
 		SELECT a.*
 		FROM 
-			(select * from product order by p_itemcode ) a
+			(select * from product where pro_midcategory>=103 order by p_itemcode ) a
 	</select>
 <!-- ============================ JJ's mappers 끝 ============================ -->
 

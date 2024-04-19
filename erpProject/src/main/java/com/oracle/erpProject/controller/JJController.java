@@ -22,6 +22,7 @@ import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
+import com.oracle.erpProject.model.slmodel.SLBuying;
 import com.oracle.erpProject.service.jjservice.JJ_Paging;
 import com.oracle.erpProject.service.jjservice.JJ_Service_Interface;
 
@@ -76,6 +77,9 @@ public class JJController {
 		List<mkProduct> jjproductList = js.jjproductList(mp);
 		System.out.println("JJController's jjmakeDetail jjproductList ->" + jjproductList);
 		
+		//공장 리스트 불러오기 
+		List<mkFactory> factoryList = js.jjFactoryList();
+		
 		// 게시글 1개 조회하기
 		JJ_Make_detail jjmakeDetail = js.jjmakeDetail(md.getM_num());
 		System.out.println("JJController's jjmakeDetail -> " + jjmakeDetail);
@@ -83,6 +87,8 @@ public class JJController {
 		
 		model.addAttribute("jjmakeDetail", jjmakeDetail);
 		model.addAttribute("productList", jjproductList);
+		model.addAttribute("factoryList", factoryList);
+		
 		
 		return "jj/makeDetail";
 	}
@@ -194,5 +200,20 @@ public class JJController {
 		
 		return "redirect:makeMain";
 	}
+	
+	/*
+	 * // 수불 마감 여부
+	 * 
+	 * @GetMapping("/checkStatus") public int checkStatus(SLBuying buying) {
+	 * 
+	 * LocalDate today = LocalDate.now(); String formattedDate =
+	 * today.format(DateTimeFormatter.BASIC_ISO_DATE);
+	 * buying.setRnpc_year_month_day(formattedDate);
+	 * 
+	 * int closingStatu = slService.closingStatu(buying);
+	 * 
+	 * System.out.println("수불 마감 여부 +++++++++++" + closingStatu); return
+	 * closingStatu; }
+	 */
 	
 }

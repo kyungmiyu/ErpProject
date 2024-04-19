@@ -472,9 +472,6 @@ public class LHSController {
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 		
-		if (empData.getEmpRole().equals("role_admin")) {
-			return "lhs/listRnPCondBuyAdmin";
-		}
 		return "lhs/listRnPCondBuy";
 	}
  
@@ -535,9 +532,6 @@ public class LHSController {
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 
-		if (empData.getEmpRole().equals("role_admin")) {
-			return "lhs/listRnPCondSaleAdmin";
-		}
 		return "lhs/listRnPCondSale";
 
 	}
@@ -599,9 +593,6 @@ public class LHSController {
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 
-		if (empData.getEmpRole().equals("role_admin")) {
-			return "lhs/listRnPCondMakeAdmin";
-		}
 		return "lhs/listRnPCondMake";
 
 	}
@@ -663,9 +654,10 @@ public class LHSController {
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 
-		if (empData.getEmpRole().equals("role_admin")) {
-			return "lhs/listRnPCondSurveyAdmin";
-		}
+		/*
+		 * if (empData.getEmpRole().equals("role_admin")) { return
+		 * "lhs/listRnPCondSurveyAdmin"; }
+		 */
 		return "lhs/listRnPCondSurvey";
 
 	}

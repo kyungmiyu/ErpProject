@@ -43,7 +43,7 @@
 		       m.m_due_date,
 		       md.md_quantity,   md.md_pro_quantity,              md.rnpc_gubun,
 		       md.md_worker_num, md.md_note,         md.s_date,   md.cust_no,
-			   p.p_name,         f.f_name,           m.m_manager
+			   p.p_name,         f.f_name,           m.m_manager, f.f_id
 		FROM Make_detail md
 			JOIN Product p ON md.p_itemcode = p.p_itemcode
 			JOIN Factory f ON md.f_id = f.f_id

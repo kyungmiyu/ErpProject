@@ -22,4 +22,5 @@ public interface JJ_Dao_Interface {
 	List<mkProduct> 		jjproductList(mkProduct mp);			// 물품 리스트 부르기
 	int 					jjmakeUpdate(JJ_Make m);				// make 업데이트
 	Factory getFactoryName(String p_itemcode);
+	List<mkFactory> jjFacotryList();
 }

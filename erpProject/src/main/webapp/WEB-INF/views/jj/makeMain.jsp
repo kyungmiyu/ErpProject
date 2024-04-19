@@ -13,6 +13,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
+
 	function jjmakeSearchFn(pPage)  {
 	 	var keyword =   $("#keyword").val();
 		var sendData = 'currentPage='+pPage;
@@ -21,8 +22,30 @@
 	    
 	    location.href="jjmakeSearch?"+sendData;
 	}
+$(document).ready(function() {	
+	// 버튼 클릭 시 수불마감 여부 확인
+	$('#buyProBtn').click(function() {
+		checkClosingStatus();
+	});
 	
-
+	// 수불마감 여부 가져오기
+	function checkClosingStatus() {
+		$.ajax({
+			url: '/closingStatus', 
+			type: 'GET',
+			success: function(closingStatus) {
+				if (closingStatus !== 0) {
+					alert("금일 수불 마감 처리 되어 등록 할 수 없습니다.");
+					$('#buyProBtn').prop('disabled', true);
+					 window.location.href = "makeMain";
+				} else {
+					 window.location.href = "makeFormRequest";
+				}
+			}
+		});
+	}
+	
+});
 </script>
 <head>
 <%@ include file="../configHead.jsp"%>
@@ -159,7 +182,7 @@
 		<!-- 생산 등록 버튼 -->
 		<div class="d-flex justify-content-end">
 			<c:if test="${sessionScope.dept_no == 104 }"> 
-				<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeFormRequest'">생산 요청</button>
+				<button type="button" class="btn btn-primary" id="buyProBtn">생산 요청</button>
 			</c:if>
 		</div>
 		  

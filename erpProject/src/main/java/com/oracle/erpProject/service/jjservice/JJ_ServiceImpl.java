@@ -123,5 +123,12 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 	public Factory getFactoryName(String p_itemcode) {
 		return jjDao.getFactoryName(p_itemcode);
 	}
+ 
+	@Override
+	public List<mkFactory> jjFactoryList() {
+		List<mkFactory> factoryList = null;
+		factoryList = jjDao.jjFacotryList();
+		return factoryList;
+	}
 
 }

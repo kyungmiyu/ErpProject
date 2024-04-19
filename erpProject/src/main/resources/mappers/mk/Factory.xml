@@ -86,5 +86,12 @@
 			    f_info = #{f_info}<!-- 여기에 컴마 추가 -->		
 			    WHERE f_id = #{f_id}
 			</update>
+			
+<!-- ============================ JJ's mappers start ============================ -->
+	<select id="jjFactoryList" resultType="mkFactory">
+		SELECT *
+		FROM factory
+	</select>
+<!-- ============================ JJ's mappers 끝 ============================ -->
 
 </mapper>

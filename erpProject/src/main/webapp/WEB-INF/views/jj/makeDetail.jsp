@@ -143,11 +143,14 @@ legend {
 					    </div>
 					    <div class="form-group">
 					        <label for="f_id" class="form-control-label">공장명 f_name</label>
-						    <select class="form-select" name="select_md_status" required aria-label="f_id" id="f_id" disabled>
+						<select class="form-select" name="select_md_status" required aria-label="f_id" id="f_id">
 						      <option value="">선택사항</option>
-						      <option value="100" <c:if test="${jjmakeDetail.f_id eq '100'}">selected</c:if>>A동 공장</option>
-						      <option value="101" <c:if test="${jjmakeDetail.f_id eq '101'}">selected</c:if>>B동 공장</option>
-						     </select>
+						          <c:forEach var="factory" items="${factoryList}">
+								     <option value="${factory.f_id}" <c:if test="${jjmakeDetail.f_id eq factory.f_id}">selected</c:if>>${factory.f_name}</option>
+								  </c:forEach>
+						     <%--  <option value="100" <c:if test="${jjmakeDetail.f_id eq '102'}">selected</c:if>>A동 공장</option>
+						      <option value="101" <c:if test="${jjmakeDetail.f_id eq '103'}">selected</c:if>>B동 공장</option> --%>
+					     </select>
 					    </div>
 					    
 					    <div class="form-group">
