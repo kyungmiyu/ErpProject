@@ -78,7 +78,13 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 		System.out.println("MkDaoImpl insert Produt Start");
 		System.out.println("MK_DaoImpl mkinsertProduct ->" +product);
 		try {
-			insertResult = session.insert("mkinsertProduct",product);
+			if (product.getPro_midcategory() < 103) {
+				insertResult = session.insert("mkinsertProductBuy",product);
+			}
+			else if (product.getPro_midcategory() >= 103) {
+				insertResult = session.insert("mkinsertProductSale",product);
+			}
+
 		}catch (Exception e) {
 			System.out.println("MkDaoImpl insertProduct Exception->"+e.getMessage());
 		}
