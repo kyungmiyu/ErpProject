@@ -126,6 +126,7 @@ public class MkController {
 		  System.out.println("MK Controller productC start");
 			List<mkProduct> proCategory =null;
 			List<mkProduct> fList = null;
+	
 			proCategory = mk_Service_interface.proCategory(product);
 			fList=mk_Service_interface.fList(product);
 			System.out.println("fList->"+fList);
@@ -139,6 +140,7 @@ public class MkController {
 		@PostMapping(value="writeProduct")
 		public String writeProduct(@ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes,Model model) {
 			
+			System.out.println("ccc: " + product.getPro_midcategory());
 			System.out.println("MK_Controller WriteProduct start...");
 			
 			
@@ -169,7 +171,7 @@ public class MkController {
 				} catch (Exception e) {
 					e.printStackTrace();
 					redirectAttributes.addFlashAttribute("message","파일 업로드 실패");
-					return "redirect:/productC";
+					return "mk/productU";
 				}
 			}
 			
