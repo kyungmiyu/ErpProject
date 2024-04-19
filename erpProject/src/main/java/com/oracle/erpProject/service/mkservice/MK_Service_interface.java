@@ -2,7 +2,9 @@ package com.oracle.erpProject.service.mkservice;
 
 import java.util.List;
 
+
 import com.oracle.erpProject.model.mkmodel.mkCustomer;
+import com.oracle.erpProject.model.mkmodel.mkEmployee;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 
@@ -54,13 +56,13 @@ public interface MK_Service_interface {
 
 	List<mkProduct> fList(mkProduct product);
 
-	
+	List<mkEmployee> listEmp(mkEmployee employee);
+
+	List<mkCustomer> custCategory(mkCustomer customer);
 
 
 
-//	void saveProductImagePath(mkProduct product);
-
-
+	List<mkEmployee> searchEmpList(mkEmployee emp);
 
 
 

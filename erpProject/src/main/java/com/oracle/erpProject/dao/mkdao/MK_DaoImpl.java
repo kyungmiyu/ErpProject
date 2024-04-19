@@ -1,11 +1,14 @@
 package com.oracle.erpProject.dao.mkdao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+
 import com.oracle.erpProject.model.mkmodel.mkCustomer;
+import com.oracle.erpProject.model.mkmodel.mkEmployee;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 
@@ -75,12 +78,7 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 		System.out.println("MkDaoImpl insert Produt Start");
 		System.out.println("MK_DaoImpl mkinsertProduct ->" +product);
 		try {
-			if (product.getPro_midcategory() < 103) {   //fac_gubun 1 insert
-				insertResult = session.insert("mkinsertProductif", product);
-			}
-			else {
 			insertResult = session.insert("mkinsertProduct",product);
-			}
 		}catch (Exception e) {
 			System.out.println("MkDaoImpl insertProduct Exception->"+e.getMessage());
 		}
@@ -340,6 +338,48 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 		fList = session.selectList("fList",fList);
 		return fList;
 	}
+
+	@Override
+	public List<mkEmployee> employeeList(mkEmployee employee) {
+		System.out.println("MK Dao_impl employeeList Start");
+		List<mkEmployee> emp= null;
+		emp = session.selectList("empList", emp);
+		return emp;
+	}
+
+	@Override
+	public List<mkCustomer> custCategory(mkCustomer customer) {
+		System.out.println("MK Dao Impl custCategory Start");
+		List<mkCustomer> custCategory = null;
+		custCategory = session.selectList("custCategory", custCategory);
+		return custCategory;
+	}
+
+
+
+	@Override
+	public List<mkEmployee> CusemployeeList(mkEmployee emp) {
+	    System.out.println("MK_DaoImpl CusEmployee List Start");
+
+	    List<mkEmployee> empList; // 리스트 초기화를 적절히 수행
+	    if (emp.getCust_type().equals("0")) { 
+	        // cust_type이 '0'일 경우 사용할 SQL 매퍼
+	        empList = session.selectList("custEmpList", emp);
+	    } else if (emp.getCust_type().equals("1")) {
+	        // cust_type이 '1'일 경우 사용할 SQL 매퍼
+	        empList = session.selectList("custEmpList2", emp);
+	    } else {
+	        // cust_type이 '0' 또는 '1'이 아닐 경우의 처리 (예시로 비어 있는 리스트 반환)
+	        empList = new ArrayList<>();
+	    }
+	    return empList;
+	}
+
+
+	
+
+
+
 
 		
 	}

@@ -9,6 +9,7 @@ public class mkCustomer {
 
 	private int cust_no;				// 거래처 번호
 	private int emp_no;				// 사원번호
+	private String emp_name;    //사원 이름 
 	private int cust_bcomm;		// 거래처 대분류
 	private int cust_scomm;		// 거래처 중분류
 	private String cust_type;		// 거래처 유형
@@ -20,7 +21,10 @@ public class mkCustomer {
 	private int cust_isdeleted;		// 거래처 삭제여부
 	private Date wdate;				// 거래처 입력 일자 
 	private String cust_boss;
-	
+	//comm
+	private int comm_bcd;
+	private int comm_mcd;
+	private String comm_content;
 	
 	// 조회용
 	private String search;   	   private String keyword;
@@ -28,5 +32,7 @@ public class mkCustomer {
 	private int start; 		 	   private int end;
 	// Page 정보
 	private String currentPage;
+	
+	
 
 }

@@ -196,7 +196,7 @@ $(document).ready(function() {
 											<td class="align-middle text-center text-sm">
 							
 											<p class="text-xs font-weight-bold mb-0">
-											${cust.cust_bcomm}
+											${cust.emp_name}
 											
 											</p>
 											
@@ -232,21 +232,21 @@ $(document).ready(function() {
 					        <c:if test="${page.startPage > page.pageBlock}">
 					            <!-- "이전" 페이지 링크 -->
 					            <li class="page-item">
-					                <a class="page-link" href="productR?currentPage=${page.startPage - page.pageBlock}">이전</a>
+					                <a class="page-link" href="customerR?currentPage=${page.startPage - page.pageBlock}">이전</a>
 					            </li>
 					        </c:if>
 					        
 					        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
 					            <!-- 페이지 번호 링크 -->
 					            <li class="page-item ${param.currentPage == i ? 'active' : ''}">
-					                <a class="page-link" href="productR?currentPage=${i}">${i}</a>
+					                <a class="page-link" href="customerR?currentPage=${i}">${i}</a>
 					            </li>
 					        </c:forEach>
 					        
 					        <c:if test="${page.endPage < page.totalPage}">
 					            <!-- "다음" 페이지 링크 -->
 					            <li class="page-item">
-					                <a class="page-link" href="productR?currentPage=${page.startPage + page.pageBlock}">다음</a>
+					                <a class="page-link" href="customerR?currentPage=${page.startPage + page.pageBlock}">다음</a>
 					            </li>
 					        </c:if>
 					    </ul>
@@ -282,7 +282,7 @@ $(document).ready(function() {
                 <input type="text" class="form-control" id="cust_no" name="cust_no" readonly >
             </div>
             <div class="form-group">
-                <label for="cust_bcomm">거래처 대분류</label> 
+                <label for="cust_bcomm">담당자 이름</label> 
                 <input type="text" class="form-control" id="cust_bcomm" name="cust_bcomm" >
             </div>
     

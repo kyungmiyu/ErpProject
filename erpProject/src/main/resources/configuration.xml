@@ -34,7 +34,9 @@
 		
 		<!--민경  -->
 		<typeAlias alias="mkProduct"   			type="com.oracle.erpProject.model.mkmodel.mkProduct"/>
-
+		<typeAlias alias="mkFactory"   			type="com.oracle.erpProject.model.mkmodel.mkFactory"/>
+		<typeAlias alias="mkCustomer"   			type="com.oracle.erpProject.model.mkmodel.mkCustomer"/>
+		<typeAlias alias="mkEmployee"   			type="com.oracle.erpProject.model.mkmodel.mkEmployee"/>
 		
 		<!-- 현승 시작 -->
 		<typeAlias alias="LHS_Comm"			   	type="com.oracle.erpProject.model.lhsmodel.Comm"/>
@@ -45,8 +47,7 @@
 		<typeAlias alias="LHS_RnP_closing"			   	type="com.oracle.erpProject.model.lhsmodel.RnP_closing"/>
 		<!-- 현승 끝 -->
 
-		<typeAlias alias="mkFactory"   			type="com.oracle.erpProject.model.mkmodel.mkFactory"/>
-		<typeAlias alias="mkCustomer"   			type="com.oracle.erpProject.model.mkmodel.mkCustomer"/>
+	
 		<!--민경 끝  -->
 		
 		<!-- 현석 -->
