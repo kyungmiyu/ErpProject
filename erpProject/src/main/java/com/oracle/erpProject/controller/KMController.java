@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oracle.erpProject.domain.Employee;
 import com.oracle.erpProject.service.kmservice.KM_DepartmentServiceImpl;
@@ -44,23 +45,16 @@ public class KMController {
 		return "km/loginForm";
 	}
 	
-	/*
-	// 로그아웃
-	@GetMapping(value = "/logout")
-	public String louout(HttpServletRequest request) {
-		System.out.println("KMController louout start...*");
-		request.getSession().invalidate();
-		return "km/loginForm";
-	}
-	*/
-	
-	// error page
-	
 	// 로그인
 	@PostMapping(value="/loginProc")
 	public String loginProc(HttpServletRequest request, @RequestParam("empNo") String empNo, @RequestParam("empPassword") String empPassword, Model model) {
 		System.out.println("KMController loginPage start...*");
 		HttpSession session = request.getSession(true);
+		String emp_no = (String)session.getAttribute("emp_no");
+		String emp_role = (String)session.getAttribute("emp_role");
+		System.out.println("사원번호 : " + emp_no + " 권한(emp_role) : "+emp_role);
+		
+		System.out.println("test: "+session);
 		Employee employee = employeeServiceImpl.findByEmpNo(Integer.parseInt(empNo));
 		if (employee !=null && employee.getEmpPassword().equals(empPassword)) {
 			session.setAttribute("emp_no", empNo);
@@ -71,6 +65,14 @@ public class KMController {
 			model.addAttribute("mode", "error");
 			return "redirect:/loginForm";
 		}
+	}
+	
+	// 로그아웃
+	@GetMapping(value = "/logout")
+	public String louout(HttpServletRequest request) {
+		System.out.println("KMController louout start...*");
+		request.getSession().invalidate();
+		return "km/loginForm";
 	}
 	
 	// 아이디 찾기
@@ -157,6 +159,14 @@ public class KMController {
 		return "km/adminHome";
 	}
 	
+	/*
+	@GetMapping(value="/toErrorPage")
+	public String errorPage() {
+		System.out.println("errorPage...");
+		return "km/errorPage";
+	}
+	*/
+	
 	// 사원 등록 화면
 	@GetMapping(value = "/employeeRegistForm")
 	public String employeeRegistForm(Model model) {
@@ -165,11 +175,10 @@ public class KMController {
 	}
 	
 	// 사원 등록
-	@PostMapping(value = "/employeeRegistProc")
-	public String employeeRegistProc(Model model, Employee employee) {
-		model.addAttribute("mode", "regist");
+	@RequestMapping(value = "/employeeRegistProc")
+	public String employeeRegistProc(Employee employee) {
 		employeeServiceImpl.registEmployee(employee);
-		return "km/employeeList";
+		return "redirect:listEmployeeProc";
 	}
 	
 	// 사원 리스트 조회, 검색, 페이징

@@ -124,7 +124,7 @@
 			</c:choose>
 		</c:if>
 		<div class="main-body container-fluid py-4"> 
-			<form name="registOrEditForm" action="/${formAction}" method="post">
+			<form name="registOrEditForm" action="${formAction}" method="post">
 				<input type="hidden" name="empPhone" value="" />
 				<input type="hidden" name="empNo" value="${employee.empNo}" />
 				<input type="hidden" name="empJobComm" value="200" />
@@ -142,8 +142,8 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="example-text-input" class="form-control-label">사원번호</label>
-											<input class="form-control" name="empNo" type="text"
-												value="${employee.empNo}" onfocus="focused(this)" onfocusout="defocused(this)" disabled />
+											<input class="form-control" name="empNo" type="text" value="${employee.empNo}"
+											onfocus="focused(this)" onfocusout="defocused(this)" disabled />
 										</div>
 									</div>
 									<div class="col-md-6">
