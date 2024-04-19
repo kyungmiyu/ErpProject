@@ -16,11 +16,4 @@ public class MainController {
 		System.out.println("MainController Start...");
 		return "main";
 	}
-	
-	/*
-	@GetMapping("errorPage")
-	public String errorPage() {
-		return "thymeleaf/errorPage";
-	}
-	*/
 }
