@@ -81,12 +81,12 @@ $(document).ready(function() {
 </style>
 
 <body>
-	<div class="min-height-300 bg-primary position-absolute w-100"></div>
+	<div class="min-height-300  position-absolute w-100" style="background-color: black;"></div>
 	<!-- Sidebar 사이드바 -->
-	<%@ include file="../sidebar.jsp"%>
+	<%@ include file="../km/adminSidebar.jsp"%>
 	<main class="main-content position-relative border-radius-lg ">
 		<!-- Header 헤더 -->
-		<%@ include file="../header.jsp"%>
+			<%@ include file="../km/adminHeader.jsp"%>
 		<div class="comm-body container-fluid py-4">
 			<!-- 메인 바디 -->
 			<!-- ****** 공통 : 테이블 시작 ****** -->
@@ -97,8 +97,24 @@ $(document).ready(function() {
 					<div class="card mb-4">
 						<div class="card-header pb-0">
 
+ <ul class="nav nav-tabs">
+			  <li class="nav-item">
+	             <!-- <a class="nav-link active" aria-current="page" href="#">거래처 관리</a> -->
+	             <a class="nav-link" href="customerU">거래처 관리</a>
+			  </li>
+			  
+			  <li class="nav-item">
+			    <a class="nav-link" href="customerC">거래처 등록</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="customerU">거래처 수정</a>
+			  </li>
+			  
+			</ul>
+
+
 							<!--content name  -->
-							<h6 class="mb-4">거래처 조회</h6>
+							<h6 class="px-2 pt-4 pb-4 ">거래처 조회</h6>
 
 
 			
@@ -181,7 +197,7 @@ $(document).ready(function() {
 											<td class="align-middle text-center text-sm">
 							
 											<p class="text-xs font-weight-bold mb-0">
-											${cust.cust_bcomm}
+											${cust.emp_name}
 											
 											</p>
 											
@@ -217,21 +233,21 @@ $(document).ready(function() {
 					        <c:if test="${page.startPage > page.pageBlock}">
 					            <!-- "이전" 페이지 링크 -->
 					            <li class="page-item">
-					                <a class="page-link" href="productR?currentPage=${page.startPage - page.pageBlock}">이전</a>
+					                <a class="page-link" href="customerR?currentPage=${page.startPage - page.pageBlock}">이전</a>
 					            </li>
 					        </c:if>
 					        
 					        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
 					            <!-- 페이지 번호 링크 -->
 					            <li class="page-item ${param.currentPage == i ? 'active' : ''}">
-					                <a class="page-link" href="productR?currentPage=${i}">${i}</a>
+					                <a class="page-link" href="customerR?currentPage=${i}">${i}</a>
 					            </li>
 					        </c:forEach>
 					        
 					        <c:if test="${page.endPage < page.totalPage}">
 					            <!-- "다음" 페이지 링크 -->
 					            <li class="page-item">
-					                <a class="page-link" href="productR?currentPage=${page.startPage + page.pageBlock}">다음</a>
+					                <a class="page-link" href="customerR?currentPage=${page.startPage + page.pageBlock}">다음</a>
 					            </li>
 					        </c:if>
 					    </ul>
@@ -267,7 +283,7 @@ $(document).ready(function() {
                 <input type="text" class="form-control" id="cust_no" name="cust_no" readonly >
             </div>
             <div class="form-group">
-                <label for="cust_bcomm">거래처 대분류</label> 
+                <label for="cust_bcomm">담당자 이름</label> 
                 <input type="text" class="form-control" id="cust_bcomm" name="cust_bcomm" >
             </div>
     

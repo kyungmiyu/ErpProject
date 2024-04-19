@@ -9,6 +9,7 @@ public class mkProduct {
 	
 		private int p_itemcode;				//제품 코드
 		private int f_id;							// 공장 코드
+		private String f_name;
 		private int pro_category;			//제품 대분류	
 		private int pro_midcategory;		//제품 중분류
 		private String p_name;				// 제품명

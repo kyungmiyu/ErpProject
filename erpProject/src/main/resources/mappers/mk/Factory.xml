@@ -31,7 +31,7 @@
 	<insert id="mkinsertFactory" parameterType="mkFactory">
     INSERT INTO factory
     ( f_id, f_admin,f_manager,f_name,f_tel,f_info)
-    VALUES (factory_code_seq.nextval, #{f_admin}, #{f_manager}, #{f_name}, #{f_tel}, #{f_info})
+    VALUES (f_id_seq.nextval, #{f_admin}, #{f_manager}, #{f_name}, #{f_tel}, #{f_info})
 </insert>
 
  <select id="mksearchFactoryCnt" resultType="int">
@@ -86,5 +86,12 @@
 			    f_info = #{f_info}<!-- 여기에 컴마 추가 -->		
 			    WHERE f_id = #{f_id}
 			</update>
-	
+			
+<!-- ============================ JJ's mappers start ============================ -->
+	<select id="jjFactoryList" resultType="mkFactory">
+		SELECT *
+		FROM factory
+	</select>
+<!-- ============================ JJ's mappers 끝 ============================ -->
+
 </mapper>

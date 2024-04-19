@@ -48,6 +48,7 @@
 			  <select class="form-control" id="optionBox" name="choices-button" id="choices-button">
 				  <option value="" selected="">진행 상태</option>
 				  <option value="0">판매 진행중</option>
+				  <option value="1">판매 취소</option>
 				  <option value="2">생산 작업 요청</option>
 				  <option value="3">생산 완료</option>
 				  <option value="4">판매 완료</option>
@@ -77,7 +78,7 @@
 		      <th scope="row">${loop.index + 1}</th>
 		      <td><a href="saleDetail?cust_no=${saleAlllist.cust_no}&&s_date=${saleAlllist.s_date}">${saleAlllist.s_title}</a></td>
 		      <td>${saleAlllist.cust_name}</td>
-		      <td>${saleAlllist.s_date}</td>
+		      <td><fmt:formatDate value="${saleAlllist.s_wdate}" pattern="yyyy-MM-dd" /></td>
 		      <td>${saleAlllist.s_manager}</td>
 		      <td>${saleAlllist.productCnt}</td>
 		      <td>${saleAlllist.totalCnt}</td>
@@ -95,7 +96,7 @@
 								<c:forEach var="i" begin="${salepage.startPage}" end="${salepage.endPage}">
 								<li class="page-item"><a class="page-link" href="#">${i}</a></li>
 								</c:forEach>
-								<c:if test="${salepage.startPage < salepage.pageBlock}">
+								<c:if test="${salepage.endPage < salepage.totalPage}">
 								<li class="page-item"><a class="page-link" href="#">▷</a></li>
 								</c:if>
 							</ul>

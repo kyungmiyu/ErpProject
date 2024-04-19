@@ -16,11 +16,20 @@ public interface Yhs_Service_Interface {
 	// 게시판 글 조회수 
 	int boardViewCnt(YhsBoard board);
 	
-	int insertBoard(YhsBoard board);
+	void boardWriteInsert(YhsBoard board);
+	
+	int deleteBoard(YhsBoard board);
 
-//	int deleteBoard(YhsBoard board);
+	YhsBoard boardModify(int b_no);
 
-	int deleteBoard(int b_no);
+	int boardUpdate(YhsBoard board);
+
+	List<YhsBoard> listSearch(YhsBoard board);
+
+//	int deleteBoard(int b_no);
+
+	
+
 
 }
 

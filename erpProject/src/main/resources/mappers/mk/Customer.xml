@@ -91,9 +91,32 @@
 
 <insert id="mkinsertCustomer" parameterType="mkCustomer">
     INSERT INTO customer
-    (cust_no, cust_name, cust_bcomm, cust_scomm, cust_type, cust_boss, cust_b_num, cust_tel, cust_email)
-    VALUES (customer_code_seq.nextval, #{cust_name}, #{cust_bcomm}, #{cust_scomm}, #{cust_type}, #{cust_boss}, #{cust_b_num}, #{cust_tel}, #{cust_email})
+    (cust_no, cust_name, cust_bcomm, cust_scomm, cust_type, cust_boss, cust_b_num, cust_tel, cust_email,cust_status,emp_no)
+    VALUES (cust_no_seq.nextval, #{cust_name}, 400, #{cust_scomm}, #{cust_type}, #{cust_boss}, #{cust_b_num}, #{cust_tel}, #{cust_email},#{cust_status},#{emp_no})
 </insert>
 
+<select id="empList" resultType="mkEmployee">
+	select emp_no, emp_name from employee
+</select>
+
+<select id="custCategory"  resultType="mkCustomer">
+		
+		select comm_bcd,comm_mcd,comm_content from comm where comm_bcd=400
+
+		</select>  
+
+
+<select id="custEmpList" parameterType="mkEmployee" resultType="mkEmployee">
+		select emp_no , emp_name from employee where dept_no =103
+
+		</select>  
+		
+		
+<select id="custEmpList2" parameterType="mkEmployee" resultType="mkEmployee">
+		select emp_no , emp_name from employee where dept_no =104
+
+		</select>  
+		
+		
 
 </mapper>

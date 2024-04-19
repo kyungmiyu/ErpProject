@@ -43,12 +43,14 @@
 </style>
 
 <body>
-	<div class="min-height-300 bg-primary position-absolute w-100"></div>
+	<div class="min-height-300  position-absolute w-100" style="background-color: black;"></div>
 	<!-- Sidebar 사이드바 -->
-	<%@ include file="../sidebar.jsp"%>
+	<%-- <%@ include file="../sidebar.jsp"%> --%>
+	<%@ include file="../km/adminSidebar.jsp"%>
 	<main class="main-content position-relative border-radius-lg ">
 		<!-- Header 헤더 -->
-		<%@ include file="../header.jsp"%>
+		
+		<%@ include file="../km/adminHeader.jsp"%>
 		<div class="comm-body container-fluid py-4">
 			<!-- 메인 바디 -->
 			<!-- ****** 공통 : 테이블 시작 ****** -->
@@ -60,8 +62,23 @@
 				<div class="col-10">
 					<div class="card mb-4">
 						<div class="card-header pb-0">
+						
+						<ul class="nav nav-tabs">
+			  <li class="nav-item">
+			    <!-- <a class="nav-link active" aria-current="page" href="#">공장 관리</a> -->
+   			    <a class="nav-link" href="factoryU">공장 관리</a>
+			  </li>
+			  
+			  <li class="nav-item">
+			    <a class="nav-link" href="factoryC">공장 등록</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="factoryU">공장 수정</a>
+			  </li>
+			  
+			</ul>
 							<!--content name  -->
-							<h6>공장 등록</h6>
+							<h6 class="px-2 pt-4">공장 등록</h6>
 						</div>
 						<div class="card-body px-0 pt-0 pb-2">
 

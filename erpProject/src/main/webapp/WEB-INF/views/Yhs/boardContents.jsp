@@ -270,7 +270,7 @@
   position: absolute;
   margin-top: 10px;
   width: 100px;
-  right: 140px;
+  right: 280px;
   bottom: 10px;
 }
 
@@ -337,11 +337,32 @@
 				</div>
 
 				<button type="button" class="btn bacList" onclick="goBack()">
-					목록</button>
+					목록
+				</button>
 					
-				<button type="button" class="btn bacDelete" onclick="location.href='deleteBoard?empno=${boardContents.emp_no}'">
-					삭제</button>
-
+				<form action="/deleteBoard" method="post">
+					<input type="hidden" name="b_no" value="${boardContents.b_no}">
+				<button type="submit" class="btn bacDelete">삭제</button>
+				</form>
+				
+				<div class="btnBox">
+				
+			  <c:if test="${sessionScope.emp_no eq boardContents.emp_no}">            
+			  
+			  <%-- <input type="button" value="수정" 
+				onclick="location.href='boardModify?b_no=${boardContents.b_no}'"> --%>
+			  <%-- empno=${emp.empno} --%>
+               <a href="boardModify?&b_no=${boardContents.b_no}" class="btn bacModify">
+						    <i class="bi bi-highlighter"></i>수정</a>
+              
+              <%--  <form id="deleteForm" action="/deleteAskBoard" method="post">
+		 	 	  	 <input type="hidden" name="cboard_no" value="${boardAskContents.cboard_no}">
+		   			 <input type="hidden" name="user_no" value="${boardAskContents.user_no}">
+		    		 <button type="submit" class="badge bg-light text-dark"><i class="bi bi-trash"></i> 삭제</button>
+			   </form> --%>
+                </c:if>
+		  		</div>
+		  		
 				<script>
 					function goBack() {
 						window.history.back();

@@ -7,7 +7,7 @@
 
 <link href="assets/css/LSL/buying.css" rel="stylesheet">
 
-<<!-- datepicker 는 jquery 1.7.1 이상 bootstrap 2.0.4 이상 버전이 필요함 -->
+<!-- datepicker 는 jquery 1.7.1 이상 bootstrap 2.0.4 이상 버전이 필요함 -->
 <!-- jQuery가 먼저 로드 된 후 datepicker가 로드 되어야함.-->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
 <link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css">
@@ -28,7 +28,10 @@
 		margin-left: 265px;
 		bottom: 5px;
 		width: 100px;
-
+	}
+	
+	.container-fluid {
+    	position: relative;
 	}
 	
     .table {
@@ -40,6 +43,14 @@
 		padding-left: 30px;
 	}
 	
+	#selectItemCode {
+		position: absolute;
+		width: 300px;
+		padding-left: 15px;
+		margin-left: 370px;
+		margin-top: -40px;
+	}
+	
 	#datePicker {
 		text-align: center;
 	}
@@ -47,7 +58,6 @@
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // 페이지 로딩이 완료되면 실행될 함수
 
     var stockYearMonth = "${stock.st_year_month}";
 
@@ -64,6 +74,55 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 $(document).ready(function () {
+	  
+    $.ajax({
+        url: "lhsListStockEnd",
+        type: "GET",
+        data: {
+        	st_year_month: "${stock.st_year_month}",
+        	gubun : "end"
+        },
+        dataType: "json",
+        success: function (data) {
+        	
+            var options = "";
+            for (var i=0; i< data.length; i++) {
+            options += "<option value='" + data[i].p_itemcode + "'>" + data[i].p_name + "</option>";
+            }
+            
+            $("#selectItemCode").html(options);
+            
+            var stockItemCode = "${stock.p_itemcode}";
+            
+            if (stockItemCode != 0) {
+                $("#selectItemCode").val(stockItemCode);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error occurred:", error);
+        }
+    });
+    
+    $("#selectItemCode").change(function() {
+    	var selectedDate = ${stock.st_year_month};
+        var p_itemcode = $("#selectItemCode").val();
+        
+        $.ajax({
+            type: "GET",
+            url: "lhsGetDataStockProduct",
+            data: {
+            	p_itemcode: p_itemcode
+            },
+            success: function(data) {
+            	window.location.href = "lhsListStock?st_year_month=" + selectedDate 
+													+ "&p_itemcode=" + p_itemcode;
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("Error: " + textStatus + " - " + errorThrown);
+            }
+        });
+    });
+
     	
  	$("#datePicker").change(function () {
         var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기
@@ -132,19 +191,19 @@ $(document).ready(function () {
 		<div class="searchBar">
 
 			<div class="container-fluid">
-			     <!-- datePicker -->
-					<input type="month" id="datePicker" class="form-control" value="${stock.st_year_month}">
-			   		<select class="form-select mr-2" name="gubun" id="filterOptions">
-						<option value="all" 
-							<c:if test ="${param.gubun == 'all'}">
-								selected</c:if>>전체</option>
-						<option value="begin" 
-							<c:if test ="${param.gubun == 'begin'}">
-								selected</c:if>>기초</option>
-						<option value="end" 
-							<c:if test ="${param.gubun == 'end'}">
-								selected</c:if>>기말</option>
-					</select>
+				<input type="month" id="datePicker" class="form-control" value="${stock.st_year_month}">
+		   		<select class="form-select mr-2" name="gubun" id="filterOptions">
+					<option value="all" 
+						<c:if test ="${param.gubun == 'all'}">
+							selected</c:if>>전체</option>
+					<option value="begin" 
+						<c:if test ="${param.gubun == 'begin'}">
+							selected</c:if>>기초</option>
+					<option value="end" 
+						<c:if test ="${param.gubun == 'end'}">
+							selected</c:if>>기말</option>
+				</select>
+				<select class="form-select mr-2" name="search" id="selectItemCode"></select>
 	
 			  </div>
 		</div>

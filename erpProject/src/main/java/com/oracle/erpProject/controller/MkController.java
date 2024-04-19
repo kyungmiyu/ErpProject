@@ -4,33 +4,39 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.oracle.erpProject.model.Product;
+
+
 import com.oracle.erpProject.model.mkmodel.mkCustomer;
+import com.oracle.erpProject.model.mkmodel.mkEmployee;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
+import com.oracle.erpProject.service.kmservice.KM_EmployeeService;
 import com.oracle.erpProject.service.mkservice.MK_Service_interface;
 import com.oracle.erpProject.service.mkservice.Paging;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-//import oracle.jdbc.proxy.annotation.Post;
+
 
 @Controller
 @RequiredArgsConstructor
 public class MkController {
 
+	private final KM_EmployeeService kmes;
 	private final MK_Service_interface mk_Service_interface;
 	//제품 조회, 수정
 	@GetMapping("/productR")
@@ -113,7 +119,7 @@ public class MkController {
 		 model.addAttribute("listProduct",listSearchProduct);
 		 model.addAttribute("page",page);
 		 
-		 return "mk/productU";
+		 return "mk/productR";
 		
 	 }
 
@@ -122,34 +128,40 @@ public class MkController {
 	// 제품등록 화면
 		  
 		  @GetMapping("/productC") 
-		  public String productC(Model model, mkProduct product) {
+		  public String productC(Model model, mkProduct product,HttpSession session) {
 		  System.out.println("MK Controller productC start");
-			List<mkProduct> proCategory =null;
+			
+		// 사원데이터 조회
+			String empNo = (String) session.getAttribute("emp_no");
+			System.out.println(empNo);
+		
+			if (empNo == null) {
+				   // 메인 페이지로 이동
+			   return "main";
+			}
+			else {
+		  	List<mkProduct> proCategory =null;
 			List<mkProduct> fList = null;
+			
+			
+			
 			proCategory = mk_Service_interface.proCategory(product);
 			fList=mk_Service_interface.fList(product);
 			System.out.println("fList->"+fList);
 			model.addAttribute("proCategory", proCategory);
 			model.addAttribute("fList",fList);
 		  return "mk/productC";
+			}
 	}
 		  
-	// 제품 등록 
+	// 제품 등록  로직
 		
 		@PostMapping(value="writeProduct")
 		public String writeProduct(@ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes,Model model) {
 			
 			System.out.println("MK_Controller WriteProduct start...");
 			
-			
-			String category = request.getParameter("pro_midcategory");
-			int midCategory = Integer.parseInt(category);
-			product.setPro_midcategory(midCategory);
-			
-			
-			String fId = request.getParameter("f_id");
-			int intFid = Integer.parseInt(fId);
-			product.setF_id(intFid);
+
 			
 			System.out.println("product data->"+product);
 			//파일 저장 경로 설정 
@@ -178,7 +190,7 @@ public class MkController {
 			//제품 정보 저장 로직 구현 
 			int insertResult = mk_Service_interface.insertProduct(product);
 			if(insertResult>0)
-				return"redirect:productR";
+				return"redirect:productU";
 			else {
 			
 				return "forward:productC";
@@ -187,9 +199,17 @@ public class MkController {
 		
 		//제품 수정 폼 
 		@GetMapping("productU")
-		public String productU(mkProduct product,Model model) {
+		public String productU(mkProduct product,Model model,HttpSession session) {
+			
 			System.out.println("MK Controller productR Start...");
 			System.out.println("MK Controller productR ->"+product);
+			// 사원데이터 조회
+			String empNo = (String) session.getAttribute("emp_no");
+			if (empNo == null) {
+				   // 메인 페이지로 이동
+			   return "main";
+			}
+			else {
 			//product count 
 			int totalProduct = mk_Service_interface.totalProduct(product);
 			System.out.println("MK_Controller Start totalProduct->"+totalProduct);
@@ -201,20 +221,30 @@ public class MkController {
 			
 			  List<mkProduct> listProduct = mk_Service_interface.listProduct(product);
 			  System.out.println("MKController listProduct.size->"+listProduct.size());
-			  
-			  model.addAttribute("listProduct",listProduct); 
-			  model.addAttribute("page", page);
-			  model.addAttribute("totalProduct",totalProduct);
+				List<mkProduct> proCategory =null;
+				List<mkProduct> fList = null;
+				proCategory = mk_Service_interface.proCategory(product);
+				fList=mk_Service_interface.fList(product);
+				System.out.println("fList->"+fList);
+				model.addAttribute("proCategory", proCategory);
+				model.addAttribute("fList",fList);
+				model.addAttribute("listProduct",listProduct); 
+				model.addAttribute("page", page);
+				model.addAttribute("totalProduct",totalProduct);
 			
 			return "mk/productU";
+			}
 		}
 	 
 		// 제품 수정 로직 
 		
-		@PostMapping("updateProduct")
+		@PostMapping("/updateProduct")
 	//	public String updateProduct(@ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
-		public String updateProduct(@ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
-	
+		public String updateProduct(@RequestParam("p_isdeleted") String pIsDeletedString, @ModelAttribute mkProduct product, @RequestParam("uploadFile") MultipartFile file, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
+				System.out.println("product"+product);
+				int pIsDeleted = Integer.parseInt(pIsDeletedString);
+				product.setP_isdeleted(pIsDeleted);
+				
 				System.out.println("MK_Controller UpdateProductProduct start...");
 				System.out.println("product Update data->"+product);
 				
@@ -232,10 +262,11 @@ public class MkController {
 					try {
 						file.transferTo(saveFile); // 파일 저장 
 						product.setP_image(savedFilename); 
+						
 					} catch (Exception e) {
 						e.printStackTrace();
 						redirectAttributes.addFlashAttribute("message","파일 업로드 실패");
-						return "redirect:/productC";
+						return "redirect:/productU";
 					}
 				}
 				
@@ -253,6 +284,9 @@ public class MkController {
 	@GetMapping("/factoryR")
 	public String factoryR(mkFactory factory,Model model) {
 		System.out.println("MK Controller factoryR start");
+		
+	
+					
 		//product count 
 				int totalFactory = mk_Service_interface.totalFactory(factory);
 				System.out.println("MK_Controller Start totalFactory->"+totalFactory);
@@ -270,7 +304,8 @@ public class MkController {
 				  model.addAttribute("totalFactory",totalFactory);
 			
 				  return "mk/factoryR";
-	}
+					}
+	
 	
 	
 	//공장 상세 ajax 
@@ -292,9 +327,19 @@ public class MkController {
 	
 	// 공장 등록
 	@GetMapping("/factoryC")
-	public String factoryC() {
+	public String factoryC(HttpSession session) {
 		System.out.println("MK Controller factoryC start");
+		String empNo = (String) session.getAttribute("emp_no");
+		// 사원데이터 조회
+		
+		if (empNo == null) {
+			   // 메인 페이지로 이동
+		   return "main";
+		}
+		else {
+			
 		return "mk/factoryC";
+		}
 	}
 	
 	// 공장 등록 로직 
@@ -309,7 +354,7 @@ public class MkController {
 		//제품 정보 저장 로직 구현 
 		int insertResult = mk_Service_interface.insertFactory(factory);
 		if(insertResult>0)
-			return"redirect:factoryR";
+			return"redirect:factoryU";
 		else {
 		
 			return "forward:factoryC";
@@ -341,9 +386,17 @@ public class MkController {
 	
 	// 공장 수정
 	@GetMapping("/factoryU")
-	public String factoryU(mkFactory factory,Model model) {
+	public String factoryU(mkFactory factory,Model model,HttpSession session) {
 		System.out.println("MK Controller factoryU start");
 		System.out.println("MK Controller factoryR start");
+		String empNo = (String) session.getAttribute("emp_no");
+		// 사원데이터 조회
+		
+		if (empNo == null) {
+			   // 메인 페이지로 이동
+		   return "main";
+		}
+		else {
 		//product count 
 				int totalFactory = mk_Service_interface.totalFactory(factory);
 				System.out.println("MK_Controller Start totalFactory->"+totalFactory);
@@ -361,6 +414,7 @@ public class MkController {
 				  model.addAttribute("totalFactory",totalFactory);
 		
 		return "mk/factoryU";
+		}
 	}
 	
 	//공장 수정 로직 
@@ -383,8 +437,9 @@ public class MkController {
 	
 	// 거래처 조회
 	@GetMapping("/customerR")
-	public String custromerR(mkCustomer customer,Model model) {
+	public String custromerR(mkCustomer customer,Model model,HttpSession session) {
 		System.out.println("MK Controller customerR start");
+	
 		//product count 
 		int totalCustomer = mk_Service_interface.totalCustomer(customer);
 		System.out.println("MK_Controller Start totalProduct->"+totalCustomer);
@@ -402,7 +457,8 @@ public class MkController {
 		  model.addAttribute("page", page);
 		  model.addAttribute("totalCustomer",totalCustomer);
 		return "mk/customerR";
-	}
+		}
+	
 	
 	//거래처 상세 ajax 
 	@ResponseBody
@@ -444,20 +500,78 @@ public class MkController {
 		 return "mk/customerR";
 	 }
 
+	/*
+	@GetMapping("SelfIntroduction")
+	public String SelfIntroduction(HttpSession session, Model model, HttpServletRequest request) {
+		System.out.println("MKController start SelafIntroduction");
+		
+		// 세션에서 로그인된 사용자 정보를 읽어옴
+		String loggedInUser = (String) session.getAttribute("userId");
+		System.out.println("logedInUser");
+		
+		if (loggedInUser != null) {
+			List<User> introduction = MK_Service_Interface.getintroduction(loggedInUser);
+			List<User> skill = MK_Service_Interface.getskill(loggedInUser);
+			System.out.println("MKController list.size()" + introduction.size());
+			model.addAttribute("datas", introduction);
+			model.addAttribute("skills", skill);
+			System.out.println(skill);
+			
+			return "MK_views/SelfIntroduction";
+		} else {
+			String requestURL = request.getRequestURL().toString();
+			session.setAttribute("redirectUrl", requestURL);
+			return "/YS_views/login";
+		}
+	}
+*/
 	
 	// 거래처 등록
 	@GetMapping("/customerC")
-	public String custromerC() {
-		System.out.println("MK Controller customerC start");
+	public String custromerC(Model model, mkEmployee employee,mkCustomer customer,HttpSession session) {
+		
+		System.out.println("MKController customerC start");
+		String empNo = (String) session.getAttribute("emp_no");
+		// 사원데이터 조회
+		
+		if (empNo == null) {
+			   // 메인 페이지로 이동
+		   return "main";
+		}
+		else {
+		//거래처 관련 사원 
+		List<mkEmployee> emp = null;
+		emp = mk_Service_interface.listEmp(employee);
+		
+		//거래처 카테고리
+		List<mkCustomer> custCategory =null;
+		custCategory =mk_Service_interface.custCategory(customer);
+		
+	
+		
+		
+		model.addAttribute("emp", emp);
+		model.addAttribute("cust", custCategory);
+		System.out.println("emp->"+emp);
+		
 		return "mk/customerC";
+		}
 	}
 	
 
 	
 	// 거래처 수정
 	@GetMapping("/customerU")
-	public String custromerU(mkCustomer customer, Model model) {
+	public String custromerU(mkCustomer customer, Model model,HttpSession session) {
 		System.out.println("MK Controller custromerU start");
+		String empNo = (String) session.getAttribute("emp_no");
+		// 사원데이터 조회
+		
+		if (empNo == null) {
+			   // 메인 페이지로 이동
+		   return "main";
+		}
+		else {
 	
 		//product count 
 		int totalCustomer = mk_Service_interface.totalCustomer(customer);
@@ -476,6 +590,7 @@ public class MkController {
 		  model.addAttribute("page", page);
 		  model.addAttribute("totalCustomer",totalCustomer);
 		return "mk/customerU";
+		}
 	}
 	
 	// 거래처 업데이트 로직 
@@ -498,24 +613,43 @@ public class MkController {
 	
 	// 거래처 등록 로직 
 	@PostMapping("/createCustomer")
-	public String writeCustomer(@ModelAttribute mkCustomer customer,  HttpServletRequest request,  RedirectAttributes redirectAttributes) {
+	public String writeCustomer( @ModelAttribute mkCustomer customer,  HttpServletRequest request,  RedirectAttributes redirectAttributes) {
 		
-		System.out.println("MK_Controller writeCustomer start...");
-		System.out.println("customer data->"+customer);
+		System.out.println("writeCustomer start..");
+		System.out.println(customer);
 		
 		
 		
 		//제품 정보 저장 로직 구현 
 		int insertResult = mk_Service_interface.insertCustomer(customer);
 		if(insertResult>0)
-			return"redirect:customerR";
+			return"redirect:customerU";
 		else {
 		
 			return "forward:customerC";
 		}
 	}
 
-
+	 @ResponseBody 
+	@GetMapping("/getEmployees")
+	public List<mkEmployee> searchEmployee(@RequestParam("cust_type") String custType ,mkEmployee emp, Model model ) {
+	
+		System.out.println("getEmployees Start");
+		
+		emp.setCust_type(custType);
+		
+		System.out.println("custType이 0이면 부서 103조회 1이면 104조회->"+emp);
+		
+		List<mkEmployee> empList =null;
+		
+		
+		empList = mk_Service_interface.searchEmpList(emp);
+		
+		System.out.println("cus_type 에 따른 부서 별 사원 조회 ->" + empList);
+		
+		
+		return empList;
+	}
 	
 	
 }

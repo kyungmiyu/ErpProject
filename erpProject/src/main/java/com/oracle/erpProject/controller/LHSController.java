@@ -86,7 +86,7 @@ public class LHSController {
 	public String lhsListStock(Stock stock, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsListStock start...");
-		
+		System.out.println("cc: ");
 		// 사원데이터 조회
 		String empNo = (String) session.getAttribute("emp_no");
 		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
@@ -102,6 +102,7 @@ public class LHSController {
 		if (stock.getSt_year_month() == null) {
 			stock.setSt_year_month(formattedDate);
 		}
+		System.out.println("cc:" + stock.getP_itemcode());
 
 		// 월 재고 total수 조회
 		int totalStock = lhs.getTotalStock(stock);
@@ -142,10 +143,10 @@ public class LHSController {
 		// 현재 날짜가 25일보다 작은지 확인
 		if (currentDate.getDayOfMonth() < 25) {
 			// 25일 미만인 경우
-			return "redirect:lhsFormRegistStockNewItem?emp_no=";
+			return "redirect:lhsFormRegistStockNewItem";
 		} else {
 			// 25일 이상인 경우
-			return "redirect:lhsFormRegistStockSurvey?emp_no=";
+			return "redirect:lhsFormRegistStockSurvey";
 		}
 
 	}
@@ -164,7 +165,8 @@ public class LHSController {
 		// 사원데이터 조회
 		String empNo = (String) session.getAttribute("emp_no");
 		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
-		
+
+		System.out.println(empData.getEmpRole());
 		// 현재날짜 불러오기
 		LocalDateTime now = getLocalDateTime();
 		
@@ -177,6 +179,9 @@ public class LHSController {
 		model.addAttribute("stock", stock);
 		model.addAttribute("empData", empData);
 
+		if (empData.getEmpRole().equals("role_admin")) {
+			return "lhs/formRegistStockNewItemAdmin";
+		}
 		return "lhs/formRegistStockNewItem";
 	}
 	
@@ -258,7 +263,7 @@ public class LHSController {
 		  
 		System.out.println("registStockNewItem resultCnt-> " + resultCntRegistStock);
 
-		return "redirect:lhsListStock?emp_no=";
+		return "redirect:lhsListStock";
 	}
 	
 	
@@ -289,6 +294,9 @@ public class LHSController {
 		model.addAttribute("stock", stock);
 		model.addAttribute("empData", empData);
 
+		if (empData.getEmpRole().equals("role_admin")) {
+			return "lhs/formRegistStockSurveyAdmin";
+		}
 		return "lhs/formRegistStockSurvey";
 	}
 	
@@ -646,6 +654,10 @@ public class LHSController {
 		model.addAttribute("listRnPClosing", listRnPClosing);
 		model.addAttribute("page", page);
 
+		/*
+		 * if (empData.getEmpRole().equals("role_admin")) { return
+		 * "lhs/listRnPCondSurveyAdmin"; }
+		 */
 		return "lhs/listRnPCondSurvey";
 
 	}

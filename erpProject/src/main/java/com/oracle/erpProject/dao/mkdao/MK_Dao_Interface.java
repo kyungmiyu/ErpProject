@@ -2,7 +2,10 @@ package com.oracle.erpProject.dao.mkdao;
 
 import java.util.List;
 
+import com.oracle.erpProject.domain.Employee;
+import com.oracle.erpProject.model.kmmodel.KM_Employee;
 import com.oracle.erpProject.model.mkmodel.mkCustomer;
+import com.oracle.erpProject.model.mkmodel.mkEmployee;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 
@@ -53,6 +56,18 @@ public interface MK_Dao_Interface {
 	List<mkProduct> proCategory(mkProduct mkProduct);
 
 	List<mkProduct> fList(mkProduct product);
+
+	
+
+	List<mkEmployee> employeeList(mkEmployee employee);
+
+	List<mkCustomer> custCategory(mkCustomer customer);
+
+	
+
+	List<mkEmployee> CusemployeeList(mkEmployee emp);
+
+	
 
 
 

@@ -74,6 +74,7 @@
 		    AND s.cust_no = sd.cust_no
 		    AND sd.p_itemcode = p.p_itemcode
 		    AND s.s_date = #{rnpc_date}
+		    AND s.s_status NOT IN (2, 3)
    		    <choose>
 				<when test="gubun == 'all'">
 				</when>
@@ -109,6 +110,7 @@
 				      AND s.cust_no = sd.cust_no
 				      AND sd.p_itemcode = p.p_itemcode
 				      AND s.s_date = #{rnpc_date}
+      		    	  AND s.s_status NOT IN (2, 3)
 					<choose>
 						<when test="gubun == 'all'">
 						</when>
@@ -138,6 +140,7 @@
 		    AND md.f_id = f.f_id
 		    AND md.p_itemcode = p.p_itemcode
 		    AND to_date(m.m_due_date) = #{rnpc_date}
+		    AND m.m_status >= 3
 		    <choose>
 		        <when test="gubun == 'all'">
 		        </when>
@@ -167,9 +170,9 @@
 				    FROM make m, make_detail md, factory f, product p
 					WHERE m.m_num = md.m_num
 				    AND md.f_id = f.f_id
-				    <!-- AND md.f_id = p.f_id -->
 				    AND md.p_itemcode = p.p_itemcode
 				    AND to_date(m.m_due_date) = #{rnpc_date}
+	    		    AND m.m_status >= 3
 					<choose>
 				        <when test="gubun == 'all'">
 				        </when>

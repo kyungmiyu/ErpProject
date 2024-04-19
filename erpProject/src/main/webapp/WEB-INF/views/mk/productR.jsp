@@ -23,13 +23,23 @@ $(document).ready(function() {
             success: function(product) {
             	  // AJAX 호출 성공 시, 서버로부터 받은 product 객체의 데이터를 입력 필드에 설정
             	var imagePath ='../upload/' +product.p_image;
+            	var categoryMap = {
+            		    101: '간편식',
+            		    102: '냉동식품',
+            		    103: '커피 및 차',
+            		    104: '탄산음료',
+            		    105: '주스',
+            		    106: '우유 및 유제품'
+            		};
+            	var midCategory = product.pro_midcategory;
+            	var category = categoryMap[midCategory] || ''; // pro_midcategory에 해당하는 카테고리가 없으면 빈 문자열 반환
+
                 $('#p_itemcode').val(product.p_itemcode); // 제품코드
                 $('#pro_category').val(product.pro_category); //제품대분류
-               	$('#pro_midcategory').val(product.pro_midcategory);
-                $('#f_id').val(product.f_id); // 제품공장
-                /*  */
+               	$('#pro_midcategory').val(category);
+                $('#f_name').val(product.f_name); // 제품공장
                  $('#p_buyprice').val(product.p_buyprice); // 매입가격
-                $('#p_isdeleted').val(product.p_isdeleted); // 취급여부
+                $('#p_isdeleted').val(product.p_isdeleted==0? '취급중':'취급안함'); // 취급여부
                 $('#p_regdate').val(product.p_regdate); // 등록날자
                 $('#p_name').val(product.p_name); // 제품코드
                 $('#p_fac_gubun').val(product.p_fac_gubun); // 제품명
@@ -101,6 +111,9 @@ $(document).ready(function() {
 				<div class="col-4">
 					<div class="card mb-4">
 						<div class="card-header pb-0">
+
+
+
 
 							<!--content name  -->
 							<h6 class="mb-4">제품 조회</h6>
@@ -301,14 +314,16 @@ $(document).ready(function() {
 					                <label for="p_itemcode">제품코드</label> 
 					                <input type="email" class="form-control" id="p_itemcode"  readonly >
 					            </div>
-					            <div class="form-group">
+					         <!--    <div class="form-group">
 					                <label for="pro_category">제품 대분류</label> 
 					                <input type="email" class="form-control" id="pro_category"  readonly>
-					            </div>
+					            </div> -->
 					            <div class="form-group">
-					                <label for="f_id">제품공장</label> 
-					                <input type="email" class="form-control" id="f_id"  readonly>
+					                <label for="f_name">제품공장</label> 
+					                <input type="email" class="form-control" id="f_name"  readonly>
 					            </div>
+					       
+					            
 					              <div class="form-group">
 					                <label for="p_buyprice">매출 가격</label> 
 					                <input type="email" class="form-control" id="p_buyprice"  readonly>
@@ -329,10 +344,10 @@ $(document).ready(function() {
 					                <label for="exampleFormControlInput5">제품 중분류</label> 
 					                <input type="email" class="form-control" id="pro_midcategory"  readonly>
 					            </div>
-					            <div class="form-group">
+					           <!--  <div class="form-group">
 					                <label for="p_fac_gubun">공장구분</label> 
 					                <input type="email" class="form-control" id="p_fac_gubun"  readonly>
-					            </div>
+					            </div> -->
 					            <div class="form-group">
 					                <label for="p_saleprice">매입가격</label> 
 					                <input type="email" class="form-control" id="p_saleprice"  readonly>

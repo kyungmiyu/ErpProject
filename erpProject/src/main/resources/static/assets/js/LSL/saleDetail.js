@@ -10,7 +10,7 @@ $(document).ready(function() {
 	$("#saleModify").click(function() {
 		$("input[type='text']").removeAttr("disabled");
 		$("textarea").removeAttr("disabled");
-		$(".bdCnt").removeAttr("disabled");
+		$(".sdCnt").removeAttr("disabled");
 		$(".pDeleteBtn").show();
 		$(".pModifyBtn").show();
 		$("#addBtn").show();
@@ -155,7 +155,7 @@ $(document).ready(function() {
 	$(document).on("click", ".pModifyBtn", function() {
 		var sd_cnt = $(this).closest('.saleListItem').find('.sdCnt').val();
 		var cust_no = $("#cust_no").val();
-		var s_date = $("#buy_date").val();
+		var s_date = $("#s_date").val();
 		var p_itemcode = $(this).closest('.saleListItem').find('.p_itemcode').val();
 		var sd_price = $(this).closest('.saleListItem').find('#p_saleprice').val();
 
@@ -166,7 +166,8 @@ $(document).ready(function() {
 			p_itemcode: p_itemcode,
 			sd_price: sd_price
 		};
-
+		
+		console.log(productCntModify);
 
 
 		$.ajax({
@@ -176,7 +177,7 @@ $(document).ready(function() {
 			dataType: 'json',
 			contentType: 'application/json',
 			success: function(response) {
-				console.log("buyModifyData", productCntModify);
+				console.log("saleModifyData", productCntModify);
 			},
 			error: function(error) {
 				console.log("전송 실패");
@@ -212,10 +213,10 @@ $(document).ready(function() {
 					$("#saleStatusBox").text("판매 진행중");
 
 				} else if (response == "1") {
-					$("#saleStatusBox").text("생산 작업 요청");
+					$("#saleStatusBox").text("판매 취소");
 
 				} else if (response == "2") {
-					$("#saleStatusBox").text("생산 진행중");
+					$("#saleStatusBox").text("생산 작업 요청");
 
 				} else if (response == "3") {
 					$("#saleStatusBox").text("생산 완료");
@@ -283,7 +284,8 @@ $(document).ready(function() {
 			url: '/closingStatus',
 			type: 'GET',
 			success: function(closingStatus) {
-				if (closingStatus !== 0) {
+				
+				if (closingStatus !== 0 ) {
 
 					$("#saleModify").hide();
 					$("#saleComple").hide();

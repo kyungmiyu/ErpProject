@@ -106,7 +106,7 @@
         </ul>
     </div>
 </div>
- <c:if test="${sessionScope.dept_no == 3}"> 
+ <c:if test="${sessionScope.dept_no == 103}"> 
 	<c:choose>
     <c:when test="${buyingDetail.buy_status_detail eq '구매 진행중'}">
         <button type="button" class="btn btn-primary" id="buyModify">수정</button>

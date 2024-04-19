@@ -34,7 +34,7 @@
 						<div class="card-header pb-0">
 							<div class="row">
 								<div class="col-12 d-flex">
-									<h6 class="col-6">Information</h6>
+									<h5 class="col-6 fw-bold">Information</h5>
 							        <div class="bg-white border-radius-lg ms-auto d-flex">
 									    <form action="/listEmployeeProc" name="searchForm" method="POST" class=" d-flex align-items-center">
 									         <select class="form-select me-1" name="searchType" style="width: 150px">
@@ -54,7 +54,7 @@
 								<table class="table align-items-center mb-0">
 									<thead>
 										<tr>
-											<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">사원 정보</th>
+											<th class="text-uppercase text-secondary text-xs fw-bolder opacity-7">사원 정보</th>
 											<th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">부서명 / 직책</th>
 											<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">상태</th>
 											<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">입사일</th>
@@ -89,18 +89,23 @@
 											<c:choose>
 												<c:when test="${employee.empRole eq 'role_employee'}">
 													<c:set var="emp_role" value="일반 사원" />
+													<c:set var="emp_job_color" value="bg-gradient-secondary" />
 												</c:when>
 												<c:when test="${employee.empRole eq 'role_manager_buy'}">
 													<c:set var="emp_role" value="구매 관리자" />
+													<c:set var="emp_job_color" value="bg-gradient-danger" />
 												</c:when>
 												<c:when test="${employee.empRole eq 'role_manager_sale'}">
-													<c:set var="emp_role" value="생산 관리자" />
+													<c:set var="emp_role" value="판매 관리자" />
+													<c:set var="emp_job_color" value="bg-gradient-info" />
 												</c:when>
 												<c:when test="${employee.empRole eq 'role_manager_make'}">
-													<c:set var="emp_role" value="판매 관리자" />
+													<c:set var="emp_role" value="생산 관리자" />
+													<c:set var="emp_job_color" value="bg-gradient-success" />
 												</c:when>
 												<c:when test="${employee.empRole eq 'role_admin'}">
 													<c:set var="emp_role" value="ERP 관리자" />
+													<c:set var="emp_job_color" value="bg-gradient-primary" />
 												</c:when>
 											</c:choose>
 											<tr>
@@ -117,10 +122,20 @@
 												</td>
 												<td>
 													<p class="text-xs font-weight-bold mb-0">${emp_job_name}</p>
-													<p class="text-xs text-secondary mb-0">부서명</p>
+													<p class="text-xs text-secondary mb-0">
+														<c:choose>
+											                <c:when test="${employee.deptNo=='100'}">미정</c:when>
+											                <c:when test="${employee.deptNo=='101'}">경영팀</c:when>
+											                <c:when test="${employee.deptNo=='102'}">인사팀</c:when>
+											                <c:when test="${employee.deptNo=='103'}">구매팀</c:when>
+											                <c:when test="${employee.deptNo=='104'}">생산팀</c:when>
+											                <c:when test="${employee.deptNo=='105'}">물류팀</c:when>
+											                <c:when test="${employee.deptNo=='106'}">영업팀</c:when>
+											            </c:choose>			
+										            </p>
 												</td>
 												<td class="align-middle text-center text-sm">
-													<span class="badge badge-sm bg-success">${emp_role}</span>
+													<span class="badge badge-sm ${emp_job_color}" style="width: 73.9px;">${emp_role}</span>
 												</td>
 												<td class="align-middle text-center">
 													<span class="text-secondary text-xs font-weight-bold">${employee.empHireDate}</span>

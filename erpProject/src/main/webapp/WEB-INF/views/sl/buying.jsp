@@ -76,7 +76,7 @@
 		      <th scope="row">${loop.index + 1}</th>
 		      <td><a href="buyDetail?cust_no=${buyAlllist.cust_no}&&buy_date=${buyAlllist.buy_date}">${buyAlllist.buy_title}</a></td>
 		      <td>${buyAlllist.cust_name}</td>
-		      <td>${buyAlllist.buy_date}</td>
+		      <td><fmt:formatDate value="${buyAlllist.buy_wdate}" pattern="yyyy-MM-dd" /></td>
 		      <td>${buyAlllist.buy_manager}</td>
 		      <td>${buyAlllist.productCnt}</td>
 		      <td>${buyAlllist.totalCnt}</td>
@@ -94,7 +94,7 @@
 								<c:forEach var="i" begin="${buypage.startPage}" end="${buypage.endPage}">
 									<li class="page-item"><a class="page-link" href="buying?currentPage=${i}">${i}</a></li>
 								</c:forEach>
-								<c:if test="${buypage.startPage < buypage.pageBlock}">
+								<c:if test="${buypage.endPage < buypage.totalPage}">
 									<li class="page-item"><a class="page-link" href="buying?currentPage=${buypage.startPage + buypage.pageBlock}">▷</a></li>
 								</c:if>
 							</ul>

@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.oracle.erpProject.dao.jjdao.JJ_Dao_Interface;
+import com.oracle.erpProject.model.Factory;
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
+import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 
 import lombok.RequiredArgsConstructor;
@@ -44,21 +46,12 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 	}
 
 	@Override
-	public int makeRequest1(JJ_Make m) {
-		int makeRequest1 = 0;
-		System.out.println("JJ_ServiceImpl's makeRequest1 Go!");
-		makeRequest1 = jjDao.makeRequest1(m);
-		System.out.println("JJ_ServiceImpl's makeRequest1 -> " + makeRequest1);
-		return makeRequest1;
-	}
-	
-	@Override
-	public int makeRequest2(JJ_Make_detail md) {
-		int makeRequest2 = 0;
-		System.out.println("JJ_ServiceImpl's makeRequest2 Go!");
-		makeRequest2 = jjDao.makeRequest2(md);
-		System.out.println("JJ_ServiceImpl's makeRequest2 -> " + makeRequest2);
-		return makeRequest2;
+	public int makeRequest(JJ_Make m) {
+		int makeRequest = 0;
+		System.out.println("JJ_ServiceImpl's makeRequest Go!");
+		makeRequest = jjDao.makeRequest(m);
+		System.out.println("JJ_ServiceImpl's makeRequest -> " + makeRequest);
+		return makeRequest;
 	}
 
 	// 생산 상세 페이지
@@ -77,7 +70,7 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 		int makeSearchCnt = jjDao.makeSearchCnt(md);
 		return makeSearchCnt;
 	}
-
+	
 	@Override
 	public List<JJ_Make_detail> makeSearchList(JJ_Make_detail md) {
 		List<JJ_Make_detail> makeSearchList = null;
@@ -87,13 +80,24 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 		return makeSearchList;
 	}
 
-	// 삭제 기능
+	// make detail 삭제
 	@Override
 	public int jjmakeDelete(int m_num) {
 		int jjmakeDelete = 0;
 		System.out.println("JJ_ServiceImpl's jjmakeDelete Go!");
 		jjmakeDelete = jjDao.jjmakeDelete(m_num);
+		System.out.println("JJ_ServiceImpl's jjmakeDelete ->" + jjmakeDelete);
 		return jjmakeDelete;
+	}
+	
+	// make 삭제
+	@Override
+	public int jjmakeDelete2(int m_num) {
+		int jjmakeDelete2 = 0;
+		System.out.println("JJ_ServiceImpl's jjmakeDelete2 Go!");
+		jjmakeDelete2 = jjDao.jjmakeDelete2(m_num);
+		System.out.println("JJ_ServiceImpl's jjmakeDelete2 ->" + jjmakeDelete2);
+		return jjmakeDelete2;
 	}
 
 	@Override
@@ -105,5 +109,26 @@ public class JJ_ServiceImpl implements JJ_Service_Interface {
 		return jjproductList;
 	}
 
+	// make 업데이트
+	@Override
+	public int jjmakeUpdate(JJ_Make m) {
+		int jjmakeUpdate = 0;
+		System.out.println("JJ_ServiceImpl's jjmakeUpdate Go!");
+		jjmakeUpdate = jjDao.jjmakeUpdate(m);
+		System.out.println("JJ_ServiceImpl's jjmakeUpdate->"+jjmakeUpdate);
+		return jjmakeUpdate;
+	}
+
+	@Override
+	public Factory getFactoryName(String p_itemcode) {
+		return jjDao.getFactoryName(p_itemcode);
+	}
+ 
+	@Override
+	public List<mkFactory> jjFactoryList() {
+		List<mkFactory> factoryList = null;
+		factoryList = jjDao.jjFacotryList();
+		return factoryList;
+	}
 
 }

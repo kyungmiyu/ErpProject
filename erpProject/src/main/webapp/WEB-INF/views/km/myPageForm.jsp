@@ -17,7 +17,15 @@
 			+ $("input[name='emp_phone3']").val()
 		);
 		
-		$("form[name='editEmployeeForm']").submit();
+		$("form[name='myPageEditProc']").submit();
+	}
+	
+	function pwCheck() {
+		if ($("input[name='empPassword']").val() === $("input[name='empPassword2']").val()) {
+			$("input[name='empPassword2']").removeClass("is-invalid").addClass("is-valid").text("Password Check");
+		} else {
+			$("input[name='empPassword2']").removeClass("is-valid").addClass("is-invalid").text("Error Input")
+		}
 	}
 </script>
 </head>
@@ -33,9 +41,9 @@
  	</c:if>
  	
 	<div class="main-body container-fluid py-4">
-	<form action="/editEmployeeForm" method="post" name="editEmployeeForm">
+	<form action="/myPageEditProc" method="post" name="myPageEditProc">
       <div class="row">
-        <div class="col-md-8 h-100">
+        <div class="col-md-8 h-100"> <!-- 고 -->
           <div class="card h-100">
             <div class="card-header pb-0">
               <div class="d-flex align-items-center">
@@ -47,12 +55,12 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">사원번호</label>
-                    <input class="form-control" type="text" value="${employee.empNo}" onfocus="focused(this)" onfocusout="defocused(this)" disabled>
+                    <input class="form-control" name="empNo" type="text" value="${employee.empNo}" onfocus="focused(this)" onfocusout="defocused(this)" disabled>
                   </div>
                 </div>
                 <div class="col-md-6">
 					<label for="example-text-input" class="form-control-label">status</label>
-					<select class="form-select" name="empStatus" value="${emp_status_edit}" aria-label="Default select example" disabled>
+					<select class="form-select" name="empStatus" value="${emp_status_edit}" aria-label="Default select example">
 						<option value="1" selected>재직</option>
 						<option value="2">휴직</option>
 						<option value="9">퇴사</option>
@@ -61,13 +69,13 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">생년월일</label>
-                    <input class="form-control" type="date" value="${employee.empBirth}" onfocus="focused(this)" onfocusout="defocused(this)" disabled>
+                    <input class="form-control" name="empBirth" type="date" value="${employee.empBirth}" onfocus="focused(this)" onfocusout="defocused(this)" disabled>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">입사일</label>
-                    <input class="form-control" type="date" value="${employee.empHireDate}" onfocus="focused(this)" onfocusout="defocused(this)" disabled> 
+                    <input class="form-control" name="empHireDate" type="date" value="${employee.empHireDate}" onfocus="focused(this)" onfocusout="defocused(this)" disabled> 
                   </div>
                 </div>
               </div>
@@ -77,7 +85,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Email</label>
-                    <input class="form-control" type="text" value="${employee.empEmail}" onfocus="focused(this)" onfocusout="defocused(this)">
+                    <input class="form-control" name="empEmail" type="text" value="${employee.empEmail}" onfocus="focused(this)" onfocusout="defocused(this)">
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -93,13 +101,13 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">주소</label>
-                    <input class="form-control" type="text" value="${employee.empAddress}" onfocus="focused(this)" onfocusout="defocused(this)">
+                    <input class="form-control" name="empAddress" type="text" value="${employee.empAddress}" onfocus="focused(this)" onfocusout="defocused(this)">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">우편번호</label>
-                    <input class="form-control" type="text" value="${employee.empPostcode}" onfocus="focused(this)" onfocusout="defocused(this)">
+                    <input class="form-control" name="empPostcode" type="text" value="${employee.empPostcode}" onfocus="focused(this)" onfocusout="defocused(this)">
                   </div>
                 </div>
               </div>
@@ -108,14 +116,14 @@
               <p class="text-uppercase text-sm">PASSWORD RESET</p>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="example-text-input" class="form-control-label">비밀번호</label>
-                  <input class="form-control" type="text" value="" onfocus="focused(this)" onfocusout="defocused(this)">
+                  <label for="example-text-input" class="form-control-label">비밀번호</label> <!-- 잠시만요... 근데 이러면 화면에 password가 보이잖아요..ㅎㅎ 일단 놔둬봐... 나한테 할말 있음 카톡으로 해줘봐 -->
+                  <input class="form-control is-valid" name="empPassword" placeholder="Success" value="${employee.empPassword}" type="password"onfocus="focused(this)" onfocusout="defocused(this)" oninput="pwCheck()">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="example-text-input" class="form-control-label">비밀번호 확인</label>
-                  <input class="form-control" type="text" value="${employee.empPassword}" onfocus="focused(this)" onfocusout="defocused(this)">
+                  <input class="form-control is-invalid" name="empPassword2" type="password" placeholder="Error Input" onfocus="focused(this)" onfocusout="defocused(this)" oninput="pwCheck()">
                 </div>
               </div>
             </div>

@@ -10,6 +10,6 @@ import com.oracle.erpProject.domain.Employee;
 
 /* KM_EmployeeRepository */
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Integer>, JpaSpecificationExecutor<Employee> {
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	
 }

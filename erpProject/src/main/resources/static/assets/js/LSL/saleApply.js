@@ -189,10 +189,11 @@ $(document).ready(function() {
 
 	// 모달 저장 버튼 클릭 이벤트
 	$("#orderModal").on("click", ".btn-primary", function() {
-
+		
 		var today = new Date();
 		var formattedDate = today.toISOString().slice(0, 10).replace(/-/g, '');
-		var m_sdate = formattedDate;
+		var formattedDate2 = today.toISOString().slice(0, 10);
+		var m_sdate = formattedDate2;
 		var m_manager = $("#m_manager").val();
 		var m_note = $("#m_note").val();
 		var md_quantity = $("#md_quantity").val();

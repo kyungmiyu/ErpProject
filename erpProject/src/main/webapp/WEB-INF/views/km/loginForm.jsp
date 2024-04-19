@@ -75,7 +75,7 @@
                       <input type="text" name="empNo" class="form-control form-control-lg" placeholder="Id" aria-label="Id">
                     </div>
                     <div class="mb-3">
-                      <input type="text" name="empPassword" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
+                      <input type="password" name="empPassword" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
                     </div>
                     <div class="form-check form-switch">
                       <input class="form-check-input" type="checkbox" id="rememberMe">

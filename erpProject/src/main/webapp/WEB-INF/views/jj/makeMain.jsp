@@ -13,6 +13,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
+
 	function jjmakeSearchFn(pPage)  {
 	 	var keyword =   $("#keyword").val();
 		var sendData = 'currentPage='+pPage;
@@ -21,8 +22,30 @@
 	    
 	    location.href="jjmakeSearch?"+sendData;
 	}
+$(document).ready(function() {	
+	// 버튼 클릭 시 수불마감 여부 확인
+	$('#buyProBtn').click(function() {
+		checkClosingStatus();
+	});
 	
-
+	// 수불마감 여부 가져오기
+	function checkClosingStatus() {
+		$.ajax({
+			url: '/closingStatus', 
+			type: 'GET',
+			success: function(closingStatus) {
+				if (closingStatus !== 0) {
+					alert("금일 수불 마감 처리 되어 등록 할 수 없습니다.");
+					$('#buyProBtn').prop('disabled', true);
+					 window.location.href = "makeMain";
+				} else {
+					 window.location.href = "makeFormRequest";
+				}
+			}
+		});
+	}
+	
+});
 </script>
 <head>
 <%@ include file="../configHead.jsp"%>
@@ -43,7 +66,7 @@
 	 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
 	 	 		
 		<!-- 생산 리스트 게시판 -->
-		<div class="card col-10 w-100 p-5 float-end">
+		<div class="card col-12 w-100" style="padding: 24px;">
 		  <div class="table-responsive">
 	  		<div class="form-group">
 				<h2>생산게시판</h2>
@@ -57,7 +80,9 @@
 		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">제품명</th>
 		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업자</th>
 		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업지시일자</th>
+		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">지시수량</th>
 		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">작업완료일자</th>
+		          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">생산수량</th>
 		        </tr>
 		      </thead>
 		      <tbody>
@@ -103,8 +128,14 @@
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_sdate}</h6> <!-- 작업지시일자 -->
 			          </td>
 			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_quantity}</h6> <!-- 지시수량 -->
+			          </td>
+			          <td class="text-center">
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_due_date}</h6> <!-- 작업완료일자 -->
 			          </td>
+			          <td class="text-center">
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_pro_quantity}</h6> <!-- 생산수량 -->
+			          </td>			          
 			        </tr>
 				  </c:forEach>
 		      </tbody>
@@ -124,7 +155,6 @@
 		    </c:if>
     		<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
             	<li class="page-item"><a class="page-link" href="#" onclick="jjmakeSearchFn(${i})">${i}</a></li>
-            	<%-- <li class="page-item"><button onclick="jjmakeSearchFn(${i})"></button></li> --%>
  			</c:forEach>
  			<c:if test="${page.endPage < page.totalPage}">
 			    <li class="page-item">
@@ -151,7 +181,9 @@
 		
 		<!-- 생산 등록 버튼 -->
 		<div class="d-flex justify-content-end">
-			<button type="button" class="btn btn-primary" id="buyProBtn" onclick="location.href='makeFormRequest'">생산 요청</button>
+			<c:if test="${sessionScope.dept_no == 104 }"> 
+				<button type="button" class="btn btn-primary" id="buyProBtn">생산 요청</button>
+			</c:if>
 		</div>
 		  
 		  

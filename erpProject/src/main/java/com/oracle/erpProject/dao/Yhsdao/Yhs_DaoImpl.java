@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.oracle.erpProject.model.Board;
 import com.oracle.erpProject.model.yhsmodel.YhsBoard;
 
 import lombok.RequiredArgsConstructor;
@@ -60,37 +59,45 @@ public class Yhs_DaoImpl implements Yhs_Dao_Interface {
 		return boardViewCnt;
 	}
 	
+	// 게시판 글쓰기 
 	@Override
-	public int insertBoard(YhsBoard board) {
-		int result = 0;
-		System.out.println("Yhs_DaoImpl insert Start..." );
-		try {
-			result = session.insert("yhsInsertBoard",board);
-			System.out.println("Yhs_DaoImpl insert board->" + board);
-		} catch (Exception e) {
-			System.out.println("Yhs_DaoImpl insert Exception->"+e.getMessage());
-		}
-		return result;
+	public int boardWriteInsert(YhsBoard board) {
+		int boardFreeWriteInsert = session.insert("yhsInsertBoard",board);
+		return boardFreeWriteInsert;
 	}
 
+	
+	@Override
+	public int deleteBoard(YhsBoard board) {
+		int deleteBoard = session.update("yhsdeleteBoard", board);
+		return deleteBoard;
+	}
 
 	@Override
-	public int deleteBoard(int b_no) {
-		System.out.println("Yhs_DaoImpl delete start..");
-		int result = 0;
-		System.out.println("Yhs_DaoImpl delete bno->"+b_no);
+	public YhsBoard boardModify(int b_no) {
+		YhsBoard boardModify = session.selectOne("yhsboardModify",b_no);
+		System.out.println("boardModify ->" + boardModify);
+		return boardModify;
+	}
+
+	@Override
+	public int boardUpdate(YhsBoard board) {
+		int boardUpdate = session.update("yhsboardUpdate", board);
+		return boardUpdate;
+	}
+
+	@Override
+	public List<YhsBoard> listSearchBoard(YhsBoard board) {
+		System.out.println("YHS_Dao_Impl start...");
+		List<YhsBoard> searchBoard = null;
+		System.out.println("searchboard->"+board);
 		try {
-			result  = session.delete("yhsDeleteBoard",b_no);
-			System.out.println("Yhs_DaoImpl delete result->"+result);
-		} catch (Exception e) {
-			System.out.println("Yhs_DaoImpl delete Exception->"+e.getMessage());
+			searchBoard =session.selectList("yhsSearchboard",board);
+		}catch (Exception e) {
+			System.out.println("listSearchBoard exception->"+e.getMessage());
 		}
-		return result;
+		return searchBoard;
 	}
 	
-//	@Override
-//	public int deleteBoard(YhsBoard board) {
-//		int deleteBoard = session.update("yhsdeleteBoard", board);
-//		return deleteBoard;
-//	}
+	
 }

@@ -165,13 +165,14 @@
 											<label for="example-date-input" class="form-control-label">퇴사일자</label>
 											<%-- 
 											<input class="form-control" name="empRetiredDate" type="date" value="${employee.empRetiredDate}" id="example-date-input">
-											 --%>
+											--%>
 											<c:if test="${mode=='regist'}">
-												<input class="form-control" name="empRD" type="date" value="" id="example-date-input">
+												<input class="form-control" name="empRetiredDate" type="date" id="example-date-input">
 											</c:if>
 											<c:if test="${mode=='edit'}">
 												<input class="form-control" name="empRetiredDate" type="date" value="${employee.empRetiredDate}" id="example-date-input">
 											</c:if>
+											 
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -294,17 +295,17 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="example-text-input" class="form-control-label">비밀번호</label>
-												<input type="text" name="empPassword" placeholder="Success" class="form-control is-valid" oninput="pwCheck()"/>
+												<input type="text" name="text" placeholder="Success" class="form-control is-valid" oninput="pwCheck()"/>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="example-text-input" class="form-control-label">비밀번호 확인</label> 
-												<input type="text" name="empPassword2" placeholder="Error Input" class="form-control is-invalid" oninput="pwCheck()"/>
+												<input type="text" name="text" placeholder="Error Input" class="form-control is-invalid" oninput="pwCheck()"/>
 											</div>
 										</div>
 									</c:if>
-								
+									
 									<div class="button-row d-flex">
 										<c:if test="${mode=='edit'}">
 											<button class="btn btn-outline-dark ms-auto mb-0 js-btn-next">비밀번호 초기화</button>

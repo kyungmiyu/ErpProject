@@ -106,6 +106,8 @@ public interface SL_Dao_Interface {
 
 	int checkSaleTransaction(SLSale sale);
 
+	int productSaleCntModify(SLSale sale);
+
 
 
 

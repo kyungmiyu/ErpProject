@@ -4,16 +4,24 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.oracle.erpProject.model.Factory;
 import com.oracle.erpProject.model.jjmodel.JJ_Make;
 import com.oracle.erpProject.model.jjmodel.JJ_Make_detail;
+import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 
+import jakarta.transaction.TransactionManager;
 import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
 public class JJ_DaoImpl implements JJ_Dao_Interface {
+	
+	private final PlatformTransactionManager transactionManager;
 	
 	// Mybatis DB 연동
 	private final SqlSession session;
@@ -31,8 +39,8 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		}
 		return cntMake;
 	}
-
-	// 생산게시판 List페이지 - 게시물 list
+	
+	// 생산게시판 MakeDetail List페이지
 	@Override
 	public List<JJ_Make_detail> makedetailList(JJ_Make_detail md) {
 		List<JJ_Make_detail> makedetailList = null;
@@ -61,33 +69,26 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		return requestMakeList;
 	}
 
-	@Override
-	public int makeRequest1(JJ_Make m) {
-		int makeRequest1 = 0;
-		System.out.println("JJ_DaoImpl's makeRequest1 Go!");
-		System.out.println("JJ_DaoImpl's makeRequest1 m->"+m);
-		try {
-			makeRequest1 = session.insert("jjMakeRequestInsert1", m);
-			System.out.println("JJ_DaoImpl's makeRequest1 -> " + makeRequest1);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return makeRequest1;
-	}
-	
 	// 생산게시판 생산 요청 기능
 	@Override
-	public int makeRequest2(JJ_Make_detail md) {
-		int makeRequest2 = 0;
-		System.out.println("JJ_DaoImpl's makeRequest2 Go!");
-		System.out.println("JJ_DaoImpl's makeRequest2 md->"+md);
+	public int makeRequest(JJ_Make m) {
+		
+		int makeRequest = 0;
+		System.out.println("JJ_DaoImpl's makeRequest Go!");
+		System.out.println("JJ_DaoImpl's makeRequest m->"+m);
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
 		try {
-			makeRequest2 = session.insert("jjMakeRequestInsert2", md);
-			System.out.println("JJ_DaoImpl's makeRequest2 -> " + makeRequest2);
+			makeRequest = session.insert("jjMakeRequestInsert1", m);
+			
+			System.out.println("JJ_DaoImpl's makeRequest m>>>>>>>>>>>->"+m);
+			makeRequest = session.insert("jjMakeRequestInsert2", m);
+			System.out.println("JJ_DaoImpl's makeRequest -> " + makeRequest);
+			transactionManager.commit(txStatus);
 		} catch (Exception e) {
 			e.printStackTrace();
+			transactionManager.rollback(txStatus);
 		}
-		return makeRequest2;
+		return makeRequest;
 	}
 
 	// 생산 상세 페이지
@@ -135,7 +136,7 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		return makeSearchList;
 	}
 
-	// 생산 삭제 기능
+	// make_detail 삭제
 	@Override
 	public int jjmakeDelete(int m_num) {
 		System.out.println("JJ_DaoImpl's jjmakeDelete Go!");
@@ -150,6 +151,21 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		return jjmakeDelete;
 	}
 
+	// make 삭제
+	@Override
+	public int jjmakeDelete2(int m_num) {
+		System.out.println("JJ_DaoImpl's jjmakeDelete2 Go!");
+		int jjmakeDelete2 = 0;
+		System.out.println("JJ_DaoImpl's jjmakeDelete2 ->" + m_num);
+		try {
+			jjmakeDelete2 = session.delete("jjmakeDelete2", m_num);
+			System.out.println("JJ_DaoImpl's jjmakeDelete2 ->" + jjmakeDelete2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jjmakeDelete2;
+	}
+
 	@Override
 	public List<mkProduct> jjproductList(mkProduct mp) {
 		List<mkProduct> jjproductList = null;
@@ -162,5 +178,63 @@ public class JJ_DaoImpl implements JJ_Dao_Interface {
 		}
 		return jjproductList;
 	}
+	
+	// make 업데이트
+	@Override
+	public int jjmakeUpdate(JJ_Make m) {
+		System.out.println("JJ_DaoImpl's jjmakeUpdate Go!");
+		int jjmakeUpdate = 0;
+		int jjmakeDetailUpdate = 0;
+		int jjSaleUpdate = 0;
+		
+		TransactionStatus txStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
+		try {
+			// 생산 
+			jjmakeUpdate = session.update("jjmakeUpdate", m);
+			System.out.println("JJ_DaoImpl's jjmakeUpdate ->" + jjmakeUpdate);
+			jjmakeDetailUpdate = session.update("jjmakeDetailUpdate", m);
+			System.out.println("JJ_DaoImpl's jjmakeDetailUpdate ->" + jjmakeDetailUpdate);
+			System.out.println("JJ_DaoImpl's m.getM_status()->"+m.getM_status());
+			// 영업
+			if(Integer.parseInt(m.getM_status()) == 3) {
+			jjSaleUpdate = session.update("jjSaleUpdate", m);
+			System.out.println("JJ_DaoImpl's jjSaleUpdate ->" + jjSaleUpdate);
+			}
+			
+			transactionManager.commit(txStatus);
+		} catch (Exception e) {
+				e.printStackTrace();
+				transactionManager.rollback(txStatus);
+		}
+		
+		return jjmakeUpdate;
+	}
+
+	@Override
+	public Factory getFactoryName(String p_itemcode) {
+		Factory factory = null;
+		try {
+			factory = session.selectOne("jjGetFactoryName",p_itemcode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return factory;
+	}
+
+	@Override
+	public List<mkFactory> jjFacotryList() {
+		List<mkFactory> factoryList = null;
+		System.out.println("JJ_DaoImpl's jjFactoryList Go!");
+		try {
+			factoryList = session.selectList("jjFactoryList");
+			System.out.println("JJ_DaoImpl's jjFacotryList -> " + factoryList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return factoryList;
+	}
+
+
 
 }

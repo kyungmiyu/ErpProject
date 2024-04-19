@@ -20,7 +20,7 @@
  	 ]]>
    </select>
    
-<select id="yhsboardContents" parameterType="int"
+	<select id="yhsboardContents" parameterType="int"
 	resultType="YhsBoard">
 	SELECT board.*, e.emp_no
 	FROM board
@@ -36,21 +36,64 @@
 	</update>
 	
 	<insert id="yhsInsertBoard" parameterType="YhsBoard">
-		INSERT INTO BOARD(b_no,emp_no,b_category,board_mid,b_name,b_content,b_regdate)
+		INSERT INTO BOARD(B_NO,EMP_NO,B_CATEGORY,BOARD_MID,B_NAME,B_CONTENT,B_FILE,B_HIT,B_REGDATE,B_GROUP,B_REPLY_NO,B_INDENT)
 		VALUES (b_no_seq.nextval,
-				1,
+				#{emp_no},
 				1,
 				1,
 				#{b_name}, 
 				#{b_content},
-				sysdate
+				0,
+				0,
+				sysdate,
+				0,
+				0,
+				0
 				)
 	</insert>	
 	
-	<delete id="yhsDeleteBoard" parameterType="int">
-	    delete from BOARD where b_no= #{b_no}
+	<delete id="yhsdeleteBoard" parameterType="YhsBoard">
+	    delete 
+	    from 
+	    BOARD 
+	  	where b_no= #{b_no}
    </delete>
    
+   	<select id="yhsboardModify" parameterType="int"
+		resultType="YhsBoard">
+		select *
+		from board
+		where b_no = #{b_no}
+	</select>
    
+   <update id="yhsboardUpdate" parameterType="YhsBoard">
+   		update board
+		set b_name=#{b_name},
+			b_content=#{b_content}
+		where b_no=#{b_no}
+   </update>
+   
+
+<select id="yhsSearchboard" parameterType="Yhsboard" resultType="Yhsboard">
+    SELECT *
+    FROM
+    (
+        SELECT rownum rn, a.*
+        FROM
+        (
+            SELECT * FROM board
+            WHERE b_name LIKE '%' || #{keyword} || '%'
+            ORDER BY b_name
+        ) a
+    )
+    WHERE rn BETWEEN #{start} and #{end}
+</select>
+
+
+
+
+
+
+
 
 </mapper>

@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.oracle.erpProject.model.mkmodel.mkProduct;
 import com.oracle.erpProject.model.yhsmodel.YhsBoard;
 import com.oracle.erpProject.service.Yhsservice.Paging;
 import com.oracle.erpProject.service.Yhsservice.Yhs_Service_Interface;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -71,54 +74,121 @@ public class YHSController {
 			return "Yhs/boardContents";
 			
 		}
-		
-	
-	
-//	게시판 글쓰기	
-	@GetMapping(value = "boardForm")
-	public String boardForm(HttpServletRequest request, Model model) {
-		System.out.println("BoardController Start boardForm...");
-		
-		String bregdate = request.getParameter("b_regdate");
-	 // 세션에서 보내는 사람의 아이디 가져오기
-//        Long empNo = (Long) request.getSession().getAttribute("emp_no");
-        
-     // 모델에 데이터 추가 (세션ID, 유저리스트)
-//        model.addAttribute("empNo", empNo);
+			
+	// 자유 게시판 글 작성 페이지
+		@GetMapping(value = "boardForm")
+		public String boardWrite() {
+			System.out.println("YHSController boardForm Start...");
+			return "Yhs/boardForm";
+		}
 
-		return "Yhs/boardForm";
-	}
-	
+	// 자유 게시판 글쓰기
 	@PostMapping(value = "boardWrite")
-	public String boardWrite(@ModelAttribute YhsBoard board ,Model model,HttpServletRequest request ) {
-		System.out.println("YHSController Start boardWrite..." );
-//		Long empNo = (Long) request.getSession().getAttribute("emp_no");
-//		board.setEmp_no(empNo);
-		System.out.println("YHSControllesr boardWrite ask->" + board);
-		int insertResult = yhs_Service_Interface.insertBoard(board);
-		System.out.println("YHSController insertResult insertResult->"+insertResult );
+	public String boardWrite(HttpServletRequest request, YhsBoard board, Model model,HttpSession session ) {
+		System.out.println("YHSController boardWrite Start...");
+			
+		try {
+			String empNo = (String) session.getAttribute("emp_no");
+			board.setEmp_no(Integer.parseInt(empNo));   
+			System.out.println("emp_no"+ empNo); 	
+			yhs_Service_Interface.boardWriteInsert(board);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("YHSController boardWrite Exception ->" + e.getMessage());
+		}
 		return "redirect:/board";
-
-	}
+		}
 	
-	@RequestMapping(value="deleteBoard")
-	public String deleteBoard(YhsBoard board, Model model) {
+	@RequestMapping("/deleteBoard")
+	public String deleteBoard(@RequestParam("b_no") int b_no, YhsBoard board, Model model) {
 		System.out.println("YHSController Start delete..." );
+		System.out.println("YHSController b_no >>>>>>>>>>>"  + b_no);
+		
+		board.setB_no(b_no);
 		// name -> Service, dao , mapper
-		int result = yhs_Service_Interface.deleteBoard(board.getB_no());
+		int result = yhs_Service_Interface.deleteBoard(board);
+		
 		return "redirect:/board";
 	}
 	
-//	// 자유 게시판 글 삭제
-//	@RequestMapping(value="deleteBoard")
-//	public String deleteBoard(HttpServletRequest request, YhsBoard board) {
-//		System.out.println("YHSController deleteBoard Start...");
+	
+	
+	// 게시판 글 수정 페이지 요청
+	@GetMapping(value = "boardModify")
+	public String boardModify(@RequestParam("b_no") int b_no,HttpServletRequest request, Model model, YhsBoard board,HttpSession session) {
+		System.out.println("YHS boardModify Start...");
+		
+		/*
+		 * String empNo = (String) session.getAttribute("emp_no");
+		 * board.setEmp_no(Integer.parseInt(empNo));
+		 */
+		board.setB_no(b_no);
+		System.out.println("boardModify b_no -> " +board);
+		YhsBoard boardContents = yhs_Service_Interface.boardContents(b_no);
+		model.addAttribute("boardContents", boardContents);
+//		String boardType = request.getParameter("boardType");
+//		System.out.println("글게시판 수정 페이지 보드타입 :" + boardType);
+//		
+//			YhsBoard boardModify;
+//			if (request.getParameter("boardType").equals("free")) {
+//				boardModify = yhs_Service_Interface.boardModify(b_no);	
+//				System.out.println(boardModify);
+//				} else {
+//				boardModify = yhs_Service_Interface.boardModify(b_no);
+//				}
+//			model.addAttribute("boardType", boardType);
+//			model.addAttribute("boardModifyContents", boardModify);
+	
+			return "Yhs/boardModify";
+			}
+	
+
+
+	// 게시판 글 수정 처리
+	@PostMapping("/boardUpdate")
+	public String boardUpdate(		@ModelAttribute YhsBoard board,
+									@RequestParam("b_no") int b_no,
+									HttpServletRequest request,
+									HttpSession session,
+									Model model) {
+		// 게시글 번호, 유저 번호, 게시판 타입을 가져옴
+		System.out.println("board확인용------"+board);
 //		int b_no = Integer.parseInt(request.getParameter("b_no"));
-//		board.setB_no(b_no);
-//		int deleteBoard = yhs_Service_Interface.deleteBoard(board);
-//
-//		System.out.println("YHSController deleteBoard ->" + deleteBoard);
-//
-//		return "redirect:/board";
-//	}
+		String empNo = (String) session.getAttribute("emp_no");
+		board.setEmp_no(Integer.parseInt(empNo));   
+
+		System.out.println("board ->" +board);
+		
+		
+		int  boardUpdate = yhs_Service_Interface.boardUpdate(board);
+		model.addAttribute("boardUpdate", boardUpdate);
+			  
+
+				return "redirect:/board";
+				}
+		
+
+	// 키워드 검색 
+	@GetMapping("boardSearch")
+	public String boardSearch(YhsBoard board, Model model) {
+		System.out.println("YHSController boardSearch start..."); 
+		System.out.println("YHSController boardSearch board->"+board); 
+		int totalBoard = yhs_Service_Interface.totalBoard(board);
+		System.out.println("YHSController Start totalBoard->"+totalBoard);
+		 
+		// Paging 작업 
+		Paging page = new Paging(totalBoard, board.getCurrentPage());
+		System.out.println("test page : " + page ); 
+		// Parameter ask --> Page만 추가 Setting 
+		board.setStart(page.getStart()); // 시작시 1
+		board.setEnd(page.getEnd()); // 시작시 10
+		System.out.println("YHSController boardList board->"+board);
+		  
+		List<YhsBoard> listSearchBoard = yhs_Service_Interface.listSearch(board);
+		
+		model.addAttribute("page",page); 
+		model.addAttribute("totalBoard",totalBoard);
+		model.addAttribute("listBoard", listSearchBoard);
+		return "Yhs/board";
+	}
 }

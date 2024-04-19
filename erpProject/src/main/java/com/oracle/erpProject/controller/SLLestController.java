@@ -38,8 +38,8 @@ public class SLLestController {
 		System.out.println("수불 마감 여부 +++++++++++" + closingStatu);
 		return closingStatu;
 	}
-	
-	// 매니저 리스트 
+
+	// 매니저 리스트
 	@GetMapping("/getProductList")
 	public List<SLBuying_detail> getProductList(SLBuying_detail sLBuying_detail) {
 		System.out.println("getProductList sLBuying_detail" + sLBuying_detail);
@@ -122,7 +122,7 @@ public class SLLestController {
 
 		return getManagerList;
 	}
-	
+
 	// 금일 구매 거래 조회
 	@PostMapping("/checkBuyTransaction")
 	int checkTransaction(@RequestBody SLBuying buying) {
@@ -132,8 +132,8 @@ public class SLLestController {
 
 		return result;
 	}
-	
-	// 구매 등록 
+
+	// 구매 등록
 	@PostMapping("/buyingApplyWrite")
 	public String buyingApplyWrite(@RequestBody SLBuying buying) {
 
@@ -152,7 +152,7 @@ public class SLLestController {
 
 	/*---------------------------------- 판 매 ---------------------------------------*/
 
-	// 제품 생산 요청 
+	// 제품 생산 요청
 	@PostMapping("/makeRequest")
 	public int saleMakeRequest(@RequestBody SLMake make) {
 
@@ -162,7 +162,7 @@ public class SLLestController {
 		return result;
 	}
 
-	// 판매 등록 
+	// 판매 등록
 	@PostMapping("/saleApplyWrite")
 	public String saleApplyWrite(@RequestBody SLSale sale) {
 
@@ -224,6 +224,16 @@ public class SLLestController {
 		int result = slService.checkSaleTransaction(sale);
 
 		return result;
+	}
+
+	// 판매 상세페이지 제품 수정
+	@PostMapping("/productSaleCntModify")
+	public int productSaleCntModify(@RequestBody SLSale sale) {
+		System.out.println("productSaleCntModify >>>>>" + sale);
+		int productCntModify = slService.productSaleCntModify(sale);
+		System.out.println("productSaleCntModify >>>>>" + productCntModify);
+
+		return productCntModify;
 	}
 
 }

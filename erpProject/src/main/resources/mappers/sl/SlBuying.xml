@@ -105,7 +105,9 @@
 					BUYING b
 					JOIN EMPLOYEE e ON b.EMP_NO = e.EMP_NO
 					JOIN CUSTOMER c ON b.CUST_NO = c.CUST_NO
-				WHERE b.buy_date = #{buy_date}) a
+				WHERE b.buy_date = #{buy_date}
+				ORDER BY b.buy_wdate DESC
+				) a
    				 )
    			 WHERE rn BETWEEN #{start} and #{end}
 </select>
@@ -166,7 +168,9 @@
 			    OR (b.buy_status =#{buy_status}) 
 			    OR (b.buy_status = #{buy_status}) 
 			    OR (b.buy_status = #{buy_status})
-		) ) a
+		)
+		ORDER BY b.buy_wdate DESC
+		 ) a
 		    )
 		    WHERE rn BETWEEN #{start} and #{end}
 	
@@ -217,7 +221,9 @@
 			BUYING b
 			JOIN EMPLOYEE e ON b.EMP_NO = e.EMP_NO
 			JOIN CUSTOMER c ON b.CUST_NO = c.CUST_NO
-			WHERE  c.cust_name  like '%' || #{keyword} || '%' ) a
+			WHERE  c.cust_name  like '%' || #{keyword} || '%' 
+			ORDER BY b.buy_wdate DESC
+			) a
     )
     WHERE rn BETWEEN #{start} and #{end}
 	</select>
@@ -263,6 +269,7 @@
 		select p.*
         from product p
         where p.p_fac_gubun = 1
+        and P_ISDELETED = 0
 	</select>
 	
 	<insert id="LsladdProduct" parameterType="SLBuying_detail">

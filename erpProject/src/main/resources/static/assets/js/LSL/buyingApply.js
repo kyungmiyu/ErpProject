@@ -148,7 +148,7 @@ $(document).ready(function() {
 		var buy_date = formattedDate;
 
 		console.log(cust_no);
-		console.log(buy_date);
+		console.log(buy_manager);
 
 	// 금일 거래 조회 
 		$.ajax({
@@ -158,7 +158,8 @@ $(document).ready(function() {
 			contentType: 'application/json',
 			data: JSON.stringify({
 				cust_no: cust_no,
-				buy_date: buy_date
+				buy_date: buy_date,
+				
 
 
 			}),

@@ -217,21 +217,21 @@ $(document).ready(function() {
 					        <c:if test="${page.startPage > page.pageBlock}">
 					            <!-- "이전" 페이지 링크 -->
 					            <li class="page-item">
-					                <a class="page-link" href="productR?currentPage=${page.startPage - page.pageBlock}">이전</a>
+					                <a class="page-link" href="customerR?currentPage=${page.startPage - page.pageBlock}">이전</a>
 					            </li>
 					        </c:if>
 					        
 					        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
 					            <!-- 페이지 번호 링크 -->
 					            <li class="page-item ${param.currentPage == i ? 'active' : ''}">
-					                <a class="page-link" href="productR?currentPage=${i}">${i}</a>
+					                <a class="page-link" href="customerR$?currentPage=${i}">${i}</a>
 					            </li>
 					        </c:forEach>
 					        
 					        <c:if test="${page.endPage < page.totalPage}">
 					            <!-- "다음" 페이지 링크 -->
 					            <li class="page-item">
-					                <a class="page-link" href="productR?currentPage=${page.startPage + page.pageBlock}">다음</a>
+					                <a class="page-link" href="customerR?currentPage=${page.startPage + page.pageBlock}">다음</a>
 					            </li>
 					        </c:if>
 					    </ul>
@@ -252,7 +252,7 @@ $(document).ready(function() {
 					<div class="card mb-4">
 						<div class="card-header pb-0">
 							<!--content name  -->
-							<h6>공장 상세</h6>
+							<h6>거래처 상세</h6>
 						</div>
 						<div class="card-body px-0 pt-0 pb-2">
 
