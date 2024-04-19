@@ -92,7 +92,7 @@
 <insert id="mkinsertCustomer" parameterType="mkCustomer">
     INSERT INTO customer
     (cust_no, cust_name, cust_bcomm, cust_scomm, cust_type, cust_boss, cust_b_num, cust_tel, cust_email,cust_status,emp_no)
-    VALUES (customer_code_seq.nextval, #{cust_name}, 400, #{cust_scomm}, #{cust_type}, #{cust_boss}, #{cust_b_num}, #{cust_tel}, #{cust_email},#{cust_status},#{emp_no})
+    VALUES (cust_no_seq.nextval, #{cust_name}, 400, #{cust_scomm}, #{cust_type}, #{cust_boss}, #{cust_b_num}, #{cust_tel}, #{cust_email},#{cust_status},#{emp_no})
 </insert>
 
 <select id="empList" resultType="mkEmployee">
