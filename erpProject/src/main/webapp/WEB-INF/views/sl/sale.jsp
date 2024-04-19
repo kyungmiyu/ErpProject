@@ -101,7 +101,7 @@
 								</c:if>
 							</ul>
 						</nav>	
-					<c:if test="${sessionScope.dept_no == 104}"> 
+					<c:if test="${sessionScope.dept_no == 106}"> 
 						<a href="saleApply">			
 							<button type="button" class="btn btn-primary" id="saleProBtn">판매 등록</button>
 						</a>

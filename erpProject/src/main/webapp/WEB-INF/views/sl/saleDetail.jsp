@@ -108,7 +108,7 @@
     </div>
 </div>
 
-<c:if test="${sessionScope.dept_no == 104 and saleDetail.sale_status_detail eq '판매 진행중'or saleDetail.sale_status_detail eq '생산 완료'}">   	
+<c:if test="${sessionScope.dept_no == 106 and saleDetail.sale_status_detail eq '판매 진행중'or saleDetail.sale_status_detail eq '생산 완료'}">   	
 	<button type="button" class="btn btn-primary" id="saleModify">수정</button>
     <button type="button" class="btn btn-primary" id="saleComple">완료</button>
     </c:if>

@@ -319,6 +319,7 @@
 	FROM customer c
 	JOIN employee e ON c.emp_no = e.emp_no
 	Where c.cust_type = #{cust_type}
+	and c.CUST_ISDELETED = 0
 	AND c.cust_name LIKE '%' || #{keyword} || '%'
 	</select>
 	
