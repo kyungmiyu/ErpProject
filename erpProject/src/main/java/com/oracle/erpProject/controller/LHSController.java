@@ -86,7 +86,7 @@ public class LHSController {
 	public String lhsListStock(Stock stock, HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsListStock start...");
-		
+		System.out.println("cc: ");
 		// 사원데이터 조회
 		String empNo = (String) session.getAttribute("emp_no");
 		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
@@ -263,7 +263,7 @@ public class LHSController {
 		  
 		System.out.println("registStockNewItem resultCnt-> " + resultCntRegistStock);
 
-		return "redirect:lhsListStock?emp_no=";
+		return "redirect:lhsListStock";
 	}
 	
 	

@@ -133,7 +133,7 @@
 </style>
 
 <body>
-	<div class="min-height-300 bg-primary position-absolute w-100"></div>
+	<div class="min-height-300  position-absolute w-100" style="background-color: black;"></div>
 	<!-- Sidebar 사이드바 -->
 	<%@ include file="../km/adminSidebar.jsp"%>
 	<main class="main-content position-relative border-radius-lg ">
@@ -152,7 +152,8 @@
 
 	          <ul class="nav nav-tabs">
 			  <li class="nav-item">
-			    <a class="nav-link active" aria-current="page" href="#">제품관리</a>
+			    <a class="nav-link" href="productC">제품관리</a>
+			    <!-- <a class="nav-link active" aria-current="page" href="#">제품관리</a> -->
 			  </li>
 			  
 			  <li class="nav-item">
