@@ -74,6 +74,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 $(document).ready(function () {
+	
+	var stockItemCode = "${stock.p_itemcode}"; 
 	  
     $.ajax({
         url: "lhsListStockEnd",
@@ -85,23 +87,24 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data) {
         	
+        	console.log(stockItemCode);
             var options = "";
             for (var i=0; i< data.length; i++) {
             options += "<option value='" + data[i].p_itemcode + "'>" + data[i].p_name + "</option>";
             }
             
-            $("#selectItemCode").html(options);
-            
-            var stockItemCode = "${stock.p_itemcode}";
-            
             if (stockItemCode != 0) {
                 $("#selectItemCode").val(stockItemCode);
             }
+            
+            $("#selectItemCode").html(options);
+            
         },
         error: function (xhr, status, error) {
             console.error("Error occurred:", error);
         }
     });
+    
     
     $("#selectItemCode").change(function() {
     	var selectedDate = ${stock.st_year_month};
@@ -115,14 +118,13 @@ $(document).ready(function () {
             },
             success: function(data) {
             	window.location.href = "lhsListStock?st_year_month=" + selectedDate 
-													+ "&p_itemcode=" + p_itemcode;
+														+ "&p_itemcode=" + p_itemcode;
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log("Error: " + textStatus + " - " + errorThrown);
             }
         });
     });
-
     	
  	$("#datePicker").change(function () {
         var selectedDate = $("#datePicker").val(); // 변경된 날짜 가져오기

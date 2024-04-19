@@ -80,7 +80,7 @@ public class MK_DaoImpl implements MK_Dao_Interface {
 		try {
 			insertResult = session.insert("mkinsertProduct",product);
 		}catch (Exception e) {
-			System.out.println("MkDaoImpl insertProduct Exception->"+e.getMessage());
+			e.printStackTrace();
 		}
 		return insertResult;
 	}
