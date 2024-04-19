@@ -31,7 +31,7 @@
 	<insert id="mkinsertFactory" parameterType="mkFactory">
     INSERT INTO factory
     ( f_id, f_admin,f_manager,f_name,f_tel,f_info)
-    VALUES (f_id_seq.nextval, #{f_admin}, #{f_manager}, #{f_name}, #{f_tel}, #{f_info})
+    VALUES (factory_code_seq.nextval, #{f_admin}, #{f_manager}, #{f_name}, #{f_tel}, #{f_info})
 </insert>
 
  <select id="mksearchFactoryCnt" resultType="int">
@@ -73,7 +73,7 @@
                 ) a
     )
     WHERE rn BETWEEN #{start} and #{end}
-   
+ 
 </select>
 
 		<update id="mkupdateFactory" parameterType="mkFactory">

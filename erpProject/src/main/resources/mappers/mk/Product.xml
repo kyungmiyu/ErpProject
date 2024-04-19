@@ -33,17 +33,10 @@
 		select Count(*) from product
 	</select>
 	
-<insert id="mkinsertProductif" parameterType="mkProduct">
-    INSERT INTO product 
-    (p_itemcode, f_id, pro_category, pro_midcategory, p_name, p_content, p_buyprice, p_saleprice, p_regdate,p_image,p_fac_gubun)
-    VALUES (p_itemcode_seq.nextval, #{f_id}, 300, #{pro_midcategory}, #{p_name}, #{p_content}, #{p_buyprice}, #{p_saleprice}, SYSDATE,#{p_image},1)
-</insert>	
-	
-	
 <insert id="mkinsertProduct" parameterType="mkProduct">
     INSERT INTO product 
-    (p_itemcode, f_id, pro_category, pro_midcategory, p_name, p_content, p_buyprice, p_saleprice, p_regdate,p_image,p_fac_gubun)
-    VALUES (p_itemcode_seq.nextval, #{f_id}, 300, #{pro_midcategory}, #{p_name}, #{p_content}, #{p_buyprice}, #{p_saleprice}, SYSDATE,#{p_image},0)
+    (p_itemcode, f_id, pro_category, pro_midcategory, p_name, p_content, p_buyprice, p_saleprice, p_regdate,p_image)
+    VALUES (product_code_seq.nextval, #{f_id}, 300, #{pro_midcategory}, #{p_name}, #{p_content}, #{p_buyprice}, #{p_saleprice}, SYSDATE,#{p_image})
 </insert>
 
 <select id="productSearchList" parameterType="mkProduct" resultType="mkProduct">
@@ -128,7 +121,7 @@
 	<select id="jjproductList" parameterType="mkProduct" resultType="mkProduct">
 		SELECT a.*
 		FROM 
-			(select * from product where p_fac_gubun=0 order by p_itemcode ) a
+			(select * from product order by p_itemcode ) a
 	</select>
 <!-- ============================ JJ's mappers 끝 ============================ -->
 

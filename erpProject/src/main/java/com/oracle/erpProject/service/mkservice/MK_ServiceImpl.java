@@ -2,12 +2,14 @@ package com.oracle.erpProject.service.mkservice;
 
 import java.util.List;
 
-import org.hibernate.grammars.hql.HqlParser.CubeContext;
+
 import org.springframework.stereotype.Service;
 
 
 import com.oracle.erpProject.dao.mkdao.MK_Dao_Interface;
+
 import com.oracle.erpProject.model.mkmodel.mkCustomer;
+import com.oracle.erpProject.model.mkmodel.mkEmployee;
 import com.oracle.erpProject.model.mkmodel.mkFactory;
 import com.oracle.erpProject.model.mkmodel.mkProduct;
 
@@ -219,6 +221,34 @@ public class MK_ServiceImpl implements MK_Service_interface {
 		return fList;
 	}
 
+	@Override
+	public List<mkEmployee> listEmp(mkEmployee employee) {
+		System.out.println("MK_Service Impl listEmp Start");
+		List<mkEmployee> emp=null;
+		emp=mk_Dao_Interface.employeeList(employee);
+		return emp;
+	}
+
+	@Override
+	public List<mkCustomer> custCategory(mkCustomer customer) {
+		System.out.println("MK_Service Impl custCategory Start");
+		List<mkCustomer> custCategory = null;
+		custCategory=mk_Dao_Interface.custCategory(customer);
+		return custCategory;
+	}
+
+
+	@Override
+	public List<mkEmployee> searchEmpList(mkEmployee emp) {
+		System.out.println("MK_Service Impl SearchEmpList Start");
+		System.out.println("MK_Dao_Impl Start.... ");
+		List<mkEmployee> empList =null;
+		empList = mk_Dao_Interface.CusemployeeList(emp);
+		return empList;
+	}
+
+
+
 
 
 
@@ -230,5 +260,4 @@ public class MK_ServiceImpl implements MK_Service_interface {
 	
 
 	 
-
 

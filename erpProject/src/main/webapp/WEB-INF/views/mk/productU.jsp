@@ -10,6 +10,20 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script type="text/javascript">
+    
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#productImage').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            $('#productImage').attr('src', '../upload/down.jpg');
+        }
+    }
+    
+    
     $(document).ready(function() {
         $('.productLink').click(function(e) {
             e.preventDefault();
@@ -48,21 +62,9 @@
             });
         });
 
-        function previewImage(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#productImage').attr('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
+     
 
-        
-        
-        
-        
-        
+
         $('.category-item').click(function() {
             var selectedCategory = $(this).text();
             var sendCategory = $(this).data('category');
@@ -131,7 +133,7 @@
 </style>
 
 <body>
-	<div class="min-height-300  position-absolute w-100" style="background-color: black;"></div>
+	<div class="min-height-300 bg-primary position-absolute w-100"></div>
 	<!-- Sidebar 사이드바 -->
 	<%@ include file="../km/adminSidebar.jsp"%>
 	<main class="main-content position-relative border-radius-lg ">
@@ -150,8 +152,7 @@
 
 	          <ul class="nav nav-tabs">
 			  <li class="nav-item">
-			    <a class="nav-link" href="productC">제품관리</a>
-			    <!-- <a class="nav-link active" aria-current="page" href="#">제품관리</a> -->
+			    <a class="nav-link active" aria-current="page" href="#">제품관리</a>
 			  </li>
 			  
 			  <li class="nav-item">
@@ -359,10 +360,10 @@
 							   <label for="uploadFile">이미지 업로드</label>
 					        <input type="file" class="form-control" name="uploadFile" id="uploadFile" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="previewImage(this);">
 					        <!-- 이미지 미리보기를 위한 컨테이너와 img 태그 -->
-					        <img id="productImage" src="../upload/jinnoodle.jpg" class="img-thumbnail" style="width: 200px; height: 200px;" >
+					        <img id="productImage" src="../upload/jinnoodle.jpg" class="img-thumbnail" style="width: 200px; height: 200px;"  alt="Image Preview">
 					    </div>
 							
-
+ 	
 							
 							
 
