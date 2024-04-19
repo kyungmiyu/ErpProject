@@ -135,7 +135,7 @@ public class MkController {
 			String empNo = (String) session.getAttribute("emp_no");
 			System.out.println(empNo);
 		
-			if (empNo == null || !empNo.equals("1030")) {
+			if (empNo == null) {
 				   // 메인 페이지로 이동
 			   return "main";
 			}
@@ -205,7 +205,7 @@ public class MkController {
 			System.out.println("MK Controller productR ->"+product);
 			// 사원데이터 조회
 			String empNo = (String) session.getAttribute("emp_no");
-			if (empNo == null || !empNo.equals("1030")) {
+			if (empNo == null) {
 				   // 메인 페이지로 이동
 			   return "main";
 			}
@@ -332,7 +332,7 @@ public class MkController {
 		String empNo = (String) session.getAttribute("emp_no");
 		// 사원데이터 조회
 		
-		if (empNo == null || !empNo.equals("1030")) {
+		if (empNo == null) {
 			   // 메인 페이지로 이동
 		   return "main";
 		}
@@ -392,7 +392,7 @@ public class MkController {
 		String empNo = (String) session.getAttribute("emp_no");
 		// 사원데이터 조회
 		
-		if (empNo == null || !empNo.equals("1030")) {
+		if (empNo == null) {
 			   // 메인 페이지로 이동
 		   return "main";
 		}
@@ -534,7 +534,7 @@ public class MkController {
 		String empNo = (String) session.getAttribute("emp_no");
 		// 사원데이터 조회
 		
-		if (empNo == null || !empNo.equals("1030")) {
+		if (empNo == null) {
 			   // 메인 페이지로 이동
 		   return "main";
 		}
@@ -567,7 +567,7 @@ public class MkController {
 		String empNo = (String) session.getAttribute("emp_no");
 		// 사원데이터 조회
 		
-		if (empNo == null || !empNo.equals("1030")) {
+		if (empNo == null) {
 			   // 메인 페이지로 이동
 		   return "main";
 		}
