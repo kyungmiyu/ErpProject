@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<script>
+    function checkUserRole(url) {
+        <%-- 서버측 세션 정보를 JavaScript 변수에 할당 --%>
+        var userRole = "${sessionScope.emp_role}";
+
+        <%-- 사용자의 권한을 확인하고 알림을 표시 또는 페이지 이동 --%>
+        if ("${sessionScope.emp_role}" !== 'role_admin') {
+            alert("관리자만 접근 가능합니다.");
+        } else {
+            window.location.href = url;
+        }
+    }
+</script>
     
 <!-- 사이드바 -->
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main">
@@ -7,7 +21,7 @@
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="/adminHome">
         <img src="./assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">ERP PROJECT</span>
+        <span class="ms-1 font-weight-bold">ERP PROJECT </span>
       </a>
     </div>
     <hr class="horizontal dark mt-0 mb-1">
@@ -44,7 +58,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">등록</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="lhsFormRegistStockNewItem">
+          <a class="nav-link " href="#" onclick="checkUserRole('/lhsFormRegistStockNewItem')">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-box-2 text-sm opacity-10" style="color: #75b798;"></i>
             </div>
@@ -52,7 +66,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="lhsFormRegistStockSurvey">
+          <a class="nav-link " href="#" onclick="checkUserRole('/lhsFormRegistStockSurvey')">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-box-2 text-sm opacity-10" style="color: #75b798;"></i>
             </div>
@@ -63,7 +77,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">재고</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="lhsListRnPCondBuy">
+          <a class="nav-link " href="#" onclick="checkUserRole('/lhsListRnPCondBuy')">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-chart-pie-35 text-sm opacity-10" style="color:#3d8bfd"></i>
             </div>

@@ -615,6 +615,7 @@ public class MkController {
 	@PostMapping("/createCustomer")
 	public String writeCustomer( @ModelAttribute mkCustomer customer,  HttpServletRequest request,  RedirectAttributes redirectAttributes) {
 		
+		System.out.println("writeCustomer start..");
 		System.out.println(customer);
 		
 		
