@@ -32,7 +32,7 @@
 	 <!-- ****** 공통 : 테이블 시작 ****** -->
 	
 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
-	 <div class="buyingList">
+	 <div class="buyingList mt-0">
 	 <label class="buyLabel">구매 조회</label>
 	  <!-- search bar -->
 		<div class="searchBar">

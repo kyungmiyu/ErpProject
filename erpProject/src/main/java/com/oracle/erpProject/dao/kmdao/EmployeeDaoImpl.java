@@ -31,6 +31,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public Employee registEmployee(Employee employee) {
+		   Employee employee2 = null;
+		   employee2 = employeeRepository.save(employee);
+		   System.out.println("EmployeeRepository employee2->"+employee2);
 		return employeeRepository.save(employee);
 	}
 

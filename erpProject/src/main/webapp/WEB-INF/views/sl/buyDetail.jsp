@@ -22,7 +22,7 @@
 	 <!-- ****** 공통 : 테이블 시작 ****** -->
 	
 	 <!-- 이 아래부터는 파트별로 자유롭게 활용하시면 됩니다 -->
-	 <div class="buyDetail">
+	 <div class="buyDetail mt-0">
 	 <label class="buyDetailLabel">구매 상세</label>
 	 
 	 <div class="titleBox">
