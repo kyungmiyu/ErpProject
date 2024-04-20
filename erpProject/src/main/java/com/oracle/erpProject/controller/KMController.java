@@ -1,6 +1,7 @@
 package com.oracle.erpProject.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -61,6 +62,9 @@ public class KMController {
 			session.setAttribute("emp_role", employee.getEmpRole());
 			session.setAttribute("dept_no", employee.getDeptNo());
 			return "main";
+		//} else if (employee == null) {
+		//	model.addAttribute("mode", "error");
+		//	return "redirect:/loginForm";
 		} else {
 			model.addAttribute("mode", "error");
 			return "redirect:/loginForm";

@@ -295,13 +295,13 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="example-text-input" class="form-control-label">비밀번호</label>
-												<input type="text" name="text" placeholder="Success" class="form-control is-valid" oninput="pwCheck()"/>
+												<input type="text" name="empPassword" placeholder="Success" class="form-control is-valid" oninput="pwCheck()"/>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="example-text-input" class="form-control-label">비밀번호 확인</label> 
-												<input type="text" name="text" placeholder="Error Input" class="form-control is-invalid" oninput="pwCheck()"/>
+												<input type="text" name="empPassword2" placeholder="Error Input" class="form-control is-invalid" oninput="pwCheck()"/>
 											</div>
 										</div>
 									</c:if>

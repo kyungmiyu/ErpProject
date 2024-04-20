@@ -25,4 +25,5 @@ public interface KM_EmployeeService {
 	//List<Employee> getEmployeeList(int size, int offset, String searchType, String searchValue);
 	
 	List<Employee> getEmpList(String searchType, String searchValue);
+	
 }

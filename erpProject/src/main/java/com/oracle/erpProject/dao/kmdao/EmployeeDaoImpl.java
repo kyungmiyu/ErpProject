@@ -85,34 +85,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
-/*
-	@Override
-	public List<Employee> getEmpList(String searchType, String searchValue) {
-	    System.out.println("Search Type: " + searchType + ", Search Value: " + searchValue);
-		
-	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-	    CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
 
-	    Root<Employee> employee = criteriaQuery.from(Employee.class);
-
-	    Predicate searchPredicate = null;
-	    searchType = (searchType == null) ? "" : searchType;
-	    if (searchType.equals("E")) {
-	        searchPredicate = criteriaBuilder.equal(employee.get("empName"), searchValue);
-	    } else if (searchType.equals("D")) {
-	        searchPredicate = criteriaBuilder.equal(employee.get("deptNo"), searchValue);
-	    }
-
-	    if (searchPredicate != null) {
-	        criteriaQuery.where(searchPredicate);
-	    }
-	    
-	    criteriaQuery.orderBy(criteriaBuilder.desc(employee.get("empNo")));
-	    return entityManager.createQuery(criteriaQuery).getResultList();
-	}
-
-*/
-	
 /*
 	// paging and search 버전 문제로 실행 불가 (oracle 12이하 실행 안 됨)
 	@Override
