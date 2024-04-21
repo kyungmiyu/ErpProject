@@ -115,6 +115,7 @@ $(document).ready(function() {
 		var st_quantity = $("#saleItemSelect option:selected").data("stquantity");
 		var sd_cnt = $("#sd_cnt").val();
 		var sd_price = $("#saleItemSelect option:selected").data("saleprice");
+		var f_name = $("#saleItemSelect option:selected").data("fname");
 		var totalMoney = sd_cnt * sd_price;
 
 		// 이미 등록된 상품인지 확인
@@ -131,6 +132,7 @@ $(document).ready(function() {
 			var newItemHTML = `
                 <li class="saleListItem">
                     <input type="hidden" class="p_itemcode" name="p_itemcode" value="${p_itemcode}">
+                    <input type="hidden" class="f_name" name="f_name" value="${f_name}">
                     <input type="hidden" class="f_id" name="f_id" value="${f_id}">
                     <input class = "p_name" value="${p_name}" disabled="disabled">
                     <input value="${st_quantity}" disabled="disabled">
@@ -159,18 +161,13 @@ $(document).ready(function() {
 		var p_itemcode = listItem.find('.p_itemcode').val();
 		var p_name = listItem.find('.p_name').val();
 		var f_id = listItem.find('.f_id').val();
+		var f_name = listItem.find('.f_name').val();
 
-		var f_name_input = $("#f_name");
-
-		if (f_id == "102") {
-			f_name_input.val("A동 공장");
-		} else if (f_id == "103") {
-			f_name_input.val("B동 공장");
-		}
 
 		$('#p_itemcode').val(p_itemcode);
 		$('#p_name').val(p_name);
 		$('#f_id').val(f_id);
+		$("#f_name").val(f_name);
 
 
 		$('#orderModal').data('f_id', f_id);

@@ -28,6 +28,7 @@ public class SLProduct {
 	private String st_year_month; 
 	private int st_quantity; // 재고 수량 
 	private int st_begin_end;
+	private String f_name;
 		
 		
 }

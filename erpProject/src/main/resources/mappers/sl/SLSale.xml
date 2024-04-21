@@ -290,9 +290,10 @@
 	
 	
 	<select id="LslsaleProductList" resultType="SLProduct" parameterType="SLSale">
-		select p.*, st.*
-		from product p, stock st
+		select p.*, st.*, f.f_name
+		from product p, stock st, factory f
 		where p.P_ITEMCODE = st.P_ITEMCODE
+		AND p.F_ID = f.F_ID 
 		and P_ISDELETED = 0
 		AND st.st_year_month = #{st_year_month}
 		AND st.ST_BEGIN_END = 1

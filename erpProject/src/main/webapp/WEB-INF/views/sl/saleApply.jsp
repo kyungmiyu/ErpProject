@@ -112,7 +112,7 @@
                 <select class="form-control" name="choices-button" id="saleItemSelect">
                     <option value="item 1" selected="">제품 선택</option>
                     <c:forEach items="${productList}" var="productList">
-						<option value="${productList.p_itemcode}" data-saleprice="${productList.p_saleprice}", data-stquantity="${productList.st_quantity}" data-fid="${productList.f_id}">${productList.p_name}</option>               
+						<option value="${productList.p_itemcode}" data-saleprice="${productList.p_saleprice}", data-stquantity="${productList.st_quantity}" data-fid="${productList.f_id}", data-fname="${productList.f_name}">${productList.p_name}</option>               
 						 </c:forEach>                  
                   </select>
                   
