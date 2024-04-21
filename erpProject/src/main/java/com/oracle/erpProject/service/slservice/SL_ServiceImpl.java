@@ -152,8 +152,8 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 	}
 
 	@Override
-	public SLBuying customerSearch(SLBuying buying) {
-		SLBuying customerSearch = slDao.customerSearch(buying);
+	public List<SLBuying> customerSearch(SLBuying buying) {
+		List<SLBuying> customerSearch = slDao.customerSearch(buying);
 		return customerSearch;
 	}
 	

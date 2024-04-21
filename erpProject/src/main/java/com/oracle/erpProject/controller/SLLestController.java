@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -102,9 +101,9 @@ public class SLLestController {
 
 	// 구매 등록 페이지 거래처 검색
 	@PostMapping("/customerSearch")
-	public SLBuying customerSearch(@RequestBody SLBuying buying) {
+	public List<SLBuying> customerSearch(@RequestBody SLBuying buying) {
 		System.out.println("customerSearch buying ######" + buying);
-		SLBuying customerSearch = slService.customerSearch(buying);
+		List<SLBuying> customerSearch = slService.customerSearch(buying);
 
 		System.out.println("customerSearch>>>>>>>>>" + customerSearch);
 

@@ -82,20 +82,32 @@ $(document).ready(function() {
 			success: function(response) {
 				console.log(response);
 
-				$(".cusSearchName").text(response.cust_name);
 
-				$(".cusSearchName").click(function() {
-					var selectedCustomer = $(this).text();
-					console.log(selectedCustomer);
-					$('#customerSearchModal').modal('hide');
+				$(".cusSearchName").empty();
 
-					$("#cust_name").val(response.cust_name);
-					$("#emp_name").val(response.emp_name);
-					$("#cust_no").val(response.cust_no);
-					$("#emp_no").val(response.emp_no);
 
-					$(".cusSearchName").val("");
-					$(".cusSearchBox").val("");
+				response.forEach(function(customer) {
+					console.log(customer);
+
+					var customerName = $("<div class='customerName'></div>");
+					customerName.html(customer.cust_name);
+					$(".cusSearchName").append(customerName);
+
+
+					customerName.click(function() {
+						var selectedCustomer = $(this).text();
+						console.log(selectedCustomer);
+						$(".customerSearchPopup").css("display", "none");
+
+
+						$("#cust_name").val(customer.cust_name);
+						$("#emp_name").val(customer.emp_name);
+						$("#cust_no").val(customer.cust_no);
+						$("#emp_no").val(customer.emp_no);
+
+
+						$(".cusSearchBox").val("");
+					});
 				});
 			},
 			error: function(error) {
@@ -103,6 +115,7 @@ $(document).ready(function() {
 			}
 		});
 	});
+
 
 
 
@@ -186,7 +199,7 @@ $(document).ready(function() {
 
 	// 모달 저장 버튼 클릭 이벤트
 	$("#orderModal").on("click", ".btn-primary", function() {
-		
+
 		var today = new Date();
 		var formattedDate = today.toISOString().slice(0, 10).replace(/-/g, '');
 		var formattedDate2 = today.toISOString().slice(0, 10);

@@ -47,7 +47,7 @@ public interface SL_Service_Interface {
 
 	int buyStatusChange(SLBuying buying);
 
-	SLBuying customerSearch(SLBuying buying);
+	List<SLBuying> customerSearch(SLBuying buying);
 	
 	List<SLBuying> getManagerList(SLBuying buying);
 

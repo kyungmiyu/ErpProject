@@ -173,8 +173,8 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	}
 
 	@Override
-	public SLBuying customerSearch(SLBuying buying) {
-		SLBuying customerSearch = session.selectOne("LslcustomerSearch",buying);
+	public List<SLBuying> customerSearch(SLBuying buying) {
+		List<SLBuying> customerSearch = session.selectList("LslcustomerSearch",buying);
 		
 		System.out.println("customerSearch >>>>>>>>" +customerSearch);
 		return customerSearch;
