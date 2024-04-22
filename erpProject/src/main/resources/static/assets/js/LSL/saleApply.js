@@ -255,6 +255,8 @@ $(document).ready(function() {
 		var today = new Date();
 		var formattedDate = today.toISOString().slice(0, 10).replace(/-/g, '');
 		var s_date = formattedDate;
+		
+		console.log(s_date);
 
 		// 발주 버튼 상태에 따라 판매 상태 변경
 		var s_status = $("#pOrderBtn").hasClass("btn-danger") ? 2 : 0;
@@ -274,7 +276,7 @@ $(document).ready(function() {
 			success: function(response) {
 
 				if (response == 0) {
-					registerPurchase();
+					registerPurchase(s_date);
 				} else {
 					alert("해당 거래처의 금일 등록된 거래가 있습니다.");
 				}
@@ -294,6 +296,7 @@ $(document).ready(function() {
 			var sd_cnt = $(this).find(".sdCnt").val();
 			var cust_no = $("#cust_no").val();
 
+			
 			productList.push({
 				p_itemcode: p_itemcode,
 				sd_price: sd_price,
@@ -305,7 +308,7 @@ $(document).ready(function() {
 		});
 
 
-		function registerPurchase() {
+		function registerPurchase(s_date) {
 			$.ajax({
 				type: "POST",
 				url: "/saleApplyWrite",
@@ -325,6 +328,8 @@ $(document).ready(function() {
 
 					var redirectURL = "http://localhost:8587/saleDetail?cust_no=" + cust_no + "&s_date=" + s_date;
 					window.location.href = redirectURL;
+					
+						console.log(" s_date " + s_date);
 				},
 				error: function(error) {
 					console.error("판매 등록 실패:", error);
