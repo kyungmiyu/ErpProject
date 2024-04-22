@@ -195,6 +195,18 @@ public class SLLestController {
 		return saleModify;
 	}
 
+	// 판매 제품 삭제
+	
+	@PostMapping("/deleteSaleProduct")
+	public int deleteSaleProduct(SLSale_detail slSales_detail) {
+		System.out.println("deleteSaleProduct Start >>>>>>>>>");
+		
+		int deleteSaleProduct = slService.deleteSaleProduct(slSales_detail);
+		
+		return deleteSaleProduct;
+	}
+	
+	
 	// 판매 상태 변경
 	@PostMapping("/saleStatusChange")
 
@@ -234,5 +246,7 @@ public class SLLestController {
 
 		return productCntModify;
 	}
+	
+	
 
 }

@@ -473,6 +473,14 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		return productSaleCntModify;
 	}
 
+	@Override
+	public int deleteSaleProduct(SLSale_detail slSales_detail) {
+		
+		int deleteSaleProduct = session.delete("LsldeleteSaleProduct", slSales_detail);
+		
+		return deleteSaleProduct;
+	}
+
 	
 
 	

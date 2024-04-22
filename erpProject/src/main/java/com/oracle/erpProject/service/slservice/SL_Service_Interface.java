@@ -112,6 +112,8 @@ public interface SL_Service_Interface {
 
 	int productSaleCntModify(SLSale sale);
 
+	int deleteSaleProduct(SLSale_detail slSales_detail);
+
 	
 
 

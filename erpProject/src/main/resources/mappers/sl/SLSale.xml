@@ -362,8 +362,14 @@
        WHERE s_date = #{s_date}
        AND cust_no = #{cust_no}
        AND p_itemcode = #{p_itemcode}
-	
-	
+
 	</update>
+	
+	<delete id="LsldeleteSaleProduct" parameterType="SLSale_detail">
+		delete from sale_detail 
+		where cust_no = #{cust_no} 
+		and s_date= #{s_date} 
+		and p_itemcode= #{p_itemcode}
+	</delete>
 	
 </mapper>

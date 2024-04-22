@@ -382,6 +382,14 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		return productSaleCntModify;
 	}
 
+	@Override
+	public int deleteSaleProduct(SLSale_detail slSales_detail) {
+	
+		int deleteSaleProduct = slDao.deleteSaleProduct(slSales_detail);
+		
+		return deleteSaleProduct;
+	}
+
 
 	
 

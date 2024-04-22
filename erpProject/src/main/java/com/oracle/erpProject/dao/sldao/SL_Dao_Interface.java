@@ -108,6 +108,8 @@ public interface SL_Dao_Interface {
 
 	int productSaleCntModify(SLSale sale);
 
+	int deleteSaleProduct(SLSale_detail slSales_detail);
+
 
 
 
