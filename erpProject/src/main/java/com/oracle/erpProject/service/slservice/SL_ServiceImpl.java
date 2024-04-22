@@ -390,6 +390,12 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		return deleteSaleProduct;
 	}
 
+	@Override
+	public int checkData(SLBuying buying) {
+		int checkData = slDao.checkData(buying);
+		return checkData;
+	}
+
 
 	
 

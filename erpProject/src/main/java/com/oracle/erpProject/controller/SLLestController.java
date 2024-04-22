@@ -32,10 +32,13 @@ public class SLLestController {
 		String formattedDate = today.format(DateTimeFormatter.BASIC_ISO_DATE);
 		buying.setRnpc_year_month_day(formattedDate);
 
+		//int checkData = slService.checkData(buying);
+	
 		int closingStatu = slService.closingStatu(buying);
-
-		System.out.println("수불 마감 여부 +++++++++++" + closingStatu);
+		
+		
 		return closingStatu;
+
 	}
 
 	// 매니저 리스트

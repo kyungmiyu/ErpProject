@@ -481,6 +481,12 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		return deleteSaleProduct;
 	}
 
+	@Override
+	public int checkData(SLBuying buying) {
+		int checkData = session.selectOne("LslcheckData", buying);
+		return checkData;
+	}
+
 	
 
 	

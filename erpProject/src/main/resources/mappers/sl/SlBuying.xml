@@ -355,6 +355,13 @@
 		where rnpc_year_month_day = #{rnpc_year_month_day}
 	</select>
 	
+	<select id="LslcheckData" parameterType="SLBuying" resultType="int">
+		select count(*)
+		from rnp_closing
+		where rnpc_year_month_day = #{rnpc_year_month_day}
+	
+	</select>
+	
 	<select id="LslcheckTransaction" parameterType="SLBuying" resultType="int">
 		select count(*)
 		from buying 

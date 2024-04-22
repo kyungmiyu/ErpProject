@@ -114,6 +114,8 @@ public interface SL_Service_Interface {
 
 	int deleteSaleProduct(SLSale_detail slSales_detail);
 
+	int checkData(SLBuying buying);
+
 	
 
 
