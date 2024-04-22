@@ -30,9 +30,9 @@ $(document).ready(function() {
 	});
 
 
-	
+
 	fetchManagerList();
-	
+
 	// 매니저 리스트 
 	function fetchManagerList() {
 		var dept_no = $("#dept_no").val();
@@ -68,20 +68,32 @@ $(document).ready(function() {
 			success: function(response) {
 				console.log(response);
 
-				$(".cusSearchName").text(response.cust_name);
 
-				$(".cusSearchName").click(function() {
-					var selectedCustomer = $(this).text();
-					console.log(selectedCustomer);
-					$(".customerSearchPopup").css("display", "none");
+				$(".cusSearchName").empty();
 
-					$("#cust_name").val(response.cust_name);
-					$("#emp_name").val(response.emp_name);
-					$("#cust_no").val(response.cust_no);
-					$("#emp_no").val(response.emp_no);
 
-					$(".cusSearchName").val("");
-					$(".cusSearchBox").val("");
+				response.forEach(function(customer) {
+					console.log(customer);
+
+					var customerName = $("<div class='customerName'></div>");
+					customerName.html(customer.cust_name);
+					$(".cusSearchName").append(customerName);
+
+
+					customerName.click(function() {
+						var selectedCustomer = $(this).text();
+						console.log(selectedCustomer);
+						$(".customerSearchPopup").css("display", "none");
+
+
+						$("#cust_name").val(customer.cust_name);
+						$("#emp_name").val(customer.emp_name);
+						$("#cust_no").val(customer.cust_no);
+						$("#emp_no").val(customer.emp_no);
+
+
+						$(".cusSearchBox").val("");
+					});
 				});
 			},
 			error: function(error) {
@@ -89,6 +101,8 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+
 
 
 	// 제품 등록 
@@ -150,7 +164,7 @@ $(document).ready(function() {
 		console.log(cust_no);
 		console.log(buy_manager);
 
-	// 금일 거래 조회 
+		// 금일 거래 조회 
 		$.ajax({
 
 			type: "POST",
@@ -159,7 +173,7 @@ $(document).ready(function() {
 			data: JSON.stringify({
 				cust_no: cust_no,
 				buy_date: buy_date,
-				
+
 
 
 			}),

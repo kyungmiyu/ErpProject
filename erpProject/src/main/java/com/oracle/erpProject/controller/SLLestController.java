@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,10 +32,13 @@ public class SLLestController {
 		String formattedDate = today.format(DateTimeFormatter.BASIC_ISO_DATE);
 		buying.setRnpc_year_month_day(formattedDate);
 
+		//int checkData = slService.checkData(buying);
+	
 		int closingStatu = slService.closingStatu(buying);
-
-		System.out.println("수불 마감 여부 +++++++++++" + closingStatu);
+		
+		
 		return closingStatu;
+
 	}
 
 	// 매니저 리스트
@@ -102,9 +104,9 @@ public class SLLestController {
 
 	// 구매 등록 페이지 거래처 검색
 	@PostMapping("/customerSearch")
-	public SLBuying customerSearch(@RequestBody SLBuying buying) {
+	public List<SLBuying> customerSearch(@RequestBody SLBuying buying) {
 		System.out.println("customerSearch buying ######" + buying);
-		SLBuying customerSearch = slService.customerSearch(buying);
+		List<SLBuying> customerSearch = slService.customerSearch(buying);
 
 		System.out.println("customerSearch>>>>>>>>>" + customerSearch);
 
@@ -196,6 +198,18 @@ public class SLLestController {
 		return saleModify;
 	}
 
+	// 판매 제품 삭제
+	
+	@PostMapping("/deleteSaleProduct")
+	public int deleteSaleProduct(SLSale_detail slSales_detail) {
+		System.out.println("deleteSaleProduct Start >>>>>>>>>");
+		
+		int deleteSaleProduct = slService.deleteSaleProduct(slSales_detail);
+		
+		return deleteSaleProduct;
+	}
+	
+	
 	// 판매 상태 변경
 	@PostMapping("/saleStatusChange")
 
@@ -235,5 +249,7 @@ public class SLLestController {
 
 		return productCntModify;
 	}
+	
+	
 
 }

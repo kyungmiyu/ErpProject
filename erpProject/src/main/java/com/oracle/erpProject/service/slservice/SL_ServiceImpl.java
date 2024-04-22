@@ -152,8 +152,8 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 	}
 
 	@Override
-	public SLBuying customerSearch(SLBuying buying) {
-		SLBuying customerSearch = slDao.customerSearch(buying);
+	public List<SLBuying> customerSearch(SLBuying buying) {
+		List<SLBuying> customerSearch = slDao.customerSearch(buying);
 		return customerSearch;
 	}
 	
@@ -380,6 +380,20 @@ public class SL_ServiceImpl implements SL_Service_Interface {
 		int productSaleCntModify = slDao.productSaleCntModify(sale);
 		
 		return productSaleCntModify;
+	}
+
+	@Override
+	public int deleteSaleProduct(SLSale_detail slSales_detail) {
+	
+		int deleteSaleProduct = slDao.deleteSaleProduct(slSales_detail);
+		
+		return deleteSaleProduct;
+	}
+
+	@Override
+	public int checkData(SLBuying buying) {
+		int checkData = slDao.checkData(buying);
+		return checkData;
 	}
 
 

@@ -307,10 +307,14 @@
 
 /* 거래처 검색 팝업 창 */
 
-
 .modal-footer {
 	height: 120px;
 }
+.modalbody {
+	height: 30px;
+	border: none !important;
+}
+
 .cusSearchBox {
 	position: absolute;
 	margin-top: 10px;
@@ -340,7 +344,7 @@
 
 #close {
 	position: absolute;
-	top: 130px;
+	top: 150px;
 }
 #cusChioceBtn {
 	position: absolute;

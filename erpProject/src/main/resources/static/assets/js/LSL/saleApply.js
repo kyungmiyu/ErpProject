@@ -82,20 +82,32 @@ $(document).ready(function() {
 			success: function(response) {
 				console.log(response);
 
-				$(".cusSearchName").text(response.cust_name);
 
-				$(".cusSearchName").click(function() {
-					var selectedCustomer = $(this).text();
-					console.log(selectedCustomer);
-					$('#customerSearchModal').modal('hide');
+				$(".cusSearchName").empty();
 
-					$("#cust_name").val(response.cust_name);
-					$("#emp_name").val(response.emp_name);
-					$("#cust_no").val(response.cust_no);
-					$("#emp_no").val(response.emp_no);
 
-					$(".cusSearchName").val("");
-					$(".cusSearchBox").val("");
+				response.forEach(function(customer) {
+					console.log(customer);
+
+					var customerName = $("<div class='customerName'></div>");
+					customerName.html(customer.cust_name);
+					$(".cusSearchName").append(customerName);
+
+
+					customerName.click(function() {
+						var selectedCustomer = $(this).text();
+						console.log(selectedCustomer);
+						$(".customerSearchPopup").css("display", "none");
+
+
+						$("#cust_name").val(customer.cust_name);
+						$("#emp_name").val(customer.emp_name);
+						$("#cust_no").val(customer.cust_no);
+						$("#emp_no").val(customer.emp_no);
+
+
+						$(".cusSearchBox").val("");
+					});
 				});
 			},
 			error: function(error) {
@@ -103,6 +115,7 @@ $(document).ready(function() {
 			}
 		});
 	});
+
 
 
 
@@ -115,6 +128,7 @@ $(document).ready(function() {
 		var st_quantity = $("#saleItemSelect option:selected").data("stquantity");
 		var sd_cnt = $("#sd_cnt").val();
 		var sd_price = $("#saleItemSelect option:selected").data("saleprice");
+		var f_name = $("#saleItemSelect option:selected").data("fname");
 		var totalMoney = sd_cnt * sd_price;
 
 		// 이미 등록된 상품인지 확인
@@ -131,6 +145,7 @@ $(document).ready(function() {
 			var newItemHTML = `
                 <li class="saleListItem">
                     <input type="hidden" class="p_itemcode" name="p_itemcode" value="${p_itemcode}">
+                    <input type="hidden" class="f_name" name="f_name" value="${f_name}">
                     <input type="hidden" class="f_id" name="f_id" value="${f_id}">
                     <input class = "p_name" value="${p_name}" disabled="disabled">
                     <input value="${st_quantity}" disabled="disabled">
@@ -159,18 +174,13 @@ $(document).ready(function() {
 		var p_itemcode = listItem.find('.p_itemcode').val();
 		var p_name = listItem.find('.p_name').val();
 		var f_id = listItem.find('.f_id').val();
+		var f_name = listItem.find('.f_name').val();
 
-		var f_name_input = $("#f_name");
-
-		if (f_id == "102") {
-			f_name_input.val("A동 공장");
-		} else if (f_id == "103") {
-			f_name_input.val("B동 공장");
-		}
 
 		$('#p_itemcode').val(p_itemcode);
 		$('#p_name').val(p_name);
 		$('#f_id').val(f_id);
+		$("#f_name").val(f_name);
 
 
 		$('#orderModal').data('f_id', f_id);
@@ -189,7 +199,7 @@ $(document).ready(function() {
 
 	// 모달 저장 버튼 클릭 이벤트
 	$("#orderModal").on("click", ".btn-primary", function() {
-		
+
 		var today = new Date();
 		var formattedDate = today.toISOString().slice(0, 10).replace(/-/g, '');
 		var formattedDate2 = today.toISOString().slice(0, 10);
@@ -245,6 +255,8 @@ $(document).ready(function() {
 		var today = new Date();
 		var formattedDate = today.toISOString().slice(0, 10).replace(/-/g, '');
 		var s_date = formattedDate;
+		
+		console.log(s_date);
 
 		// 발주 버튼 상태에 따라 판매 상태 변경
 		var s_status = $("#pOrderBtn").hasClass("btn-danger") ? 2 : 0;
@@ -264,7 +276,7 @@ $(document).ready(function() {
 			success: function(response) {
 
 				if (response == 0) {
-					registerPurchase();
+					registerPurchase(s_date);
 				} else {
 					alert("해당 거래처의 금일 등록된 거래가 있습니다.");
 				}
@@ -284,6 +296,7 @@ $(document).ready(function() {
 			var sd_cnt = $(this).find(".sdCnt").val();
 			var cust_no = $("#cust_no").val();
 
+			
 			productList.push({
 				p_itemcode: p_itemcode,
 				sd_price: sd_price,
@@ -295,7 +308,7 @@ $(document).ready(function() {
 		});
 
 
-		function registerPurchase() {
+		function registerPurchase(s_date) {
 			$.ajax({
 				type: "POST",
 				url: "/saleApplyWrite",
@@ -315,6 +328,8 @@ $(document).ready(function() {
 
 					var redirectURL = "http://localhost:8587/saleDetail?cust_no=" + cust_no + "&s_date=" + s_date;
 					window.location.href = redirectURL;
+					
+						console.log(" s_date " + s_date);
 				},
 				error: function(error) {
 					console.error("판매 등록 실패:", error);

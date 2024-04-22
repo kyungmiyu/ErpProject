@@ -91,7 +91,7 @@ legend {
 		<div class="card col-12 w-100" style="padding: 24px;">
 			<div class="table-responsive">
 				<div class="form-group">
-					<h2>생산 상세 게시글</h2>
+					<div style="font-size: 2rem; font-weight: bold; color: black;">생산 상세 게시글</div>
 				</div>
 				
 				  <div class="row">
@@ -108,7 +108,7 @@ legend {
 						      <option value="1" <c:if test="${jjmakeDetail.m_status eq '1'}">selected</c:if>>1.영업생산요청</option>
 						      <%-- <option value="2" <c:if test="${jjmakeDetail.m_status eq '2'}">selected</c:if>>2.생산중</option> --%>
 						      <option value="3" <c:if test="${jjmakeDetail.m_status eq '3'}">selected</c:if>>3.생산완료</option>
-						      <option value="5" <c:if test="${jjmakeDetail.m_status eq '5'}">selected</c:if>>5.수불완료</option>
+						      <option value="5" disabled <c:if test="${jjmakeDetail.m_status eq '5'}">selected</c:if>>5.수불마감</option>
 						    </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 						 </div>

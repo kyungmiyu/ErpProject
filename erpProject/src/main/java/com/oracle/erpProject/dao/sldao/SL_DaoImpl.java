@@ -173,8 +173,8 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 	}
 
 	@Override
-	public SLBuying customerSearch(SLBuying buying) {
-		SLBuying customerSearch = session.selectOne("LslcustomerSearch",buying);
+	public List<SLBuying> customerSearch(SLBuying buying) {
+		List<SLBuying> customerSearch = session.selectList("LslcustomerSearch",buying);
 		
 		System.out.println("customerSearch >>>>>>>>" +customerSearch);
 		return customerSearch;
@@ -471,6 +471,20 @@ public class SL_DaoImpl implements SL_Dao_Interface{
 		int productSaleCntModify = session.update("LslproductSaleCntModify", sale);
 		
 		return productSaleCntModify;
+	}
+
+	@Override
+	public int deleteSaleProduct(SLSale_detail slSales_detail) {
+		
+		int deleteSaleProduct = session.delete("LsldeleteSaleProduct", slSales_detail);
+		
+		return deleteSaleProduct;
+	}
+
+	@Override
+	public int checkData(SLBuying buying) {
+		int checkData = session.selectOne("LslcheckData", buying);
+		return checkData;
 	}
 
 	

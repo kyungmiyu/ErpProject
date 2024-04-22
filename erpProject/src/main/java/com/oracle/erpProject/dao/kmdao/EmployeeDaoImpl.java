@@ -1,6 +1,7 @@
 package com.oracle.erpProject.dao.kmdao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,6 +30,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Autowired
 	public EntityManager entityManager;
 
+	// 사원 등록
 	@Override
 	public Employee registEmployee(Employee employee) {
 		   Employee employee2 = null;
@@ -37,11 +39,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return employeeRepository.save(employee);
 	}
 
+	// 사원 조회 1건
 	@Override
 	public Employee getEmployee(int empNo) {
 		return employeeRepository.findById(empNo).get();
 	}
 
+	// 사원 수정
 	@Override
 	public Employee updateEmployee(Employee employee) {
 		Employee originEmployee = employeeRepository.findById(employee.getEmpNo()).get();
@@ -51,18 +55,29 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return employeeRepository.save(originEmployee);
 	}
 
+	// 사원 번호 조회
 	@Override
 	public Employee findByEmpNo(int empNo) {
 		return employeeRepository.findById(empNo).get();
 	}
 	
-	// list count
+	// 사원 번호 조회
+	@Override
+	public Optional<Employee> findByEmpNo3(int empNo) {
+		System.out.println("DAO findByEmpNo3 empNo->"+empNo);
+		Optional<Employee> employee = employeeRepository.findById(empNo);
+		System.out.println("DAO employee findById finish..");
+		System.out.println("DAO employee"+employee);
+		return employee;
+	}
+	
+	// 사원 리스트 카운트
 	@Override
 	public Integer countEmployeeList() {
 		return employeeRepository.findAll().size();
 	}
 
-	// list
+	// 사원 리스트 조회
 	@Override
 	public List<Employee> getEmpList(String searchType, String searchValue) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -85,34 +100,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
-/*
-	@Override
-	public List<Employee> getEmpList(String searchType, String searchValue) {
-	    System.out.println("Search Type: " + searchType + ", Search Value: " + searchValue);
-		
-	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-	    CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
 
-	    Root<Employee> employee = criteriaQuery.from(Employee.class);
-
-	    Predicate searchPredicate = null;
-	    searchType = (searchType == null) ? "" : searchType;
-	    if (searchType.equals("E")) {
-	        searchPredicate = criteriaBuilder.equal(employee.get("empName"), searchValue);
-	    } else if (searchType.equals("D")) {
-	        searchPredicate = criteriaBuilder.equal(employee.get("deptNo"), searchValue);
-	    }
-
-	    if (searchPredicate != null) {
-	        criteriaQuery.where(searchPredicate);
-	    }
-	    
-	    criteriaQuery.orderBy(criteriaBuilder.desc(employee.get("empNo")));
-	    return entityManager.createQuery(criteriaQuery).getResultList();
-	}
-
-*/
-	
 /*
 	// paging and search 버전 문제로 실행 불가 (oracle 12이하 실행 안 됨)
 	@Override

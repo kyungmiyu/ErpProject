@@ -3,6 +3,7 @@ package com.oracle.erpProject.service.kmservice;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,13 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 	public Employee findByEmpNo(int empNo) {
 		return employeeDaoImpl.findByEmpNo(empNo);
 	}
-	
+
+	public Optional<Employee> findByEmpNo3(int empNo) {
+		System.out.println("KM_EmployeeServiceImpl findByEmpNo3 empNo->"+empNo);
+
+		Optional<Employee> employee = employeeDaoImpl.findByEmpNo3(empNo);
+		System.out.println("KM_EmployeeServiceImpl findByEmpNo3 employee->"+employee);
+		return employee;
+	}
 
 }

@@ -46,7 +46,7 @@ public interface SL_Dao_Interface {
 
 	int buyStatusChange(SLBuying buying);
 
-	SLBuying customerSearch(SLBuying buying);
+	List<SLBuying> customerSearch(SLBuying buying);
 
 	int buyingApplyWrite(SLBuying buying);
 	
@@ -107,6 +107,10 @@ public interface SL_Dao_Interface {
 	int checkSaleTransaction(SLSale sale);
 
 	int productSaleCntModify(SLSale sale);
+
+	int deleteSaleProduct(SLSale_detail slSales_detail);
+
+	int checkData(SLBuying buying);
 
 
 

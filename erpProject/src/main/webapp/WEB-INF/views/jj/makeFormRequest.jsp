@@ -63,7 +63,7 @@ legend {
 		<div class="card col-12 w-100">
 			<div class="table-responsive">
 				<div class="form-group">
-					<h2>생산 요청 게시판</h2>
+					<div style="font-size: 2rem; font-weight: bold; color: black;">생산 요청 게시판</div>
 				</div>
 				<form id="makeRequest" action="<%=request.getContextPath()%>/JJmakeRequest" method="post">
 				  <div class="row">
@@ -80,6 +80,7 @@ legend {
 						      <option value="1">1.영업생산요청</option>
 						      <!-- <option value="2">2.생산중</option> -->
 						      <option value="3">3.생산완료</option>
+						      <option value="5" disabled>5.수불마감</option>
 						    </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 						 </div>

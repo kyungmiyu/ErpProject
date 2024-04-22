@@ -309,6 +309,10 @@
 .modal-footer {
 	height: 120px;
 }
+.modalbody {
+	height: 30px;
+	border: none !important;
+}
 .cusSearchBox {
 	position: absolute;
 	margin-top: 10px;
@@ -338,7 +342,7 @@
 
 #close {
 	position: absolute;
-	top: 130px;
+	top: 150px;
 }
 #cusChioceBtn {
 	position: absolute;

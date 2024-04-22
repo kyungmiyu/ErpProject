@@ -6,13 +6,17 @@
 
 	<select id="mklistCustomer" resultType="mkCustomer">
 		<![CDATA[
-		select * 
+		select b.*,
+			CASE 
+				WHEN cust_status = 0 THEN '거래중'
+				WHEN cust_status =1 THEN '거래중지'
+   			END AS cust_status_content
 		from 
 		( 
 			SELECT rownum rn , a.*
 			FROM 
 						(select * from customer order by cust_no) a
-		)
+		) b
 		WHERE rn >=#{start}
 		and rn <= #{end}
 		]]>
