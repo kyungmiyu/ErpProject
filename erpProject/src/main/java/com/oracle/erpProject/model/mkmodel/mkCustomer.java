@@ -21,6 +21,7 @@ public class mkCustomer {
 	private int cust_isdeleted;		// 거래처 삭제여부
 	private Date wdate;				// 거래처 입력 일자 
 	private String cust_boss;
+	private String cust_status_content;
 	//comm
 	private int comm_bcd;
 	private int comm_mcd;
