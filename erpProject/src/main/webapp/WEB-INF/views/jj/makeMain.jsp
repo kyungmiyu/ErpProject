@@ -69,7 +69,7 @@ $(document).ready(function() {
 		<div class="card col-12 w-100" style="padding: 24px;">
 		  <div class="table-responsive">
 	  		<div class="form-group">
-				<h2>생산게시판</h2>
+				<div style="font-size: 2rem; font-weight: bold; color: black;">생산게시판</div>
 			</div>
 		    <table class="table align-items-center mb-0 table-hover">
 		      <thead>
