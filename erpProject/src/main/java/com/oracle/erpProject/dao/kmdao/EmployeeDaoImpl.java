@@ -30,6 +30,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Autowired
 	public EntityManager entityManager;
 
+	// 사원 등록
 	@Override
 	public Employee registEmployee(Employee employee) {
 		   Employee employee2 = null;
@@ -38,11 +39,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return employeeRepository.save(employee);
 	}
 
+	// 사원 조회 1건
 	@Override
 	public Employee getEmployee(int empNo) {
 		return employeeRepository.findById(empNo).get();
 	}
 
+	// 사원 수정
 	@Override
 	public Employee updateEmployee(Employee employee) {
 		Employee originEmployee = employeeRepository.findById(employee.getEmpNo()).get();
@@ -52,10 +55,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return employeeRepository.save(originEmployee);
 	}
 
+	// 사원 번호 조회
 	@Override
 	public Employee findByEmpNo(int empNo) {
 		return employeeRepository.findById(empNo).get();
 	}
+	
+	// 사원 번호 조회
 	@Override
 	public Optional<Employee> findByEmpNo3(int empNo) {
 		System.out.println("DAO findByEmpNo3 empNo->"+empNo);
@@ -65,13 +71,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return employee;
 	}
 	
-	// list count
+	// 사원 리스트 카운트
 	@Override
 	public Integer countEmployeeList() {
 		return employeeRepository.findAll().size();
 	}
 
-	// list
+	// 사원 리스트 조회
 	@Override
 	public List<Employee> getEmpList(String searchType, String searchValue) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

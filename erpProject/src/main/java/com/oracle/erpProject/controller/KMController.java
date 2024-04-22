@@ -92,6 +92,7 @@ public class KMController {
 		return "km/findAccountForm";
 	}
 	
+	// 비밀번호 찾기
 	@RequestMapping(value="/findAccountProc")
 	private String findAccountProc(Model model, @RequestParam("empEmail") String empEmail, @RequestParam("empNo") String empNo) {
 		System.out.println("KMController findAccountProc start---*");
@@ -160,10 +161,21 @@ public class KMController {
 		model.addAttribute("employee", employeeServiceImpl.getEmployee(Integer.parseInt(empNo)));
 		return "km/myPageForm";
 	}
+	
+	// 대시보드 이동
+	@GetMapping(value="/main") 
+	public String main(HttpSession session, Model model) {
+		String empNo = (String) session.getAttribute("emp_no");
+		Optional<Employee>  employee = employeeServiceImpl.findByEmpNo3(Integer.parseInt(empNo));
+		model.addAttribute("empName", employee.get().getEmpName());
+		model.addAttribute("deptNo", employee.get().getDeptNo());
+		return "main";
+	}
+	
 		
 	/* 관리자 페이지 */
 	// 관리자페이지 화면
-	@RequestMapping(value = "/adminHome")
+	@GetMapping(value = "/adminHome")
 	public String adminHome(HttpSession session, Model model) {
 		System.out.println("adminHome...");
 		String empNo = (String) session.getAttribute("emp_no");
@@ -246,7 +258,5 @@ public class KMController {
 		return "km/employeeRegistForm";
 	}
 	
-	
-	
-	
+
 }
