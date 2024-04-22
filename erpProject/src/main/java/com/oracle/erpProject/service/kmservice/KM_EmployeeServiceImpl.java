@@ -60,4 +60,12 @@ public class KM_EmployeeServiceImpl implements KM_EmployeeService {
 		return employeeDaoImpl.findByEmpNo(empNo);
 	}
 
+	public Optional<Employee> findByEmpNo3(int empNo) {
+		System.out.println("KM_EmployeeServiceImpl findByEmpNo3 empNo->"+empNo);
+
+		Optional<Employee> employee = employeeDaoImpl.findByEmpNo3(empNo);
+		System.out.println("KM_EmployeeServiceImpl findByEmpNo3 employee->"+employee);
+		return employee;
+	}
+
 }

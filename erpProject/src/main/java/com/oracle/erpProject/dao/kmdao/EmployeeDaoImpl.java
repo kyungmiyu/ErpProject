@@ -1,6 +1,7 @@
 package com.oracle.erpProject.dao.kmdao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -54,6 +55,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public Employee findByEmpNo(int empNo) {
 		return employeeRepository.findById(empNo).get();
+	}
+	@Override
+	public Optional<Employee> findByEmpNo3(int empNo) {
+		System.out.println("DAO findByEmpNo3 empNo->"+empNo);
+		Optional<Employee> employee = employeeRepository.findById(empNo);
+		System.out.println("DAO employee findById finish..");
+		System.out.println("DAO employee"+employee);
+		return employee;
 	}
 	
 	// list count

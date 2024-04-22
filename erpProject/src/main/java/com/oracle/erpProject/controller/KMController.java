@@ -53,21 +53,29 @@ public class KMController {
 		HttpSession session = request.getSession(true);
 		String emp_no = (String)session.getAttribute("emp_no");
 		String emp_role = (String)session.getAttribute("emp_role");
-		System.out.println("사원번호 : " + emp_no + " 권한(emp_role) : "+emp_role);
+		System.out.println("사원번호 kkk : " + emp_no + " 권한(emp_role) : "+emp_role);
 		
 		System.out.println("test: "+session);
-		Employee employee = employeeServiceImpl.findByEmpNo(Integer.parseInt(empNo));
-		if (employee !=null && employee.getEmpPassword().equals(empPassword)) {
+		// 
+		// Employee employee = employeeServiceImpl.findByEmpNo3(Integer.parseInt(empNo));
+		System.out.println("KMController employee kkkkk .. "+empNo);
+		System.out.println("KMController employee kkkkk .. "+empNo);
+		
+		Optional<Employee>  employee = employeeServiceImpl.findByEmpNo3(Integer.parseInt(empNo));
+		System.out.println("KMController employee findByEmpNo3 finish.. ");
+		System.out.println("KMController employee: "+employee);
+	
+		if (employee.isPresent() && employee.get().getEmpPassword().equals(empPassword) ) 	{	
 			session.setAttribute("emp_no", empNo);
-			session.setAttribute("emp_role", employee.getEmpRole());
-			session.setAttribute("dept_no", employee.getDeptNo());
+			session.setAttribute("emp_role", employee.get().getEmpRole());
+			session.setAttribute("dept_no", employee.get().getDeptNo());
 			return "main";
-		//} else if (employee == null) {
-		//	model.addAttribute("mode", "error");
-		//	return "redirect:/loginForm";
+		} else if (employee.isEmpty()){
+			model.addAttribute("mode", "isEmpty");
+			return "km/loginForm";
 		} else {
 			model.addAttribute("mode", "error");
-			return "redirect:/loginForm";
+			return "km/loginForm";
 		}
 	}
 	

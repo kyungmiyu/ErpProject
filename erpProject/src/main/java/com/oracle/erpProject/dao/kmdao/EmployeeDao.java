@@ -1,6 +1,7 @@
 package com.oracle.erpProject.dao.kmdao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 
@@ -15,6 +16,8 @@ public interface EmployeeDao {
 	Employee updateEmployee(Employee employee);
 
 	Employee findByEmpNo(int empNo);
+	
+	Optional<Employee> findByEmpNo3(int empNo);
 	
 	Integer countEmployeeList();
 

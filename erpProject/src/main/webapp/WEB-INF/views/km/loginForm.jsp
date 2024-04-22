@@ -37,12 +37,19 @@
 	        }
 	    });
 	});
+	
+	
   </script>
   </head>
-  <c:if test="${error == 'error'}">
+  <c:if test="${error == 'error'} ">
   	<script>
   		alert("아이디와 비밀번호를 확인해주세요");
   	</script>
+  </c:if>
+  <c:if test="${mode == 'isEmpty'}">
+	<script>
+ 		alert("아이디와 비밀번호를 확인해주세요");
+ 	</script>
   </c:if>
 <body>
 <div class="container position-sticky z-index-sticky top-0">
