@@ -53,22 +53,20 @@ public class KMController {
 		HttpSession session = request.getSession(true);
 		String emp_no = (String)session.getAttribute("emp_no");
 		String emp_role = (String)session.getAttribute("emp_role");
-		System.out.println("사원번호 kkk : " + emp_no + " 권한(emp_role) : "+emp_role);
-		
+		System.out.println("사원번호 " + emp_no + " 권한(emp_role) : "+emp_role);
 		System.out.println("test: "+session);
 		// 
 		// Employee employee = employeeServiceImpl.findByEmpNo3(Integer.parseInt(empNo));
-		System.out.println("KMController employee kkkkk .. "+empNo);
-		System.out.println("KMController employee kkkkk .. "+empNo);
 		
 		Optional<Employee>  employee = employeeServiceImpl.findByEmpNo3(Integer.parseInt(empNo));
-		System.out.println("KMController employee findByEmpNo3 finish.. ");
-		System.out.println("KMController employee: "+employee);
+		
 	
 		if (employee.isPresent() && employee.get().getEmpPassword().equals(empPassword) ) 	{	
 			session.setAttribute("emp_no", empNo);
 			session.setAttribute("emp_role", employee.get().getEmpRole());
 			session.setAttribute("dept_no", employee.get().getDeptNo());
+			model.addAttribute("empName", employee.get().getEmpName());
+			model.addAttribute("deptNo", employee.get().getDeptNo());
 			return "main";
 		} else if (employee.isEmpty()){
 			model.addAttribute("mode", "isEmpty");
@@ -165,9 +163,13 @@ public class KMController {
 		
 	/* 관리자 페이지 */
 	// 관리자페이지 화면
-	@GetMapping(value = "/adminHome")
-	public String adminHome() {
+	@RequestMapping(value = "/adminHome")
+	public String adminHome(HttpSession session, Model model) {
 		System.out.println("adminHome...");
+		String empNo = (String) session.getAttribute("emp_no");
+		Optional<Employee>  employee = employeeServiceImpl.findByEmpNo3(Integer.parseInt(empNo));
+		model.addAttribute("empName", employee.get().getEmpName());
+		model.addAttribute("deptNo", employee.get().getDeptNo());
 		return "km/adminHome";
 	}
 	

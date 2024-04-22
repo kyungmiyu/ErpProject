@@ -57,8 +57,18 @@
 						</div>
 						<div class="col-4 my-auto">
 							<div class="h-100">
-								<h5 class="mb-1">유경미</h5>
-								<p class="mb-0 font-weight-bold text-sm">인사관리팀</p>
+								<h5 class="mb-1">${empName}</h5>
+								<p class="mb-0 font-weight-bold text-sm">
+									 <c:choose>
+						                <c:when test="${deptNo=='100'}">미정</c:when>
+						                <c:when test="${deptNo=='101'}">경영팀</c:when>
+						                <c:when test="${deptNo=='102'}">인사팀</c:when>
+						                <c:when test="${deptNo=='103'}">구매팀</c:when>
+						                <c:when test="${deptNo=='104'}">생산팀</c:when>
+						                <c:when test="${deptNo=='105'}">물류팀</c:when>
+						                <c:when test="${deptNo=='106'}">영업팀</c:when>
+						            </c:choose>
+								</p>		
 							</div>
 						</div>
 						<div class="col-lg-4 align-items-center my-auto ms-auto justify-content-end d-flex">
@@ -107,65 +117,68 @@
 							<div class="carousel-inner border-radius-lg h-100">
 								<div class="carousel-item h-100 active" data-bs-interval="2000" style="background-image: url('../assets/img/member/member1.jpg'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-											<i class="ni ni-single-02 text-dark opacity-10"></i>
-										</div>
-										<h5 class="text-white mb-1">Get started with Member</h5>
-										<p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
+										<a href="https://github.com/truenpeace">
+											<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+												<i class="ni ni-single-02 text-dark opacity-10" ></i>
+											</div>
+										</a>
+										<h5 class="text-white mb-1">안재준</h5>
+										<p>멤버의 정보가 궁금하다면 클릭해주세요</p>
 									</div>
 								</div>
 								<div class="carousel-item h-100" data-bs-interval="2000" style="background-image: url('../assets/img/member/member2.png'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-											<i class="ni ni-single-02 text-dark opacity-10"></i>
-										</div>
-										<h5 class="text-white mb-1">Get started with Member</h5>
-										<p>That’s my skill. I’m not really specifically talented at anything except for the ability to learn.</p>
-									</div>
-								</div>
-								<div class="carousel-item h-100" data-bs-interval="2000" style="background-image: url('../assets/img/member/member3.png'); background-size: cover;">
-									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-											<i class="ni ni-single-02 text-dark opacity-10"></i>
-										</div>
-										<h5 class="text-white mb-1">Get started with Member</h5>
-										<p>Don’t be afraid to be wrong because you can’t learn anything from a compliment.</p>
+										<a href="https://github.com/0ohsk">
+											<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+												<i class="ni ni-single-02 text-dark opacity-10"></i>
+											</div>
+										</a>
+										<h5 class="text-white mb-1">유현석</h5>
+										<p>멤버의 정보가 궁금하다면 클릭해주세요</p>
 									</div>
 								</div>
 								<div class="carousel-item h-100" data-bs-interval="2000" style="background-image: url('../assets/img/member/member4.png'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-											<i class="ni ni-single-02 text-dark opacity-10"></i>
-										</div>
-										<h5 class="text-white mb-1">Get started with Member</h5>
-										<p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
+										<a href="https://github.com/shippea">
+											<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+												<i class="ni ni-single-02 text-dark opacity-10"></i>
+											</div>
+										</a>
+										<h5 class="text-white mb-1">이현승</h5>
+										<p>멤버의 정보가 궁금하다면 클릭해주세요</p>
 									</div>
 								</div>
 								<div class="carousel-item h-100" data-bs-interval="2000" style="background-image: url('../assets/img/member/member5.png'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-											<i class="ni ni-single-02 text-dark opacity-10"></i>
-										</div>
-										<h5 class="text-white mb-1">Get started with Member</h5>
-										<p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
+										<a href="https://github.com/saelip">
+											<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+												<i class="ni ni-single-02 text-dark opacity-10"></i>
+											</div>
+										</a>
+										<h5 class="text-white mb-1">이새잎</h5>
+										<p>멤버의 정보가 궁금하다면 클릭해주세요</p>
 									</div>
 								</div>
 								<div class="carousel-item h-100" data-bs-interval="2000" style="background-image: url('../assets/img/member/member6.png'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-											<i class="ni ni-single-02 text-dark opacity-10"></i>
-										</div>
-										<h5 class="text-white mb-1">Get started with Member</h5>
-										<p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
+										<a href="https://github.com/kyungmiyu">
+											<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+												<i class="ni ni-single-02 text-dark opacity-10"></i>
+											</div>
+										</a>
+										<h5 class="text-white mb-1">유경미</h5>
+										<p>멤버의 정보가 궁금하다면 클릭해주세요</p>
 									</div>
 								</div>
 								<div class="carousel-item h-100" data-bs-interval="2000" style="background-image: url('../assets/img/member/member7.png'); background-size: cover;">
 									<div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-										<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-											<i class="ni ni-single-02 text-dark opacity-10"></i>
-										</div>
-										<h5 class="text-white mb-1">Get started with Member</h5>
-										<p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
+										<a href="https://github.com/minjjing0">
+											<div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+												<i class="ni ni-single-02 text-dark opacity-10"></i>
+											</div>
+										</a>
+										<h5 class="text-white mb-1">노민경</h5>
+										<p>멤버의 정보가 궁금하다면 클릭해주세요</p>
 									</div>
 								</div>
 							</div>
@@ -199,11 +212,11 @@
 					<div class="card-body pt-2">
 						<span class="text-gradient text-primary text-uppercase text-s font-weight-bold my-2">Contacts</span>
 						<p class="card-title h5 d-block text-darker mt-1">Address</p>
-						<p>A108 Adam Street, New York, NY 535022</p>
+						<p>서울 신촌</p>
 						<p class="card-title h5 d-block text-darker">Calls</p>
 						<p> +1 5589 55488 55 <br> +1 6678 254445 41 </p>
 						<p class="card-title h5 d-block text-darker">Email</p>
-						<p>choogang@abc.com</p>
+						<p>chongang@autosoft.com</p>
 						<div class="author align-items-center"></div>
 					</div>
 				</div>
@@ -217,11 +230,11 @@
 							<img class="avatar avatar-xxl shadow" src="../assets/img/member/ceo1.jpg">
 						</div>
 						<div class="card-body">
-							<h4 class="card-title">Andrew John</h4>
-							<h6 class="category text-info text-gradient">CEO / Loan Counselor</h6>
-							<p class="card-description">"Don't walk behind me; I may not
-								lead. Don't walk in front of me; I may not follow. Just walk
-								beside me and be my friend."</p>
+							<h4 class="card-title">강태광</h4>
+							<h6 class="category text-info text-gradient">CEO / TK COMPANY</h6>
+							<p class="card-description">"여러분의 일은 삶의 대부분을 차지할 것입니다.  
+							<p>그리고 만족스런 삶을 살 수 있는 유일한 방법은 자신에게 훌륭한 것이라 생각되는 일을 하는 것입니다.</p>
+							<p>그리고 훌륭한 일을 하는 유일한 방법은 여러분이 하는 일을 사랑하는 것입니다."</p>
 						</div>
 					</div>
 				</div>
