@@ -169,9 +169,9 @@ $(document).ready(function() {
 											<th
 												class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">거래처명</th>
 											<th
-												class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">거래처 대분류</th>
+												class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">대표자</th>
 											<th
-												class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">거래처 중분류 </th>
+												class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">거래처 상태 </th>
 
 										</tr>
 									</thead>
@@ -197,7 +197,7 @@ $(document).ready(function() {
 											<td class="align-middle text-center text-sm">
 							
 											<p class="text-xs font-weight-bold mb-0">
-											${cust.emp_name}
+											${cust.cust_boss}
 											
 											</p>
 											
@@ -214,7 +214,7 @@ $(document).ready(function() {
 											<td class="align-middle text-center">
 											
 												<p class="text-xs font-weight-bold mb-0">
-											${cust.cust_scomm}
+											${cust.cust_status_content}
 											
 											</p>
 											</td>

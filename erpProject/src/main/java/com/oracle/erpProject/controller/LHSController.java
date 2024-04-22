@@ -87,9 +87,14 @@ public class LHSController {
 
 		System.out.println("lhsController lhsListStock start...");
 		System.out.println("cc: ");
+	
+
 		// 사원데이터 조회
-		String empNo = (String) session.getAttribute("emp_no");
-		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		Employee empData = new Employee();
+		if (session.getAttribute("emp_no") != null) {
+			String empNo = (String) session.getAttribute("emp_no");
+			empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		}
 		
 		// 현재날짜 불러오기
 		LocalDateTime now = getLocalDateTime();
@@ -102,8 +107,7 @@ public class LHSController {
 		if (stock.getSt_year_month() == null) {
 			stock.setSt_year_month(formattedDate);
 		}
-		System.out.println("cc:" + stock.getP_itemcode());
-
+		
 		// 월 재고 total수 조회
 		int totalStock = lhs.getTotalStock(stock);
 		System.out.println("getTotalStock totalStock-> " + totalStock);
@@ -136,6 +140,21 @@ public class LHSController {
 	public String lhsManageFormRegistStock(HttpSession session, Model model) {
 
 		System.out.println("lhsController lhsManageFormRegistStock start...");
+		
+		// 사원데이터 조회 + 관리자만 접근조건 
+		Employee empData = new Employee();
+		if (session.getAttribute("emp_no") == null) {
+			return "redirect:loginForm";
+		}
+		
+		else if (session.getAttribute("emp_no") != null) {
+			String empNo = (String) session.getAttribute("emp_no");
+			empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+			
+			if (!empData.getEmpRole().equals("role_admin")) {
+				return "redirect:lhsListStock";
+			}
+		}
 
 		// 현재 날짜 가져오기
 		LocalDate currentDate = LocalDate.now();
@@ -162,11 +181,21 @@ public class LHSController {
 
 		System.out.println("lhsController lhsFormRegistStockNewItem start...");
 
-		// 사원데이터 조회
-		String empNo = (String) session.getAttribute("emp_no");
-		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		// 사원데이터 조회 + 관리자만 접근조건 
+		Employee empData = new Employee();
+		if (session.getAttribute("emp_no") == null) {
+			return "redirect:loginForm";
+		}
+		
+		else if (session.getAttribute("emp_no") != null) {
+			String empNo = (String) session.getAttribute("emp_no");
+			empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+			
+			if (!empData.getEmpRole().equals("role_admin")) {
+				return "redirect:lhsListStock";
+			}
+		}
 
-		System.out.println(empData.getEmpRole());
 		// 현재날짜 불러오기
 		LocalDateTime now = getLocalDateTime();
 		
@@ -277,9 +306,20 @@ public class LHSController {
 
 		System.out.println("lhsController lhsFormRegistStockSurvey start...");
 
-		// 사원데이터 조회
-		String empNo = (String) session.getAttribute("emp_no");
-		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		// 사원데이터 조회 + 관리자만 접근조건 
+		Employee empData = new Employee();
+		if (session.getAttribute("emp_no") == null) {
+			return "redirect:loginForm";
+		}
+		
+		else if (session.getAttribute("emp_no") != null) {
+			String empNo = (String) session.getAttribute("emp_no");
+			empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+			
+			if (!empData.getEmpRole().equals("role_admin")) {
+				return "redirect:lhsListStock";
+			}
+		}
 		
 		// 현재날짜 불러오기
 		LocalDateTime now = getLocalDateTime();
@@ -421,8 +461,11 @@ public class LHSController {
 		System.out.println("lhsController lhsListRnPCondBuy start...");
 
 		// 사원데이터 조회
-		String empNo = (String) session.getAttribute("emp_no");
-		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		Employee empData = new Employee();
+		if (session.getAttribute("emp_no") != null) {
+			String empNo = (String) session.getAttribute("emp_no");
+			empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		}
 		
 		rnpc.setRnpc_filter("구매");
 		
@@ -482,8 +525,12 @@ public class LHSController {
 		System.out.println("lhsController lhsListRnPCondSale start...");
 
 		// 사원데이터 조회
-		String empNo = (String) session.getAttribute("emp_no");
-		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		Employee empData = new Employee();
+		if (session.getAttribute("emp_no") != null) {
+			String empNo = (String) session.getAttribute("emp_no");
+			empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		}
+		
 		rnpc.setRnpc_filter("판매");
 		
 		// 현재날짜 불러오기
@@ -543,8 +590,12 @@ public class LHSController {
 		System.out.println("lhsController lhsListRnPCondMake start...");
 
 		// 사원데이터 조회
-		String empNo = (String) session.getAttribute("emp_no");
-		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		Employee empData = new Employee();
+		if (session.getAttribute("emp_no") != null) {
+			String empNo = (String) session.getAttribute("emp_no");
+			empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		}
+		
 		rnpc.setRnpc_filter("생산");
 		
 		// 현재날짜 불러오기
@@ -604,8 +655,12 @@ public class LHSController {
 		System.out.println("lhsController lhsListRnPCondSurvey start...");
 
 		// 사원데이터 조회
-		String empNo = (String) session.getAttribute("emp_no");
-		Employee empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		Employee empData = new Employee();
+		if (session.getAttribute("emp_no") != null) {
+			String empNo = (String) session.getAttribute("emp_no");
+			empData = kmes.findByEmpNo(Integer.parseInt(empNo));
+		}
+		
 		rnpc.setRnpc_filter("재고조사");
 		
 		// 현재날짜 불러오기
