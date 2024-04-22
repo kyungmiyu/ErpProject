@@ -92,7 +92,7 @@ $(document).ready(function() {
 			          	<h6 class="mb-0 text-xs">${jj_Make_detail.md_num}</h6> <!-- 작업순번 -->
 			          </td>
 			          <td class="text-center">
-			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_num}</a></h6> <!-- 작업지시번호 -->
+			          	<h6 class="mb-0 text-xs">${jj_Make_detail.m_num}</h6> <!-- 작업지시번호 -->
 			          </td>
 			          <td class="text-center">
 			          	<h6 class="mb-0 text-xs">
@@ -110,7 +110,7 @@ $(document).ready(function() {
 			          				3.생산완료
 			          			</c:when>
 			          			<c:when test="${jj_Make_detail.m_status == 5}">
-			          				5.수불완료
+			          				5.수불마감
 			          			</c:when>
 			          			<c:otherwise>
 			          				Unknown

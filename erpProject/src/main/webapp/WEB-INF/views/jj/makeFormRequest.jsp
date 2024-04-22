@@ -80,6 +80,7 @@ legend {
 						      <option value="1">1.영업생산요청</option>
 						      <!-- <option value="2">2.생산중</option> -->
 						      <option value="3">3.생산완료</option>
+						      <option value="5" disabled>5.수불마감</option>
 						    </select>
 						    <div class="invalid-feedback">Example invalid select feedback</div>
 						 </div>
